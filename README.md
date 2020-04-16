@@ -1,5 +1,5 @@
 #### This package is based on [WebDevEtc's](https://github.com/WebDevEtc/BlogEtc) package for laravel
-I made it compatible with laravel6.x and higher with adding some dependencies and code change. For laravel 7.x, use 7.0.1 version of the package. 
+I made it compatible with laravel6.x and higher with adding some dependencies and code change.
 
 # WebDevEtc BlogEtc
 ## Easy to install Laravel Package for adding a full blog (with admin backend) to your Laravel app
@@ -153,8 +153,7 @@ Try adding this to config/app.php:
 
 
 ## Version History
-- 7.0.x                 - For Laravel 7.x
-- 5.1.x                 - For Laravel 6.x
+- 7.0.x                 - For Laravel 6.x & 7.x
 - 3.1                   - minor fixes
 - 3.0.3                 - fixed RSS feed cache issue
 - 3.0.2                 - fixed default medium image size (changed to 600x400)
