@@ -29,8 +29,8 @@
         }
     ],
     "require": {
-        "laravel/framework": "^7.*|^6.*",
-        "cviebrock/eloquent-sluggable": "4.5.*|4.6.*|4.7.*|4.8.*|6.0.*",
+        "laravel/framework": "^7.0|^6.0",
+        "cviebrock/eloquent-sluggable": "4.5.*|4.6.*|4.7.*|4.8.*|6.0.*|7.0.*",
         "laravelium/feed": "~2.12.0|~3.0.0|3.1.*|v6.0.*",
         "intervention/image": "2.*",
         "swisnl/laravel-fulltext": "^0.18.0",
