@@ -5,6 +5,10 @@ I made it compatible with laravel6.x and higher with adding some dependencies an
 ## Easy to install Laravel Package for adding a full blog (with admin backend) to your Laravel app
 ### 5 minutes to install! Quick and easy!
 
+Install with following command and follow the instructions. 
+
+    composer require hessam/blogerkit
+
 ## Introduction
 
 This is [WebDevEtc's](https://webdevetc.com/) BlogEtc package. It has everything you need to quickly and easily add a blog to your laravel app.
