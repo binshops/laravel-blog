@@ -2,46 +2,43 @@
 
 namespace WebDevEtc\BlogEtc\Events;
 
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Intervention\Image\Image;
-use WebDevEtc\BlogEtc\Models\Post;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use WebDevEtc\BlogEtc\Models\BlogEtcPost;
 
 /**
- * Class UploadedImage.
+ * Class UploadedImage
+ * @package WebDevEtc\BlogEtc\Events
  */
 class UploadedImage
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var string */
-    public $imageFilename;
-    /** @var Image */
+    /** @var  BlogEtcPost|null */
+    public $blogEtcPost;
+    /**
+     * @var
+     */
     public $image;
-    /** @var Post */
-    public $post;
-    /** @var string|null */
+
     public $source;
+    public $image_filename;
 
     /**
      * UploadedImage constructor.
      *
-     * $source =  the method name which was firing this event (or other string)
-     *
-     * @param string      $imageFilename - the new filename
-     * @param Post        $post
-     * @param Image       $image
-     * @param string|null $source
+     * @param $image_filename - the new filename
+     * @param BlogEtcPost $blogEtcPost
+     * @param $image
+     * @param $source string|null  the __METHOD__  firing this event (or other string)
      */
-    public function __construct(
-        string $imageFilename,
-        Image $image,
-        Post $post = null,
-        ?string $source = 'other'
-    ) {
-        $this->imageFilename = $imageFilename;
-        $this->image = $image;
-        $this->post = $post;
-        $this->source = $source;
+    public function __construct(string $image_filename, $image,BlogEtcPost $blogEtcPost=null,string $source='other')
+    {
+        $this->image_filename = $image_filename;
+        $this->blogEtcPost=$blogEtcPost;
+        $this->image=$image;
+        $this->source=$source;
     }
+
 }

@@ -1,103 +1,82 @@
+<script>
+    SHOULD_AUTO_GEN_SLUG = false;
+
+    /* Generate the slug field, if it was not touched by the user (or if it was an empty string) */
+    function populate_slug_field() {
+
+//        alert("A");
+        var cat_slug = document.getElementById('category_slug');
+
+        if (cat_slug.value.length < 1) {
+            // if the slug field is empty, make sure it auto generates
+            SHOULD_AUTO_GEN_SLUG = true;
+        }
+
+        if (SHOULD_AUTO_GEN_SLUG) {
+            // the slug hasn't been manually changed (or it was set above), so we should generate the slug
+            // This is done in two stages - one to remove non words/spaces etc, the another to replace white space (and underscore) with a -
+            cat_slug.value =document.getElementById("category_category_name").value.toLowerCase()
+                    .replace(/[^\w-_ ]+/g, '') // replace with nothing
+                    .replace(/[_ ]+/g, '-') // replace _ and spaces with -
+                    .substring(0,99); // limit str length
+
+        }
+
+    }
+</script>
 <div class="form-group">
-    <label for="category_name">
-        Category Name
-    </label>
+    <label for="category_category_name">Category Name</label>
 
     <input type="text"
            class="form-control"
-           id="category_name"
+           id="category_category_name"
+           oninput="populate_slug_field();"
            required
-           aria-describedby="category_name_help"
-           name="category_name"
-           value="{{ old('category_name', $category->category_name) }}"
+           aria-describedby="category_category_name_help"
+           name='category_name'
+           value="{{old("category_name",$category->category_name)}}"
     >
 
-    <small id="category_name_help" class="form-text text-muted">The name of the category</small>
+    <small id="category_category_name_help" class="form-text text-muted">The name of the category</small>
 </div>
 
+
 <div class="form-group">
-    <label for="category_slug">
-        Category Slug
-    </label>
-    <input maxlength="100" pattern="[a-zA-Z0-9-]+" type="text" required
-            class="form-control" id="category_slug" aria-describedby="category_slug_help"
-           name="slug" value="{{ old('slug',$category->slug) }}">
+    <label for="category_slug">Category slug</label>
+    <input
+            maxlength='100'
+            pattern="[a-zA-Z0-9-]+"
+            type="text"
+            required
+            class="form-control"
+            id="category_slug"
+            oninput="SHOULD_AUTO_GEN_SLUG=false;"
+            aria-describedby="category_slug_help"
+            name='slug'
+            value="{{old("slug",$category->slug)}}"
+    >
 
     <small id="category_slug_help" class="form-text text-muted">
-        Letters, numbers, dash only. The slug i.e.
-        {{ route('blogetc.view_category', '' )}}/<u><em>this_part</em></u>.
-        This must be unique (two categories can't share the same slug).
+        Letters, numbers, dash only. The slug
+        i.e. {{route("blogetc.view_category","")}}/<u><em>this_part</em></u>. This must be unique (two categories can't
+        share the same slug).
+
     </small>
 </div>
 
+
 <div class="form-group">
-    <label for="category_description">
-        Category Description (optional)
-    </label>
-    <textarea name="category_description"
-              class="form-control"
-              id="category_description">{{ old('category_description', $category->category_description) }}</textarea>
+    <label for="category_description">Category Description (optional)</label>
+    <textarea name='category_description'
+              class='form-control'
+    id='category_description'>{{old("category_description",$category->category_description)}}</textarea>
+
 </div>
 
-@push('js')
-    <script>
-        /**
-         * Generate the category slug, based on the category name.
-         *
-         * This is only run if the slug did not exist on page load,
-         * and has not been edited by a user since page load.
-         */
-        (function autoSlugCategory () {
-            // Get the two inputs:
-            var categoryNameInput = document.getElementById('category_name');
-            var slugInput = document.getElementById('category_slug');
-
-            // Initially, only enable generating slug if slug originally had no value.
-            var shouldGenerateSlug = slugInput.value.length === 0;
-
-            /**
-             * Function to generate a URL friendly 'slug' from value
-             *
-             * @param value
-             * @returns {string}
-             */
-            var slug = function (value) {
-                return value.toLowerCase()
-                            .replace(/[^\w-_ ]+/g, '') // remove invalid characters
-                            .replace(/[_ ]+/g, '-') // replace underscores and spaces with '-'
-                            .substring(0, 100); // limit length to 100 characters
-            };
-
-            /**
-             * Function to generate the slug (if required) - called as an event listener.
-             */
-            var updateSlug = function () {
-                // check if slug value is empty, if so then force shouldGenerateSlug to true
-                shouldGenerateSlug = slugInput.value.length === 0
-                    ? true // enable generating slug
-                    : shouldGenerateSlug; // default to its initial value
-
-                if (shouldGenerateSlug === false || categoryNameInput.value.length === 0) {
-                    return;
-                }
-
-                slugInput.value = slug(categoryNameInput.value);
-            };
-
-            /**
-             * Disable generating of slug - called when the slug input is updated
-             *
-             * Only enable it if text input was cleared
-             */
-            var disable = function () {
-                shouldGenerateSlug = slugInput.length === 0;
-            };
-
-            // when category name is updated, generate slug (if enabled):
-            categoryNameInput.addEventListener('input', updateSlug);
-
-            // if the slug field is changed, disable future auto update:
-            slugInput.addEventListener('input', disable);
-        })();
-    </script>
-@endpush
+<script>
+    if (document.getElementById("category_slug").value.length < 1) {
+        SHOULD_AUTO_GEN_SLUG = true;
+    } else {
+        SHOULD_AUTO_GEN_SLUG = false; // there is already a value in #category_slug, so lets pretend it was changed already.
+    }
+</script>

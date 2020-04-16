@@ -1,25 +1,23 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class AddAuthorAndUrlBlogEtcPostsTable.
- */
 class AddAuthorAndUrlBlogEtcPostsTable extends Migration
 {
     /**
-     * Add author_email and author_website columns to Blog Etc comments table.
+     * Run the migrations.
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('blog_etc_comments', static function (Blueprint $table) {
-            $table->string('author_email')->nullable();
-            $table->string('author_website')->nullable();
+        Schema::table('blog_etc_comments', function (Blueprint $table) {
+            $table->string("author_email")->nullable();
+            $table->string("author_website")->nullable();
         });
+
     }
 
     /**
@@ -27,11 +25,13 @@ class AddAuthorAndUrlBlogEtcPostsTable extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('blog_etc_comments', static function (Blueprint $table) {
-            $table->dropColumn('author_email');
-            $table->dropColumn('author_website');
+
+        Schema::table('blog_etc_comments', function (Blueprint $table) {
+            $table->dropColumn("author_email");
+            $table->dropColumn("author_website");
         });
     }
 }
+

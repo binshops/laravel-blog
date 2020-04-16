@@ -1,31 +1,25 @@
-<?php
-
-/** @noinspection PhpInconsistentReturnPointsInspection */
-
-namespace WebDevEtc\BlogEtc\Captcha;
-
-use DomainException;
+<?php namespace WebDevEtc\BlogEtc\Captcha;
 
 /**
- * Class Basic.
- *
- * Basic anti spam captcha
+ * Class Basic
+ * @package WebDevEtc\BlogEtc\Captcha
  */
 class Basic extends CaptchaAbstract
 {
+
     public function __construct()
     {
-        if (!config('blogetc.captcha.basic_question') || !config('blogetc.captcha.basic_answers')) {
-            throw new DomainException('Invalid question or answers for captcha');
+        if (!config("blogetc.captcha.basic_question") || !config("blogetc.captcha.basic_answers")) {
+            throw new \DomainException("Invalid question or answers for captcha");
         }
     }
 
     /**
-     * What should the field name be (in the <input type='text' name='????'>).
+     * What should the field name be (in the <input type='text' name='????'>)
      *
      * @return string
      */
-    public function captchaFieldName(): string
+    public function captcha_field_name()
     {
         return 'captcha';
     }
@@ -35,7 +29,7 @@ class Basic extends CaptchaAbstract
      *
      * @return string
      */
-    public function view(): string
+    public function view()
     {
         return 'blogetc::captcha.basic';
     }
@@ -47,37 +41,26 @@ class Basic extends CaptchaAbstract
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        $checkAnswer = static function ($attribute, $value, $fail) {
-            // get correct answers
-            $answers = config('blogetc.captcha.basic_answers');
-
-            // lower case submitted value and the answers
+        $check_func = function ($attribute, $value, $fail) {
+            $answers = config("blogetc.captcha.basic_answers");
+            // strtolower everything
             $value = strtolower(trim($value));
             $answers = strtolower($answers);
-
-            $answers_array = array_map('trim', explode(',', $answers));
-
-            if (!$value || !in_array($value, $answers_array, true)) {
+            $answers_array = array_map("trim", explode(",", $answers));
+            if (!in_array($value, $answers_array, true)) {
                 return $fail('The captcha field is incorrect.');
-            }
+
+            };
         };
 
         return [
+
             'required',
             'string',
-            $checkAnswer,
-        ];
-    }
+            $check_func
 
-    /**
-     * @return string
-     *
-     * @deprecated - please use captchaFieldName() instead
-     */
-    public function captcha_field_name(): string
-    {
-        return $this->captchaFieldName();
+        ];
     }
 }
