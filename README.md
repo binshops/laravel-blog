@@ -7,7 +7,7 @@ I made it compatible with laravel6.x and higher with adding some dependencies an
 
 Install with following command and follow the instructions. 
 
-    composer require hessam/blogerkit
+    composer require hessam/laravel-blogger
 
 ## Introduction
 
