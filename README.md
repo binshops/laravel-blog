@@ -1,6 +1,5 @@
-# August 2019 -
-
-I am currently rewriting a lot of the code base (better quality, better coding standards, etc). Laravel 5.8 is supported on the old version (3.x) - please see packagist. I will release v4 soon.
+#### This package is based on [WebDevEtc's](https://github.com/WebDevEtc/BlogEtc) package for laravel
+I made it compatible with laravel6.x and higher with adding some dependencies and code change.
 
 # WebDevEtc BlogEtc
 ## Easy to install Laravel Package for adding a full blog (with admin backend) to your Laravel app
@@ -63,7 +62,7 @@ This is [WebDevEtc's](https://webdevetc.com/) BlogEtc package. It has everything
 
 ## What/who this package is for:
 
- - For websites running Laravel (5.6)
+ - For websites running Laravel (6.x and higher)
  - Who want to have a site blog, and have an easy to use interface to write blog posts/assign categories/manage existing posts
  - Where only admin users can edit/manage the blog (this is not suitable for every user on your site to be able to manage posts)
  - Where you understand that posts can (potentially) contain JS or any other code, so you should only allow trusted admin users to add/edit/delete/manage the blog posts
@@ -150,9 +149,7 @@ Try adding this to config/app.php:
 
 
 ## Version History
-
-
-
+- 5.1                   - laravel 6
 - 3.1                   - minor fixes
 - 3.0.3                 - fixed RSS feed cache issue
 - 3.0.2                 - fixed default medium image size (changed to 600x400)
@@ -170,7 +167,7 @@ Try adding this to config/app.php:
 
 ## Issues, support, bug reports, security issues
 
-Please contact me on the contact from on [WebDev Etc](https://webdevetc.com/) or on [twitter](https://twitter.com/web_dev_etc/) and I'll get back to you asap.
+Please contact me on: hessam.modaberi@gmail.com
 
 
 
