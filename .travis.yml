@@ -1,0 +1,31 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+  - 7.4
+
+env:
+  - LARAVEL_VERSION=6.0.*
+  - LARAVEL_VERSION=6.2.*
+  - LARAVEL_VERSION=6.4.*
+  - LARAVEL_VERSION=6.5.*
+  - LARAVEL_VERSION=6.8.*
+
+matrix:
+  fast_finish: true
+#  exclude:
+#    - php: 7.0
+#      env: LARAVEL_VERSION=5.6.*
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source --no-interaction
+  - if [ "$LARAVEL_VERSION" != "" ]; then composer require --dev "laravel/laravel:${LARAVEL_VERSION}" --no-update; fi;
+  - composer update
+
+script:
+  - phpunit
+
+after_script:
+  - php vendor/bin/php-coveralls -v

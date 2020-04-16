@@ -1,0 +1,17 @@
+# Styleci for WebDevEtc.
+
+preset: laravel
+
+disabled:
+  - not_operator_with_successor_space
+
+#finder:
+#  exclude:
+#    - "tests"
+#    - "node_modules"
+#    - "storage"
+#    - "vendor"
+#  not-name:
+#    - "AcceptanceTester.php"
+#    - "FunctionalTester.php"
+#    - "UnitTester.php"

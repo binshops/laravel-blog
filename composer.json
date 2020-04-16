@@ -1,0 +1,61 @@
+{
+    "name": "hessam/blogerkit",
+    "keywords": [
+        "laravel",
+        "blog",
+        "package",
+        "admin",
+        "panel",
+        "rss",
+        "feed",
+        "write",
+        "posts",
+        "news",
+        "update",
+        "webdevetc",
+        "webdev"
+    ],
+    "description": "Simple blog package (with admin panel) for Laravel. Includes all views, controllers, routes and can add a blog to any existing Laravel app. Fully customisable blog (view, urls, and many other options). Includes image uploads and a pretty admin interface to manage your blog. Defaults to /blog but you can change it to anything.",
+    "license": "MIT",
+    "support": {
+        "docs": "https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc"
+    },
+    "authors": [
+        {
+            "name": "Hessam",
+            "homepage": "",
+            "role": "developer",
+            "email": "hessam.modaberi@gmail.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^6.0",
+        "cviebrock/eloquent-sluggable": "4.5.*|4.6.*|4.7.*|4.8.*|6.0.*",
+        "laravelium/feed": "~2.12.0|~3.0.0|3.1.*|v6.0.*",
+        "intervention/image": "2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "orchestra/testbench": "4.0.*",
+        "php-coveralls/php-coveralls": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "WebDevEtc\\BlogEtc\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WebDevEtc\\BlogEtc\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WebDevEtc\\BlogEtc\\BlogEtcServiceProvider"
+            ],
+            "aliases": {
+            }
+        }
+    }
+}
