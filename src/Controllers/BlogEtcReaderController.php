@@ -3,6 +3,7 @@
 namespace WebDevEtc\BlogEtc\Controllers;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Swis\Laravel\Fulltext\Search;
 use WebDevEtc\BlogEtc\Captcha\UsesCaptcha;
@@ -28,7 +29,7 @@ class BlogEtcReaderController extends Controller
     public function index($category_slug = null)
     {
         // the published_at + is_published are handled by BlogEtcPublishedScope, and don't take effect if the logged in user can manageb log posts
-        $title = 'Viewing blog'; // default title...
+        $title = 'Blog Page'; // default title...
 
         if ($category_slug) {
             $category = BlogEtcCategory::where("slug", $category_slug)->firstOrFail();
@@ -42,8 +43,7 @@ class BlogEtcReaderController extends Controller
             $posts = BlogEtcPost::query();
         }
 
-        $posts = $posts->orderBy("posted_at", "desc")
-            ->paginate(config("blogetc.per_page", 10));
+        $posts = $posts->where('is_published', '=', 1)->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))->orderBy("posted_at", "desc")->paginate(config("blogetc.per_page", 10));
 
         return view("blogetc::index", [
             'posts' => $posts,
@@ -72,9 +72,6 @@ class BlogEtcReaderController extends Controller
         return view("blogetc::search", ['query' => $query, 'search_results' => $search_results]);
 
     }
-
-
-
 
     /**
      * View all posts in $category_slug category
@@ -114,10 +111,5 @@ class BlogEtcReaderController extends Controller
             'captcha' => $captcha,
         ]);
     }
-
-
-
-
-
 
 }

@@ -18,12 +18,12 @@
     "description": "Simple blog package (with admin panel) for Laravel (6.x and 7.x). Includes all views, controllers, routes and can add a blog to any existing Laravel app. Fully customisable blog (view, urls, and many other options). Includes image uploads and a pretty admin interface to manage your blog. Defaults to /blog but you can change it to anything.",
     "license": "MIT",
     "support": {
-        "docs": "https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc"
+        "docs": "https://hessam.binshops.com/blog-package-for-laravel/"
     },
     "authors": [
         {
             "name": "Hessam",
-            "homepage": "",
+            "homepage": "http://hessam.binshops.com",
             "role": "developer",
             "email": "hessam.modaberi@gmail.com"
         }
