@@ -1,7 +1,4 @@
-#### This package is based on [WebDevEtc's](https://github.com/WebDevEtc/BlogEtc) package for laravel
-I made it compatible with laravel6.x and higher with adding some dependencies and code change.
-
-# WebDevEtc BlogEtc
+# Laravel Blogger
 ## Easy to install Laravel Package for adding a full blog (with admin backend) to your Laravel app
 ### 5 minutes to install! Quick and easy!
 
@@ -11,12 +8,12 @@ Install with following command and follow the instructions.
 
 ## Introduction
 
-This is [WebDevEtc's](https://webdevetc.com/) BlogEtc package. It has everything you need to quickly and easily add a blog to your laravel app.
+It has everything you need to quickly and easily add a blog to your laravel app.
 
 
-## FOR 5 MINUTE INSTALLATION GUIDE (with video guide), PLEASE VISIT [THE INSTALL GUIDE HERE](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#install_guide)
+## FOR 5 MINUTE INSTALLATION GUIDE (with video guide), PLEASE VISIT [THE INSTALL GUIDE HERE](https://hessam.binshops.com/blog-package-for-laravel/)
 
-[Install guide](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#install_guide) • [Packagist](https://packagist.org/packages/webdevetc/blogetc) << MAKE SURE YOU FOLLOW THE INSTURCTIONS. They're simple, but must be followed.
+[Install guide](https://hessam.binshops.com/blog-package-for-laravel/) • [Packagist](https://packagist.org/packages/hessam/laravel-blogger) << MAKE SURE YOU FOLLOW THE INSTURCTIONS. They're simple, but must be followed.
 
 ## Features
 
@@ -85,12 +82,10 @@ This is [WebDevEtc's](https://webdevetc.com/) BlogEtc package. It has everything
 
 ## How to install BlogEtc to your laravel app
 
-Please see our [BlogEtc Laravel Blog Package Documentation/install guide](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#install_guide) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
+Please see my [Laravel Blogger Package Documentation/install guide](https://hessam.binshops.com/blog-package-for-laravel/) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
 
 
 ## How to customise the blog views/templates
-
-This is easy to do, and further detail can be found in our  [BlogEtc Laravel Blog Package Documentation](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#guide_to_views).
 
 After doing the correct `vendor:publish`, all of the default template files will be found in /resources/views/vendor/blogetc/ and are easy to edit to match your needs.
 
@@ -99,9 +94,6 @@ After doing the correct `vendor:publish`, all of the default template files will
 It will auto set all required routes (both public facing, and admin backend). There are some config options (such as changing the /blog/ url to something else), which can be done in the blogetc.php file.
 
 ## Config options
-
-Please see the [BlogEtc config option documentation here](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#config_options) for details.
-
 All config options have comments which describe what they do. Please just refer to the `blogetc.php` file in your /config/ dir.
 
 ## Events
@@ -114,7 +106,7 @@ Add these (and an Event Listener) to your `EventServiceProvider.php` file to mak
 
 There is a built in captcha (anti spam comment) system built in, which will be easy for you to replace with your own implementation.
 
-  Please see [our Captcha docs](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#captcha) for  more details.
+  Please see [this Captcha docs](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#captcha) for  more details.
 
 ## TODO
 
@@ -153,7 +145,8 @@ Try adding this to config/app.php:
 
 
 ## Version History
-- 7.0.x                 - For Laravel 6.x & 7.x
+- 7.0.2                 - Bug fix for listing posts and search page
+- 7.0.1                 - made compatible with Laravel 6.x & 7.x
 - 3.1                   - minor fixes
 - 3.0.3                 - fixed RSS feed cache issue
 - 3.0.2                 - fixed default medium image size (changed to 600x400)
@@ -168,6 +161,7 @@ Try adding this to config/app.php:
 - 0.3                   - Small changes, packagist settings.
 - 0.1                   - Initial release
 
+This package is based on [WebDevEtc's](https://github.com/WebDevEtc/BlogEtc).
 
 ## Issues, support, bug reports, security issues
 
