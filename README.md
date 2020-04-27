@@ -96,6 +96,9 @@ It will auto set all required routes (both public facing, and admin backend). Th
 ## Config options
 All config options have comments which describe what they do. Please just refer to the `blogetc.php` file in your /config/ dir.
 
+### Custom User Model
+You can change the default user model and change it through config file
+
 ## Events
 
 You can find all the events that are fired by looking in the `/src/Events` directory.
@@ -107,21 +110,6 @@ Add these (and an Event Listener) to your `EventServiceProvider.php` file to mak
 There is a built in captcha (anti spam comment) system built in, which will be easy for you to replace with your own implementation.
 
   Please see [this Captcha docs](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#captcha) for  more details.
-
-## TODO
-
-This is a list of features or things that I want to eventually get round to adding
-
-- Better UI for uploading images/viewing uploaded images
-- Link uploaded images to blog post. At the moment they are not related.
-- Allow users to remove a featured image from a blog post.
-- Option to use HTMLPurifier to sanatise output.
-- Better options for assigning post authors (currently it just assigns the currently logged in user). However, if site has 10,000+ users do we really want an UI interface for this? The alternative is to add something like a a is_admin field to the `users` table and only show admin users.
-- Possibly add tags (we already have categories) but I am not sure how useful they really are, given that we already have categories.
-- Pagination for comments on view single post? At the moment we limit it to a high number (default in config is 5000).
-- RSS feed: shows from full (stripped tags) ->html of blog post (although has a setTextLimit() on it) - need to trim this, and if it uses custom view files then it should render that (without html).
-- Email notification to admin when new comment is added
-- RSS to use generate_introduction() for its contents.
 
 
 ## Recent changes:

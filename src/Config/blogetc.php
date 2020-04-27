@@ -1,8 +1,11 @@
 <?php
 
-//config for webdevetc/blogetc
+//config for hessam/laravel-blogger
 
 return [
+
+    //you custom User model
+    'user_model'=>\App\User::class,
 
     'include_default_routes' => true, // set to false to not include routes.php for BlogEtcReaderController and admin related routes. Default: true. If you disable this, you will have to manually copy over the data from routes.php and add it to your web.php.
 
