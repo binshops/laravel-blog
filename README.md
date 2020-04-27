@@ -80,7 +80,7 @@ It has everything you need to quickly and easily add a blog to your laravel app.
 
 
 
-## How to install BlogEtc to your laravel app
+## How to install Laravel Blogger to your laravel app
 
 Please see my [Laravel Blogger Package Documentation/install guide](https://hessam.binshops.com/blog-package-for-laravel/) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
 
@@ -88,6 +88,13 @@ Please see my [Laravel Blogger Package Documentation/install guide](https://hess
 ## How to customise the blog views/templates
 
 After doing the correct `vendor:publish`, all of the default template files will be found in /resources/views/vendor/blogetc/ and are easy to edit to match your needs.
+
+### Customizing admin views
+If you need to customize the admin view, just copy the files from
+`vendor/webdevetc/blogetc/src/Views/blogetc_admin`
+to
+`resources/views/vendor/blogetc_admin`
+Then you can modify them just like any other view file.
 
 ## Routes
 
