@@ -42,7 +42,7 @@
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }} WebDevEtc Blog Admin
+                {{ config('app.name', 'Laravel') }} Laravel Blogger Blog Admin
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -116,7 +116,7 @@
 </div>
 
 <div class='text-center mt-5 pt-5 mb-3 text-muted'>
-    <small><a href='https://webdevetc.com/'>Laravel Blog Package provided by Webdevetc</a></small>
+    <small><a href='https://github.com/vhessam/laravel-blogger'>Laravel Blogger</a></small>
 </div>
 
 
