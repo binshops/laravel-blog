@@ -133,7 +133,7 @@ Try adding this to config/app.php:
 
 
 ## Version History
-- 7.1.0                 - Adds support for custom user model
+- 7.1.0                 - Adds support for custom user model (if you upgrade, try to publish new config)
 - 7.0.2                 - Bug fix for listing posts and search page
 - 7.0.1                 - made compatible with Laravel 6.x & 7.x
 - 3.1                   - minor fixes
