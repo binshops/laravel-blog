@@ -11,7 +11,7 @@
     <h3 class=''><a href='{{$post->url()}}'>{{$post->title}}</a></h3>
     <h5 class=''>{{$post->subtitle}}</h5>
 
-    <p>{!! $post->generate_introduction(400) !!}</p>
+    <p>{!! mb_strimwidth($post->post_body_output(), 0, 400, "...") !!}</p>
 
     <div class='text-center'>
         <a href="{{$post->url()}}" class="btn btn-primary">View Post</a>

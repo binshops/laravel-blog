@@ -104,7 +104,7 @@ It will auto set all required routes (both public facing, and admin backend). Th
 All config options have comments which describe what they do. Please just refer to the `blogetc.php` file in your /config/ dir.
 
 ### Custom User Model
-You can change the default user model and change it through config file
+You can change the default user model through the config file
 
 ## Events
 
