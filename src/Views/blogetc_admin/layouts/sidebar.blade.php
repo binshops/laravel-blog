@@ -1,4 +1,4 @@
-<h2><a href='{{ route('blogetc.admin.index') }}'>Laravel Blogger Admin Panel</a></h2>
+<h2><a href='#' class="not-clickable">Laravel Blogger Admin Panel</a></h2>
 <p>Welcome to the admin panel for your blog posts.</p>
 
 
