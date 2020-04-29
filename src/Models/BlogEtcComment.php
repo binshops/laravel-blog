@@ -51,7 +51,7 @@ class BlogEtcComment extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config("blogetc.user_model"), 'user_id');
     }
 
     /**
