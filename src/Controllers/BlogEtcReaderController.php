@@ -43,9 +43,12 @@ class BlogEtcReaderController extends Controller
             $posts = BlogEtcPost::query();
         }
 
+        $categories = BlogEtcCategory::all();
+
         $posts = $posts->where('is_published', '=', 1)->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))->orderBy("posted_at", "desc")->paginate(config("blogetc.per_page", 10));
 
         return view("blogetc::index", [
+            'categories' => $categories,
             'posts' => $posts,
             'title' => $title,
         ]);
@@ -69,7 +72,13 @@ class BlogEtcReaderController extends Controller
 
         \View::share("title", "Search results for " . e($query));
 
-        return view("blogetc::search", ['query' => $query, 'search_results' => $search_results]);
+        $categories = BlogEtcCategory::all();
+
+        return view("blogetc::search", [
+                'categories' => $categories,
+                'query' => $query,
+                'search_results' => $search_results]
+        );
 
     }
 
