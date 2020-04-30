@@ -140,6 +140,7 @@ Try adding this to config/app.php:
 
 
 ## Version History
+- 7.1.4                 - updates fulltext search package which solves the search issue
 - 7.1.2                 - shows categories on blog home page - minor fix (if you upgrade try to re-publish view files)
 - 7.1.1                 - minor fix and some admin panel text changes
 - 7.1.0                 - Adds support for custom user model (if you upgrade, try to publish new config)
