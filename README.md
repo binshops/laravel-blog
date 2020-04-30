@@ -136,7 +136,10 @@ Try adding this to config/app.php:
 - Ensure that /public/blog_images (or whatever directory you set it to in the config) is writable by the server
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
-
+## After Upgrade to v7.1.4
+After upgraded to latest version follows these steps:
+- run `php artisan vendor:publish --tag=laravel-fulltext --force `
+- change exclude_feature_enabled to `true` and change exclude_records_column_name to `is_published`
 
 
 ## Version History
