@@ -59,9 +59,5 @@
             "aliases": {
             }
         }
-    },
-    "scripts": {
-        "post-update-cmd": "WebDevEtc\\BlogEtc\\scripts\\FullTextConfigScript::postUpdate",
-        "post-install-cmd": "WebDevEtc\\BlogEtc\\scripts\\FullTextConfigScript::postInstall"
     }
 }
