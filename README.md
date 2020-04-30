@@ -139,7 +139,7 @@ Try adding this to config/app.php:
 ## After Upgrade to v7.1.4
 After upgraded to latest version follows these steps:
 - run `php artisan vendor:publish --tag=laravel-fulltext --force `
-- change exclude_feature_enabled to `true` and change exclude_records_column_name to `is_published`
+- In `config/laravel-fulltext.php` file change exclude_feature_enabled to `true` and change exclude_records_column_name to `is_published`
 
 
 ## Version History
