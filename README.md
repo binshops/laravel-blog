@@ -143,6 +143,7 @@ After upgraded to latest version follows these steps:
 
 
 ## Version History
+- 7.1.5                 - minor fix for recent posts
 - 7.1.4                 - updates fulltext search package which solves the search issue
 - 7.1.2                 - shows categories on blog home page - minor fix (if you upgrade try to re-publish view files)
 - 7.1.1                 - minor fix and some admin panel text changes
