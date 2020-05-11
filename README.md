@@ -11,7 +11,7 @@ Install with following command and follow the instructions.
 It has everything you need to quickly and easily add a blog to your laravel app.
 
 
-## FOR 5 MINUTE INSTALLATION GUIDE (with video guide), PLEASE VISIT [THE INSTALL GUIDE HERE](https://hessam.binshops.com/blog-package-for-laravel/)
+## FOR 5 MINUTE INSTALLATION GUIDE (with video guide), PLEASE VISIT [THE INSTALL GUIDE HERE](https://hessam.binshops.com/laravel-blog-package/)
 
 [Install guide](https://hessam.binshops.com/blog-package-for-laravel/) • [Packagist](https://packagist.org/packages/hessam/laravel-blogger) << MAKE SURE YOU FOLLOW THE INSTURCTIONS. They're simple, but must be followed.
 
