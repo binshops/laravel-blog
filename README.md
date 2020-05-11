@@ -13,7 +13,7 @@ It has everything you need to quickly and easily add a blog to your laravel app.
 
 ## FOR 5 MINUTE INSTALLATION GUIDE (with video guide), PLEASE VISIT [THE INSTALL GUIDE HERE](https://hessam.binshops.com/laravel-blog-package/)
 
-[Install guide](https://hessam.binshops.com/blog-package-for-laravel/) • [Packagist](https://packagist.org/packages/hessam/laravel-blogger) << MAKE SURE YOU FOLLOW THE INSTURCTIONS. They're simple, but must be followed.
+[Install guide](https://hessam.binshops.com/laravel-blog-package/) • [Packagist](https://packagist.org/packages/hessam/laravel-blogger) << MAKE SURE YOU FOLLOW THE INSTURCTIONS. They're simple, but must be followed.
 
 ## Features
 
@@ -82,7 +82,7 @@ It has everything you need to quickly and easily add a blog to your laravel app.
 
 ## How to install Laravel Blogger to your laravel app
 
-Please see my [Laravel Blogger Package Documentation/install guide](https://hessam.binshops.com/blog-package-for-laravel/) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
+Please see my [Laravel Blogger Package Documentation/install guide](https://hessam.binshops.com/laravel-blog-package/) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
 
 
 ## How to customise the blog views/templates
