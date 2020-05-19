@@ -164,11 +164,9 @@ After upgraded to latest version follows these steps:
 - 0.3                   - Small changes, packagist settings.
 - 0.1                   - Initial release
 
-This package is based on [WebDevEtc's](https://github.com/WebDevEtc/BlogEtc).
-
 ## Issues, support, bug reports, security issues
 
-Please contact me on: hessam.modaberi@gmail.com
+Contact: hessam.modaberi@gmail.com
 
 
 

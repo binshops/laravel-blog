@@ -3,6 +3,10 @@
 namespace WebDevEtc\BlogEtc\Models;
 
 use Illuminate\Database\Eloquent\Model;
+/**
+ * @author hessam.modaberi@gmail.com - added sub-category functionality
+ * @github https://github.com/vhessam
+ * */
 
 class BlogEtcCategory extends Model
 {

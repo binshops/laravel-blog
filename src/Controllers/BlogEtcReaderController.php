@@ -13,6 +13,8 @@ use WebDevEtc\BlogEtc\Models\BlogEtcPost;
 /**
  * Class BlogEtcReaderController
  * All of the main public facing methods for viewing blog content (index, single posts)
+ * @Author: hessam.modaberi@gmail.com - added sub-category functionality
+ * @github https://github.com/vhessam
  * @package WebDevEtc\BlogEtc\Controllers
  */
 class BlogEtcReaderController extends Controller

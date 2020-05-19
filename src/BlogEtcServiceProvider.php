@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use Swis\Laravel\Fulltext\ModelObserver;
 use WebDevEtc\BlogEtc\Models\BlogEtcPost;
 
+/**
+ * @github https://github.com/vhessam
+ */
+
 class BlogEtcServiceProvider extends ServiceProvider
 {
     /**
