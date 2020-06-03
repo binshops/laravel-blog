@@ -13,8 +13,6 @@ use WebDevEtc\BlogEtc\Models\BlogEtcPost;
 /**
  * Class BlogEtcReaderController
  * All of the main public facing methods for viewing blog content (index, single posts)
- * @Author: hessam.modaberi@gmail.com - added sub-category functionality
- * @github https://github.com/vhessam
  * @package WebDevEtc\BlogEtc\Controllers
  */
 class BlogEtcReaderController extends Controller
@@ -33,24 +31,34 @@ class BlogEtcReaderController extends Controller
         // the published_at + is_published are handled by BlogEtcPublishedScope, and don't take effect if the logged in user can manageb log posts
         $title = 'Blog Page'; // default title...
 
+        $categoryChain = null;
         if ($category_slug) {
             $category = BlogEtcCategory::where("slug", $category_slug)->firstOrFail();
+            $categoryChain = $category->getAncestorsAndSelf();
             $posts = $category->posts()->where("blog_etc_post_categories.blog_etc_category_id", $category->id);
 
             // at the moment we handle this special case (viewing a category) by hard coding in the following two lines.
             // You can easily override this in the view files.
             \View::share('blogetc_category', $category); // so the view can say "You are viewing $CATEGORYNAME category posts"
-            $title = 'Viewing posts in ' . $category->category_name . " category"; // hardcode title here...
+            $title = 'Posts in ' . $category->category_name . " category"; // hardcode title here...
         } else {
             $posts = BlogEtcPost::query();
         }
 
-        $categories = BlogEtcCategory::all();
-
         $posts = $posts->where('is_published', '=', 1)->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))->orderBy("posted_at", "desc")->paginate(config("blogetc.per_page", 10));
 
+        //load categories in 3 levels
+        $rootList = BlogEtcCategory::where('parent_id' ,'=' , null)->get();
+        for($i = 0 ; sizeof($rootList) > $i ; $i++){
+            $rootList[$i]->loadSiblings();
+            for ($j = 0 ; sizeof($rootList[$i]->siblings) > $j; $j++){
+                $rootList[$i]->siblings[$j]->loadSiblings();
+            }
+        }
+
         return view("blogetc::index", [
-            'categories' => $categories,
+            'category_chain' => $categoryChain,
+            'categories' => $rootList,
             'posts' => $posts,
             'title' => $title,
         ]);
@@ -91,9 +99,10 @@ class BlogEtcReaderController extends Controller
      * @param $category_slug
      * @return mixed
      */
-    public function view_category($category_slug)
+    public function view_category($hierarchy)
     {
-        return $this->index($category_slug);
+        $categories = explode('/', $hierarchy);
+        return $this->index(end($categories));
     }
 
     /**

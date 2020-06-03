@@ -13,8 +13,6 @@
 
     <p>{!! mb_strimwidth($post->post_body_output(), 0, 400, "...") !!}</p>
 
-        <span class="light-text">Authored by: </span> {{$post->author->name}} <span class="light-text">Posted at: </span> {{date('d M Y ', strtotime($post->posted_at))}}
-
     <div class='text-center'>
         <a href="{{$post->url()}}" class="btn btn-primary">View Post</a>
     </div>

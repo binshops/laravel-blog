@@ -64,6 +64,21 @@
     </small>
 </div>
 
+<div class="form-group">
+    <label for="category_slug">Parent Category</label>
+    <select name='is_published' class='form-control' id='blog_is_published'
+            aria-describedby='blog_is_published_help'>
+
+        <option  selected='selected' value='1'>
+            Published
+        </option>
+        <option  selected='selected' value='0'>Not
+            Published
+        </option>
+
+    </select>
+</div>
+
 
 <div class="form-group">
     <label for="category_description">Category Description (optional)</label>

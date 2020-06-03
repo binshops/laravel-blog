@@ -3,17 +3,18 @@
 namespace WebDevEtc\BlogEtc\Models;
 
 use Illuminate\Database\Eloquent\Model;
-/**
- * @author hessam.modaberi@gmail.com - added sub-category functionality
- * @github https://github.com/vhessam
- * */
+use WebDevEtc\BlogEtc\Baum\Node;
 
-class BlogEtcCategory extends Model
+class BlogEtcCategory extends Node
 {
+    protected $parentColumn = 'parent_id';
+    public $siblings = array();
+
     public $fillable = [
         'category_name',
         'slug',
         'category_description',
+        'parent_id'
     ];
 
     /**
@@ -30,7 +31,12 @@ class BlogEtcCategory extends Model
      */
     public function url()
     {
-        return route("blogetc.view_category", $this->slug);
+        $theChainString = "";
+        $chain = $this->getAncestorsAndSelf();
+        foreach ($chain as $category){
+            $theChainString .=  "/" . $category->slug;
+        }
+        return route("blogetc.view_category", $theChainString);
     }
 
     /**
@@ -41,6 +47,30 @@ class BlogEtcCategory extends Model
     {
         return route("blogetc.admin.categories.edit_category", $this->id);
     }
+
+    public function loadSiblings(){
+        $this->siblings = $this->children()->get();
+    }
+
+//    public function parent()
+//    {
+//        return $this->belongsTo('WebDevEtc\BlogEtc\Models\BlogEtcCategory', 'parent_id');
+//    }
+//
+//    public function children()
+//    {
+//        return $this->hasMany('WebDevEtc\BlogEtc\Models\BlogEtcCategory', 'parent_id');
+//    }
+//
+//    // recursive, loads all descendants
+//    private function childrenRecursive()
+//    {
+//        return $this->children()->with('children')->get();
+//    }
+//
+//    public function loadChildren(){
+//        $this->childrenCat = $this->childrenRecursive();
+//    }
 
 //    public function scopeApproved($query)
 //    {

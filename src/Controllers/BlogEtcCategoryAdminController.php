@@ -44,7 +44,10 @@ class BlogEtcCategoryAdminController extends Controller
      */
     public function create_category(){
 
-        return view("blogetc_admin::categories.add_category");
+        return view("blogetc_admin::categories.add_category",[
+            'category' => new \WebDevEtc\BlogEtc\Models\BlogEtcCategory(),
+            'categories_list' => BlogEtcCategory::orderBy("category_name")->get()
+        ]);
 
     }
 
@@ -55,8 +58,10 @@ class BlogEtcCategoryAdminController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store_category(StoreBlogEtcCategoryRequest $request){
-        $new_category = new BlogEtcCategory($request->all());
-        $new_category->save();
+        if ($request['parent_id']== 0){
+            $request['parent_id'] = null;
+        }
+        $new_category = BlogEtcCategory::create($request->all());
 
         Helpers::flash_message("Saved new category");
 
@@ -71,7 +76,9 @@ class BlogEtcCategoryAdminController extends Controller
      */
     public function edit_category($categoryId){
         $category = BlogEtcCategory::findOrFail($categoryId);
-        return view("blogetc_admin::categories.edit_category")->withCategory($category);
+        return view("blogetc_admin::categories.edit_category",[
+            'categories_list' => BlogEtcCategory::orderBy("category_name")->get()
+        ])->withCategory($category);
     }
 
     /**
