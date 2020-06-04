@@ -1,4 +1,9 @@
 @extends("layouts.app",['title'=>$title])
+
+@section('blog-custom-css')
+    <link type="text/css" href="{{ asset('hessam-blog.css') }}" rel="stylesheet">
+@endsection
+
 @section("content")
 
     <div class='row'>

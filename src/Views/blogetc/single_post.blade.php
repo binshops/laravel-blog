@@ -1,6 +1,16 @@
 @extends("layouts.app",['title'=>$post->gen_seo_title()])
+
+@section('blog-custom-css')
+    <link type="text/css" href="{{ asset('hessam-blog.css') }}" rel="stylesheet">
+@endsection
+
 @section("content")
 
+    @if(config("blogetc.reading_progress_bar"))
+        <div id="scrollbar">
+            <div id="scrollbar-bg"></div>
+        </div>
+    @endif
 
     {{--https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#guide_to_views--}}
 
@@ -26,4 +36,8 @@
     </div>
     </div>
 
+@endsection
+
+@section('blog-custom-js')
+    <script src="{{asset('hessam-blog.js')}}"></script>
 @endsection

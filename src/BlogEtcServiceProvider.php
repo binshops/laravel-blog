@@ -43,6 +43,8 @@ class BlogEtcServiceProvider extends ServiceProvider
             __DIR__ . '/Views/blogetc' => base_path('resources/views/vendor/blogetc'),
             __DIR__ . '/Config/blogetc.php' => config_path('blogetc.php'),
             __DIR__ . '/css/blogetc_admin_css.css' => public_path('blogetc_admin_css.css'),
+            __DIR__ . '/css/hessam-blog.css' => public_path('hessam-blog.css'),
+            __DIR__ . '/js/hessam-blog.js' => public_path('hessam-blog.js'),
         ]);
 
 
