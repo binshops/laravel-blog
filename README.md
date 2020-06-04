@@ -141,8 +141,12 @@ After upgraded to latest version follows these steps:
 - run `php artisan vendor:publish --tag=laravel-fulltext --force `
 - In `config/laravel-fulltext.php` file change exclude_feature_enabled to `true` and change exclude_records_column_name to `is_published`
 
+## After Upgrade to 7.2.x
+- run `php artisan vendor:publish --provider="WebDevEtc\BlogEtc\BlogEtcServiceProvider"`
 
 ## Version History
+- 7.2.1                 - adds reading progress bar feature (if you upgrade, re-publish config file and view files)
+- 7.2.0                 - adds sub-category functionality to blog
 - 7.1.5                 - minor fix for recent posts
 - 7.1.4                 - updates fulltext search package which solves the search issue
 - 7.1.2                 - shows categories on blog home page - minor fix (if you upgrade try to re-publish view files)
