@@ -143,6 +143,7 @@ After upgraded to latest version follows these steps:
 
 
 ## Version History
+- 7.1.6                 - updates CKEditor
 - 7.1.5                 - minor fix for recent posts
 - 7.1.4                 - updates fulltext search package which solves the search issue
 - 7.1.2                 - shows categories on blog home page - minor fix (if you upgrade try to re-publish view files)
@@ -164,11 +165,9 @@ After upgraded to latest version follows these steps:
 - 0.3                   - Small changes, packagist settings.
 - 0.1                   - Initial release
 
-This package is based on [WebDevEtc's](https://github.com/WebDevEtc/BlogEtc).
-
 ## Issues, support, bug reports, security issues
 
-Please contact me on: hessam.modaberi@gmail.com
+Contact: hessam.modaberi@gmail.com
 
 
 
