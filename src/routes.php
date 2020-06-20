@@ -61,6 +61,10 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
             'BlogEtcAdminController@update_post')
             ->name('blogetc.admin.update_post');
 
+        //Removes post's photo
+        Route::get('/remove_photo/{slug}',
+            'BlogEtcAdminController@remove_photo')
+            ->name('blogetc.admin.remove_photo');
 
         Route::group(['prefix' => "image_uploads",], function () {
 

@@ -143,6 +143,7 @@ After upgraded to latest version follows these steps:
 
 
 ## Version History
+- 7.1.8                 - ability to remove images from posts (this feature does not work for old posts)
 - 7.1.7                 - updates CKEditor
 - 7.1.5                 - minor fix for recent posts
 - 7.1.4                 - updates fulltext search package which solves the search issue

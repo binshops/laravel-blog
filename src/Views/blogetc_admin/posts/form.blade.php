@@ -85,11 +85,9 @@
 
 
     <div class='alert alert-warning'>
-        If you want to add HTML content to be rendered, click source button at top left, and then paste your HTML snippet.
+        If you want to add HTML content to be rendered, click source button at top left, and then paste your HTML snippet. (Youtube iFrames)
     </div>
 </div>
-
-
 
 
 @if(config("blogetc.use_custom_view_files",true))
@@ -161,7 +159,9 @@
                 <input class="form-control" type="file" name="{{$size_key}}" id="blog_{{$size_key}}"
                        aria-describedby="blog_{{$size_key}}_help">
 
-
+                @if($post->has_image($size_info['basic_key']))
+                    <a style="color: darkred" href="{{route("blogetc.admin.remove_photo", $post->slug)}}">Remove Image</a>
+                @endif
             </div>
         @endforeach
 

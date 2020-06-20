@@ -126,6 +126,41 @@ class BlogEtcAdminController extends Controller
 
     }
 
+    public function remove_photo($postSlug)
+    {
+        $post = BlogEtcPost::where("slug", $postSlug)->firstOrFail();
+
+        $path = public_path('/' . config("blogetc.blog_upload_dir"));
+        if (!$this->checked_blog_image_dir_is_writable) {
+            if (!is_writable($path)) {
+                throw new \RuntimeException("Image destination path is not writable ($path)");
+            }
+        }
+
+        $destinationPath = $this->image_destination_path();
+
+        if (file_exists($destinationPath.'/'.$post->image_large)) {
+            unlink($destinationPath.'/'.$post->image_large);
+        }
+
+        if (file_exists($destinationPath.'/'.$post->image_medium)) {
+            unlink($destinationPath.'/'.$post->image_medium);
+        }
+
+        if (file_exists($destinationPath.'/'.$post->image_thumbnail)) {
+            unlink($destinationPath.'/'.$post->image_thumbnail);
+        }
+
+        $post->image_large = null;
+        $post->image_medium = null;
+        $post->image_thumbnail = null;
+        $post->save();
+
+        Helpers::flash_message("Photo removed");
+
+        return redirect($post->edit_url());
+    }
+
     /**
      * Delete a post
      *
@@ -176,13 +211,12 @@ class BlogEtcAdminController extends Controller
                 // this image size is enabled, and
                 // we have an uploaded image that we can use
 
-                $uploaded_image = $this->UploadAndResize($new_blog_post, $new_blog_post->title, $image_size_details, $photo);
+                $uploaded_image = $this->UploadAndResize($new_blog_post, $new_blog_post->slug, $image_size_details, $photo);
 
                 $new_blog_post->$size = $uploaded_image['filename'];
                 $uploaded_image_details[$size] = $uploaded_image;
             }
         }
-
 
         // store the image upload.
         // todo: link this to the blogetc_post row.
@@ -192,9 +226,5 @@ class BlogEtcAdminController extends Controller
                 'uploaded_images' => $uploaded_image_details,
             ]);
         }
-
-
     }
-
-
 }
