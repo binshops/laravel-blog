@@ -147,6 +147,8 @@ After upgraded to latest version follows these steps:
 ## Version History
 - 7.2.1                 - adds reading progress bar feature (if you upgrade, re-publish config file and view files)
 - 7.2.0                 - adds sub-category functionality to blog
+- 7.1.8                 - ability to remove images from posts (this feature does not work for old posts)
+- 7.1.7                 - updates CKEditor
 - 7.1.5                 - minor fix for recent posts
 - 7.1.4                 - updates fulltext search package which solves the search issue
 - 7.1.2                 - shows categories on blog home page - minor fix (if you upgrade try to re-publish view files)
