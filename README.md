@@ -1,19 +1,27 @@
-# Laravel Blogger
+# Laravel Blog Package
 ## Easy to install Laravel Package for adding a full blog (with admin backend) to your Laravel app
-### 5 minutes to install! Quick and easy!
+It has everything you need to quickly and easily add a blog to your laravel app.
+
+### Quick and easy installation
 
 Install with following command and follow the instructions. 
 
     composer require hessam/laravel-blogger
 
-## Introduction
+### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package/)
 
-It has everything you need to quickly and easily add a blog to your laravel app.
+To see package on Packagist click this [Link](https://packagist.org/packages/hessam/laravel-blogger)
 
+## What/who this package is for:
 
-## FOR 5 MINUTE INSTALLATION GUIDE (with video guide), PLEASE VISIT [THE INSTALL GUIDE HERE](https://hessam.binshops.com/laravel-blog-package/)
+ - For websites running Laravel (6.x and higher)
+ - Who want to have a site blog, and have an easy to use interface to write blog posts/assign categories/manage existing posts
+ - Where only admin users can edit/manage the blog (this is not suitable for every user on your site to be able to manage posts)
+ - Where you understand that posts can (potentially) contain JS or any other code, so you should only allow trusted admin users to add/edit/delete/manage the blog posts
 
-[Install guide](https://hessam.binshops.com/laravel-blog-package/) • [Packagist](https://packagist.org/packages/hessam/laravel-blogger) << MAKE SURE YOU FOLLOW THE INSTURCTIONS. They're simple, but must be followed.
+## What this package is NOT for:
+
+ - Sites where you want your (normal, non-admin) users to write blog posts. You must set `canManageBlogEtcPosts()` on your user model to ONLY allow trusted users.
 
 ## Features
 
@@ -59,18 +67,6 @@ It has everything you need to quickly and easily add a blog to your laravel app.
    - chmod/chown the `public/blog_images/` directory so featured images can be uploaded for each blog post
    - and then add 1 method to your `\App\User` file (`canManageBlogEtcPosts()`
    - __but please see the install instructions to get everything up and working__
-
-
-## What/who this package is for:
-
- - For websites running Laravel (6.x and higher)
- - Who want to have a site blog, and have an easy to use interface to write blog posts/assign categories/manage existing posts
- - Where only admin users can edit/manage the blog (this is not suitable for every user on your site to be able to manage posts)
- - Where you understand that posts can (potentially) contain JS or any other code, so you should only allow trusted admin users to add/edit/delete/manage the blog posts
-
-## What this package is NOT for:
-
- - Sites where you want your (normal, non-admin) users to write blog posts. You must set `canManageBlogEtcPosts()` on your user model to ONLY allow trusted users.
 
 ## Important notes
 
@@ -144,9 +140,10 @@ After upgraded to latest version follows these steps:
 ## After Upgrade to 7.2.x
 - run `php artisan vendor:publish --provider="WebDevEtc\BlogEtc\BlogEtcServiceProvider"`
 
-## Version History
-- 7.2.1                 - adds reading progress bar feature (if you upgrade, re-publish config file and view files)
-- 7.2.0                 - adds sub-category functionality to blog
+## Version History     
+- 7.2.0                 
+    - adds sub-category functionality to blog
+    - adds reading progress bar feature (if you upgrade, re-publish config file and view files)
 - 7.1.8                 - ability to remove images from posts (this feature does not work for old posts)
 - 7.1.7                 - updates CKEditor
 - 7.1.5                 - minor fix for recent posts
@@ -169,8 +166,6 @@ After upgraded to latest version follows these steps:
 - 1.0                   - First release
 - 0.3                   - Small changes, packagist settings.
 - 0.1                   - Initial release
-
-## Issues, support, bug reports, security issues
 
 Contact: hessam.modaberi@gmail.com
 
