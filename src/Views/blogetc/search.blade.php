@@ -38,7 +38,9 @@
                 </div>
             </div>
 
-            @include("blogetc::sitewide.search_form")
+            @if (config('blogetc.search.search_enabled') )
+                @include('blogetc::sitewide.search_form')
+            @endif
 
         </div>
     </div>
