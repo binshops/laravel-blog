@@ -141,6 +141,7 @@ After upgraded to latest version follows these steps:
 - run `php artisan vendor:publish --provider="WebDevEtc\BlogEtc\BlogEtcServiceProvider"`
 
 ## Version History     
+- 7.2.1                 - adds logout button at admin panel
 - 7.2.0                 
     - adds sub-category functionality to blog
     - adds reading progress bar feature (if you upgrade, re-publish config file and view files)
