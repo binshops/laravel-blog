@@ -73,7 +73,9 @@
             <div class='text-center  col-sm-4 mx-auto'>
                 {{$posts->appends( [] )->links()}}
             </div>
-                @include("blogetc::sitewide.search_form")
+            @if (config('blogetc.search.search_enabled') )
+                @include('blogetc::sitewide.search_form')
+            @endif
         </div>
     </div>
 @endsection
