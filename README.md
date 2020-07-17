@@ -141,6 +141,9 @@ After upgraded to latest version follows these steps:
 - run `php artisan vendor:publish --provider="WebDevEtc\BlogEtc\BlogEtcServiceProvider"`
 
 ## Version History     
+- 7.2.2                 
+    - bug fix: do not show search bar when it's disabled
+    - feature: configure to show full text post or preview 
 - 7.2.1                 - adds logout button at admin panel
 - 7.2.0                 
     - adds sub-category functionality to blog

@@ -178,5 +178,6 @@ return [
         'search_enabled' => true, //you can easily turn off search functionality
     ],
 
-    'index_full_post' => false,
+    //Shows full text of post in listing pages like search result page or category page. Now it shows a preview
+    'show_full_text_at_list' => true,
 ];
