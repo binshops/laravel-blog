@@ -5,16 +5,20 @@
 <div class="" style='max-width:600px; margin: 50px auto; background: #fffbea;border-radius:3px;padding:0;' >
 
     <div class='text-center'>
-    <?=$post->image_tag("medium", true, ''); ?>
+        <?=$post->image_tag("medium", true, ''); ?>
+            </div>
+        <div style='padding:10px;'>
+        <h3 class=''><a href='{{$post->url()}}'>{{$post->title}}</a></h3>
+        <h5 class=''>{{$post->subtitle}}</h5>
+
+        @if (config('index_full_post'))
+            <p>{!! $post->post_body_output() !!}</p>
+        @else
+            <p>{!! mb_strimwidth($post->post_body_output(), 0, 400, "...") !!}</p>
+        @endif
+
+        <div class='text-center'>
+            <a href="{{$post->url()}}" class="btn btn-primary">View Post</a>
         </div>
-    <div style='padding:10px;'>
-    <h3 class=''><a href='{{$post->url()}}'>{{$post->title}}</a></h3>
-    <h5 class=''>{{$post->subtitle}}</h5>
-
-    <p>{!! mb_strimwidth($post->post_body_output(), 0, 400, "...") !!}</p>
-
-    <div class='text-center'>
-        <a href="{{$post->url()}}" class="btn btn-primary">View Post</a>
     </div>
-        </div>
 </div>
