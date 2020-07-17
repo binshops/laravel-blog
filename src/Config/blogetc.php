@@ -178,4 +178,5 @@ return [
         'search_enabled' => true, //you can easily turn off search functionality
     ],
 
+    'index_full_post' => false,
 ];
