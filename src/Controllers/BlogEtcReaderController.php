@@ -55,12 +55,17 @@ class BlogEtcReaderController extends Controller
                 $rootList[$i]->siblings[$j]->loadSiblings();
             }
         }
+        
+        $archive = BlogEtcPost::all('title', 'posted_at')->groupBy(function ($date) {
+            return Carbon::parse($date->posted_at)->format('Y-m');
+        });
 
         return view("blogetc::index", [
             'category_chain' => $categoryChain,
             'categories' => $rootList,
             'posts' => $posts,
             'title' => $title,
+            'archive' => $archive,
         ]);
     }
 
