@@ -140,7 +140,8 @@ After upgraded to latest version follows these steps:
 ## After Upgrade to 7.2.x
 - run `php artisan vendor:publish --provider="WebDevEtc\BlogEtc\BlogEtcServiceProvider"`
 
-## Version History     
+## Version History    
+- 7.3.0 New Admin UI
 - 7.2.2                 
     - bug fix: do not show search bar when it's disabled
     - feature: configure to show full text post or preview 
