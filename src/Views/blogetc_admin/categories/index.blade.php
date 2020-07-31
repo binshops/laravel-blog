@@ -3,9 +3,9 @@
 
     @forelse ($categories as $category)
 
-        <div class="card m-4" style="max-width: 500px;">
+        <div class="card m-4">
             <div class="card-body">
-                <h5 class='card-title'><a href='{{$category->url()}}'>{{$category->category_name}}</a></h5>
+                <h5 class='card-title'><a class="a-link-cart-color" href='{{$category->url()}}'>{{$category->category_name}}</a></h5>
 
 
                 <a href="{{$category->url()}}" class="card-link btn btn-outline-secondary">View Posts in this category</a>

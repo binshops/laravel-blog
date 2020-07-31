@@ -12,7 +12,7 @@
                     {{$comment->author()}} commented on:
 
                     @if($comment->post)
-                    <a href='{{$comment->post->url()}}'>{{$comment->post->title}}</a>
+                    <a class="a-link-cart-color" href='{{$comment->post->url()}}'>{{$comment->post->title}}</a>
                         @else
                         Unknown blog post
 
