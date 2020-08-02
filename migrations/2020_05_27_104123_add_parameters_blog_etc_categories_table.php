@@ -14,7 +14,7 @@ class AddParametersBlogEtcCategoriesTable extends Migration
     public function up()
     {
         Schema::table('blog_etc_categories', function (Blueprint $table) {
-            $table->integer('parent_id')->nullable();
+            $table->integer('parent_id')->nullable()->default(0);
             $table->integer('lft')->nullable();
             $table->integer('rgt')->nullable();
             $table->integer('depth')->nullable();
