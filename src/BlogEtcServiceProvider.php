@@ -31,7 +31,7 @@ class BlogEtcServiceProvider extends ServiceProvider
                      '2018_09_16_224023_add_author_and_url_blog_etc_posts_table.php',
                      '2018_09_26_085711_add_short_desc_textrea_to_blog_etc.php',
                      '2018_09_27_122627_create_blog_etc_uploaded_photos_table.php',
-                     '2020_05_27_104123_add_parameters_blog_etc_categories_table'
+                     '2020_05_27_104123_add_parameters_blog_etc_categories_table.php'
                  ] as $file) {
 
             $this->publishes([
