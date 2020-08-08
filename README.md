@@ -112,7 +112,7 @@ Add these (and an Event Listener) to your `EventServiceProvider.php` file to mak
 
 There is a built in captcha (anti spam comment) system built in, which will be easy for you to replace with your own implementation.
 
-  Please see [this Captcha docs](https://webdevetc.com/laravel/packages/blogetc-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-blogetc#captcha) for  more details.
+  Please see [this Captcha docs](https://hessam.binshops.com/laravel-blog-package#captcha) for  more details.
 
 
 ## Recent changes:
