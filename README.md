@@ -1,5 +1,5 @@
 # Laravel Blog Package
-## Easy to install Laravel Package for adding a full blog (with admin backend) to your Laravel app
+## Easy to install Laravel Blog Package with admin backend - With Multi-level categories 
 It has everything you need to quickly and easily add a blog to your laravel app.
 
 ### Quick and easy installation
@@ -8,7 +8,7 @@ Install with following command and follow the instructions.
 
     composer require hessam/laravel-blogger
 
-### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package/)
+### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package#setup)
 
 To see package on Packagist click this [Link](https://packagist.org/packages/hessam/laravel-blogger)
 
@@ -78,7 +78,7 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
 
 ## How to install Laravel Blogger to your laravel app
 
-Please see my [Laravel Blogger Package Documentation/install guide](https://hessam.binshops.com/laravel-blog-package/) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
+Please see my [Laravel Blogger Package Documentation/install guide](https://hessam.binshops.com/laravel-blog-package#setup) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
 
 
 ## How to customise the blog views/templates
@@ -119,6 +119,7 @@ There is a built in captcha (anti spam comment) system built in, which will be e
 
 1) Added full text search and search views. You have to enable it in the config file (see latest config file)
 2) Need more than the 3 default image sizes? Add more in the config/blogetc.php file, add the database column for it and it'll work!
+3) Multi-level category feature (now is limited to 3 levels)
 
 ## Having problems, something is not working?
 
@@ -141,6 +142,7 @@ After upgraded to latest version follows these steps:
 - run `php artisan vendor:publish --provider="WebDevEtc\BlogEtc\BlogEtcServiceProvider"`
 
 ## Version History    
+- 7.3.2 Some bug fixes
 - 7.3.0 New Admin UI
 - 7.2.2                 
     - bug fix: do not show search bar when it's disabled
