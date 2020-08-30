@@ -14,20 +14,26 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
 
 ### Screen Shots
 
-  Add post
   <p align="center">
     <img src="https://hessam.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.23.35-PM-1024x560.png" width="500px" title="Add post">
   </p>
+  <p align="center">
+  Add post
+  </p>
 
-  All posts
   <p align="center">
     <img src="https://hessam.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.19.42-PM-1024x558.png" width="500px" title="All posts">
   </p>
+   <p align="center">
+    All posts
+    </p>
   
-  Add category
   <p align="center">
     <img src="https://hessam.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.03.39-PM-1-1024x560.png" width="500px" title="Add category">
   </p>
+  <p align="center">
+      Add category
+   </p>
   
 ## What/who this package is for:
 
