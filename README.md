@@ -1,5 +1,5 @@
-# Laravel Blog Package
-## Easy to install Laravel Blog Package with admin backend - With Multi-level categories 
+# Complete Laravel Blog Package
+## With Multi-level Categories and Full Text Search
 It has everything you need to quickly and easily add a blog to your laravel app.
 
 ### Quick and easy installation
@@ -11,6 +11,9 @@ Install with following command and follow the instructions.
 ### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package#setup)
 
 To see package on Packagist click this [Link](https://packagist.org/packages/hessam/laravel-blogger)
+
+## Recent Changes  
+- **8.0.0** Compatibility with Laravel 8
 
 ### Screen Shots
 
@@ -98,12 +101,6 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
 2) if `use_custom_view_files` is enabled in the config (which it is by default), it means that any post with a custom view file set (details in the docs) can include any file within `/resources/views/custom_blog_posts`, which blade will execute. This package gives no method to edit any file within that directory though.
 
 
-
-## How to install Laravel Blogger to your laravel app
-
-Please see my [Laravel Blogger Package Documentation/install guide](https://hessam.binshops.com/laravel-blog-package#setup) for install instructions. (It is very simple - done via composer/artisan commands, plus adding one method to your \App\User model (`canManageBlogEtcPosts()` which should return `true` if this user can manage the blog).
-
-
 ## How to customise the blog views/templates
 
 After doing the correct `vendor:publish`, all of the default template files will be found in /resources/views/vendor/blogetc/ and are easy to edit to match your needs.
@@ -137,16 +134,7 @@ There is a built in captcha (anti spam comment) system built in, which will be e
 
   Please see [this Captcha docs](https://hessam.binshops.com/laravel-blog-package#captcha) for  more details.
 
-
-## Recent changes:
-
-1) Added full text search and search views. You have to enable it in the config file (see latest config file)
-2) Need more than the 3 default image sizes? Add more in the config/blogetc.php file, add the database column for it and it'll work!
-3) Multi-level category feature (now is limited to 3 levels)
-
-## Having problems, something is not working?
-
-*Image upload errors?*
+## Image upload errors
 
 Try adding this to config/app.php:
 
@@ -156,15 +144,8 @@ Try adding this to config/app.php:
 - Ensure that /public/blog_images (or whatever directory you set it to in the config) is writable by the server
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
-## After Upgrade to v7.1.4
-After upgraded to latest version follows these steps:
-- run `php artisan vendor:publish --tag=laravel-fulltext --force `
-- In `config/laravel-fulltext.php` file change exclude_feature_enabled to `true` and change exclude_records_column_name to `is_published`
-
-## After Upgrade to 7.2.x
-- run `php artisan vendor:publish --provider="WebDevEtc\BlogEtc\BlogEtcServiceProvider"`
-
 ## Version History    
+- **8.0.0** Compatibility with Laravel 8
 - 7.3.2 Some bug fixes
 - 7.3.0 New Admin UI
 - 7.2.2                 
