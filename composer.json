@@ -31,7 +31,7 @@
         "cviebrock/eloquent-sluggable": "~8.0|~7.0|~6.0|~4.8|~4.7|~4.6|~4.5",
         "laravelium/feed": "~2.12.0|~3.0.0|3.1.*|v6.0.*|v7.0.*",
         "intervention/image": "2.*",
-        "swisnl/laravel-fulltext": "^0.19.0",
+        "swisnl/laravel-fulltext": "^0.20.0",
         "laravel/helpers": "^1.2"
     },
     "require-dev": {
