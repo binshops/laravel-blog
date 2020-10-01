@@ -91,10 +91,10 @@
                 <div class='col-md-3 list-group-color'>
                     @include("blogetc_admin::layouts.sidebar")
                     <div class=' list-group-color text-center mt-5 mb-3 text-muted hessam-version'>
-                        <small><a href='https://github.com/vhessam/laravel-blogger'>Laravel Blogger</a></small>
+                        <small><a href='https://github.com/vhessam/laravel-blogger'>Hessam CMS</a></small>
 
                         <small>
-                            Version 7.3
+                            Version 8.0.x
                         </small>
                     </div>
                 </div>
