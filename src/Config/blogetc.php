@@ -4,7 +4,8 @@
 
 return [
 
-    //your custom User model
+    //Your custom User model
+    //Change it to \App\Models\User::class for laravel 8.x's default auth User model
     'user_model'=>\App\User::class,
 
     // reading progress bar is the bar which shows on top of your post when you are scrolling down the page. You can disable this feature if you want

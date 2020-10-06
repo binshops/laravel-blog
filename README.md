@@ -1,6 +1,6 @@
-# Complete Laravel Blog Package
+# Hessam CMS - Complete Laravel CMS Package
 ## With Multi-level Categories and Full Text Search
-It has everything you need to quickly and easily add a blog to your laravel app.
+It has everything you need to quickly and easily add a CMS to your existing laravel application.
 
 ## [Online Demo](https://cms.binshops.com/login)
 You can check Hessam CMS online: [https://cms.binshops.com](https://cms.binshops.com/login)
@@ -15,8 +15,11 @@ Install with following command and follow the instructions.
 
 To see package on Packagist click this [Link](https://packagist.org/packages/hessam/laravel-blogger)
 
+## Important Notes
+- For laravel 8.x's default auth User model, change user model in `blogetc.php` to: `\App\Models\User::class`
+
 ## Recent Changes  
-- **8.0.0** Compatibility with Laravel 8
+- **8.0.x** Compatibility with Laravel 8.x
 
 ### Screen Shots
 
@@ -83,6 +86,7 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
   - Create / edit posts
   - Create / edit post categories
   - Manage (approve/delete) submitted comments
+  - Multi-level category 
 - Allows each blog post to have featured images uploaded (you can define the actual dimensions) - in large, medium, thumbnail sizes
 - fully configurable via its `config/blogetc.php` config file.
 - **Includes all required view files, works straight away with no additional setup.** All view files (Blade files) use Bootstrap 4, and very clean HTML (easy to get your head around). You can easily override any view file by putting files in your `/resources/views/vendor/blogetc/` directory
@@ -90,19 +94,6 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
   - Other options include using [Disqus](http://disqus.com/) comments or disabling comments.
 - Includes unit tests.
 - Fires events for any database changes, so you can easily add Event Listeners if you need to add additional logic.
-- **< 5 minute install time** and your blog is up and working, ready for you to go to the admin panel and write a blog post - see full details below, but this is a summary of the required steps:
-   - install with composer,
-   - do the database migration, copy the config file over (done with `php artisan vendor:publish`)
-   - chmod/chown the `public/blog_images/` directory so featured images can be uploaded for each blog post
-   - and then add 1 method to your `\App\User` file (`canManageBlogEtcPosts()`
-   - __but please see the install instructions to get everything up and working__
-
-## Important notes
-
-1) Anyone who can manage blog posts (defined by the `canManageBlogEtcPosts()` method you add to your User model) can submit any HTML which is echoed out. This is a security issue. If you don't trust the content you should add a custom view and escape the blog content before echoing it, and set `use_custom_view_files` in the config to false.
-
-2) if `use_custom_view_files` is enabled in the config (which it is by default), it means that any post with a custom view file set (details in the docs) can include any file within `/resources/views/custom_blog_posts`, which blade will execute. This package gives no method to edit any file within that directory though.
-
 
 ## How to customise the blog views/templates
 
@@ -123,7 +114,7 @@ It will auto set all required routes (both public facing, and admin backend). Th
 All config options have comments which describe what they do. Please just refer to the `blogetc.php` file in your /config/ dir.
 
 ### Custom User Model
-You can change the default user model through the config file
+You can change the default user model through the config file.
 
 ## Events
 
