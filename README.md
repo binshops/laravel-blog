@@ -1,12 +1,8 @@
-<p align="center"><a href="cms.binshops.com/" target="_blank"><img src="https://cms.binshops.com/img/hessam-cms.png" width="400"></a></p>
+<p align="center"><a href="cms.binshops.com/" target="_blank"><img src="https://cms.binshops.com/img/hessam-cms.png"></a></p>
 
 <p align="center">
 
-[![Latest Stable Version](https://poser.pugx.org/hessam/laravel-blogger/v)](//packagist.org/packages/hessam/laravel-blogger)
-
-[![Total Downloads](https://poser.pugx.org/hessam/laravel-blogger/downloads)](//packagist.org/packages/hessam/laravel-blogger)
-
-[![License](https://poser.pugx.org/hessam/laravel-blogger/license)](//packagist.org/packages/hessam/laravel-blogger)
+[![Latest Stable Version](https://poser.pugx.org/hessam/laravel-blogger/v)](//packagist.org/packages/hessam/laravel-blogger) [![Total Downloads](https://poser.pugx.org/hessam/laravel-blogger/downloads)](//packagist.org/packages/hessam/laravel-blogger) [![License](https://poser.pugx.org/hessam/laravel-blogger/license)](//packagist.org/packages/hessam/laravel-blogger)
 
 </p>
 
