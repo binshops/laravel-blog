@@ -6,20 +6,16 @@
   </a>
 
   <a href="https://packagist.org/packages/hessam/laravel-blogger">
-      <img src="https://poser.pugx.org/hessam/laravel-blogger/downloads.png" alt="Total Downloads">
-  </a>
-
-  <a href="https://packagist.org/packages/hessam/laravel-blogger">
     <img src="https://poser.pugx.org/hessam/laravel-blogger/license.png" alt="License">
   </a>
 </p>
 
-# Hessam CMS - Complete Laravel CMS Package
+# Complete Laravel CMS Package
 ## With Multi-level Categories and Full Text Search
-It has everything you need to quickly and easily add a CMS to your existing laravel application.
+Easily add a wordpress functionality and CMS to your laravel web application.
 
-## [Online Demo](https://cms.binshops.com/login)
-You can check Hessam CMS online: [https://cms.binshops.com](https://cms.binshops.com/login)
+## [Let's try it - Online Demo](https://cms.binshops.com/login)
+You can try Hessam CMS online: [https://cms.binshops.com](https://cms.binshops.com/login)
 
 ### Quick and easy installation
 
@@ -34,10 +30,24 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
 ## Important Notes
 - For laravel 8.x's default auth User model, change user model in `blogetc.php` to: `\App\Models\User::class`
 
+## Features
+- Compatible with latest laravel version (laravel 8.x)
+- Backward-compatibility with previous laravel versions
+- Full text search - searching throughout the blog posts
+- Multi-level category support
+- fully configurable via its `config/blogetc.php` config file
+- Ready to use admin panel
+- Full customizability of admin views and front views
+- Paginated views
+- Ability to upload images
+- Managing posts, categories
+- Managing comments and comment approval
+- Other options include using Disqus comments or disabling comments
+
 ## Recent Changes  
 - **8.0.x** Compatibility with Laravel 8.x
 
-### Screen Shots
+## Screen Shots
 
   <p align="center">
     <img src="https://hessam.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.23.35-PM-1024x560.png" width="500px" title="Add post">
@@ -62,54 +72,10 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
   
 ## What/who this package is for:
 
- - For websites running Laravel (6.x and higher)
- - Who want to have a site blog, and have an easy to use interface to write blog posts/assign categories/manage existing posts
+ - For websites running Laravel
+ - Who wants to have a site blog, and have an easy to use interface to write blog posts/assign categories/manage existing posts
  - Where only admin users can edit/manage the blog (this is not suitable for every user on your site to be able to manage posts)
- - Where you understand that posts can (potentially) contain JS or any other code, so you should only allow trusted admin users to add/edit/delete/manage the blog posts
-
-## What this package is NOT for:
-
- - Sites where you want your (normal, non-admin) users to write blog posts. You must set `canManageBlogEtcPosts()` on your user model to ONLY allow trusted users.
-
-## Features
-
-- Includes all views, routes, models, controllers, events, etc
-  - Public facing pages:
-    - View all posts (paginated)
-    - View all posts in category (paginated)
-    - View single post
-    - Add comment views / confirmation views
-    - Search (full text search), search form, search results page.
-  - Admin pages:
-    - Posts **(CRUD Blog Posts, Upload Featured Images (auto resizes)**
-      - View all posts,
-      - Create new post,
-      - Edit post,
-      - Delete post
-    - Categories **(CRUD Post Categories)**
-      - View all categories,
-      - Create new category,
-      - Edit post,
-      - Delete post
-    - Comments **(including comment approvals)**
-      - View all comments,
-      - Approve/Moderate comment,
-      - Delete comment
-    - Upload images
-      - as well as uploading featured images for each blog post (and auto resizing to multiple defined sizes), you can upload images separately.
-      - view all uploaded images (in multiple sizes)
-- **Includes admin panel**
-  - Create / edit posts
-  - Create / edit post categories
-  - Manage (approve/delete) submitted comments
-  - Multi-level category 
-- Allows each blog post to have featured images uploaded (you can define the actual dimensions) - in large, medium, thumbnail sizes
-- fully configurable via its `config/blogetc.php` config file.
-- **Includes all required view files, works straight away with no additional setup.** All view files (Blade files) use Bootstrap 4, and very clean HTML (easy to get your head around). You can easily override any view file by putting files in your `/resources/views/vendor/blogetc/` directory
-- **Built in comments (using the database)**, can auto approve or require admin approval (comment moderation).
-  - Other options include using [Disqus](http://disqus.com/) comments or disabling comments.
-- Includes unit tests.
-- Fires events for any database changes, so you can easily add Event Listeners if you need to add additional logic.
+ - For anyone who likes to add a wordpress-like CMS to her/his web app
 
 ## How to customise the blog views/templates
 
