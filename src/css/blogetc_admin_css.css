@@ -39,3 +39,7 @@ From laravel 5.6
 body{
     background-color: #f1f1f1 !important;
 }
+
+.nav-bar-full{
+    height: 100% !important;
+}

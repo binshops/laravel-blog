@@ -87,8 +87,8 @@
 
     <main class="py-4">
         <div class="container">
-            <div class='row full-width-div'>
-                <div class='col-md-3 list-group-color'>
+            <div class='row full-width-div nav-bar-full'>
+                <div class='list-group-color'>
                     @include("blogetc_admin::layouts.sidebar")
                     <div class=' list-group-color text-center mt-5 mb-3 text-muted hessam-version'>
                         <small><a href='https://github.com/vhessam/laravel-blogger'>Hessam CMS</a></small>
