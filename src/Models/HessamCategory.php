@@ -5,7 +5,7 @@ namespace WebDevEtc\BlogEtc\Models;
 use Illuminate\Database\Eloquent\Model;
 use WebDevEtc\BlogEtc\Baum\Node;
 
-class BlogEtcCategory extends Node
+class HessamCategory extends Node
 {
     protected $parentColumn = 'parent_id';
     public $siblings = array();
@@ -22,7 +22,7 @@ class BlogEtcCategory extends Node
      */
     public function posts()
     {
-        return $this->belongsToMany(BlogEtcPost::class, 'blog_etc_post_categories');
+        return $this->belongsToMany(HessamPost::class, 'blog_etc_post_categories');
     }
 
     /**
@@ -54,12 +54,12 @@ class BlogEtcCategory extends Node
 
 //    public function parent()
 //    {
-//        return $this->belongsTo('WebDevEtc\BlogEtc\Models\BlogEtcCategory', 'parent_id');
+//        return $this->belongsTo('WebDevEtc\BlogEtc\Models\HessamCategory', 'parent_id');
 //    }
 //
 //    public function children()
 //    {
-//        return $this->hasMany('WebDevEtc\BlogEtc\Models\BlogEtcCategory', 'parent_id');
+//        return $this->hasMany('WebDevEtc\BlogEtc\Models\HessamCategory', 'parent_id');
 //    }
 //
 //    // recursive, loads all descendants

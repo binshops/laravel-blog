@@ -181,7 +181,7 @@
     <h4>Categories:</h4>
     <div class='row'>
 
-        @forelse(\WebDevEtc\BlogEtc\Models\BlogEtcCategory::orderBy("category_name","asc")->limit(1000)->get() as $category)
+        @forelse(\WebDevEtc\BlogEtc\Models\HessamCategory::orderBy("category_name","asc")->limit(1000)->get() as $category)
             <div class="form-check col-sm-6">
                 <input class="" type="checkbox" value="1"
                        @if(old("category.".$category->id, $post->categories->contains($category->id))) checked='checked'

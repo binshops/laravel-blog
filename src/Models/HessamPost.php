@@ -9,10 +9,10 @@ use WebDevEtc\BlogEtc\Interfaces\SearchResultInterface;
 use WebDevEtc\BlogEtc\Scopes\BlogEtcPublishedScope;
 
 /**
- * Class BlogEtcPost
+ * Class HessamPost
  * @package WebDevEtc\BlogEtc\Models
  */
-class BlogEtcPost extends Model implements SearchResultInterface
+class HessamPost extends Model implements SearchResultInterface
 {
 
     use Sluggable;
@@ -121,7 +121,7 @@ class BlogEtcPost extends Model implements SearchResultInterface
      */
     public function categories()
     {
-        return $this->belongsToMany(BlogEtcCategory::class, 'blog_etc_post_categories');
+        return $this->belongsToMany(HessamCategory::class, 'blog_etc_post_categories');
     }
 
     /**
@@ -131,7 +131,7 @@ class BlogEtcPost extends Model implements SearchResultInterface
      */
     public function comments()
     {
-        return $this->hasMany(BlogEtcComment::class);
+        return $this->hasMany(HessamComment::class);
     }
 
     /**
@@ -281,11 +281,11 @@ class BlogEtcPost extends Model implements SearchResultInterface
                 in the database table:    : blogetc_posts.image_medium
                 when calling image_url()  : image_url("medium")
             */
-            throw new \InvalidArgumentException("Invalid image size ($size). BlogEtcPost image size should not begin with 'image_'. Remove this from the start of $size. It *should* be in the blogetc.image_sizes config though!");
+            throw new \InvalidArgumentException("Invalid image size ($size). HessamPost image size should not begin with 'image_'. Remove this from the start of $size. It *should* be in the blogetc.image_sizes config though!");
         }
 
 
-        throw new \InvalidArgumentException("BlogEtcPost image size should be 'large','medium','thumbnail' or another field as defined in config/blogetc.php. Provided size ($size) is not valid");
+        throw new \InvalidArgumentException("HessamPost image size should be 'large','medium','thumbnail' or another field as defined in config/blogetc.php. Provided size ($size) is not valid");
     }
 
 

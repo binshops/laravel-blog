@@ -7,8 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Swis\Laravel\Fulltext\Search;
 use WebDevEtc\BlogEtc\Captcha\UsesCaptcha;
-use WebDevEtc\BlogEtc\Models\BlogEtcCategory;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use WebDevEtc\BlogEtc\Models\HessamCategory;
+use WebDevEtc\BlogEtc\Models\HessamPost;
 
 /**
  * Class BlogEtcReaderController
@@ -33,7 +33,7 @@ class BlogEtcReaderController extends Controller
 
         $categoryChain = null;
         if ($category_slug) {
-            $category = BlogEtcCategory::where("slug", $category_slug)->firstOrFail();
+            $category = HessamCategory::where("slug", $category_slug)->firstOrFail();
             $categoryChain = $category->getAncestorsAndSelf();
             $posts = $category->posts()->where("blog_etc_post_categories.blog_etc_category_id", $category->id);
 
@@ -42,13 +42,13 @@ class BlogEtcReaderController extends Controller
             \View::share('blogetc_category', $category); // so the view can say "You are viewing $CATEGORYNAME category posts"
             $title = 'Posts in ' . $category->category_name . " category"; // hardcode title here...
         } else {
-            $posts = BlogEtcPost::query();
+            $posts = HessamPost::query();
         }
 
         $posts = $posts->where('is_published', '=', 1)->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))->orderBy("posted_at", "desc")->paginate(config("blogetc.per_page", 10));
 
         //load categories in 3 levels
-        $rootList = BlogEtcCategory::where('parent_id' ,'=' , null)->get();
+        $rootList = HessamCategory::where('parent_id' ,'=' , null)->get();
         for($i = 0 ; sizeof($rootList) > $i ; $i++){
             $rootList[$i]->loadSiblings();
             for ($j = 0 ; sizeof($rootList[$i]->siblings) > $j; $j++){
@@ -82,7 +82,7 @@ class BlogEtcReaderController extends Controller
 
         \View::share("title", "Search results for " . e($query));
 
-        $categories = BlogEtcCategory::all();
+        $categories = HessamCategory::all();
 
         return view("blogetc::search", [
                 'categories' => $categories,
@@ -115,7 +115,7 @@ class BlogEtcReaderController extends Controller
     public function viewSinglePost(Request $request, $blogPostSlug)
     {
         // the published_at + is_published are handled by BlogEtcPublishedScope, and don't take effect if the logged in user can manage log posts
-        $blog_post = BlogEtcPost::where("slug", $blogPostSlug)
+        $blog_post = HessamPost::where("slug", $blogPostSlug)
             ->firstOrFail();
 
         if ($captcha = $this->getCaptchaObject()) {

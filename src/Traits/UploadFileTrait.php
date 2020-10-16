@@ -4,7 +4,7 @@ namespace WebDevEtc\BlogEtc\Traits;
 
 use Illuminate\Http\UploadedFile;
 use WebDevEtc\BlogEtc\Events\UploadedImage;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use WebDevEtc\BlogEtc\Models\HessamPost;
 use File;
 
 trait UploadFileTrait
@@ -83,14 +83,14 @@ trait UploadFileTrait
 
 
     /**
-     * @param BlogEtcPost $new_blog_post
+     * @param HessamPost $new_blog_post
      * @param $suggested_title - used to help generate the filename
      * @param $image_size_details - either an array (with 'w' and 'h') or a string (and it'll be uploaded at full size, no size reduction, but will use this string to generate the filename)
      * @param $photo
      * @return array
      * @throws \Exception
      */
-    protected function UploadAndResize(BlogEtcPost $new_blog_post = null, $suggested_title, $image_size_details, $photo)
+    protected function UploadAndResize(HessamPost $new_blog_post = null, $suggested_title, $image_size_details, $photo)
     {
         // get the filename/filepath
         $image_filename = $this->getImageFilename($suggested_title, $image_size_details, $photo);

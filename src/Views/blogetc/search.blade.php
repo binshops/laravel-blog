@@ -12,7 +12,7 @@
                         @if(isset($result->indexable))
                             @php $search_count += $search_count + 1; @endphp
                             <?php $post = $result->indexable; ?>
-                            @if($post && is_a($post,\WebDevEtc\BlogEtc\Models\BlogEtcPost::class))
+                            @if($post && is_a($post,\WebDevEtc\BlogEtc\Models\HessamPost::class))
                                 <h2>Search result #{{$search_count}}</h2>
                                 @include("blogetc::partials.index_loop")
                             @else

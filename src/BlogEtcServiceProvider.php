@@ -4,7 +4,7 @@ namespace WebDevEtc\BlogEtc;
 
 use Illuminate\Support\ServiceProvider;
 use Swis\Laravel\Fulltext\ModelObserver;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use WebDevEtc\BlogEtc\Models\HessamPost;
 
 class BlogEtcServiceProvider extends ServiceProvider
 {
@@ -18,7 +18,7 @@ class BlogEtcServiceProvider extends ServiceProvider
 
         if (config("blogetc.search.search_enabled") == false) {
             // if search is disabled, don't allow it to sync.
-            ModelObserver::disableSyncingFor(BlogEtcPost::class);
+            ModelObserver::disableSyncingFor(HessamPost::class);
         }
 
         if (config("blogetc.include_default_routes", true)) {
@@ -27,11 +27,13 @@ class BlogEtcServiceProvider extends ServiceProvider
 
 
         foreach ([
-                     '2018_05_28_224023_create_blog_etc_posts_table.php',
-                     '2018_09_16_224023_add_author_and_url_blog_etc_posts_table.php',
-                     '2018_09_26_085711_add_short_desc_textrea_to_blog_etc.php',
-                     '2018_09_27_122627_create_blog_etc_uploaded_photos_table.php',
-                     '2020_05_27_104123_add_parameters_blog_etc_categories_table.php'
+                     '2020_10_16_005400_create_hessam_categories_table.php',
+                     '2020_10_16_005425_create_hessam_category_translations_table.php',
+                     '2020_10_16_010039_create_hessam_posts_table.php',
+                     '2020_10_16_010049_create_hessam_post_translations_table.php',
+                     '2020_10_16_121230_create_hessam_comments_table.php',
+                     '2020_10_16_121728_create_hessam_uploaded_photos_table.php',
+                     '2020_10_16_124241_create_hessam_languages_table.php'
                  ] as $file) {
 
             $this->publishes([

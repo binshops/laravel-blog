@@ -8,7 +8,7 @@ use WebDevEtc\BlogEtc\Events\CategoryEdited;
 use WebDevEtc\BlogEtc\Events\CategoryWillBeDeleted;
 use WebDevEtc\BlogEtc\Helpers;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\BlogEtcCategory;
+use WebDevEtc\BlogEtc\Models\HessamCategory;
 use WebDevEtc\BlogEtc\Requests\DeleteBlogEtcCategoryRequest;
 use WebDevEtc\BlogEtc\Requests\StoreBlogEtcCategoryRequest;
 use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcCategoryRequest;
@@ -34,7 +34,7 @@ class BlogEtcCategoryAdminController extends Controller
      */
     public function index(){
 
-        $categories = BlogEtcCategory::orderBy("category_name")->paginate(25);
+        $categories = HessamCategory::orderBy("category_name")->paginate(25);
         return view("blogetc_admin::categories.index")->withCategories($categories);
     }
 
@@ -45,8 +45,8 @@ class BlogEtcCategoryAdminController extends Controller
     public function create_category(){
 
         return view("blogetc_admin::categories.add_category",[
-            'category' => new \WebDevEtc\BlogEtc\Models\BlogEtcCategory(),
-            'categories_list' => BlogEtcCategory::orderBy("category_name")->get()
+            'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),
+            'categories_list' => HessamCategory::orderBy("category_name")->get()
         ]);
 
     }
@@ -61,7 +61,7 @@ class BlogEtcCategoryAdminController extends Controller
         if ($request['parent_id']== 0){
             $request['parent_id'] = null;
         }
-        $new_category = BlogEtcCategory::create($request->all());
+        $new_category = HessamCategory::create($request->all());
 
         Helpers::flash_message("Saved new category");
 
@@ -75,9 +75,9 @@ class BlogEtcCategoryAdminController extends Controller
      * @return mixed
      */
     public function edit_category($categoryId){
-        $category = BlogEtcCategory::findOrFail($categoryId);
+        $category = HessamCategory::findOrFail($categoryId);
         return view("blogetc_admin::categories.edit_category",[
-            'categories_list' => BlogEtcCategory::orderBy("category_name")->get()
+            'categories_list' => HessamCategory::orderBy("category_name")->get()
         ])->withCategory($category);
     }
 
@@ -89,8 +89,8 @@ class BlogEtcCategoryAdminController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update_category(UpdateBlogEtcCategoryRequest $request, $categoryId){
-        /** @var BlogEtcCategory $category */
-        $category = BlogEtcCategory::findOrFail($categoryId);
+        /** @var HessamCategory $category */
+        $category = HessamCategory::findOrFail($categoryId);
         $category->fill($request->all());
         $category->save();
 
@@ -111,7 +111,7 @@ class BlogEtcCategoryAdminController extends Controller
         /* Please keep this in, so code inspections don't say $request was unused. Of course it might now get marked as left/right parts are equal */
         $request=$request;
 
-        $category = BlogEtcCategory::findOrFail($categoryId);
+        $category = HessamCategory::findOrFail($categoryId);
         event(new CategoryWillBeDeleted($category));
         $category->delete();
 

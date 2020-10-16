@@ -4,7 +4,7 @@ namespace WebDevEtc\BlogEtc\Requests;
 
 
 use Illuminate\Validation\Rule;
-use WebDevEtc\BlogEtc\Models\BlogEtcCategory;
+use WebDevEtc\BlogEtc\Models\HessamCategory;
 
 class UpdateBlogEtcCategoryRequest extends BaseBlogEtcCategoryRequest
 {

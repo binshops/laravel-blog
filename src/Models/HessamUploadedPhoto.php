@@ -4,7 +4,7 @@ namespace WebDevEtc\BlogEtc\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BlogEtcUploadedPhoto extends Model
+class HessamUploadedPhoto extends Model
 {
     public $table = 'blog_etc_uploaded_photos';
     public $casts = [

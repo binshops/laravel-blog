@@ -4,7 +4,7 @@ namespace WebDevEtc\BlogEtc\Requests;
 
 
 use Illuminate\Validation\Rule;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Requests\Traits\HasCategoriesTrait;
 use WebDevEtc\BlogEtc\Requests\Traits\HasImageUploadTrait;
 

@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use WebDevEtc\BlogEtc\Scopes\BlogCommentApprovedAndDefaultOrderScope;
 
-class BlogEtcComment extends Model
+class HessamComment extends Model
 {
     public $casts = [
         'approved' => 'boolean',
@@ -37,12 +37,12 @@ class BlogEtcComment extends Model
 
 
     /**
-     * The associated BlogEtcPost
+     * The associated HessamPost
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function post()
     {
-        return $this->belongsTo(BlogEtcPost::class,"blog_etc_post_id");
+        return $this->belongsTo(HessamPost::class,"blog_etc_post_id");
     }
 
     /**

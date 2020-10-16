@@ -5,8 +5,8 @@ namespace WebDevEtc\BlogEtc\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\BlogEtcComment;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use WebDevEtc\BlogEtc\Models\HessamComment;
+use WebDevEtc\BlogEtc\Models\HessamPost;
 
 /**
  * Class CommentAdded
@@ -16,17 +16,17 @@ class CommentAdded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  BlogEtcPost */
+    /** @var  HessamPost */
     public $blogEtcPost;
-    /** @var  BlogEtcComment */
+    /** @var  HessamComment */
     public $newComment;
 
     /**
      * CommentAdded constructor.
-     * @param BlogEtcPost $blogEtcPost
-     * @param BlogEtcComment $newComment
+     * @param HessamPost $blogEtcPost
+     * @param HessamComment $newComment
      */
-    public function __construct(BlogEtcPost $blogEtcPost, BlogEtcComment $newComment)
+    public function __construct(HessamPost $blogEtcPost, HessamComment $newComment)
     {
         $this->blogEtcPost=$blogEtcPost;
         $this->newComment=$newComment;

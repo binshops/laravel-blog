@@ -5,7 +5,7 @@ namespace WebDevEtc\BlogEtc\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\BlogEtcUploadedPhoto;
+use WebDevEtc\BlogEtc\Models\HessamUploadedPhoto;
 use File;
 use WebDevEtc\BlogEtc\Requests\UploadImageRequest;
 use WebDevEtc\BlogEtc\Traits\UploadFileTrait;
@@ -46,7 +46,7 @@ class BlogEtcImageUploadController extends Controller
 
     public function index()
     {
-        return view("blogetc_admin::imageupload.index", ['uploaded_photos' => BlogEtcUploadedPhoto::orderBy("id", "desc")->paginate(10)]);
+        return view("blogetc_admin::imageupload.index", ['uploaded_photos' => HessamUploadedPhoto::orderBy("id", "desc")->paginate(10)]);
     }
 
     /**
@@ -112,7 +112,7 @@ class BlogEtcImageUploadController extends Controller
 
 
         // store the image upload.
-        BlogEtcUploadedPhoto::create([
+        HessamUploadedPhoto::create([
             'image_title' => $request->get("image_title"),
             'source' => "ImageUpload",
             'uploader_id' => optional(\Auth::user())->id,

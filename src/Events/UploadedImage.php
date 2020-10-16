@@ -5,7 +5,7 @@ namespace WebDevEtc\BlogEtc\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use WebDevEtc\BlogEtc\Models\HessamPost;
 
 /**
  * Class UploadedImage
@@ -15,7 +15,7 @@ class UploadedImage
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  BlogEtcPost|null */
+    /** @var  HessamPost|null */
     public $blogEtcPost;
     /**
      * @var
@@ -29,11 +29,11 @@ class UploadedImage
      * UploadedImage constructor.
      *
      * @param $image_filename - the new filename
-     * @param BlogEtcPost $blogEtcPost
+     * @param HessamPost $blogEtcPost
      * @param $image
      * @param $source string|null  the __METHOD__  firing this event (or other string)
      */
-    public function __construct(string $image_filename, $image,BlogEtcPost $blogEtcPost=null,string $source='other')
+    public function __construct(string $image_filename, $image, HessamPost $blogEtcPost=null, string $source='other')
     {
         $this->image_filename = $image_filename;
         $this->blogEtcPost=$blogEtcPost;
