@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateBlogEtcUploadedPhotosTable extends Migration
+class CreateHessamUploadedPhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateBlogEtcUploadedPhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_etc_uploaded_photos', function (Blueprint $table) {
+        Schema::create('hessam_uploaded_photos', function (Blueprint $table) {
             $table->increments('id');
             $table->text("uploaded_images")->nullable();
             $table->string("image_title")->nullable();
             $table->string("source")->default("unknown");
             $table->unsignedInteger("uploader_id")->nullable()->index();
             $table->timestamps();
-        });
-        Schema::table("blog_etc_posts",function(Blueprint $table) {
-            $table->string("seo_title")->nullable();
         });
     }
 
@@ -33,10 +30,6 @@ class CreateBlogEtcUploadedPhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_etc_uploaded_photos');
-
-        Schema::table("blog_etc_posts",function(Blueprint $table) {
-            $table->dropColumn("seo_title");
-        });
+        Schema::dropIfExists('hessam_uploaded_photos');
     }
 }
