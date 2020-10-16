@@ -11,8 +11,10 @@
 </p>
 
 # Complete Laravel CMS Package
-## With Multi-level Categories and Full Text Search
-Easily add a wordpress functionality and CMS to your laravel web application.
+- ### Multi-level Categories
+- ### Full text search
+- ### Multi-language support (coming soon)
+    - See the progress for multi-lang in `multi-lang` branch
 
 ## [Let's try it - Online Demo](https://cms.binshops.com/login)
 You can try Hessam CMS online: [https://cms.binshops.com](https://cms.binshops.com/login)
