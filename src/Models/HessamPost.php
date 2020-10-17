@@ -39,19 +39,18 @@ class HessamPost extends Model implements SearchResultInterface
      * @var array
      */
     public $fillable = [
-
-        'title',
-        'subtitle',
-        'short_description',
-        'post_body',
-        'seo_title',
-        'meta_desc',
-        'slug',
-        'use_view_file',
-
         'is_published',
         'posted_at',
     ];
+
+    /**
+     * The associated post translation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function postTranslation()
+    {
+        return $this->hasOne(HessamPostTranslation::class,"post_id");
+    }
 
     /**
      * Return the sluggable configuration array for this model.
@@ -121,7 +120,7 @@ class HessamPost extends Model implements SearchResultInterface
      */
     public function categories()
     {
-        return $this->belongsToMany(HessamCategory::class, 'blog_etc_post_categories');
+        return $this->belongsToMany(HessamCategory::class, 'hessam_post_categories');
     }
 
     /**

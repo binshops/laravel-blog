@@ -27,16 +27,6 @@ class CreateHessamCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('hessam_post_categories', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->unsignedInteger("post_id")->index();
-            $table->foreign('post_id')->references('post_id')->on('hessam_posts')->onDelete("cascade");
-
-            $table->unsignedInteger("category_id")->index();
-            $table->foreign('category_id')->references('category_id')->on('hessam_categories')->onDelete("cascade");
-        });
-
     }
 
     /**

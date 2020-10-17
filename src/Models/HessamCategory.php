@@ -11,18 +11,24 @@ class HessamCategory extends Node
     public $siblings = array();
 
     public $fillable = [
-        'category_name',
-        'slug',
-        'category_description',
         'parent_id'
     ];
+
+    /**
+     * The associated category translation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function categoryTranslation()
+    {
+        return $this->hasOne(HessamCategoryTranslation::class,"category_id");
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function posts()
     {
-        return $this->belongsToMany(HessamPost::class, 'blog_etc_post_categories');
+        return $this->belongsToMany(HessamPost::class, 'hessam_post_categories');
     }
 
     /**
