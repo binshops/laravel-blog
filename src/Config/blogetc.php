@@ -11,7 +11,7 @@ return [
     // reading progress bar is the bar which shows on top of your post when you are scrolling down the page. You can disable this feature if you want
     'reading_progress_bar' => true,
 
-    'include_default_routes' => true, // set to false to not include routes.php for BlogEtcReaderController and admin related routes. Default: true. If you disable this, you will have to manually copy over the data from routes.php and add it to your web.php.
+    'include_default_routes' => true, // set to false to not include routes.php for HessamReaderController and admin related routes. Default: true. If you disable this, you will have to manually copy over the data from routes.php and add it to your web.php.
 
     'blog_prefix' => "blog", // used in routes.php. If you want to your http://yoursite.com/latest-news (or anything else), then enter that here. Default: blog
     'admin_prefix' => "blog_admin", // similar to above, but used for the admin panel for the blog. Default: blog_admin

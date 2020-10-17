@@ -11,11 +11,11 @@ use WebDevEtc\BlogEtc\Models\HessamCategory;
 use WebDevEtc\BlogEtc\Models\HessamPost;
 
 /**
- * Class BlogEtcReaderController
+ * Class HessamReaderController
  * All of the main public facing methods for viewing blog content (index, single posts)
  * @package WebDevEtc\BlogEtc\Controllers
  */
-class BlogEtcReaderController extends Controller
+class HessamReaderController extends Controller
 {
     use UsesCaptcha;
 

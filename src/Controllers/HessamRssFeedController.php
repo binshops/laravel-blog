@@ -9,11 +9,11 @@ use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Requests\FeedRequest;
 
 /**
- * Class BlogEtcRssFeedController.php
+ * Class HessamRssFeedController.php
  * All RSS feed viewing methods
  * @package WebDevEtc\BlogEtc\Controllers
  */
-class BlogEtcRssFeedController extends Controller
+class HessamRssFeedController extends Controller
 {
     /**
      * @param Feed $feed

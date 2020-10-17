@@ -11,13 +11,13 @@ use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamComment;
 
 /**
- * Class BlogEtcCommentsAdminController
+ * Class HessamCommentsAdminController
  * @package WebDevEtc\BlogEtc\Controllers
  */
-class BlogEtcCommentsAdminController extends Controller
+class HessamCommentsAdminController extends Controller
 {
     /**
-     * BlogEtcCommentsAdminController constructor.
+     * HessamCommentsAdminController constructor.
      */
     public function __construct()
     {

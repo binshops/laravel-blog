@@ -12,10 +12,10 @@ use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Requests\AddNewCommentRequest;
 
 /**
- * Class BlogEtcCommentWriterController
+ * Class HessamCommentWriterController
  * @package WebDevEtc\BlogEtc\Controllers
  */
-class BlogEtcCommentWriterController extends Controller
+class HessamCommentWriterController extends Controller
 {
 
     use UsesCaptcha;

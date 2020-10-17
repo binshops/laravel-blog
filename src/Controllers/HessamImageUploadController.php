@@ -11,16 +11,16 @@ use WebDevEtc\BlogEtc\Requests\UploadImageRequest;
 use WebDevEtc\BlogEtc\Traits\UploadFileTrait;
 
 /**
- * Class BlogEtcAdminController
+ * Class HessamAdminController
  * @package WebDevEtc\BlogEtc\Controllers
  */
-class BlogEtcImageUploadController extends Controller
+class HessamImageUploadController extends Controller
 {
 
     use UploadFileTrait;
 
     /**
-     * BlogEtcAdminController constructor.
+     * HessamAdminController constructor.
      */
     public function __construct()
     {
@@ -80,7 +80,7 @@ class BlogEtcImageUploadController extends Controller
      *
      * @return array returns an array of details about each file resized.
      * @throws \Exception
-     * @todo - This class was added after the other main features, so this duplicates some code from the main blog post admin controller (BlogEtcAdminController). For next full release this should be tided up.
+     * @todo - This class was added after the other main features, so this duplicates some code from the main blog post admin controller (HessamAdminController). For next full release this should be tided up.
      */
     protected function processUploadedImages(UploadImageRequest $request)
     {

@@ -14,13 +14,13 @@ use WebDevEtc\BlogEtc\Requests\StoreBlogEtcCategoryRequest;
 use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcCategoryRequest;
 
 /**
- * Class BlogEtcCategoryAdminController
+ * Class HessamCategoryAdminController
  * @package WebDevEtc\BlogEtc\Controllers
  */
-class BlogEtcCategoryAdminController extends Controller
+class HessamCategoryAdminController extends Controller
 {
     /**
-     * BlogEtcCategoryAdminController constructor.
+     * HessamCategoryAdminController constructor.
      */
     public function __construct()
     {

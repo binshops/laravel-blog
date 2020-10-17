@@ -19,15 +19,15 @@ use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcPostRequest;
 use WebDevEtc\BlogEtc\Traits\UploadFileTrait;
 
 /**
- * Class BlogEtcAdminController
+ * Class HessamAdminController
  * @package WebDevEtc\BlogEtc\Controllers
  */
-class BlogEtcAdminController extends Controller
+class HessamAdminController extends Controller
 {
     use UploadFileTrait;
 
     /**
-     * BlogEtcAdminController constructor.
+     * HessamAdminController constructor.
      */
     public function __construct()
     {
