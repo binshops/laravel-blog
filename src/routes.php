@@ -123,6 +123,33 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
 
         });
 
+
+        Route::group(['prefix' => 'languages'], function () {
+
+            Route::get('/',
+                'HessamLanguageAdminController@index')
+                ->name('blogetc.admin.languages.index');
+
+            Route::get('/add_language',
+                'HessamLanguageAdminController@create_language')
+                ->name('blogetc.admin.languages.create_language');
+            Route::post('/add_language',
+                'HessamLanguageAdminController@store_language')
+                ->name('blogetc.admin.languages.store_language');
+
+            Route::get('/edit_language/{languageId}',
+                'HessamLanguageAdminController@edit_language')
+                ->name('blogetc.admin.languages.edit_language');
+
+            Route::patch('/edit_language/{languageId}',
+                'HessamLanguageAdminController@update_language')
+                ->name('blogetc.admin.languages.update_language');
+
+            Route::delete('/delete_language/{languageId}',
+                'HessamLanguageAdminController@destroy_language')
+                ->name('blogetc.admin.languages.destroy_language');
+
+        });
     });
 });
 

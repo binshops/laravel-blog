@@ -86,6 +86,27 @@
 
     </li>
 
+
+    <li class="list-group-item list-group-color  justify-content-between lh-condensed">
+        <div>
+            <h6 class="my-0"><a href="{{ route('blogetc.admin.images.upload') }}">Languages</a></h6>
+
+            <div class="list-group ">
+
+                <a href='{{ route('blogetc.admin.languages.index') }}'
+                   class='list-group-item list-group-color list-group-item list-group-color-action  @if(\Request::route()->getName() === 'blogetc.admin.languages.index') active @endif  '><i
+                            class="fa fa-language fa-fw" aria-hidden="true"></i>
+                    All Languages</a>
+
+                <a href='{{ route('blogetc.admin.languages.create_language') }}'
+                   class='list-group-item list-group-color list-group-item list-group-color-action  @if(\Request::route()->getName() === 'blogetc.admin.languages.create_language') active @endif  '><i
+                            class="fa fa-plus fa-fw" aria-hidden="true"></i>
+                    Add new Language</a>
+            </div>
+        </div>
+    </li>
+
+
     @if(config("blogetc.image_upload_enabled"))
         <li class="list-group-item list-group-color  justify-content-between lh-condensed">
             <div>
@@ -106,24 +127,4 @@
             </div>
         </li>
     @endif
-
-    <li class="list-group-item list-group-color  justify-content-between lh-condensed">
-        <div>
-            <h6 class="my-0"><a href="{{ route('blogetc.admin.images.upload') }}">Languages</a></h6>
-
-            <div class="list-group ">
-
-                <a href='{{ route('blogetc.admin.images.all') }}'
-                   class='list-group-item list-group-color list-group-item list-group-color-action  @if(\Request::route()->getName() === 'blogetc.admin.images.all') active @endif  '><i
-                            class="fa fa-language fa-fw" aria-hidden="true"></i>
-                    All Languages</a>
-
-                <a href='{{ route('blogetc.admin.images.upload') }}'
-                   class='list-group-item list-group-color list-group-item list-group-color-action  @if(\Request::route()->getName() === 'blogetc.admin.images.upload') active @endif  '><i
-                            class="fa fa-plus fa-fw" aria-hidden="true"></i>
-                    Add new Language</a>
-            </div>
-        </div>
-    </li>
-
 </ul>
