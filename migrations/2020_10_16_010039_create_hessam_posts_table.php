@@ -14,7 +14,7 @@ class CreateHessamPostsTable extends Migration
     public function up()
     {
         Schema::create('hessam_posts', function (Blueprint $table) {
-            $table->increments('post_id');
+            $table->increments('id');
             $table->unsignedInteger("user_id")->index()->nullable();
 
             $table->dateTime("posted_at")->index()->nullable()->comment("Public posted at time, if this is in future then it wont appear yet");

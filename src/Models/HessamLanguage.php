@@ -5,7 +5,7 @@ namespace WebDevEtc\BlogEtc\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class HessamLanguage
+class HessamLanguage extends Model
 {
     public $fillable = [
         'name',

@@ -14,7 +14,7 @@ class CreateHessamLanguagesTable extends Migration
     public function up()
     {
         Schema::create('hessam_languages', function (Blueprint $table) {
-            $table->increments('lang_id');
+            $table->increments('id');
 
             $table->string("name")->unique();
             $table->string("locale")->unique();

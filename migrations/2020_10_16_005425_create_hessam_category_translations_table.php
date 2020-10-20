@@ -14,7 +14,7 @@ class CreateHessamCategoryTranslationsTable extends Migration
     public function up()
     {
         Schema::create('hessam_category_translations', function (Blueprint $table) {
-            $table->increments('category_id');
+            $table->unsignedInteger('category_id')->nullable();
 
             $table->string("category_name")->nullable();
             $table->string("slug")->unique();

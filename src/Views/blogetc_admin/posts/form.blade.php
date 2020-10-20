@@ -1,14 +1,14 @@
 <div class="form-group">
     <label for="blog_title">Blog Post Title</label>
     <input type="text" class="form-control" required id="blog_title" aria-describedby="blog_title_help" name='title'
-           value="{{old("title",$post->title)}}">
+           value="{{old("title",$post_translation->title)}}">
     <small id="blog_title_help" class="form-text text-muted">The title of the blog post</small>
 </div>
 
 <div class="form-group">
     <label for="blog_subtitle">Subtitle</label>
     <input type="text" class="form-control" id="blog_subtitle" aria-describedby="blog_subtitle_help" name='subtitle'
-           value='{{old("subtitle",$post->subtitle)}}'>
+           value='{{old("subtitle",$post_translation->subtitle)}}'>
     <small id="blog_subtitle_help" class="form-text text-muted">The subtitle of the blog post (optional)</small>
 </div>
 
@@ -22,7 +22,7 @@
         <div class="form-group">
             <label for="blog_slug">Blog Post Slug</label>
             <input type="text" class="form-control" id="blog_slug" aria-describedby="blog_slug_help" name='slug'
-                   value="{{old("slug",$post->slug)}}">
+                   value="{{old("slug",$post_translation->slug)}}">
             <small id="blog_slug_help" class="form-text text-muted">The slug (leave blank to auto generate) -
                 i.e. {{route("blogetc.single","")}}/<u><em>this_part</em></u></small>
         </div>
@@ -81,7 +81,7 @@
 
     </label>
     <textarea style='min-height:600px;' class="form-control" id="blog_post_body" aria-describedby="blog_post_body_help"
-              name='post_body'>{{old("post_body",$post->post_body)}}</textarea>
+              name='post_body'>{{old("post_body",$post_translation->post_body)}}</textarea>
 
 
     <div class='alert alert-warning'>
@@ -95,7 +95,7 @@
         <label for="blog_use_view_file">Custom View File</label>
         <input type="text" class="form-control" id="blog_use_view_file" aria-describedby="blog_use_view_file_help"
                name='use_view_file'
-               value='{{old("use_view_file",$post->use_view_file)}}'>
+               value='{{old("use_view_file",$post_translation->use_view_file)}}'>
         <small id="blog_use_view_file_help" class="form-text text-muted">Optional - if anything is entered here, then it
             will attempt to load <code>view("custom_blog_posts." . $use_view_file)</code>. You must create the file in
             /resources/views/custom_blog_posts/FILENAME.blade.php.
@@ -108,21 +108,21 @@
 <div class="form-group">
     <label for="blog_seo_title">SEO: {{"<title>"}} tag (optional)</label>
     <input class="form-control" id="blog_seo_title" aria-describedby="blog_seo_title_help"
-              name='seo_title' tyoe='text' value='{{old("seo_title",$post->seo_title)}}' >
+           name='seo_title' tyoe='text' value='{{old("seo_title",$post_translation->seo_title)}}' >
     <small id="blog_seo_title_help" class="form-text text-muted">Enter a value for the {{"<title>"}} tag. If nothing is provided here we will just use the normal post title from above (optional)</small>
 </div>
 
 <div class="form-group">
     <label for="blog_meta_desc">Meta Desc (optional)</label>
     <textarea class="form-control" id="blog_meta_desc" aria-describedby="blog_meta_desc_help"
-              name='meta_desc'>{{old("meta_desc",$post->meta_desc)}}</textarea>
+              name='meta_desc'>{{old("meta_desc",$post_translation->meta_desc)}}</textarea>
     <small id="blog_meta_desc_help" class="form-text text-muted">Meta description (optional)</small>
 </div>
 
 <div class="form-group">
     <label for="blog_short_description">Short Desc (optional)</label>
     <textarea class="form-control" id="blog_short_description" aria-describedby="blog_short_description_help"
-              name='short_description'>{{old("short_description",$post->short_description)}}</textarea>
+              name='short_description'>{{old("short_description",$post_translation->short_description)}}</textarea>
     <small id="blog_short_description_help" class="form-text text-muted">Short description (optional - only useful if you use in your template views)</small>
 </div>
 
@@ -143,10 +143,10 @@
                     image_upload_other_sizes
             @endif
                     ">
-                @if($post->has_image($size_info['basic_key']))
+                @if($post_translation->has_image($size_info['basic_key']))
                     <div style='max-width:55px;  ' class='float-right m-2'>
-                        <a style='cursor: zoom-in;' target='_blank' href='{{$post->image_url($size_info['basic_key'])}}'>
-                            <?=$post->image_tag($size_info['basic_key'], false, 'd-block mx-auto img-fluid '); ?>
+                        <a style='cursor: zoom-in;' target='_blank' href='{{$post_translation->image_url($size_info['basic_key'])}}'>
+                            <?=$post_translation->image_tag($size_info['basic_key'], false, 'd-block mx-auto img-fluid '); ?>
                         </a>
                     </div>
                 @endif
@@ -159,8 +159,8 @@
                 <input class="form-control" type="file" name="{{$size_key}}" id="blog_{{$size_key}}"
                        aria-describedby="blog_{{$size_key}}_help">
 
-                @if($post->has_image($size_info['basic_key']))
-                    <a style="color: darkred" href="{{route("blogetc.admin.remove_photo", $post->slug)}}">Remove Image</a>
+                @if($post_translation->has_image($size_info['basic_key']))
+                    <a style="color: darkred" href="{{route("blogetc.admin.remove_photo", $post_translation->slug)}}">Remove Image</a>
                 @endif
             </div>
         @endforeach
@@ -181,13 +181,13 @@
     <h4>Categories:</h4>
     <div class='row'>
 
-        @forelse(\WebDevEtc\BlogEtc\Models\HessamCategory::orderBy("category_name","asc")->limit(1000)->get() as $category)
+        @forelse(\WebDevEtc\BlogEtc\Models\HessamCategory::orderBy("id","asc")->limit(1000)->get() as $category)
             <div class="form-check col-sm-6">
                 <input class="" type="checkbox" value="1"
                        @if(old("category.".$category->id, $post->categories->contains($category->id))) checked='checked'
                        @endif name='category[{{$category->id}}]' id="category_check{{$category->id}}">
                 <label class="form-check-label" for="category_check{{$category->id}}">
-                    {{$category->category_name}}
+                    {{$category->categoryTranslations()->category_name}}
                 </label>
             </div>
         @empty

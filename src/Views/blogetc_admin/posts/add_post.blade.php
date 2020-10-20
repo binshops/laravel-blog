@@ -7,7 +7,10 @@
     <form method='post' action='{{route("blogetc.admin.store_post")}}'  enctype="multipart/form-data" >
 
         @csrf
-        @include("blogetc_admin::posts.form", ['post' => new \WebDevEtc\BlogEtc\Models\HessamPost()])
+        @include("blogetc_admin::posts.form", [
+    'post' => new \WebDevEtc\BlogEtc\Models\HessamPost(),
+    'post_translation' => new \WebDevEtc\BlogEtc\Models\HessamPostTranslation()
+    ])
 
         <input type='submit' class='btn btn-primary' value='Add new post' >
 

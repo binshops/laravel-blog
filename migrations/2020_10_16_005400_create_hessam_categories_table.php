@@ -14,7 +14,7 @@ class CreateHessamCategoriesTable extends Migration
     public function up()
     {
         Schema::create('hessam_categories', function (Blueprint $table) {
-            $table->increments('category_id');
+            $table->increments('id');
 
             $table->unsignedInteger("created_by")->nullable()->index()->comment("user id");
 

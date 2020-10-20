@@ -15,12 +15,12 @@ class HessamCategory extends Node
     ];
 
     /**
-     * The associated category translation
+     * The associated category translations
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function categoryTranslation()
+    public function categoryTranslations()
     {
-        return $this->hasOne(HessamCategoryTranslation::class,"category_id");
+        return $this->hasMany(HessamCategoryTranslation::class,"category_id");
     }
 
     /**

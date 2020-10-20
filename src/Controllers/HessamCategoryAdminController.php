@@ -9,6 +9,7 @@ use WebDevEtc\BlogEtc\Events\CategoryWillBeDeleted;
 use WebDevEtc\BlogEtc\Helpers;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamCategory;
+use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
 use WebDevEtc\BlogEtc\Requests\DeleteBlogEtcCategoryRequest;
 use WebDevEtc\BlogEtc\Requests\StoreBlogEtcCategoryRequest;
 use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcCategoryRequest;
@@ -46,7 +47,8 @@ class HessamCategoryAdminController extends Controller
 
         return view("blogetc_admin::categories.add_category",[
             'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),
-            'categories_list' => HessamCategory::orderBy("category_name")->get()
+            'category_translation' => new \WebDevEtc\BlogEtc\Models\HessamCategoryTranslation(),
+            'categories_list' => HessamCategory::orderBy("id")->get()
         ]);
 
     }
@@ -61,11 +63,21 @@ class HessamCategoryAdminController extends Controller
         if ($request['parent_id']== 0){
             $request['parent_id'] = null;
         }
-        $new_category = HessamCategory::create($request->all());
+        $new_category = HessamCategory::create([
+            'parent_id' => $request['parent_id']
+        ]);
+
+        $new_category_translation = $new_category->categoryTranslations()->create([
+            'category_name' => $request['category_name'],
+            'slug' => $request['slug'],
+            'category_description' => $request['category_description'],
+            'lang_id' => $request['lang_id'],
+            'category_id' => $new_category->id
+        ]);
 
         Helpers::flash_message("Saved new category");
 
-        event(new CategoryAdded($new_category));
+        event(new CategoryAdded($new_category, $new_category_translation));
         return redirect( route('blogetc.admin.categories.index') );
     }
 

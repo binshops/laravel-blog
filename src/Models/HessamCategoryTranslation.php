@@ -9,10 +9,11 @@ class HessamCategoryTranslation extends Model
 {
 
     public $fillable = [
+        'category_id',
         'category_name',
         'slug',
         'category_description',
-        'parent_id'
+        'lang_id'
     ];
 
     /**
