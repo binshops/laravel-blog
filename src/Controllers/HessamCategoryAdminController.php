@@ -3,6 +3,7 @@
 namespace WebDevEtc\BlogEtc\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use WebDevEtc\BlogEtc\Events\CategoryAdded;
 use WebDevEtc\BlogEtc\Events\CategoryEdited;
 use WebDevEtc\BlogEtc\Events\CategoryWillBeDeleted;
@@ -10,6 +11,7 @@ use WebDevEtc\BlogEtc\Helpers;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamCategory;
 use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
+use WebDevEtc\BlogEtc\Models\HessamLanguage;
 use WebDevEtc\BlogEtc\Requests\DeleteBlogEtcCategoryRequest;
 use WebDevEtc\BlogEtc\Requests\StoreBlogEtcCategoryRequest;
 use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcCategoryRequest;
@@ -33,24 +35,30 @@ class HessamCategoryAdminController extends Controller
      *
      * @return mixed
      */
-    public function index(){
-
-        $categories = HessamCategory::orderBy("category_name")->paginate(25);
-        return view("blogetc_admin::categories.index")->withCategories($categories);
+    public function index(Request $request){
+        $language_id = $request->cookie('language_id');
+        $categories = HessamCategory::orderBy("id")->paginate(25);
+        return view("blogetc_admin::categories.index",[
+            'categories' => $categories,
+            'language_id' => $language_id
+        ]);
     }
 
     /**
      * Show the form for creating new category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create_category(){
+    public function create_category(Request $request){
+        $language_id = $request->cookie('language_id');
+        $language_list = HessamLanguage::all();
 
         return view("blogetc_admin::categories.add_category",[
             'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),
             'category_translation' => new \WebDevEtc\BlogEtc\Models\HessamCategoryTranslation(),
-            'categories_list' => HessamCategory::orderBy("id")->get()
+            'categories_list' => HessamCategory::orderBy("id")->get(),
+            'language_id' => $language_id,
+            'language_list' => $language_list
         ]);
-
     }
 
     /**
@@ -58,8 +66,13 @@ class HessamCategoryAdminController extends Controller
      *
      * @param StoreBlogEtcCategoryRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * This controller is totally REST controller
      */
-    public function store_category(StoreBlogEtcCategoryRequest $request){
+    public function store_category(Request $request){
+        $language_id = $request->cookie('language_id');
+        $language_list = $request['data'];
+
         if ($request['parent_id']== 0){
             $request['parent_id'] = null;
         }
@@ -67,17 +80,28 @@ class HessamCategoryAdminController extends Controller
             'parent_id' => $request['parent_id']
         ]);
 
-        $new_category_translation = $new_category->categoryTranslations()->create([
-            'category_name' => $request['category_name'],
-            'slug' => $request['slug'],
-            'category_description' => $request['category_description'],
-            'lang_id' => $request['lang_id'],
-            'category_id' => $new_category->id
-        ]);
-
-        Helpers::flash_message("Saved new category");
+        foreach ($language_list as $key => $value) {
+            //check for slug availability
+            $obj = HessamCategoryTranslation::where('slug',$value['slug'])->first();
+            if ($obj){
+                HessamCategory::destroy($new_category->id);
+                return response()->json([
+                    'code' => 403,
+                    'message' => "slug is already taken",
+                    'data' => $value['lang_id']
+                ]);
+            }
+            $new_category_translation = $new_category->categoryTranslations()->create([
+                'category_name' => $value['category_name'],
+                'slug' => $value['slug'],
+                'category_description' => $value['category_description'],
+                'lang_id' => $value['lang_id'],
+                'category_id' => $new_category->id
+            ]);
+        }
 
         event(new CategoryAdded($new_category, $new_category_translation));
+        Helpers::flash_message("Saved new category");
         return redirect( route('blogetc.admin.categories.index') );
     }
 

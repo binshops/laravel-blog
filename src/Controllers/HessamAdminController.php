@@ -10,6 +10,7 @@ use WebDevEtc\BlogEtc\Events\BlogPostAdded;
 use WebDevEtc\BlogEtc\Events\BlogPostEdited;
 use WebDevEtc\BlogEtc\Events\BlogPostWillBeDeleted;
 use WebDevEtc\BlogEtc\Helpers;
+use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Models\HessamUploadedPhoto;
@@ -32,6 +33,7 @@ class HessamAdminController extends Controller
     public function __construct()
     {
         $this->middleware(UserCanManageBlogPosts::class);
+        $this->middleware(LoadLanguage::class);
 
         if (!is_array(config("blogetc"))) {
             throw new \RuntimeException('The config/blogetc.php does not exist. Publish the vendor files for the BlogEtc package by running the php artisan publish:vendor command');

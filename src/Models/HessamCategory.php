@@ -35,12 +35,12 @@ class HessamCategory extends Node
      * Returns the public facing URL of showing blog posts in this category
      * @return string
      */
-    public function url()
+    public function url($language_id)
     {
         $theChainString = "";
         $chain = $this->getAncestorsAndSelf();
         foreach ($chain as $category){
-            $theChainString .=  "/" . $category->slug;
+            $theChainString .=  "/" . $category->categoryTranslations()->where('lang_id', $language_id)->first()->slug;
         }
         return route("blogetc.view_category", $theChainString);
     }

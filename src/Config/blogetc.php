@@ -3,6 +3,7 @@
 //config for hessam/laravel-blogger
 
 return [
+    'default_language' => 'en',
 
     //Your custom User model
     //Change it to \App\Models\User::class for laravel 8.x's default auth User model

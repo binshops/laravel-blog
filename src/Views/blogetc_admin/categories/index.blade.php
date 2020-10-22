@@ -5,10 +5,10 @@
 
         <div class="card m-4">
             <div class="card-body">
-                <h5 class='card-title'><a class="a-link-cart-color" href='{{$category->url()}}'>{{$category->category_name}}</a></h5>
+                <h5 class='card-title'><a class="a-link-cart-color" href='{{$category->url($language_id)}}'>{{$category->categoryTranslations()->where('lang_id', $language_id)->first()->category_name}}</a></h5>
 
 
-                <a href="{{$category->url()}}" class="card-link btn btn-outline-secondary">View Posts in this category</a>
+                <a href="{{$category->url($language_id)}}" class="card-link btn btn-outline-secondary">View Posts in this category</a>
                 <a href="{{$category->edit_url()}}" class="card-link btn btn-primary">Edit Category</a>
                 <form
 
