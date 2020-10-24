@@ -10,9 +10,11 @@
             <label for="language_list">Select Language</label>
             <select id="language_list" name='lang_id' class='form-control'>
                 @foreach($language_list as $language)
-                    <option  value='{{$language->id}}' @if($language->id == $language_id)selected="selected" @endif>
-                        {{$language->name}}
-                    </option>
+                    @if($language->active)
+                        <option  value='{{$language->id}}' @if($language->id == $language_id)selected="selected" @endif>
+                            {{$language->name}}
+                        </option>
+                    @endif
                 @endforeach
             </select>
         </div>

@@ -105,7 +105,7 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
             Route::get('/add_category',
                 'HessamCategoryAdminController@create_category')
                 ->name('blogetc.admin.categories.create_category');
-            Route::post('/add_category',
+            Route::post('/store_category',
                 'HessamCategoryAdminController@store_category')
                 ->name('blogetc.admin.categories.store_category');
 
@@ -137,17 +137,13 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
                 'HessamLanguageAdminController@store_language')
                 ->name('blogetc.admin.languages.store_language');
 
-            Route::get('/edit_language/{languageId}',
-                'HessamLanguageAdminController@edit_language')
-                ->name('blogetc.admin.languages.edit_language');
-
-            Route::patch('/edit_language/{languageId}',
-                'HessamLanguageAdminController@update_language')
-                ->name('blogetc.admin.languages.update_language');
-
             Route::delete('/delete_language/{languageId}',
                 'HessamLanguageAdminController@destroy_language')
                 ->name('blogetc.admin.languages.destroy_language');
+
+            Route::post('/toggle_language/{languageId}',
+                'HessamLanguageAdminController@toggle_language')
+                ->name('blogetc.admin.languages.toggle_language');
 
         });
     });

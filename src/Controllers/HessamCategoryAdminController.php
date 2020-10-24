@@ -50,7 +50,7 @@ class HessamCategoryAdminController extends Controller
      */
     public function create_category(Request $request){
         $language_id = $request->cookie('language_id');
-        $language_list = HessamLanguage::all();
+        $language_list = HessamLanguage::where('active',true)->get();
 
         return view("blogetc_admin::categories.add_category",[
             'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),

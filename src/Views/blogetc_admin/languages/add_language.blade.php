@@ -8,8 +8,11 @@
         @csrf
 
         <div class="form-group">
-            <input checked type="checkbox" id="active" name="active" value="yes">
-            <label for="active"> Active</label><br>
+            <label for="active"> Active</label>
+            <input checked type="radio" id="active" name="active" value="1">
+            <label for="deactive"> Deactive</label>
+            <input type="radio" id="deactive" name="active" value="0">
+            <br>
 
         </div>
         <div class="form-group">
@@ -107,7 +110,7 @@
                    id="language_name"
                    required
                    name='name'
-                   disabled
+                   readonly
             >
 
             <small id="language_name" class="form-text text-muted">The name of the language</small>
@@ -121,7 +124,7 @@
                    id="language_locale"
                    required
                    name='locale'
-                   disabled
+                   readonly
             >
 
             <small id="language_name" class="form-text text-muted">The locale of the language</small>
