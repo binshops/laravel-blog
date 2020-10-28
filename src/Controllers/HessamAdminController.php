@@ -12,6 +12,8 @@ use WebDevEtc\BlogEtc\Events\BlogPostWillBeDeleted;
 use WebDevEtc\BlogEtc\Helpers;
 use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
+use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
+use WebDevEtc\BlogEtc\Models\HessamLanguage;
 use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Models\HessamUploadedPhoto;
 use WebDevEtc\BlogEtc\Requests\CreateBlogEtcPostRequest;
@@ -58,9 +60,17 @@ class HessamAdminController extends Controller
      * Show form for creating new post
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create_post()
+    public function create_post(Request $request)
     {
-        return view("blogetc_admin::posts.add_post");
+        $language_id = $request->cookie('language_id');
+        $language_list = HessamLanguage::where('active',true)->get();
+        $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
+
+        return view("blogetc_admin::posts.add_post", [
+            'language_id' => $language_id,
+            'cat_ts' => $ts,
+            'language_list' => $language_list
+        ]);
     }
 
     /**

@@ -10,11 +10,9 @@
             <label for="language_list">Select Language</label>
             <select id="language_list" name='lang_id' class='form-control'>
                 @foreach($language_list as $language)
-                    @if($language->active)
-                        <option  value='{{$language->id}}' @if($language->id == $language_id)selected="selected" @endif>
-                            {{$language->name}}
-                        </option>
-                    @endif
+                    <option  value='{{$language->id}}' @if($language->id == $language_id)selected="selected" @endif>
+                        {{$language->name}}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -66,8 +64,8 @@
                     Root
                 </option>
                 @foreach($categories_list as $category)
-                    <option  value='{{$category->id}}'>
-                        {{$category->categoryTranslations()->where('lang_id', $language_id)->first()->category_name}}
+                    <option  value='{{$category->category_id}}'>
+                        {{$category->category_name}}
                     </option>
                 @endforeach
             </select>

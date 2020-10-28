@@ -1,7 +1,19 @@
 <div class="form-group">
+    <label for="language_list">Select Language</label>
+    <select id="language_list" name='lang_id' class='form-control'>
+        @foreach($language_list as $language)
+            <option  value='{{$language->id}}' @if($language->id == $language_id)selected="selected" @endif>
+                {{$language->name}}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="blog_title">Blog Post Title</label>
     <input type="text" class="form-control" required id="blog_title" aria-describedby="blog_title_help" name='title'
-           value="{{old("title",$post_translation->title)}}">
+           value="{{old("title",$post_translation->title)}}"                    oninput="populate_slug_field();"
+    >
     <small id="blog_title_help" class="form-text text-muted">The title of the blog post</small>
 </div>
 
@@ -181,13 +193,13 @@
     <h4>Categories:</h4>
     <div class='row'>
 
-        @forelse(\WebDevEtc\BlogEtc\Models\HessamCategory::orderBy("id","asc")->limit(1000)->get() as $category)
+        @forelse($cat_ts as $translation)
             <div class="form-check col-sm-6">
                 <input class="" type="checkbox" value="1"
-                       @if(old("category.".$category->id, $post->categories->contains($category->id))) checked='checked'
-                       @endif name='category[{{$category->id}}]' id="category_check{{$category->id}}">
-                <label class="form-check-label" for="category_check{{$category->id}}">
-                    {{$category->categoryTranslations()->category_name}}
+                       @if(old("category.".$translation->category_id, $post->categories->contains($translation->category_id))) checked='checked'
+                       @endif name='category[{{$translation->category_id}}]' id="category_check{{$translation->category_id}}">
+                <label class="form-check-label" for="category_check{{$translation->category_id}}">
+                    {{$translation->category_name}}
                 </label>
             </div>
         @empty
@@ -199,8 +211,105 @@
         <div class='col-md-12 my-3 text-center'>
 
             <em><a class="a-link-cart-color" target='_blank' href='{{route("blogetc.admin.categories.create_category")}}'><i class="fa fa-external-link" aria-hidden="true"></i>
-                      Add new categories
+                    Add new categories
                     here</a></em>
         </div>
     </div>
 </div>
+
+<script>
+    SHOULD_AUTO_GEN_SLUG = false;
+
+    /* Generate the slug field, if it was not touched by the user (or if it was an empty string) */
+    function populate_slug_field() {
+
+//        alert("A");
+        var cat_slug = document.getElementById('blog_slug');
+
+        if (cat_slug.value.length < 1) {
+            // if the slug field is empty, make sure it auto generates
+            SHOULD_AUTO_GEN_SLUG = true;
+        }
+
+        if (SHOULD_AUTO_GEN_SLUG) {
+            // the slug hasn't been manually changed (or it was set above), so we should generate the slug
+            // This is done in two stages - one to remove non words/spaces etc, the another to replace white space (and underscore) with a -
+            cat_slug.value =document.getElementById("blog_title").value.toLowerCase()
+                .replace(/[^\w-_ ]+/g, '') // replace with nothing
+                .replace(/[_ ]+/g, '-') // replace _ and spaces with -
+                .substring(0,99); // limit str length
+
+        }
+
+    }
+
+    if (document.getElementById("blog_slug").value.length < 1) {
+        SHOULD_AUTO_GEN_SLUG = true;
+    } else {
+        SHOULD_AUTO_GEN_SLUG = false; // there is already a value in #category_slug, so lets pretend it was changed already.
+    }
+
+
+    //multi-language data
+    var defalutLangId = {{$language_id}}
+    var preLangId = defalutLangId;
+    var languageList = {};
+    $("#language_list > option").each(function() {
+        languageList[this.value] = {
+            lang_id: -1,
+            category_name: "",
+            slug: "",
+            category_description: "",
+            lang_name: this.text
+        }
+    });
+
+    $('#language_list').on('change', function() {
+        fillLanguageList(this.value);
+        preLangId = this.value;
+    });
+
+    function fillLanguageList(langId){
+        languageList[preLangId].lang_id = preLangId;
+        languageList[preLangId].category_name = $('#category_name').val();
+        languageList[preLangId].slug = $('#category_slug').val();
+        languageList[preLangId].category_description = $('#category_description').val();
+
+        $('#category_name').val(languageList[langId].category_name);
+        $('#category_slug').val(languageList[langId].slug);
+        $('#category_description').val(languageList[langId].category_description);
+    }
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#submit-btn').click(function (){
+        if (languageList[$('#language_list').val()].lang_id == -1){
+            if (!$('#category_name').val()){
+                alert("Category name must not be empty");
+                return ;
+            }else if (!$('#category_slug').val()){
+                alert("Category slug must not be empty");
+                return ;
+            }
+            languageList[preLangId].lang_id = $('#language_list').val();
+            languageList[preLangId].category_name = $('#category_name').val();
+            languageList[preLangId].slug = $('#category_slug').val();
+            languageList[preLangId].category_description = $('#category_description').val();
+        }
+        $.post('{{route("blogetc.admin.categories.store_category")}}' ,
+            {
+                data: languageList,
+                parent_id: parseInt($('#parent_id').val())
+            },
+            function(data, status){
+                if (data.code === 403){
+                    alert("Slug is already taken: " + languageList[data.data].lang_name);
+                }
+            });
+    });
+
+</script>

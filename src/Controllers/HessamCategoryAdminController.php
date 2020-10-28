@@ -37,7 +37,7 @@ class HessamCategoryAdminController extends Controller
      */
     public function index(Request $request){
         $language_id = $request->cookie('language_id');
-        $categories = HessamCategory::orderBy("id")->paginate(25);
+        $categories = HessamCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->paginate(25);
         return view("blogetc_admin::categories.index",[
             'categories' => $categories,
             'language_id' => $language_id
@@ -55,7 +55,7 @@ class HessamCategoryAdminController extends Controller
         return view("blogetc_admin::categories.add_category",[
             'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),
             'category_translation' => new \WebDevEtc\BlogEtc\Models\HessamCategoryTranslation(),
-            'categories_list' => HessamCategory::orderBy("id")->get(),
+            'categories_list' => HessamCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->get(),
             'language_id' => $language_id,
             'language_list' => $language_list
         ]);

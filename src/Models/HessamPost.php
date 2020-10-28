@@ -2,25 +2,15 @@
 
 namespace WebDevEtc\BlogEtc\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
-use Swis\Laravel\Fulltext\Indexable;
-use WebDevEtc\BlogEtc\Interfaces\SearchResultInterface;
 use WebDevEtc\BlogEtc\Scopes\BlogEtcPublishedScope;
 
 /**
  * Class HessamPost
  * @package WebDevEtc\BlogEtc\Models
  */
-class HessamPost extends Model implements SearchResultInterface
+class HessamPost extends Model
 {
-
-    use Sluggable;
-    use Indexable;
-
-    protected $indexContentColumns = ['post_body', 'short_description', 'meta_desc',];
-    protected $indexTitleColumns = ['title', 'subtitle', 'seo_title',];
-
     /**
      * @var array
      */
@@ -50,30 +40,6 @@ class HessamPost extends Model implements SearchResultInterface
     public function postTranslations()
     {
         return $this->hasMany(HessamPostTranslation::class,"post_id");
-    }
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
-
-    public function search_result_page_url()
-    {
-        return $this->url();
-    }
-
-    public function search_result_page_title()
-    {
-        return $this->title;
     }
 
     /**
@@ -120,7 +86,7 @@ class HessamPost extends Model implements SearchResultInterface
      */
     public function categories()
     {
-        return $this->belongsToMany(HessamCategory::class, 'hessam_post_categories');
+        return $this->belongsToMany(HessamCategory::class, 'hessam_post_categories','post_id','category_id');
     }
 
     /**

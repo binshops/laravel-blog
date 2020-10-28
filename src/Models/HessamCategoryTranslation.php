@@ -17,7 +17,7 @@ class HessamCategoryTranslation extends Model
     ];
 
     /**
-     * Get the user that owns the phone.
+     * Get the category that owns the phone.
      */
     public function category()
     {
@@ -33,4 +33,27 @@ class HessamCategoryTranslation extends Model
         return $this->hasOne(HessamLanguage::class,"lang_id");
     }
 
+    /**
+     * Returns the public facing URL of showing blog posts in this category
+     * @return string
+     */
+    public function url($language_id)
+    {
+        $theChainString = "";
+        $cat = $this->category()->get();
+        $chain = $cat[0]->getAncestorsAndSelf();
+        foreach ($chain as $category){
+            $theChainString .=  "/" . $category->slug;
+        }
+        return route("blogetc.view_category", $theChainString);
+    }
+
+    /**
+     * Returns the URL for an admin user to edit this category
+     * @return string
+     */
+    public function edit_url()
+    {
+        return route("blogetc.admin.categories.edit_category", $this->category_id);
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace WebDevEtc\BlogEtc\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use WebDevEtc\BlogEtc\Baum\Node;
 
 class HessamCategory extends Node
@@ -28,30 +27,7 @@ class HessamCategory extends Node
      */
     public function posts()
     {
-        return $this->belongsToMany(HessamPost::class, 'hessam_post_categories');
-    }
-
-    /**
-     * Returns the public facing URL of showing blog posts in this category
-     * @return string
-     */
-    public function url($language_id)
-    {
-        $theChainString = "";
-        $chain = $this->getAncestorsAndSelf();
-        foreach ($chain as $category){
-            $theChainString .=  "/" . $category->categoryTranslations()->where('lang_id', $language_id)->first()->slug;
-        }
-        return route("blogetc.view_category", $theChainString);
-    }
-
-    /**
-     * Returns the URL for an admin user to edit this category
-     * @return string
-     */
-    public function edit_url()
-    {
-        return route("blogetc.admin.categories.edit_category", $this->id);
+        return $this->belongsToMany(HessamPost::class, 'hessam_post_categories','category_id', 'post_id');
     }
 
     public function loadSiblings(){

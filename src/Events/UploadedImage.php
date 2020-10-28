@@ -6,6 +6,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use WebDevEtc\BlogEtc\Models\HessamPost;
+use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
 
 /**
  * Class UploadedImage
@@ -33,7 +34,7 @@ class UploadedImage
      * @param $image
      * @param $source string|null  the __METHOD__  firing this event (or other string)
      */
-    public function __construct(string $image_filename, $image, HessamPost $blogEtcPost=null, string $source='other')
+    public function __construct(string $image_filename, $image, HessamPostTranslation $blogEtcPost=null, string $source='other')
     {
         $this->image_filename = $image_filename;
         $this->blogEtcPost=$blogEtcPost;

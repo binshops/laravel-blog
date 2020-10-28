@@ -6,6 +6,7 @@ use Illuminate\Http\UploadedFile;
 use WebDevEtc\BlogEtc\Events\UploadedImage;
 use WebDevEtc\BlogEtc\Models\HessamPost;
 use File;
+use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
 
 trait UploadFileTrait
 {
@@ -90,7 +91,7 @@ trait UploadFileTrait
      * @return array
      * @throws \Exception
      */
-    protected function UploadAndResize(HessamPost $new_blog_post = null, $suggested_title, $image_size_details, $photo)
+    protected function UploadAndResize(HessamPostTranslation $new_blog_post = null, $suggested_title, $image_size_details, $photo)
     {
         // get the filename/filepath
         $image_filename = $this->getImageFilename($suggested_title, $image_size_details, $photo);
