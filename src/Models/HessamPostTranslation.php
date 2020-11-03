@@ -3,12 +3,20 @@
 
 namespace WebDevEtc\BlogEtc\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Swis\Laravel\Fulltext\Indexable;
+use WebDevEtc\BlogEtc\Interfaces\SearchResultInterface;
 
-class HessamPostTranslation extends Model
+class HessamPostTranslation extends Model implements SearchResultInterface
 {
-    public $fillable = [
+    use Sluggable;
+    use Indexable;
 
+    protected $indexContentColumns = ['post_body', 'short_description', 'meta_desc',];
+    protected $indexTitleColumns = ['title', 'subtitle', 'seo_title',];
+
+    public $fillable = [
         'title',
         'subtitle',
         'short_description',
@@ -36,6 +44,29 @@ class HessamPostTranslation extends Model
         return $this->hasOne(HessamLanguage::class,"lang_id");
     }
 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
+    public function search_result_page_url()
+    {
+        return $this->url();
+    }
+
+    public function search_result_page_title()
+    {
+        return $this->title;
+    }
 
     /**
      * If $this->user_view_file is not empty, then it'll return the dot syntax location of the blade file it should look for

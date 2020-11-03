@@ -127,16 +127,5 @@
     </main>
 </div>
 
-
-@if( config("blogetc.use_wysiwyg") && config("blogetc.echo_html") && (in_array( \Request::route()->getName() ,[ 'blogetc.admin.create_post' , 'blogetc.admin.edit_post'  ])))
-    <script src="//cdn.ckeditor.com/4.14.1/full/ckeditor.js"></script>
-    <script>
-        if( typeof(CKEDITOR) !== "undefined" ) {
-            CKEDITOR.replace('post_body');
-        }
-    </script>
-@endif
-
-
 </body>
 </html>

@@ -2,7 +2,7 @@
     <label for="language_list">Select Language</label>
     <select id="language_list" name='lang_id' class='form-control'>
         @foreach($language_list as $language)
-            <option  value='{{$language->id}}' @if($language->id == $language_id)selected="selected" @endif>
+            <option  value='{{$language->id}}' @if($language->id == $selected_lang)selected="selected" @endif>
                 {{$language->name}}
             </option>
         @endforeach
@@ -217,99 +217,5 @@
     </div>
 </div>
 
-<script>
-    SHOULD_AUTO_GEN_SLUG = false;
-
-    /* Generate the slug field, if it was not touched by the user (or if it was an empty string) */
-    function populate_slug_field() {
-
-//        alert("A");
-        var cat_slug = document.getElementById('blog_slug');
-
-        if (cat_slug.value.length < 1) {
-            // if the slug field is empty, make sure it auto generates
-            SHOULD_AUTO_GEN_SLUG = true;
-        }
-
-        if (SHOULD_AUTO_GEN_SLUG) {
-            // the slug hasn't been manually changed (or it was set above), so we should generate the slug
-            // This is done in two stages - one to remove non words/spaces etc, the another to replace white space (and underscore) with a -
-            cat_slug.value =document.getElementById("blog_title").value.toLowerCase()
-                .replace(/[^\w-_ ]+/g, '') // replace with nothing
-                .replace(/[_ ]+/g, '-') // replace _ and spaces with -
-                .substring(0,99); // limit str length
-
-        }
-
-    }
-
-    if (document.getElementById("blog_slug").value.length < 1) {
-        SHOULD_AUTO_GEN_SLUG = true;
-    } else {
-        SHOULD_AUTO_GEN_SLUG = false; // there is already a value in #category_slug, so lets pretend it was changed already.
-    }
-
-
-    //multi-language data
-    var defalutLangId = {{$language_id}}
-    var preLangId = defalutLangId;
-    var languageList = {};
-    $("#language_list > option").each(function() {
-        languageList[this.value] = {
-            lang_id: -1,
-            category_name: "",
-            slug: "",
-            category_description: "",
-            lang_name: this.text
-        }
-    });
-
-    $('#language_list').on('change', function() {
-        fillLanguageList(this.value);
-        preLangId = this.value;
-    });
-
-    function fillLanguageList(langId){
-        languageList[preLangId].lang_id = preLangId;
-        languageList[preLangId].category_name = $('#category_name').val();
-        languageList[preLangId].slug = $('#category_slug').val();
-        languageList[preLangId].category_description = $('#category_description').val();
-
-        $('#category_name').val(languageList[langId].category_name);
-        $('#category_slug').val(languageList[langId].slug);
-        $('#category_description').val(languageList[langId].category_description);
-    }
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $('#submit-btn').click(function (){
-        if (languageList[$('#language_list').val()].lang_id == -1){
-            if (!$('#category_name').val()){
-                alert("Category name must not be empty");
-                return ;
-            }else if (!$('#category_slug').val()){
-                alert("Category slug must not be empty");
-                return ;
-            }
-            languageList[preLangId].lang_id = $('#language_list').val();
-            languageList[preLangId].category_name = $('#category_name').val();
-            languageList[preLangId].slug = $('#category_slug').val();
-            languageList[preLangId].category_description = $('#category_description').val();
-        }
-        $.post('{{route("blogetc.admin.categories.store_category")}}' ,
-            {
-                data: languageList,
-                parent_id: parseInt($('#parent_id').val())
-            },
-            function(data, status){
-                if (data.code === 403){
-                    alert("Slug is already taken: " + languageList[data.data].lang_name);
-                }
-            });
-    });
-
-</script>
+<input id="selected_lang" name="selected_lang" type="number" value="-1" hidden>
+<input id="post_id" name="post_id" type="number" value="{{$post_id}}" hidden>

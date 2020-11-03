@@ -15,8 +15,10 @@ use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
 use WebDevEtc\BlogEtc\Models\HessamLanguage;
 use WebDevEtc\BlogEtc\Models\HessamPost;
+use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
 use WebDevEtc\BlogEtc\Models\HessamUploadedPhoto;
 use WebDevEtc\BlogEtc\Requests\CreateBlogEtcPostRequest;
+use WebDevEtc\BlogEtc\Requests\CreateHessamPostToggleRequest;
 use WebDevEtc\BlogEtc\Requests\DeleteBlogEtcPostRequest;
 use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcPostRequest;
 use WebDevEtc\BlogEtc\Traits\UploadFileTrait;
@@ -67,14 +69,17 @@ class HessamAdminController extends Controller
         $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
 
         return view("blogetc_admin::posts.add_post", [
-            'language_id' => $language_id,
             'cat_ts' => $ts,
-            'language_list' => $language_list
+            'language_list' => $language_list,
+            'selected_lang' => $language_id,
+            'post' => new \WebDevEtc\BlogEtc\Models\HessamPost(),
+            'post_translation' => new \WebDevEtc\BlogEtc\Models\HessamPostTranslation(),
+            'post_id' => -1
         ]);
     }
 
     /**
-     * Save a new post
+     * Save a new post - this method is called whenever add post button is clicked
      *
      * @param CreateBlogEtcPostRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -82,22 +87,135 @@ class HessamAdminController extends Controller
      */
     public function store_post(CreateBlogEtcPostRequest $request)
     {
-        $new_blog_post = new HessamPost($request->all());
+        $new_blog_post = null;
+        $translation = HessamPostTranslation::where(
+            [
+                ['post_id','=',$request['post_id']],
+                ['lang_id', '=', $request['lang_id']]
+            ]
+        )->first();
 
-        $this->processUploadedImages($request, $new_blog_post);
+        if ($request['post_id'] == -1 || !$translation){
+            //cretes new post
+            $new_blog_post = new HessamPost();
+            $translation = new HessamPostTranslation();
 
-        if (!$new_blog_post->posted_at) {
             $new_blog_post->posted_at = Carbon::now();
+        }else{
+            //edits post
+            $new_blog_post = HessamPost::findOrFail($translation->post_id);
         }
 
+        $new_blog_post->is_published = $request['is_published'];
         $new_blog_post->user_id = \Auth::user()->id;
         $new_blog_post->save();
 
-        $new_blog_post->categories()->sync($request->categories());
+        $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $request['post_id']);
+        if ($post_exists){
+            Helpers::flash_message("Post already exists - try to change the slug for this language");
+        }else {
+            $translation->title = $request['title'];
+            $translation->subtitle = $request['subtitle'];
+            $translation->short_description = $request['short_description'];
+            $translation->post_body = $request['post_body'];
+            $translation->seo_title = $request['seo_title'];
+            $translation->meta_desc = $request['meta_desc'];
+            $translation->slug = $request['slug'];
+            $translation->use_view_file = $request['use_view_file'];
 
-        Helpers::flash_message("Added post");
-        event(new BlogPostAdded($new_blog_post));
-        return redirect($new_blog_post->edit_url());
+            $translation->lang_id = $request['lang_id'];
+            $translation->post_id = $new_blog_post->id;
+
+            $this->processUploadedImages($request, $translation);
+            $translation->save();
+
+            $new_blog_post->categories()->sync($request->categories());
+            Helpers::flash_message("Added post");
+            event(new BlogPostAdded($new_blog_post));
+        }
+
+        return redirect( route('blogetc.admin.index') );
+    }
+
+    /**
+     *  This method is called whenever a language is selected
+     */
+    public function store_post_toggle(CreateHessamPostToggleRequest $request){
+        $new_blog_post = null;
+        $translation = HessamPostTranslation::where(
+            [
+                ['post_id','=',$request['post_id']],
+                ['lang_id', '=', $request['lang_id']]
+            ]
+        )->first();
+
+        if (!$translation){
+            $translation = new HessamPostTranslation();
+        }
+
+        if ($request['post_id'] == -1 || $request['post_id'] == null){
+            //cretes new post
+            $new_blog_post = new HessamPost();
+            $new_blog_post->posted_at = Carbon::now();
+        }else{
+            //edits post
+            $new_blog_post = HessamPost::findOrFail($request['post_id']);
+        }
+
+        if ($request['slug']){
+            $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $request['post_id']);
+            if ($post_exists){
+                Helpers::flash_message("Post already exists - try to change the slug for this language");
+            }else{
+                $new_blog_post->is_published = $request['is_published'];
+                $new_blog_post->user_id = \Auth::user()->id;
+                $new_blog_post->save();
+
+                $translation->title = $request['title'];
+                $translation->subtitle = $request['subtitle'];
+                $translation->short_description = $request['short_description'];
+                $translation->post_body = $request['post_body'];
+                $translation->seo_title = $request['seo_title'];
+                $translation->meta_desc = $request['meta_desc'];
+                $translation->slug = $request['slug'];
+                $translation->use_view_file = $request['use_view_file'];
+
+                $translation->lang_id = $request['lang_id'];
+                $translation->post_id = $new_blog_post->id;
+
+                $this->processUploadedImages($request, $translation);
+                $translation->save();
+
+                $new_blog_post->categories()->sync($request->categories());
+
+                event(new BlogPostAdded($new_blog_post));
+            }
+        }
+
+        //todo: generate event
+
+        $language_id = $request->cookie('language_id');
+        $language_list = HessamLanguage::where('active',true)->get();
+        $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
+
+        $translation = HessamPostTranslation::where(
+            [
+                ['post_id','=',$request['post_id']],
+                ['lang_id', '=', $request['selected_lang']]
+            ]
+        )->first();
+        if (!$translation){
+            $translation = new HessamPostTranslation();
+        }
+
+        return view("blogetc_admin::posts.add_post", [
+            'cat_ts' => $ts,
+            'language_list' => $language_list,
+            'selected_lang' => $request['selected_lang'],
+            'post_translation' => $translation,
+            'post' => $new_blog_post,
+            'post_id' => $new_blog_post->id
+        ]);
     }
 
     /**
@@ -204,7 +322,7 @@ class HessamAdminController extends Controller
      * @throws \Exception
      * @todo - next full release, tidy this up!
      */
-    protected function processUploadedImages(BaseRequestInterface $request, HessamPost $new_blog_post)
+    protected function processUploadedImages(BaseRequestInterface $request, HessamPostTranslation $new_blog_post)
     {
         if (!config("blogetc.image_upload_enabled")) {
             // image upload was disabled
@@ -237,6 +355,22 @@ class HessamAdminController extends Controller
                 'source' => "BlogFeaturedImage",
                 'uploaded_images' => $uploaded_image_details,
             ]);
+        }
+    }
+
+    //translations for the same psots are ignored
+    protected function check_if_same_post_exists($slug, $lang_id, $post_id){
+        $slg = HessamPostTranslation::where(
+            [
+                ['slug','=', $slug],
+                ['lang_id', '=', $lang_id],
+                ['post_id', '<>', $post_id]
+            ]
+        )->first();
+        if ($slg){
+            return true;
+        }else{
+            return false;
         }
     }
 }

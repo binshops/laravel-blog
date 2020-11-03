@@ -16,7 +16,7 @@ class CreateHessamPostTranslationsTable extends Migration
         Schema::create('hessam_post_translations', function (Blueprint $table) {
             $table->unsignedInteger('post_id')->nullable();
 
-            $table->string("slug")->unique();
+            $table->string("slug");
             $table->string("title")->nullable()->default("New blog post");
             $table->string("subtitle")->nullable()->default("");
             $table->text("meta_desc")->nullable();

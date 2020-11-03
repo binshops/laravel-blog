@@ -54,6 +54,9 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
             'HessamAdminController@store_post')
             ->name('blogetc.admin.store_post');
 
+        Route::post('/add_post_toggle',
+            'HessamAdminController@store_post_toggle')
+            ->name('blogetc.admin.store_post_toggle');
 
         Route::get('/edit_post/{blogPostId}',
             'HessamAdminController@edit_post')
