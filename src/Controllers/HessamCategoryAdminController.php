@@ -52,10 +52,18 @@ class HessamCategoryAdminController extends Controller
         $language_id = $request->cookie('language_id');
         $language_list = HessamLanguage::where('active',true)->get();
 
+        $cat_list = HessamCategory::whereHas('categoryTranslations', function ($query) {
+            return $query->where('lang_id', '=', 1);
+        })->get();
+
+        $rootList = HessamCategory::roots()->get();
+        HessamCategory::loadSiblingsWithList($rootList);
+
         return view("blogetc_admin::categories.add_category",[
             'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),
             'category_translation' => new \WebDevEtc\BlogEtc\Models\HessamCategoryTranslation(),
-            'categories_list' => HessamCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->get(),
+            'category_tree' => $cat_list,
+            'cat_roots' => $rootList,
             'language_id' => $language_id,
             'language_list' => $language_list
         ]);

@@ -58,19 +58,25 @@
         </div>
 
         <div class="form-group">
+            <label for="category_slug">Category Tree</label>
+            <ul class="hessam-category-hierarchy">
+                @include("blogetc_admin::categories._category_partial", ['category_tree' => $cat_roots])
+            </ul>
+        </div>
+
+        <div class="form-group">
             <label for="category_slug">Parent Category</label>
             <select id="parent_id" name='parent_id' class='form-control'>
                 <option  selected='selected' value='0'>
                     Root
                 </option>
-                @foreach($categories_list as $category)
-                    <option  value='{{$category->category_id}}'>
-                        {{$category->category_name}}
+                @foreach($category_tree as $category)
+                    <option  value='{{$category->categoryTranslations[0]['category_id']}}'>
+                        {{$category->categoryTranslations[0]['category_name']}}
                     </option>
                 @endforeach
             </select>
         </div>
-
 
         <div class="form-group">
             <label for="category_description">Category Description (optional)</label>

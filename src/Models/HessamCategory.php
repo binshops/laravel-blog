@@ -42,6 +42,15 @@ class HessamCategory extends Node
         $this->siblings = $this->children()->get();
     }
 
+    public static function loadSiblingsWithList($node_list){
+        for($i = 0 ; sizeof($node_list) > $i ; $i++){
+            $node_list[$i]->loadSiblings();
+            if (sizeof($node_list[$i]->siblings) > 0){
+                self::loadSiblingsWithList($node_list[$i]->siblings);
+            }
+        }
+    }
+
 //    public function parent()
 //    {
 //        return $this->belongsTo('WebDevEtc\BlogEtc\Models\HessamCategory', 'parent_id');

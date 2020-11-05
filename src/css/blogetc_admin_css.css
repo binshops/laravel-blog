@@ -43,3 +43,20 @@ body{
 .nav-bar-full{
     height: 100% !important;
 }
+
+.hessam-category-hierarchy{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.category-item{
+    border-left: #bcbbbb 3px solid;
+    padding-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.category-item-wrapper{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
