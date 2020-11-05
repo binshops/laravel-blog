@@ -50,12 +50,13 @@ class HessamAdminController extends Controller
      *
      * @return mixed
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = HessamPost::orderBy("posted_at", "desc")
+        $language_id = $request->cookie('language_id');
+        $posts = HessamPostTranslation::orderBy("post_id", "desc")->where('lang_id', $language_id)
             ->paginate(10);
 
-        return view("blogetc_admin::index", ['posts'=>$posts]);
+        return view("blogetc_admin::index", ['post_translations'=>$posts]);
     }
 
     /**
@@ -106,14 +107,14 @@ class HessamAdminController extends Controller
             $new_blog_post = HessamPost::findOrFail($translation->post_id);
         }
 
-        $new_blog_post->is_published = $request['is_published'];
-        $new_blog_post->user_id = \Auth::user()->id;
-        $new_blog_post->save();
-
         $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $request['post_id']);
         if ($post_exists){
             Helpers::flash_message("Post already exists - try to change the slug for this language");
         }else {
+            $new_blog_post->is_published = $request['is_published'];
+            $new_blog_post->user_id = \Auth::user()->id;
+            $new_blog_post->save();
+
             $translation->title = $request['title'];
             $translation->subtitle = $request['subtitle'];
             $translation->short_description = $request['short_description'];
@@ -224,10 +225,29 @@ class HessamAdminController extends Controller
      * @param $blogPostId
      * @return mixed
      */
-    public function edit_post( $blogPostId)
+    public function edit_post( $blogPostId , Request $request)
     {
+        $language_id = $request->cookie('language_id');
+
+        $post_translation = HessamPostTranslation::where(
+            [
+                ['lang_id', '=', $language_id],
+                ['post_id', '=', $blogPostId]
+            ]
+        )->first();
+
         $post = HessamPost::findOrFail($blogPostId);
-        return view("blogetc_admin::posts.edit_post")->withPost($post);
+        $language_list = HessamLanguage::where('active',true)->get();
+        $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
+
+        return view("blogetc_admin::posts.edit_post", [
+            'cat_ts' => $ts,
+            'language_list' => $language_list,
+            'selected_lang' => $language_id,
+            'post' => $post,
+            'post_translation' => $post_translation,
+            'post_id' => -1
+        ]);
     }
 
     /**

@@ -13,6 +13,14 @@ class HessamCategory extends Node
         'parent_id'
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($category) { // before delete() method call this
+            $category->categoryTranslations()->delete();
+        });
+    }
+
     /**
      * The associated category translations
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

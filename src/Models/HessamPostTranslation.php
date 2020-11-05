@@ -219,4 +219,22 @@ class HessamPostTranslation extends Model implements SearchResultInterface
         }
         return $this->title;
     }
+    /**
+     * Returns the public facing URL to view this blog post
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return route("blogetc.single", $this->slug);
+    }
+
+    /**
+     * Return the URL for editing the post (used for admin users)
+     * @return string
+     */
+    public function edit_url()
+    {
+        return route("blogetc.admin.edit_post", $this->post_id);
+    }
 }

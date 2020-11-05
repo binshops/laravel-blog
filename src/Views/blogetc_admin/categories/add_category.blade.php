@@ -173,7 +173,9 @@
                     function(data, status){
                         if (data.code === 403){
                             alert("Slug is already taken: " + languageList[data.data].lang_name);
+                        }else if (data.code === 200) {
                         }
+                        window.location.replace("{{route('blogetc.admin.categories.index')}}");
                     });
             });
 

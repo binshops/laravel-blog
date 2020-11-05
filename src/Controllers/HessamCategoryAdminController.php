@@ -81,28 +81,33 @@ class HessamCategoryAdminController extends Controller
         ]);
 
         foreach ($language_list as $key => $value) {
-            //check for slug availability
-            $obj = HessamCategoryTranslation::where('slug',$value['slug'])->first();
-            if ($obj){
-                HessamCategory::destroy($new_category->id);
-                return response()->json([
-                    'code' => 403,
-                    'message' => "slug is already taken",
-                    'data' => $value['lang_id']
+            if ($value['lang_id'] != -1){
+                //check for slug availability
+                $obj = HessamCategoryTranslation::where('slug',$value['slug'])->first();
+                if ($obj){
+                    HessamCategory::destroy($new_category->id);
+                    return response()->json([
+                        'code' => 403,
+                        'message' => "slug is already taken",
+                        'data' => $value['lang_id']
+                    ]);
+                }
+                $new_category_translation = $new_category->categoryTranslations()->create([
+                    'category_name' => $value['category_name'],
+                    'slug' => $value['slug'],
+                    'category_description' => $value['category_description'],
+                    'lang_id' => $value['lang_id'],
+                    'category_id' => $new_category->id
                 ]);
             }
-            $new_category_translation = $new_category->categoryTranslations()->create([
-                'category_name' => $value['category_name'],
-                'slug' => $value['slug'],
-                'category_description' => $value['category_description'],
-                'lang_id' => $value['lang_id'],
-                'category_id' => $new_category->id
-            ]);
         }
 
         event(new CategoryAdded($new_category, $new_category_translation));
         Helpers::flash_message("Saved new category");
-        return redirect( route('blogetc.admin.categories.index') );
+        return response()->json([
+            'code' => 200,
+            'message' => "category successfully aaded"
+        ]);
     }
 
     /**
@@ -110,11 +115,25 @@ class HessamCategoryAdminController extends Controller
      * @param $categoryId
      * @return mixed
      */
-    public function edit_category($categoryId){
+    public function edit_category($categoryId, Request $request){
+        $language_id = $request->cookie('language_id');
+        $language_list = HessamLanguage::where('active',true)->get();
+
         $category = HessamCategory::findOrFail($categoryId);
+        $cat_trans = HessamCategoryTranslation::where(
+            [
+                ['lang_id', '=', $language_id],
+                ['category_id', '=', $categoryId]
+            ]
+        )->first();
+
         return view("blogetc_admin::categories.edit_category",[
-            'categories_list' => HessamCategory::orderBy("category_name")->get()
-        ])->withCategory($category);
+            'category' => $category,
+            'category_translation' => $cat_trans,
+            'categories_list' => HessamCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->get(),
+            'language_id' => $language_id,
+            'language_list' => $language_list
+        ]);
     }
 
     /**
@@ -127,12 +146,21 @@ class HessamCategoryAdminController extends Controller
     public function update_category(UpdateBlogEtcCategoryRequest $request, $categoryId){
         /** @var HessamCategory $category */
         $category = HessamCategory::findOrFail($categoryId);
+        $language_id = $request->cookie('language_id');
+        $translation = HessamCategoryTranslation::where(
+            [
+                ['lang_id', '=', $language_id],
+                ['category_id', '=', $categoryId]
+            ]
+        )->first();
         $category->fill($request->all());
+        $translation->fill($request->all());
         $category->save();
+        $translation->save();
 
         Helpers::flash_message("Saved category changes");
         event(new CategoryEdited($category));
-        return redirect($category->edit_url());
+        return redirect($translation->edit_url());
     }
 
     /**
@@ -151,8 +179,8 @@ class HessamCategoryAdminController extends Controller
         event(new CategoryWillBeDeleted($category));
         $category->delete();
 
-        return view ("blogetc_admin::categories.deleted_category");
-
+        Helpers::flash_message("Category successfully deleted!");
+        return redirect( route('blogetc.admin.categories.index') );
     }
 
 }

@@ -21,7 +21,7 @@ class UpdateBlogEtcPostRequest  extends BaseBlogEtcPostRequest {
     public function rules()
     {
         $return = $this->baseBlogPostRules();
-        $return['slug'] [] = Rule::unique("blog_etc_posts", "slug")->ignore($this->route()->parameter("blogPostId"));
+        $return['slug'] [] = Rule::unique("hessam_posts", "slug")->ignore($this->route()->parameter("blogPostId"));
         return $return;
     }
 }

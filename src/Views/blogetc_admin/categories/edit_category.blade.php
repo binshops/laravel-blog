@@ -45,7 +45,7 @@
                    required
                    aria-describedby="category_category_name_help"
                    name='category_name'
-                   value="{{old("category_name",$category->category_name)}}"
+                   value="{{old("category_name",$category_translation->category_name)}}"
             >
 
             <small id="category_category_name_help" class="form-text text-muted">The name of the category</small>
@@ -55,16 +55,16 @@
         <div class="form-group">
             <label for="category_slug">Category slug</label>
             <input
-                maxlength='100'
-                pattern="[a-zA-Z0-9-]+"
-                type="text"
-                required
-                class="form-control"
-                id="category_slug"
-                oninput="SHOULD_AUTO_GEN_SLUG=false;"
-                aria-describedby="category_slug_help"
-                name='slug'
-                value="{{old("slug",$category->slug)}}"
+                    maxlength='100'
+                    pattern="[a-zA-Z0-9-]+"
+                    type="text"
+                    required
+                    class="form-control"
+                    id="category_slug"
+                    oninput="SHOULD_AUTO_GEN_SLUG=false;"
+                    aria-describedby="category_slug_help"
+                    name='slug'
+                    value="{{old("slug",$category_translation->slug)}}"
             >
 
             <small id="category_slug_help" class="form-text text-muted">
@@ -82,10 +82,10 @@
                     Root
                 </option>
                 @foreach($categories_list as $category2)
-                    @if($category->id != $category2->id)
-                    <option @if($category->parent_id == $category2->id) selected='selected' @endif value='{{$category2->id}}'>
-                        {{$category2->category_name}}
-                    </option>
+                    @if($category->id != $category2->category_id)
+                        <option @if($category->parent_id == $category2->category_id) selected='selected' @endif value='{{$category2->category_id}}'>
+                            {{$category2->category_name}}
+                        </option>
                     @endif
                 @endforeach
             </select>
@@ -96,7 +96,7 @@
             <label for="category_description">Category Description (optional)</label>
             <textarea name='category_description'
                       class='form-control'
-                      id='category_description'>{{old("category_description",$category->category_description)}}</textarea>
+                      id='category_description'>{{old("category_description",$category_translation->category_description)}}</textarea>
 
         </div>
 
