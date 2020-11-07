@@ -55,6 +55,10 @@ class HessamPost extends Model
            otherwise (which will be for most users) it should only show published posts that have a posted_at
            time <= Carbon::now(). This sets it up: */
         static::addGlobalScope(new BlogEtcPublishedScope());
+
+        static::deleting(function($post) { // before delete() method call this
+            $post->postTranslations()->delete();
+        });
     }
 
     /**

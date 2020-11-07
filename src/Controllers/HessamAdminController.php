@@ -379,18 +379,18 @@ class HessamAdminController extends Controller
      */
     public function destroy_post(DeleteBlogEtcPostRequest $request, $blogPostId)
     {
-
         $post = HessamPost::findOrFail($blogPostId);
-        event(new BlogPostWillBeDeleted($post));
+        //archive deleted post
 
         $post->delete();
+        event(new BlogPostWillBeDeleted($post));
 
         // todo - delete the featured images?
         // At the moment it just issues a warning saying the images are still on the server.
 
-        return view("blogetc_admin::posts.deleted_post")
-            ->withDeletedPost($post);
+        Helpers::flash_message("Post successfully deleted!");
 
+        return redirect( route('blogetc.admin.index') );
     }
 
     /**
