@@ -62,6 +62,10 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
             'HessamAdminController@edit_post')
             ->name('blogetc.admin.edit_post');
 
+        Route::get('/edit_post_toggle/{blogPostId}',
+            'HessamAdminController@edit_post_toggle')
+            ->name('blogetc.admin.edit_post_toggle');
+
         Route::patch('/edit_post/{blogPostId}',
             'HessamAdminController@update_post')
             ->name('blogetc.admin.update_post');

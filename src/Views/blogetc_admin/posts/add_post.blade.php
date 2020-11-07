@@ -11,9 +11,22 @@
     'post' => $post,
     'post_translation' => $post_translation
     ])
-
+        <input id="post_id" name="post_id" type="number" value="{{$post_id}}" hidden>
         <input type='submit' name="submit_btn" class='btn btn-primary' value='Add new post' >
 
     </form>
 
+    <script>
+        //multi language
+        var store_toggle_url = '{{route("blogetc.admin.store_post_toggle")}}';
+        var preLang = $('#language_list').val();
+        $('#language_list').change(function (){
+            $('#add-post-form').attr('action', store_toggle_url);
+
+            $('#selected_lang').val($('#language_list').val());
+            $('#language_list').val(preLang);
+            console.log($('#language_list').val())
+            $('#add-post-form').trigger('submit');
+        });
+    </script>
 @endsection

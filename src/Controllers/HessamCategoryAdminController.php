@@ -59,6 +59,7 @@ class HessamCategoryAdminController extends Controller
         $rootList = HessamCategory::roots()->get();
         HessamCategory::loadSiblingsWithList($rootList);
 
+
         return view("blogetc_admin::categories.add_category",[
             'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),
             'category_translation' => new \WebDevEtc\BlogEtc\Models\HessamCategoryTranslation(),
@@ -184,6 +185,12 @@ class HessamCategoryAdminController extends Controller
         $request=$request;
 
         $category = HessamCategory::findOrFail($categoryId);
+        $children = $category->children()->get();
+        if (sizeof($children) > 0) {
+            Helpers::flash_message("This category could not be deleted it has some sub-categories. First try to change parent category of subs.");
+            return redirect(route('blogetc.admin.categories.index'));
+        }
+
         event(new CategoryWillBeDeleted($category));
         $category->delete();
 

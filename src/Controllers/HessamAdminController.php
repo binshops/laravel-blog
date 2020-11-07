@@ -164,7 +164,7 @@ class HessamAdminController extends Controller
         }
 
         if ($request['slug']){
-            $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $request['post_id']);
+            $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $new_blog_post->id);
             if ($post_exists){
                 Helpers::flash_message("Post already exists - try to change the slug for this language");
             }else{
@@ -245,8 +245,39 @@ class HessamAdminController extends Controller
             'language_list' => $language_list,
             'selected_lang' => $language_id,
             'post' => $post,
-            'post_translation' => $post_translation,
-            'post_id' => -1
+            'post_translation' => $post_translation
+        ]);
+    }
+
+    /**
+     * Show form to edit post
+     *
+     * @param $blogPostId
+     * @return mixed
+     */
+    public function edit_post_toggle( $blogPostId , Request $request)
+    {
+        $language_id = $request->cookie('language_id');
+        $post_translation = HessamPostTranslation::where(
+            [
+                ['lang_id', '=', $request['selected_lang']],
+                ['post_id', '=', $blogPostId]
+            ]
+        )->first();
+        if (!$post_translation){
+            $post_translation = new HessamPostTranslation();
+        }
+
+        $post = HessamPost::findOrFail($blogPostId);
+        $language_list = HessamLanguage::where('active',true)->get();
+        $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
+
+        return view("blogetc_admin::posts.edit_post", [
+            'cat_ts' => $ts,
+            'language_list' => $language_list,
+            'selected_lang' => $request['selected_lang'],
+            'post' => $post,
+            'post_translation' => $post_translation
         ]);
     }
 
@@ -260,20 +291,48 @@ class HessamAdminController extends Controller
      */
     public function update_post(UpdateBlogEtcPostRequest $request, $blogPostId)
     {
-        /** @var HessamPost $post */
-        $post = HessamPost::findOrFail($blogPostId);
-        $post->fill($request->all());
+        $new_blog_post = HessamPost::findOrFail($blogPostId);
+        $translation = HessamPostTranslation::where(
+            [
+                ['post_id','=', $new_blog_post->id],
+                ['lang_id', '=', $request['lang_id']]
+            ]
+        )->first();
 
-        $this->processUploadedImages($request, $post);
+        if (!$translation){
+            $translation = new HessamPostTranslation();
+            $new_blog_post->posted_at = Carbon::now();
+        }
 
-        $post->save();
-        $post->categories()->sync($request->categories());
+        $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $blogPostId);
+        if ($post_exists){
+            Helpers::flash_message("Post already exists - try to change the slug for this language");
+        }else {
+            $new_blog_post->is_published = $request['is_published'];
+            $new_blog_post->user_id = \Auth::user()->id;
+            $new_blog_post->save();
 
-        Helpers::flash_message("Updated post");
-        event(new BlogPostEdited($post));
+            $translation->title = $request['title'];
+            $translation->subtitle = $request['subtitle'];
+            $translation->short_description = $request['short_description'];
+            $translation->post_body = $request['post_body'];
+            $translation->seo_title = $request['seo_title'];
+            $translation->meta_desc = $request['meta_desc'];
+            $translation->slug = $request['slug'];
+            $translation->use_view_file = $request['use_view_file'];
 
-        return redirect($post->edit_url());
+            $translation->lang_id = $request['lang_id'];
+            $translation->post_id = $new_blog_post->id;
 
+            $this->processUploadedImages($request, $translation);
+            $translation->save();
+
+            $new_blog_post->categories()->sync($request->categories());
+            Helpers::flash_message("Post Updated");
+            event(new BlogPostAdded($new_blog_post));
+        }
+
+        return redirect( route('blogetc.admin.index') );
     }
 
     public function remove_photo($postSlug)

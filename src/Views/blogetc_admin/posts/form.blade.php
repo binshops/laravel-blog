@@ -218,7 +218,6 @@
 </div>
 
 <input id="selected_lang" name="selected_lang" type="number" value="-1" hidden>
-<input id="post_id" name="post_id" type="number" value="{{$post_id}}" hidden>
 
 <script>
     SHOULD_AUTO_GEN_SLUG = false;
@@ -252,21 +251,9 @@
         SHOULD_AUTO_GEN_SLUG = false; // there is already a value in #category_slug, so lets pretend it was changed already.
     }
 
-    //multi language
-    var store_toggle_url = '{{route("blogetc.admin.store_post_toggle")}}';
-    var preLang = $('#language_list').val();
-    $('#language_list').change(function (){
-        $('#add-post-form').attr('action', store_toggle_url);
-
-        $('#selected_lang').val($('#language_list').val());
-        $('#language_list').val(preLang);
-        console.log($('#language_list').val())
-        $('#add-post-form').trigger('submit');
-    });
 </script>
 
 @if( config("blogetc.use_wysiwyg") && config("blogetc.echo_html"))
-    {{--    <script src="//cdn.ckeditor.com/4.14.1/full/ckeditor.js"></script>--}}
     <script src="//cdn.ckeditor.com/4.15.0/full/ckeditor.js"></script>
 
     <script>
