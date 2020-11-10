@@ -10,10 +10,13 @@ class LoadLanguage
 
     public function handle($request, Closure $next)
     {
-        $language_id = HessamLanguage::where('locale',config("blogetc.default_language"))->first()->id;
+        $lang = HessamLanguage::where('locale', config("blogetc.default_language"))
+            ->first();
+
+        $request->attributes->add(['locale' => $lang->locale]);
 
         $response = $next($request);
-        $response->withCookie(cookie()->forever('language_id', $language_id));
+        $response->withCookie(cookie()->forever('language_id', $lang->language_id));
         return $response;
     }
 }

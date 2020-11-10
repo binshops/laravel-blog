@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use WebDevEtc\BlogEtc\Interfaces\CaptchaInterface;
-use WebDevEtc\BlogEtc\Models\HessamPost;
+use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
 
 abstract class CaptchaAbstract implements CaptchaInterface
 {
@@ -12,11 +12,11 @@ abstract class CaptchaAbstract implements CaptchaInterface
      * executed when viewing single post
      *
      * @param Request $request
-     * @param HessamPost $blogEtcPost
+     * @param HessamPostTranslation $blogEtcPost
      *
      * @return void
      */
-    public function runCaptchaBeforeShowingPosts(Request $request, HessamPost $blogEtcPost)
+    public function runCaptchaBeforeShowingPosts(Request $request, HessamPostTranslation $blogEtcPost)
     {
         // no code here to run! Maybe in your subclass you can make use of this?
         /*

@@ -100,7 +100,7 @@ class HessamPost extends Model
      */
     public function comments()
     {
-        return $this->hasMany(HessamComment::class);
+        return $this->hasMany(HessamComment::class, 'post_id');
     }
 
 }

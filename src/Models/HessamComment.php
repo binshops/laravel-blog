@@ -42,7 +42,7 @@ class HessamComment extends Model
      */
     public function post()
     {
-        return $this->belongsTo(HessamPost::class,"hessam_post_id");
+        return $this->belongsTo(HessamPost::class,"post_id");
     }
 
     /**

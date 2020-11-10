@@ -31,6 +31,10 @@ class HessamLanguageAdminController extends Controller
     }
 
     public function store_language(Request $request){
+        if ($request['locale'] == null){
+            Helpers::flash_message("Select a language!");
+            return view("blogetc_admin::languages.add_language");
+        }
         $language = new HessamLanguage();
         $language->active = $request['active'];
         $language->iso_code = $request['iso_code'];

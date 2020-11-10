@@ -7,8 +7,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Swis\Laravel\Fulltext\Search;
 use WebDevEtc\BlogEtc\Captcha\UsesCaptcha;
+use WebDevEtc\BlogEtc\Middleware\DetectLanguage;
 use WebDevEtc\BlogEtc\Models\HessamCategory;
+use WebDevEtc\BlogEtc\Models\HessamLanguage;
 use WebDevEtc\BlogEtc\Models\HessamPost;
+use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
 
 /**
  * Class HessamReaderController
@@ -19,6 +22,11 @@ class HessamReaderController extends Controller
 {
     use UsesCaptcha;
 
+    public function __construct()
+    {
+        $this->middleware(DetectLanguage::class);
+    }
+
     /**
      * Show blog posts
      * If category_slug is set, then only show from that category
@@ -26,9 +34,11 @@ class HessamReaderController extends Controller
      * @param null $category_slug
      * @return mixed
      */
-    public function index($category_slug = null)
+    public function index($locale, $category_slug = null, Request $request)
     {
         // the published_at + is_published are handled by BlogEtcPublishedScope, and don't take effect if the logged in user can manageb log posts
+
+        //todo
         $title = 'Blog Page'; // default title...
 
         $categoryChain = null;
@@ -42,21 +52,28 @@ class HessamReaderController extends Controller
             \View::share('blogetc_category', $category); // so the view can say "You are viewing $CATEGORYNAME category posts"
             $title = 'Posts in ' . $category->category_name . " category"; // hardcode title here...
         } else {
-            $posts = HessamPost::query();
+            $posts = HessamPostTranslation::query();
         }
 
-        $posts = $posts->where('is_published', '=', 1)->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))->orderBy("posted_at", "desc")->paginate(config("blogetc.per_page", 10));
+//        $posts = $posts->where('is_published', '=', 1)
+//            ->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))
+//            ->where('lang_id', $request->get("lang_id"))
+//            ->orderBy("posted_at", "desc")
+//            ->paginate(config("blogetc.per_page", 10));
 
-        //load categories in 3 levels
-        $rootList = HessamCategory::where('parent_id' ,'=' , null)->get();
-        for($i = 0 ; sizeof($rootList) > $i ; $i++){
-            $rootList[$i]->loadSiblings();
-            for ($j = 0 ; sizeof($rootList[$i]->siblings) > $j; $j++){
-                $rootList[$i]->siblings[$j]->loadSiblings();
-            }
-        }
+        $posts = HessamPostTranslation::where('lang_id', $request->get("lang_id"))
+            ->with(['post' => function($query){
+                $query->where("is_published" , '=' , true);
+                $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
+                $query->orderBy("posted_at", "desc");
+            }])->paginate(config("blogetc.per_page", 10));
+
+        //load category hierarchy
+        $rootList = HessamCategory::roots()->get();
+        HessamCategory::loadSiblingsWithList($rootList);
 
         return view("blogetc::index", [
+            'locale' => $request->get("locale"),
             'category_chain' => $categoryChain,
             'categories' => $rootList,
             'posts' => $posts,

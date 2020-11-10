@@ -2,9 +2,8 @@
 
 Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Controllers'], function () {
 
-
     /** The main public facing blog routes - show all posts, view a category, rss feed, view a single post, also the add comment route */
-    Route::group(['prefix' => config('blogetc.blog_prefix', 'blog')], function () {
+    Route::group(['prefix' => "/{locale}/".config('blogetc.blog_prefix', 'blog')], function () {
 
         Route::get('/', 'HessamReaderController@index')
             ->name('blogetc.index');

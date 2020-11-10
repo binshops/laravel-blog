@@ -224,9 +224,9 @@ class HessamPostTranslation extends Model implements SearchResultInterface
      *
      * @return string
      */
-    public function url()
+    public function url($loacle)
     {
-        return route("blogetc.single", $this->slug);
+        return route("blogetc.single", [$loacle, $this->slug]);
     }
 
     /**

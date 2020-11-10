@@ -7,7 +7,7 @@
     @forelse($post_translations as $post)
         <div class="card m-4" style="">
             <div class="card-body">
-                <h5 class='card-title'><a class="a-link-cart-color" href='{{$post->url()}}'>{{$post->title}}</a></h5>
+                <h5 class='card-title'><a class="a-link-cart-color" href='{{$post->url(app('request')->get('locale'))}}'>{{$post->title}}</a></h5>
                 <h5 class='card-subtitle mb-2 text-muted'>{{$post->subtitle}}</h5>
                 <p class="card-text">{{$post->html}}</p>
 
@@ -73,8 +73,8 @@
                 @endif
 
 
-                <a href="{{$post->url()}}" class="card-link btn btn-outline-secondary"><i class="fa fa-file-text-o"
-                                                                                          aria-hidden="true"></i>
+                <a href="{{$post->url(app('request')->get('locale'))}}" class="card-link btn btn-outline-secondary"><i class="fa fa-file-text-o"
+                                                                                                                       aria-hidden="true"></i>
                     View Post</a>
                 <a href="{{$post->edit_url()}}" class="card-link btn btn-primary">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
