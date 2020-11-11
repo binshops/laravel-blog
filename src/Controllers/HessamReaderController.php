@@ -63,10 +63,10 @@ class HessamReaderController extends Controller
 
         $posts = HessamPostTranslation::where('lang_id', $request->get("lang_id"))
             ->with(['post' => function($query){
-                $query->where("is_published" , '=' , true);
-                $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
-                $query->orderBy("posted_at", "desc");
-            }])->paginate(config("blogetc.per_page", 10));
+            $query->where("is_published" , '=' , true);
+            $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
+            $query->orderBy("posted_at", "desc");
+        }])->paginate(config("blogetc.per_page", 10));
 
         //load category hierarchy
         $rootList = HessamCategory::roots()->get();
@@ -129,11 +129,13 @@ class HessamReaderController extends Controller
      * @param $blogPostSlug
      * @return mixed
      */
-    public function viewSinglePost(Request $request, $blogPostSlug)
+    public function viewSinglePost(Request $request, $locale, $blogPostSlug)
     {
         // the published_at + is_published are handled by BlogEtcPublishedScope, and don't take effect if the logged in user can manage log posts
-        $blog_post = HessamPost::where("slug", $blogPostSlug)
-            ->firstOrFail();
+        $blog_post = HessamPostTranslation::where([
+            ["slug", "=", $blogPostSlug],
+            ['lang_id', "=" , $request->get("lang_id")]
+        ])->firstOrFail();
 
         if ($captcha = $this->getCaptchaObject()) {
             $captcha->runCaptchaBeforeShowingPosts($request, $blog_post);
@@ -142,7 +144,7 @@ class HessamReaderController extends Controller
         return view("blogetc::single_post", [
             'post' => $blog_post,
             // the default scope only selects approved comments, ordered by id
-            'comments' => $blog_post->comments()
+            'comments' => $blog_post->post->comments()
                 ->with("user")
                 ->get(),
             'captcha' => $captcha,

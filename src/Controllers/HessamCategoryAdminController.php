@@ -8,6 +8,7 @@ use WebDevEtc\BlogEtc\Events\CategoryAdded;
 use WebDevEtc\BlogEtc\Events\CategoryEdited;
 use WebDevEtc\BlogEtc\Events\CategoryWillBeDeleted;
 use WebDevEtc\BlogEtc\Helpers;
+use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamCategory;
 use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
@@ -28,6 +29,8 @@ class HessamCategoryAdminController extends Controller
     public function __construct()
     {
         $this->middleware(UserCanManageBlogPosts::class);
+        $this->middleware(LoadLanguage::class);
+
     }
 
     /**
@@ -181,7 +184,7 @@ class HessamCategoryAdminController extends Controller
      */
     public function destroy_category(DeleteBlogEtcCategoryRequest $request, $categoryId){
 
-        /* Please keep this in, so code inspections don't say $request was unused. Of course it might now get marked as left/right parts are equal */
+        /* Please keep this in, so code inspectiwons don't say $request was unused. Of course it might now get marked as left/right parts are equal */
         $request=$request;
 
         $category = HessamCategory::findOrFail($categoryId);

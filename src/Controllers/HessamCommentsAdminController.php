@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use WebDevEtc\BlogEtc\Events\CommentApproved;
 use WebDevEtc\BlogEtc\Events\CommentWillBeDeleted;
 use WebDevEtc\BlogEtc\Helpers;
+use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamComment;
 
@@ -22,6 +23,8 @@ class HessamCommentsAdminController extends Controller
     public function __construct()
     {
         $this->middleware(UserCanManageBlogPosts::class);
+        $this->middleware(LoadLanguage::class);
+
     }
 
     /**

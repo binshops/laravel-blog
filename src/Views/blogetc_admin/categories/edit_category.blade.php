@@ -55,21 +55,21 @@
         <div class="form-group">
             <label for="category_slug">Category slug</label>
             <input
-                    maxlength='100'
-                    pattern="[a-zA-Z0-9-]+"
-                    type="text"
-                    required
-                    class="form-control"
-                    id="category_slug"
-                    oninput="SHOULD_AUTO_GEN_SLUG=false;"
-                    aria-describedby="category_slug_help"
-                    name='slug'
-                    value="{{old("slug",$category_translation->slug)}}"
+                maxlength='100'
+                pattern="[a-zA-Z0-9-]+"
+                type="text"
+                required
+                class="form-control"
+                id="category_slug"
+                oninput="SHOULD_AUTO_GEN_SLUG=false;"
+                aria-describedby="category_slug_help"
+                name='slug'
+                value="{{old("slug",$category_translation->slug)}}"
             >
 
             <small id="category_slug_help" class="form-text text-muted">
                 Letters, numbers, dash only. The slug
-                i.e. {{route("blogetc.view_category","")}}/<u><em>this_part</em></u>. This must be unique (two categories can't
+                i.e. {{route("blogetc.view_category",[app('request')->get('locale'),""])}}/<u><em>this_part</em></u>. This must be unique (two categories can't
                 share the same slug).
 
             </small>
@@ -83,9 +83,9 @@
                 </option>
                 @foreach($categories_list as $category2)
                     @if($category->id != $category2->category_id)
-                        <option @if($category->parent_id == $category2->category_id) selected='selected' @endif value='{{$category2->category_id}}'>
-                            {{$category2->category_name}}
-                        </option>
+                    <option @if($category->parent_id == $category2->category_id) selected='selected' @endif value='{{$category2->category_id}}'>
+                        {{$category2->category_name}}
+                    </option>
                     @endif
                 @endforeach
             </select>

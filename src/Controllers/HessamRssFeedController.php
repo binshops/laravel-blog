@@ -5,6 +5,7 @@ namespace WebDevEtc\BlogEtc\Controllers;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Laravelium\Feed\Feed;
+use WebDevEtc\BlogEtc\Middleware\DetectLanguage;
 use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Requests\FeedRequest;
 
@@ -15,6 +16,11 @@ use WebDevEtc\BlogEtc\Requests\FeedRequest;
  */
 class HessamRssFeedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(DetectLanguage::class);
+    }
+    
     /**
      * @param Feed $feed
      * @param $posts

@@ -6,6 +6,7 @@ namespace WebDevEtc\BlogEtc\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use WebDevEtc\BlogEtc\Helpers;
+use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamLanguage;
 
@@ -17,6 +18,8 @@ class HessamLanguageAdminController extends Controller
     public function __construct()
     {
         $this->middleware(UserCanManageBlogPosts::class);
+        $this->middleware(LoadLanguage::class);
+
     }
 
     public function index(){

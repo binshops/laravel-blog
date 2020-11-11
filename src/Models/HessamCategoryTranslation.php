@@ -37,15 +37,15 @@ class HessamCategoryTranslation extends Model
      * Returns the public facing URL of showing blog posts in this category
      * @return string
      */
-    public function url($language_id)
+    public function url($loacle)
     {
         $theChainString = "";
         $cat = $this->category()->get();
         $chain = $cat[0]->getAncestorsAndSelf();
         foreach ($chain as $category){
-            $theChainString .=  "/" . $category->slug;
+            $theChainString .=  "/" . $category->categoryTranslations()->where('lang_id' , $this->lang_id)->first()->slug;
         }
-        return route("blogetc.view_category", $theChainString);
+        return route("blogetc.view_category",[$loacle, $theChainString]);
     }
 
     /**

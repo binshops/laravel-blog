@@ -7,6 +7,8 @@ use Auth;
 use WebDevEtc\BlogEtc\Captcha\CaptchaAbstract;
 use WebDevEtc\BlogEtc\Captcha\UsesCaptcha;
 use WebDevEtc\BlogEtc\Events\CommentAdded;
+use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
+use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamComment;
 use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Requests\AddNewCommentRequest;
@@ -19,6 +21,13 @@ class HessamCommentWriterController extends Controller
 {
 
     use UsesCaptcha;
+
+    public function __construct()
+    {
+        $this->middleware(UserCanManageBlogPosts::class);
+        $this->middleware(LoadLanguage::class);
+
+    }
 
     /**
      * Let a guest (or logged in user) submit a new comment for a blog post

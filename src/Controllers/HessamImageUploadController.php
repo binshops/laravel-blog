@@ -4,6 +4,7 @@ namespace WebDevEtc\BlogEtc\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamUploadedPhoto;
 use File;
@@ -25,6 +26,7 @@ class HessamImageUploadController extends Controller
     public function __construct()
     {
         $this->middleware(UserCanManageBlogPosts::class);
+        $this->middleware(LoadLanguage::class);
 
         if (!is_array(config("blogetc"))) {
             throw new \RuntimeException('The config/blogetc.php does not exist. Publish the vendor files for the BlogEtc package by running the php artisan publish:vendor command');
