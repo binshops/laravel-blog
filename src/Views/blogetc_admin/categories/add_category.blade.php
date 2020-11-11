@@ -37,16 +37,16 @@
         <div class="form-group">
             <label for="category_slug">Category slug</label>
             <input
-                maxlength='100'
-                pattern="[a-zA-Z0-9-]+"
-                type="text"
-                required
-                class="form-control"
-                id="category_slug"
-                oninput="SHOULD_AUTO_GEN_SLUG=false;"
-                aria-describedby="category_slug_help"
-                name='slug'
-                value="{{old("slug",$category_translation->slug)}}"
+                    maxlength='100'
+                    pattern="[a-zA-Z0-9-]+"
+                    type="text"
+                    required
+                    class="form-control"
+                    id="category_slug"
+                    oninput="SHOULD_AUTO_GEN_SLUG=false;"
+                    aria-describedby="category_slug_help"
+                    name='slug'
+                    value="{{old("slug",$category_translation->slug)}}"
             >
 
             <small id="category_slug_help" class="form-text text-muted">
@@ -59,133 +59,133 @@
 
         <div class="form-group">
             <label for="category_slug">Category Tree</label>
-            <ul class="hessam-category-hierarchy">
-              @include("blogetc_admin::categories._category_partial", ['category_tree' => $cat_roots])
+            <ul class="wtree">
+                @include("blogetc_admin::categories._category_partial", ['category_tree' => $cat_roots])
             </ul>
-    </div>
+        </div>
 
-    <div class="form-group">
-        <label for="category_slug">Parent Category</label>
-        <select id="parent_id" name='parent_id' class='form-control'>
-            <option  selected='selected' value='0'>
-                Root
-            </option>
-            @foreach($category_tree as $category)
-                <option  value='{{$category->categoryTranslations[0]['category_id']}}'>
-                    {{$category->categoryTranslations[0]['category_name']}}
+        <div class="form-group">
+            <label for="category_slug">Parent Category</label>
+            <select id="parent_id" name='parent_id' class='form-control'>
+                <option  selected='selected' value='0'>
+                    Root
                 </option>
-            @endforeach
-        </select>
-    </div>
+                @foreach($category_tree as $category)
+                    <option  value='{{$category->categoryTranslations[0]['category_id']}}'>
+                        {{$category->categoryTranslations[0]['category_name']}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="category_description">Category Description (optional)</label>
-        <textarea name='category_description'
-                  class='form-control'
-                  id='category_description'>{{old("category_description",$category_translation->category_description)}}</textarea>
+        <div class="form-group">
+            <label for="category_description">Category Description (optional)</label>
+            <textarea name='category_description'
+                      class='form-control'
+                      id='category_description'>{{old("category_description",$category_translation->category_description)}}</textarea>
 
-    </div>
+        </div>
 
-    <button type="button" class='btn btn-primary' id="submit-btn">Add new category</button>
+        <button type="button" class='btn btn-primary' id="submit-btn">Add new category</button>
 
-    <script>
-        SHOULD_AUTO_GEN_SLUG = false;
+        <script>
+            SHOULD_AUTO_GEN_SLUG = false;
 
-        /* Generate the slug field, if it was not touched by the user (or if it was an empty string) */
-        function populate_slug_field() {
+            /* Generate the slug field, if it was not touched by the user (or if it was an empty string) */
+            function populate_slug_field() {
 
 //        alert("A");
-            var cat_slug = document.getElementById('category_slug');
+                var cat_slug = document.getElementById('category_slug');
 
-            if (cat_slug.value.length < 1) {
-                // if the slug field is empty, make sure it auto generates
-                SHOULD_AUTO_GEN_SLUG = true;
-            }
-
-            if (SHOULD_AUTO_GEN_SLUG) {
-                // the slug hasn't been manually changed (or it was set above), so we should generate the slug
-                // This is done in two stages - one to remove non words/spaces etc, the another to replace white space (and underscore) with a -
-                cat_slug.value =document.getElementById("category_name").value.toLowerCase()
-                    .replace(/[^\w-_ ]+/g, '') // replace with nothing
-                    .replace(/[_ ]+/g, '-') // replace _ and spaces with -
-                    .substring(0,99); // limit str length
-
-            }
-
-        }
-
-        if (document.getElementById("category_slug").value.length < 1) {
-            SHOULD_AUTO_GEN_SLUG = true;
-        } else {
-            SHOULD_AUTO_GEN_SLUG = false; // there is already a value in #category_slug, so lets pretend it was changed already.
-        }
-
-
-        //multi-language data
-        var defalutLangId = {{$language_id}}
-        var preLangId = defalutLangId;
-        var languageList = {};
-        $("#language_list > option").each(function() {
-            languageList[this.value] = {
-                lang_id: -1,
-                category_name: "",
-                slug: "",
-                category_description: "",
-                lang_name: this.text
-            }
-        });
-
-        $('#language_list').on('change', function() {
-            fillLanguageList(this.value);
-            preLangId = this.value;
-        });
-
-        function fillLanguageList(langId){
-            languageList[preLangId].lang_id = preLangId;
-            languageList[preLangId].category_name = $('#category_name').val();
-            languageList[preLangId].slug = $('#category_slug').val();
-            languageList[preLangId].category_description = $('#category_description').val();
-
-            $('#category_name').val(languageList[langId].category_name);
-            $('#category_slug').val(languageList[langId].slug);
-            $('#category_description').val(languageList[langId].category_description);
-        }
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('#submit-btn').click(function (){
-            if (languageList[$('#language_list').val()].lang_id == -1){
-                if (!$('#category_name').val()){
-                    alert("Category name must not be empty");
-                    return ;
-                }else if (!$('#category_slug').val()){
-                    alert("Category slug must not be empty");
-                    return ;
+                if (cat_slug.value.length < 1) {
+                    // if the slug field is empty, make sure it auto generates
+                    SHOULD_AUTO_GEN_SLUG = true;
                 }
-                languageList[preLangId].lang_id = $('#language_list').val();
+
+                if (SHOULD_AUTO_GEN_SLUG) {
+                    // the slug hasn't been manually changed (or it was set above), so we should generate the slug
+                    // This is done in two stages - one to remove non words/spaces etc, the another to replace white space (and underscore) with a -
+                    cat_slug.value =document.getElementById("category_name").value.toLowerCase()
+                        .replace(/[^\w-_ ]+/g, '') // replace with nothing
+                        .replace(/[_ ]+/g, '-') // replace _ and spaces with -
+                        .substring(0,99); // limit str length
+
+                }
+
+            }
+
+            if (document.getElementById("category_slug").value.length < 1) {
+                SHOULD_AUTO_GEN_SLUG = true;
+            } else {
+                SHOULD_AUTO_GEN_SLUG = false; // there is already a value in #category_slug, so lets pretend it was changed already.
+            }
+
+
+            //multi-language data
+            var defalutLangId = {{$language_id}}
+            var preLangId = defalutLangId;
+            var languageList = {};
+            $("#language_list > option").each(function() {
+                languageList[this.value] = {
+                    lang_id: -1,
+                    category_name: "",
+                    slug: "",
+                    category_description: "",
+                    lang_name: this.text
+                }
+            });
+
+            $('#language_list').on('change', function() {
+                fillLanguageList(this.value);
+                preLangId = this.value;
+            });
+
+            function fillLanguageList(langId){
+                languageList[preLangId].lang_id = preLangId;
                 languageList[preLangId].category_name = $('#category_name').val();
                 languageList[preLangId].slug = $('#category_slug').val();
                 languageList[preLangId].category_description = $('#category_description').val();
-            }
-            $.post('{{route("blogetc.admin.categories.store_category")}}' ,
-                {
-                    data: languageList,
-                    parent_id: parseInt($('#parent_id').val())
-                },
-                function(data, status){
-                if (data.code === 403){
-                    alert("Slug is already taken: " + languageList[data.data].lang_name);
-                }else if (data.code === 200) {
-                }
-                    window.location.replace("{{route('blogetc.admin.categories.index')}}");
-                });
-        });
 
-    </script>
-</form>
+                $('#category_name').val(languageList[langId].category_name);
+                $('#category_slug').val(languageList[langId].slug);
+                $('#category_description').val(languageList[langId].category_description);
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#submit-btn').click(function (){
+                if (languageList[$('#language_list').val()].lang_id == -1){
+                    if (!$('#category_name').val()){
+                        alert("Category name must not be empty");
+                        return ;
+                    }else if (!$('#category_slug').val()){
+                        alert("Category slug must not be empty");
+                        return ;
+                    }
+                    languageList[preLangId].lang_id = $('#language_list').val();
+                    languageList[preLangId].category_name = $('#category_name').val();
+                    languageList[preLangId].slug = $('#category_slug').val();
+                    languageList[preLangId].category_description = $('#category_description').val();
+                }
+                $.post('{{route("blogetc.admin.categories.store_category")}}' ,
+                    {
+                        data: languageList,
+                        parent_id: parseInt($('#parent_id').val())
+                    },
+                    function(data, status){
+                        if (data.code === 403){
+                            alert("Slug is already taken: " + languageList[data.data].lang_name);
+                        }else if (data.code === 200) {
+                        }
+                        window.location.replace("{{route('blogetc.admin.categories.index')}}");
+                    });
+            });
+
+        </script>
+    </form>
 
 @endsection
