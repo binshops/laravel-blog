@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use WebDevEtc\BlogEtc\Interfaces\CaptchaInterface;
+use WebDevEtc\BlogEtc\Models\HessamPost;
 use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
 
 abstract class CaptchaAbstract implements CaptchaInterface

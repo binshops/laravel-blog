@@ -41,6 +41,9 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
     /* Admin backend routes - CRUD for posts, categories, and approving/deleting submitted comments */
     Route::group(['prefix' => config('blogetc.admin_prefix', 'blog_admin')], function () {
 
+        Route::get('/setup', 'HessamAdminSetupController@setup')
+            ->name('blogetc.admin.setup');
+
         Route::get('/', 'HessamAdminController@index')
             ->name('blogetc.admin.index');
 

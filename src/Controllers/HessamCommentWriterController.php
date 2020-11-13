@@ -11,6 +11,7 @@ use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
 use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
 use WebDevEtc\BlogEtc\Models\HessamComment;
 use WebDevEtc\BlogEtc\Models\HessamPost;
+use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
 use WebDevEtc\BlogEtc\Requests\AddNewCommentRequest;
 
 /**
@@ -37,15 +38,17 @@ class HessamCommentWriterController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function addNewComment(AddNewCommentRequest $request, $blog_post_slug)
+    public function addNewComment(AddNewCommentRequest $request, $locale, $blog_post_slug)
     {
 
         if (config("blogetc.comments.type_of_comments_to_show", "built_in") !== 'built_in') {
             throw new \RuntimeException("Built in comments are disabled");
         }
 
-        $blog_post = HessamPost::where("slug", $blog_post_slug)
+        $post_translation = HessamPostTranslation::where("slug", $blog_post_slug)
+            ->with('post')
             ->firstOrFail();
+        $blog_post = $post_translation->post;
 
         /** @var CaptchaAbstract $captcha */
         $captcha = $this->getCaptchaObject();
@@ -57,7 +60,7 @@ class HessamCommentWriterController extends Controller
 
         return view("blogetc::saved_comment", [
             'captcha' => $captcha,
-            'blog_post' => $blog_post,
+            'blog_post' => $post_translation,
             'new_comment' => $new_comment
         ]);
 

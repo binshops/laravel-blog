@@ -26,15 +26,13 @@
                 </div>
                 <div class="col-md-3">
                     <h6>Blog Categories</h6>
-                    @forelse($categories as $category)
-                        <a href="{{$category->url()}}">
-                            <h6>{{$category->category_name}}</h6>
-                        </a>
-                    @empty
-                        <a href="#">
-                            <h6>No Categories</h6>
-                        </a>
-                    @endforelse
+                    <ul class="hessam-cat-hierarchy">
+                        @if($categories)
+                            @include("blogetc::partials._category_partial", ['category_tree' => $categories])
+                        @else
+                            <span>No Categories</span>
+                        @endif
+                    </ul>
                 </div>
             </div>
 

@@ -63,10 +63,10 @@ class HessamReaderController extends Controller
 
         $posts = HessamPostTranslation::where('lang_id', $request->get("lang_id"))
             ->with(['post' => function($query){
-            $query->where("is_published" , '=' , true);
-            $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
-            $query->orderBy("posted_at", "desc");
-        }])->paginate(config("blogetc.per_page", 10));
+                $query->where("is_published" , '=' , true);
+                $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
+                $query->orderBy("posted_at", "desc");
+            }])->paginate(config("blogetc.per_page", 10));
 
         //load category hierarchy
         $rootList = HessamCategory::roots()->get();
@@ -99,10 +99,11 @@ class HessamReaderController extends Controller
 
         \View::share("title", "Search results for " . e($query));
 
-        $categories = HessamCategory::all();
+        $rootList = HessamCategory::roots()->get();
+        HessamCategory::loadSiblingsWithList($rootList);
 
         return view("blogetc::search", [
-                'categories' => $categories,
+                'categories' => $rootList,
                 'query' => $query,
                 'search_results' => $search_results]
         );
