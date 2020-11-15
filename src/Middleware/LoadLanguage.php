@@ -1,16 +1,16 @@
 <?php
 
 
-namespace WebDevEtc\BlogEtc\Middleware;
+namespace HessamCMS\Middleware;
 use Closure;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
+use HessamCMS\Models\HessamLanguage;
 
 class LoadLanguage
 {
 
     public function handle($request, Closure $next)
     {
-        $lang = HessamLanguage::where('locale', config("blogetc.default_language"))
+        $lang = HessamLanguage::where('locale', config("hessamcms.default_language"))
             ->first();
 
         $request->attributes->add(['locale' => $lang->locale]);

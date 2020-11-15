@@ -1,10 +1,10 @@
 <?php
 
 
-namespace WebDevEtc\BlogEtc\Middleware;
+namespace HessamCMS\Middleware;
 
 use Closure;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
+use HessamCMS\Models\HessamLanguage;
 
 class DetectLanguage
 {

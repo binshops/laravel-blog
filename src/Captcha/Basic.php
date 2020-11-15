@@ -1,15 +1,15 @@
-<?php namespace WebDevEtc\BlogEtc\Captcha;
+<?php namespace HessamCMS\Captcha;
 
 /**
  * Class Basic
- * @package WebDevEtc\BlogEtc\Captcha
+ * @package HessamCMS\Captcha
  */
 class Basic extends CaptchaAbstract
 {
 
     public function __construct()
     {
-        if (!config("blogetc.captcha.basic_question") || !config("blogetc.captcha.basic_answers")) {
+        if (!config("hessamcms.captcha.basic_question") || !config("hessamcms.captcha.basic_answers")) {
             throw new \DomainException("Invalid question or answers for captcha");
         }
     }
@@ -31,7 +31,7 @@ class Basic extends CaptchaAbstract
      */
     public function view()
     {
-        return 'blogetc::captcha.basic';
+        return 'hessamcms::captcha.basic';
     }
 
     /**
@@ -44,7 +44,7 @@ class Basic extends CaptchaAbstract
     public function rules()
     {
         $check_func = function ($attribute, $value, $fail) {
-            $answers = config("blogetc.captcha.basic_answers");
+            $answers = config("hessamcms.captcha.basic_answers");
             // strtolower everything
             $value = strtolower(trim($value));
             $answers = strtolower($answers);

@@ -1,6 +1,6 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Requests;
+namespace HessamCMS\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -9,7 +9,7 @@ class AddNewCommentRequest extends FormRequest
 
     public function authorize()
     {
-        if (config("blogetc.comments.type_of_comments_to_show") === 'built_in') {
+        if (config("hessamcms.comments.type_of_comments_to_show") === 'built_in') {
             // anyone is allowed to submit a comment, to return true always.
             return true;
         }
@@ -34,7 +34,7 @@ class AddNewCommentRequest extends FormRequest
         ];
 
         // do we need author name?
-        if (\Auth::check() && config("blogetc.comments.save_user_id_if_logged_in", true)) {
+        if (\Auth::check() && config("hessamcms.comments.save_user_id_if_logged_in", true)) {
             // is logged in, so we don't need an author name (it won't get used)
             $return['author_name'][] = 'nullable';
         } else {
@@ -43,24 +43,24 @@ class AddNewCommentRequest extends FormRequest
         }
 
         // is captcha enabled? If so, get the rules from its class.
-        if (config("blogetc.captcha.captcha_enabled")) {
+        if (config("hessamcms.captcha.captcha_enabled")) {
             /** @var string $captcha_class */
-            $captcha_class = config("blogetc.captcha.captcha_type");
+            $captcha_class = config("hessamcms.captcha.captcha_type");
 
-            /** @var \WebDevEtc\BlogEtc\Interfaces\CaptchaInterface $captcha */
+            /** @var \HessamCMS\Interfaces\CaptchaInterface $captcha */
             $captcha = new $captcha_class;
 
             $return[$captcha->captcha_field_name()] = $captcha->rules();
         }
 
         // in case you need to implement something custom, you can use this...
-        if (config("blogetc.comments.rules") && is_callable(config("blogetc.comments.rules"))) {
+        if (config("hessamcms.comments.rules") && is_callable(config("hessamcms.comments.rules"))) {
             /** @var callable $func */
-            $func = config('blogetc.comments.rules');
+            $func = config('hessamcms.comments.rules');
             $return = $func($return);
         }
 
-        if (config("blogetc.comments.require_author_email")) {
+        if (config("hessamcms.comments.require_author_email")) {
             $return['author_email'][] = 'required';
         }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Models;
+namespace HessamCMS\Models;
 
-use WebDevEtc\BlogEtc\Baum\Node;
+use HessamCMS\Baum\Node;
 
 class HessamCategory extends Node
 {
@@ -53,12 +53,12 @@ class HessamCategory extends Node
 
 //    public function parent()
 //    {
-//        return $this->belongsTo('WebDevEtc\BlogEtc\Models\HessamCategory', 'parent_id');
+//        return $this->belongsTo('HessamCMS\Models\HessamCategory', 'parent_id');
 //    }
 //
 //    public function children()
 //    {
-//        return $this->hasMany('WebDevEtc\BlogEtc\Models\HessamCategory', 'parent_id');
+//        return $this->hasMany('HessamCMS\Models\HessamCategory', 'parent_id');
 //    }
 //
 //    // recursive, loads all descendants

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use WebDevEtc\BlogEtc\Helpers;
-use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
-use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
+use HessamCMS\Helpers;
+use HessamCMS\Middleware\LoadLanguage;
+use HessamCMS\Middleware\UserCanManageBlogPosts;
+use HessamCMS\Models\HessamLanguage;
 
 class HessamLanguageAdminController extends Controller
 {
@@ -24,19 +24,19 @@ class HessamLanguageAdminController extends Controller
 
     public function index(){
         $language_list = HessamLanguage::all();
-        return view("blogetc_admin::languages.index",[
+        return view("hessamcms_admin::languages.index",[
             'language_list' => $language_list
         ]);
     }
 
     public function create_language(){
-        return view("blogetc_admin::languages.add_language");
+        return view("hessamcms_admin::languages.add_language");
     }
 
     public function store_language(Request $request){
         if ($request['locale'] == null){
             Helpers::flash_message("Select a language!");
-            return view("blogetc_admin::languages.add_language");
+            return view("hessamcms_admin::languages.add_language");
         }
         $language = new HessamLanguage();
         $language->active = $request['active'];
@@ -48,7 +48,7 @@ class HessamLanguageAdminController extends Controller
         $language->save();
 
         Helpers::flash_message("Language: " . $language->name . " has been added.");
-        return redirect( route('blogetc.admin.languages.index') );
+        return redirect( route('hessamcms.admin.languages.index') );
     }
 
     public function destroy_language(Request $request, $languageId){
@@ -58,10 +58,10 @@ class HessamLanguageAdminController extends Controller
 //        event(new CategoryWillBeDeleted($category));
             $language->delete();
             Helpers::flash_message("The language is successfully deleted!");
-            return redirect( route('blogetc.admin.languages.index') );
+            return redirect( route('hessamcms.admin.languages.index') );
         } catch (\Illuminate\Database\QueryException $e) {
             Helpers::flash_message("You can not delete this language, because it's used in posts or categoies.");
-            return redirect( route('blogetc.admin.languages.index') );
+            return redirect( route('hessamcms.admin.languages.index') );
         }
     }
 
@@ -78,6 +78,6 @@ class HessamLanguageAdminController extends Controller
         //event
 
         Helpers::flash_message("Language: " . $language->name . " has been disabled.");
-        return redirect( route('blogetc.admin.languages.index') );
+        return redirect( route('hessamcms.admin.languages.index') );
     }
 }

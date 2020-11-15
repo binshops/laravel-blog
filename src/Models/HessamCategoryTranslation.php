@@ -1,7 +1,7 @@
 <?php
 
 
-namespace WebDevEtc\BlogEtc\Models;
+namespace HessamCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,7 +45,7 @@ class HessamCategoryTranslation extends Model
         foreach ($chain as $category){
             $theChainString .=  "/" . $category->categoryTranslations()->where('lang_id' , $this->lang_id)->first()->slug;
         }
-        return route("blogetc.view_category",[$loacle, $theChainString]);
+        return route("hessamcms.view_category",[$loacle, $theChainString]);
     }
 
     /**
@@ -54,6 +54,6 @@ class HessamCategoryTranslation extends Model
      */
     public function edit_url()
     {
-        return route("blogetc.admin.categories.edit_category", $this->category_id);
+        return route("hessamcms.admin.categories.edit_category", $this->category_id);
     }
 }

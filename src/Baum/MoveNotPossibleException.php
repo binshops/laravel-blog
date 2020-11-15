@@ -1,4 +1,4 @@
 <?php
-namespace WebDevEtc\BlogEtc\Baum;
+namespace HessamCMS\Baum;
 
 class MoveNotPossibleException extends \RuntimeException {}

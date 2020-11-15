@@ -1,8 +1,8 @@
 <?php
-namespace WebDevEtc\BlogEtc\Baum;
+namespace HessamCMS\Baum;
 
-use WebDevEtc\BlogEtc\Baum\Extensions\Eloquent\Collection;
-use WebDevEtc\BlogEtc\Baum\Extensions\Eloquent\Model;
+use HessamCMS\Baum\Extensions\Eloquent\Collection;
+use HessamCMS\Baum\Extensions\Eloquent\Model;
 
 /**
  * Node
@@ -347,7 +347,7 @@ abstract class Node extends Model {
    * Overload new Collection
    *
    * @param array $models
-   * @return \WebDevEtc\BlogEtc\Baum\Extensions\Eloquent\Collection
+   * @return \HessamCMS\Baum\Extensions\Eloquent\Collection
    */
   public function newCollection(array $models = array()) {
     return new Collection($models);
@@ -887,7 +887,7 @@ abstract class Node extends Model {
   /**
    * Find the left sibling and move to left of it.
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function moveLeft() {
     return $this->moveToLeftOf($this->getLeftSibling());
@@ -896,7 +896,7 @@ abstract class Node extends Model {
   /**
    * Find the right sibling and move to the right of it.
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function moveRight() {
     return $this->moveToRightOf($this->getRightSibling());
@@ -905,7 +905,7 @@ abstract class Node extends Model {
   /**
    * Move to the node to the left of ...
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function moveToLeftOf($node) {
     return $this->moveTo($node, 'left');
@@ -914,7 +914,7 @@ abstract class Node extends Model {
   /**
    * Move to the node to the right of ...
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function moveToRightOf($node) {
     return $this->moveTo($node, 'right');
@@ -923,7 +923,7 @@ abstract class Node extends Model {
   /**
    * Alias for moveToRightOf
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function makeNextSiblingOf($node) {
     return $this->moveToRightOf($node);
@@ -932,7 +932,7 @@ abstract class Node extends Model {
   /**
    * Alias for moveToRightOf
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function makeSiblingOf($node) {
     return $this->moveToRightOf($node);
@@ -941,7 +941,7 @@ abstract class Node extends Model {
   /**
    * Alias for moveToLeftOf
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function makePreviousSiblingOf($node) {
     return $this->moveToLeftOf($node);
@@ -950,7 +950,7 @@ abstract class Node extends Model {
   /**
    * Make the node a child of ...
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function makeChildOf($node) {
     return $this->moveTo($node, 'child');
@@ -959,7 +959,7 @@ abstract class Node extends Model {
   /**
    * Make the node the first child of ...
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function makeFirstChildOf($node) {
     if ( $node->children()->count() == 0 )
@@ -971,7 +971,7 @@ abstract class Node extends Model {
   /**
    * Make the node the last child of ...
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function makeLastChildOf($node) {
     return $this->makeChildOf($node);
@@ -980,7 +980,7 @@ abstract class Node extends Model {
   /**
    * Make current node a root node.
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function makeRoot() {
     return $this->moveTo($this, 'root');
@@ -989,7 +989,7 @@ abstract class Node extends Model {
   /**
    * Equals?
    *
-   * @param \WebDevEtc\BlogEtc\Baum\Node
+   * @param \HessamCMS\Baum\Node
    * @return boolean
    */
   public function equals($node) {
@@ -999,7 +999,7 @@ abstract class Node extends Model {
   /**
    * Checkes if the given node is in the same scope as the current one.
    *
-   * @param \WebDevEtc\BlogEtc\Baum\Node
+   * @param \HessamCMS\Baum\Node
    * @return boolean
    */
   public function inSameScope($other) {
@@ -1014,7 +1014,7 @@ abstract class Node extends Model {
    * Checks wether the given node is a descendant of itself. Basically, whether
    * its in the subtree defined by the left and right indices.
    *
-   * @param \WebDevEtc\BlogEtc\Baum\Node
+   * @param \HessamCMS\Baum\Node
    * @return boolean
    */
   public function insideSubtree($node) {
@@ -1071,7 +1071,7 @@ abstract class Node extends Model {
   /**
    * Sets the depth attribute
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function setDepth() {
     $self = $this;
@@ -1091,7 +1091,7 @@ abstract class Node extends Model {
   /**
    * Sets the depth attribute for the current node and all of its descendants.
    *
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   public function setDepthWithSubtree() {
     $self = $this;
@@ -1232,9 +1232,9 @@ abstract class Node extends Model {
    * Main move method. Here we handle all node movements with the corresponding
    * lft/rgt index updates.
    *
-   * @param WebDevEtc\BlogEtc\Baum\Node|int $target
+   * @param HessamCMS\Baum\Node|int $target
    * @param string        $position
-   * @return \WebDevEtc\BlogEtc\Baum\Node
+   * @return \HessamCMS\Baum\Node
    */
   protected function moveTo($target, $position) {
     return Move::to($this, $target, $position);
@@ -1259,7 +1259,7 @@ abstract class Node extends Model {
   /**
    * Return an array with the last node we could reach and its nesting level
    *
-   * @param   WebDevEtc\BlogEtc\Baum\Node $node
+   * @param   HessamCMS\Baum\Node $node
    * @param   integer   $nesting
    * @return  array
    */

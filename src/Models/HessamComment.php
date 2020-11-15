@@ -1,10 +1,10 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Models;
+namespace HessamCMS\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
-use WebDevEtc\BlogEtc\Scopes\BlogCommentApprovedAndDefaultOrderScope;
+use HessamCMS\Scopes\BlogCommentApprovedAndDefaultOrderScope;
 
 class HessamComment extends Model
 {
@@ -28,7 +28,7 @@ class HessamComment extends Model
     {
         parent::boot();
 
-        /* If user is logged in and \Auth::user()->canManageBlogEtcPosts() == true, show any/all posts.
+        /* If user is logged in and \Auth::user()->canManageHessamCMSPosts() == true, show any/all posts.
            otherwise (which will be for most users) it should only show published posts that have a posted_at
            time <= Carbon::now(). This sets it up: */
         static::addGlobalScope(new BlogCommentApprovedAndDefaultOrderScope());
@@ -51,7 +51,7 @@ class HessamComment extends Model
      */
     public function user()
     {
-        return $this->belongsTo(config("blogetc.user_model"), 'user_id');
+        return $this->belongsTo(config("hessamcms.user_model"), 'user_id');
     }
 
     /**
@@ -62,7 +62,7 @@ class HessamComment extends Model
     public function author()
     {
         if ($this->user_id) {
-            $field = config("blogetc.comments.user_field_for_author_name","name");
+            $field = config("hessamcms.comments.user_field_for_author_name","name");
             return optional($this->user)->$field;
         }
 

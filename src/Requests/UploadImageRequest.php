@@ -1,13 +1,13 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Requests;
+namespace HessamCMS\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use WebDevEtc\BlogEtc\Interfaces\BaseRequestInterface;
+use HessamCMS\Interfaces\BaseRequestInterface;
 
 /**
  * Class BaseRequest
- * @package WebDevEtc\BlogEtc\Requests
+ * @package HessamCMS\Requests
  */
 class UploadImageRequest extends BaseRequest
 {

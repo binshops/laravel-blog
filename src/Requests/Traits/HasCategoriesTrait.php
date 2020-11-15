@@ -1,10 +1,10 @@
-<?php namespace WebDevEtc\BlogEtc\Requests\Traits;
+<?php namespace HessamCMS\Requests\Traits;
 
-use WebDevEtc\BlogEtc\Models\HessamCategory;
+use HessamCMS\Models\HessamCategory;
 
 /**
  * Class HasCategoriesTrait
- * @package WebDevEtc\BlogEtc\Requests\Traits
+ * @package HessamCMS\Requests\Traits
  */
 trait HasCategoriesTrait
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Scopes;
+namespace HessamCMS\Scopes;
 
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +23,7 @@ class BlogCommentApprovedAndDefaultOrderScope implements Scope
     {
         $builder->orderBy("id", 'asc');
         // set a sane limit on num of comments. No pagination. Maybe a feature in the future.
-        $builder->limit(config("blogetc.comments.max_num_of_comments_to_show", 500));
+        $builder->limit(config("hessamcms.comments.max_num_of_comments_to_show", 500));
         $builder->where("approved", true);
     }
 }

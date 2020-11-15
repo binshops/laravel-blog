@@ -1,22 +1,22 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Swis\Laravel\Fulltext\Search;
-use WebDevEtc\BlogEtc\Captcha\UsesCaptcha;
-use WebDevEtc\BlogEtc\Middleware\DetectLanguage;
-use WebDevEtc\BlogEtc\Models\HessamCategory;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
-use WebDevEtc\BlogEtc\Models\HessamPost;
-use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
+use HessamCMS\Captcha\UsesCaptcha;
+use HessamCMS\Middleware\DetectLanguage;
+use HessamCMS\Models\HessamCategory;
+use HessamCMS\Models\HessamLanguage;
+use HessamCMS\Models\HessamPost;
+use HessamCMS\Models\HessamPostTranslation;
 
 /**
  * Class HessamReaderController
  * All of the main public facing methods for viewing blog content (index, single posts)
- * @package WebDevEtc\BlogEtc\Controllers
+ * @package HessamCMS\Controllers
  */
 class HessamReaderController extends Controller
 {
@@ -36,7 +36,7 @@ class HessamReaderController extends Controller
      */
     public function index($locale, $category_slug = null, Request $request)
     {
-        // the published_at + is_published are handled by BlogEtcPublishedScope, and don't take effect if the logged in user can manageb log posts
+        // the published_at + is_published are handled by HessamCMSPublishedScope, and don't take effect if the logged in user can manageb log posts
 
         //todo
         $title = 'Blog Page'; // default title...
@@ -49,7 +49,7 @@ class HessamReaderController extends Controller
 
             // at the moment we handle this special case (viewing a category) by hard coding in the following two lines.
             // You can easily override this in the view files.
-            \View::share('blogetc_category', $category); // so the view can say "You are viewing $CATEGORYNAME category posts"
+            \View::share('hessamcms_category', $category); // so the view can say "You are viewing $CATEGORYNAME category posts"
             $title = 'Posts in ' . $category->category_name . " category"; // hardcode title here...
         } else {
             $posts = HessamPostTranslation::query();
@@ -59,20 +59,20 @@ class HessamReaderController extends Controller
 //            ->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))
 //            ->where('lang_id', $request->get("lang_id"))
 //            ->orderBy("posted_at", "desc")
-//            ->paginate(config("blogetc.per_page", 10));
+//            ->paginate(config("hessamcms.per_page", 10));
 
         $posts = HessamPostTranslation::where('lang_id', $request->get("lang_id"))
             ->with(['post' => function($query){
                 $query->where("is_published" , '=' , true);
                 $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
                 $query->orderBy("posted_at", "desc");
-            }])->paginate(config("blogetc.per_page", 10));
+            }])->paginate(config("hessamcms.per_page", 10));
 
         //load category hierarchy
         $rootList = HessamCategory::roots()->get();
         HessamCategory::loadSiblingsWithList($rootList);
 
-        return view("blogetc::index", [
+        return view("hessamcms::index", [
             'locale' => $request->get("locale"),
             'category_chain' => $categoryChain,
             'categories' => $rootList,
@@ -90,7 +90,7 @@ class HessamReaderController extends Controller
      */
     public function search(Request $request)
     {
-        if (!config("blogetc.search.search_enabled")) {
+        if (!config("hessamcms.search.search_enabled")) {
             throw new \Exception("Search is disabled");
         }
         $query = $request->get("s");
@@ -102,7 +102,7 @@ class HessamReaderController extends Controller
         $rootList = HessamCategory::roots()->get();
         HessamCategory::loadSiblingsWithList($rootList);
 
-        return view("blogetc::search", [
+        return view("hessamcms::search", [
                 'categories' => $rootList,
                 'query' => $query,
                 'search_results' => $search_results]
@@ -132,7 +132,7 @@ class HessamReaderController extends Controller
      */
     public function viewSinglePost(Request $request, $locale, $blogPostSlug)
     {
-        // the published_at + is_published are handled by BlogEtcPublishedScope, and don't take effect if the logged in user can manage log posts
+        // the published_at + is_published are handled by HessamCMSPublishedScope, and don't take effect if the logged in user can manage log posts
         $blog_post = HessamPostTranslation::where([
             ["slug", "=", $blogPostSlug],
             ['lang_id', "=" , $request->get("lang_id")]
@@ -142,7 +142,7 @@ class HessamReaderController extends Controller
             $captcha->runCaptchaBeforeShowingPosts($request, $blog_post);
         }
 
-        return view("blogetc::single_post", [
+        return view("hessamcms::single_post", [
             'post' => $blog_post,
             // the default scope only selects approved comments, ordered by id
             'comments' => $blog_post->post->comments()

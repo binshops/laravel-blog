@@ -1,12 +1,12 @@
 <?php
 
 
-namespace WebDevEtc\BlogEtc\Models;
+namespace HessamCMS\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Swis\Laravel\Fulltext\Indexable;
-use WebDevEtc\BlogEtc\Interfaces\SearchResultInterface;
+use HessamCMS\Interfaces\SearchResultInterface;
 
 class HessamPostTranslation extends Model implements SearchResultInterface
 {
@@ -105,7 +105,7 @@ class HessamPostTranslation extends Model implements SearchResultInterface
     {
         $this->check_valid_image_size($size);
         $filename = $this->{"image_" . $size};
-        return asset(config("blogetc.blog_upload_dir", "blog_images") . "/" . $filename);
+        return asset(config("hessamcms.blog_upload_dir", "blog_images") . "/" . $filename);
     }
 
     /**
@@ -144,23 +144,23 @@ class HessamPostTranslation extends Model implements SearchResultInterface
 
     public function post_body_output()
     {
-        if (config("blogetc.use_custom_view_files") && $this->use_view_file) {
+        if (config("hessamcms.use_custom_view_files") && $this->use_view_file) {
             // using custom view files is enabled, and this post has a use_view_file set, so render it:
-            $return = view("blogetc::partials.use_view_file", ['post' => $this])->render();
+            $return = view("hessamcms::partials.use_view_file", ['post' => $this])->render();
         } else {
             // just use the plain ->post_body
             $return = $this->post_body;
         }
 
 
-        if (!config("blogetc.echo_html")) {
+        if (!config("hessamcms.echo_html")) {
             // if this is not true, then we should escape the output
-            if (config("blogetc.strip_html")) {
+            if (config("hessamcms.strip_html")) {
                 $return = strip_tags($return);
             }
 
             $return = e($return);
-            if (config("blogetc.auto_nl2br")) {
+            if (config("hessamcms.auto_nl2br")) {
                 $return = nl2br($return);
             }
         }
@@ -180,7 +180,7 @@ class HessamPostTranslation extends Model implements SearchResultInterface
     {
 
 
-        if (array_key_exists("image_" . $size, config("blogetc.image_sizes"))) {
+        if (array_key_exists("image_" . $size, config("hessamcms.image_sizes"))) {
             return true;
         }
 
@@ -188,19 +188,19 @@ class HessamPostTranslation extends Model implements SearchResultInterface
 
         if (starts_with($size, "image_")) {
             // $size starts with image_, which is an error
-            /* the config/blogetc.php and the DB columns SHOULD have keys that start with image_$size
+            /* the config/hessamcms.php and the DB columns SHOULD have keys that start with image_$size
             however when using methods such as image_url() or has_image() it SHOULD NOT start with 'image_'
 
             To put another way: :
-                in the config/blogetc.php : config("blogetc.image_sizes.image_medium")
-                in the database table:    : blogetc_posts.image_medium
+                in the config/hessamcms.php : config("hessamcms.image_sizes.image_medium")
+                in the database table:    : hessamcms_posts.image_medium
                 when calling image_url()  : image_url("medium")
             */
-            throw new \InvalidArgumentException("Invalid image size ($size). HessamPost image size should not begin with 'image_'. Remove this from the start of $size. It *should* be in the blogetc.image_sizes config though!");
+            throw new \InvalidArgumentException("Invalid image size ($size). HessamPost image size should not begin with 'image_'. Remove this from the start of $size. It *should* be in the hessamcms.image_sizes config though!");
         }
 
 
-        throw new \InvalidArgumentException("HessamPost image size should be 'large','medium','thumbnail' or another field as defined in config/blogetc.php. Provided size ($size) is not valid");
+        throw new \InvalidArgumentException("HessamPost image size should be 'large','medium','thumbnail' or another field as defined in config/hessamcms.php. Provided size ($size) is not valid");
     }
 
 
@@ -226,7 +226,7 @@ class HessamPostTranslation extends Model implements SearchResultInterface
      */
     public function url($loacle)
     {
-        return route("blogetc.single", [$loacle, $this->slug]);
+        return route("hessamcms.single", [$loacle, $this->slug]);
     }
 
     /**
@@ -235,6 +235,6 @@ class HessamPostTranslation extends Model implements SearchResultInterface
      */
     public function edit_url()
     {
-        return route("blogetc.admin.edit_post", $this->post_id);
+        return route("hessamcms.admin.edit_post", $this->post_id);
     }
 }

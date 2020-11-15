@@ -1,19 +1,19 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
-use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\HessamUploadedPhoto;
+use HessamCMS\Middleware\LoadLanguage;
+use HessamCMS\Middleware\UserCanManageBlogPosts;
+use HessamCMS\Models\HessamUploadedPhoto;
 use File;
-use WebDevEtc\BlogEtc\Requests\UploadImageRequest;
-use WebDevEtc\BlogEtc\Traits\UploadFileTrait;
+use HessamCMS\Requests\UploadImageRequest;
+use HessamCMS\Traits\UploadFileTrait;
 
 /**
  * Class HessamAdminController
- * @package WebDevEtc\BlogEtc\Controllers
+ * @package HessamCMS\Controllers
  */
 class HessamImageUploadController extends Controller
 {
@@ -28,13 +28,13 @@ class HessamImageUploadController extends Controller
         $this->middleware(UserCanManageBlogPosts::class);
         $this->middleware(LoadLanguage::class);
 
-        if (!is_array(config("blogetc"))) {
-            throw new \RuntimeException('The config/blogetc.php does not exist. Publish the vendor files for the BlogEtc package by running the php artisan publish:vendor command');
+        if (!is_array(config("hessamcms"))) {
+            throw new \RuntimeException('The config/hessamcms.php does not exist. Publish the vendor files for the HessamCMS package by running the php artisan publish:vendor command');
         }
 
 
-        if (!config("blogetc.image_upload_enabled")) {
-            throw new \RuntimeException("The blogetc.php config option has not enabled image uploading");
+        if (!config("hessamcms.image_upload_enabled")) {
+            throw new \RuntimeException("The hessamcms.php config option has not enabled image uploading");
         }
 
 
@@ -48,7 +48,7 @@ class HessamImageUploadController extends Controller
 
     public function index()
     {
-        return view("blogetc_admin::imageupload.index", ['uploaded_photos' => HessamUploadedPhoto::orderBy("id", "desc")->paginate(10)]);
+        return view("hessamcms_admin::imageupload.index", ['uploaded_photos' => HessamUploadedPhoto::orderBy("id", "desc")->paginate(10)]);
     }
 
     /**
@@ -58,7 +58,7 @@ class HessamImageUploadController extends Controller
      */
     public function create()
     {
-        return view("blogetc_admin::imageupload.create", []);
+        return view("hessamcms_admin::imageupload.create", []);
     }
 
     /**
@@ -72,7 +72,7 @@ class HessamImageUploadController extends Controller
     {
         $processed_images = $this->processUploadedImages($request);
 
-        return view("blogetc_admin::imageupload.uploaded", ['images' => $processed_images]);
+        return view("hessamcms_admin::imageupload.uploaded", ['images' => $processed_images]);
     }
 
     /**
@@ -95,13 +95,13 @@ class HessamImageUploadController extends Controller
         $sizes_to_upload = $request->get("sizes_to_upload");
 
         // now upload a full size - this is a special case, not in the config file. We only store full size images in this class, not as part of the featured blog image uploads.
-        if (isset($sizes_to_upload['blogetc_full_size']) && $sizes_to_upload['blogetc_full_size'] === 'true') {
+        if (isset($sizes_to_upload['hessamcms_full_size']) && $sizes_to_upload['hessamcms_full_size'] === 'true') {
 
-            $uploaded_image_details['blogetc_full_size'] = $this->UploadAndResize(null, $request->get("image_title"), 'fullsize', $photo);
+            $uploaded_image_details['hessamcms_full_size'] = $this->UploadAndResize(null, $request->get("image_title"), 'fullsize', $photo);
 
         }
 
-        foreach ((array)config('blogetc.image_sizes') as $size => $image_size_details) {
+        foreach ((array)config('hessamcms.image_sizes') as $size => $image_size_details) {
 
             if (!isset($sizes_to_upload[$size]) || !$sizes_to_upload[$size] || !$image_size_details['enabled']) {
                 continue;

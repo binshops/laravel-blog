@@ -1,11 +1,11 @@
 <?php
 
 
-namespace WebDevEtc\BlogEtc\Middleware;
+namespace HessamCMS\Middleware;
 
 use Closure;
-use WebDevEtc\BlogEtc\Models\HessamConfiguration;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
+use HessamCMS\Models\HessamConfiguration;
+use HessamCMS\Models\HessamLanguage;
 
 class PackageSetup
 {
@@ -15,11 +15,11 @@ class PackageSetup
         if (!$initial_setup){
             HessamConfiguration::set('INITIAL_SETUP', true);
 
-            return redirect( route('blogetc.admin.setup') );
+            return redirect( route('hessamcms.admin.setup') );
         }
 
         if(!$initial_setup->value){
-            return redirect( route('blogetc.admin.setup') );
+            return redirect( route('hessamcms.admin.setup') );
         }
 
         return $next($request);

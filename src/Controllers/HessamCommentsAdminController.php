@@ -1,19 +1,19 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use WebDevEtc\BlogEtc\Events\CommentApproved;
-use WebDevEtc\BlogEtc\Events\CommentWillBeDeleted;
-use WebDevEtc\BlogEtc\Helpers;
-use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
-use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\HessamComment;
+use HessamCMS\Events\CommentApproved;
+use HessamCMS\Events\CommentWillBeDeleted;
+use HessamCMS\Helpers;
+use HessamCMS\Middleware\LoadLanguage;
+use HessamCMS\Middleware\UserCanManageBlogPosts;
+use HessamCMS\Models\HessamComment;
 
 /**
  * Class HessamCommentsAdminController
- * @package WebDevEtc\BlogEtc\Controllers
+ * @package HessamCMS\Controllers
  */
 class HessamCommentsAdminController extends Controller
 {
@@ -43,7 +43,7 @@ class HessamCommentsAdminController extends Controller
         }
 
         $comments = $comments->paginate(100);
-        return view("blogetc_admin::comments.index")
+        return view("hessamcms_admin::comments.index")
             ->withComments($comments
             );
     }

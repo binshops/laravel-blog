@@ -1,13 +1,13 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Requests;
+namespace HessamCMS\Requests;
 
 
 use Illuminate\Validation\Rule;
-use WebDevEtc\BlogEtc\Requests\Traits\HasCategoriesTrait;
-use WebDevEtc\BlogEtc\Requests\Traits\HasImageUploadTrait;
+use HessamCMS\Requests\Traits\HasCategoriesTrait;
+use HessamCMS\Requests\Traits\HasImageUploadTrait;
 
-class CreateHessamPostToggleRequest extends BaseBlogEtcPostRequest
+class CreateHessamPostToggleRequest extends BaseHessamCMSPostRequest
 {
     use HasCategoriesTrait;
     use HasImageUploadTrait;

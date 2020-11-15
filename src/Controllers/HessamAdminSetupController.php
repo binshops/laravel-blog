@@ -1,13 +1,13 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use Illuminate\Http\Request;
-use WebDevEtc\BlogEtc\Helpers;
-use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
-use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\HessamConfiguration;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
+use HessamCMS\Helpers;
+use HessamCMS\Middleware\LoadLanguage;
+use HessamCMS\Middleware\UserCanManageBlogPosts;
+use HessamCMS\Models\HessamConfiguration;
+use HessamCMS\Models\HessamLanguage;
 
 /**
  * Class HessamAdminSetupController
@@ -23,8 +23,8 @@ class HessamAdminSetupController
         $this->middleware(UserCanManageBlogPosts::class);
         $this->middleware(LoadLanguage::class);
 
-        if (!is_array(config("blogetc"))) {
-            throw new \RuntimeException('The config/blogetc.php does not exist. Publish the vendor files for the BlogEtc package by running the php artisan publish:vendor command');
+        if (!is_array(config("hessamcms"))) {
+            throw new \RuntimeException('The config/hessamcms.php does not exist. Publish the vendor files for the HessamCMS package by running the php artisan publish:vendor command');
         }
     }
 
@@ -35,12 +35,12 @@ class HessamAdminSetupController
      */
     public function index(Request $request)
     {
-        return view("blogetc_admin::setup.setup");
+        return view("hessamcms_admin::setup.setup");
     }
 
     public function setup_submit(Request $request){
         if ($request['locale'] == null){
-            return redirect( route('blogetc.admin.setup_submit') );
+            return redirect( route('hessamcms.admin.setup_submit') );
         }
         $language = new HessamLanguage();
         $language->active = $request['active'];
@@ -53,6 +53,6 @@ class HessamAdminSetupController
         HessamConfiguration::set('INITIAL_SETUP', true);
 
         Helpers::flash_message("Language: " . $language->name . " has been added.");
-        return redirect( route('blogetc.admin.index') );
+        return redirect( route('hessamcms.admin.index') );
     }
 }

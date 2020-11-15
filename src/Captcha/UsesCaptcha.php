@@ -1,11 +1,11 @@
-<?php namespace WebDevEtc\BlogEtc\Captcha;
+<?php namespace HessamCMS\Captcha;
 
 /**
  * Trait UsesCaptcha
  *
- * For instantiating the config("blogetc.captcha.captcha_type") object.
+ * For instantiating the config("hessamcms.captcha.captcha_type") object.
  *
- * @package WebDevEtc\BlogEtc\Captcha
+ * @package HessamCMS\Captcha
  */
 trait UsesCaptcha
 {
@@ -15,13 +15,13 @@ trait UsesCaptcha
      */
     private function getCaptchaObject()
     {
-        if (!config("blogetc.captcha.captcha_enabled")) {
+        if (!config("hessamcms.captcha.captcha_enabled")) {
             return null;
         }
 
         // else: captcha is enabled
         /** @var string $captcha_class */
-        $captcha_class = config("blogetc.captcha.captcha_type");
+        $captcha_class = config("hessamcms.captcha.captcha_type");
         return new $captcha_class;
     }
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace HessamCMS\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\HessamComment;
+use HessamCMS\Models\HessamComment;
 
 /**
  * Class CommentWillBeDeleted
- * @package WebDevEtc\BlogEtc\Events
+ * @package HessamCMS\Events
  */
 class CommentWillBeDeleted
 {

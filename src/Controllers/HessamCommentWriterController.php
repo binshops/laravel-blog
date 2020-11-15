@@ -1,22 +1,22 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Auth;
-use WebDevEtc\BlogEtc\Captcha\CaptchaAbstract;
-use WebDevEtc\BlogEtc\Captcha\UsesCaptcha;
-use WebDevEtc\BlogEtc\Events\CommentAdded;
-use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
-use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\HessamComment;
-use WebDevEtc\BlogEtc\Models\HessamPost;
-use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
-use WebDevEtc\BlogEtc\Requests\AddNewCommentRequest;
+use HessamCMS\Captcha\CaptchaAbstract;
+use HessamCMS\Captcha\UsesCaptcha;
+use HessamCMS\Events\CommentAdded;
+use HessamCMS\Middleware\LoadLanguage;
+use HessamCMS\Middleware\UserCanManageBlogPosts;
+use HessamCMS\Models\HessamComment;
+use HessamCMS\Models\HessamPost;
+use HessamCMS\Models\HessamPostTranslation;
+use HessamCMS\Requests\AddNewCommentRequest;
 
 /**
  * Class HessamCommentWriterController
- * @package WebDevEtc\BlogEtc\Controllers
+ * @package HessamCMS\Controllers
  */
 class HessamCommentWriterController extends Controller
 {
@@ -41,7 +41,7 @@ class HessamCommentWriterController extends Controller
     public function addNewComment(AddNewCommentRequest $request, $locale, $blog_post_slug)
     {
 
-        if (config("blogetc.comments.type_of_comments_to_show", "built_in") !== 'built_in') {
+        if (config("hessamcms.comments.type_of_comments_to_show", "built_in") !== 'built_in') {
             throw new \RuntimeException("Built in comments are disabled");
         }
 
@@ -58,7 +58,7 @@ class HessamCommentWriterController extends Controller
 
         $new_comment = $this->createNewComment($request, $blog_post);
 
-        return view("blogetc::saved_comment", [
+        return view("hessamcms::saved_comment", [
             'captcha' => $captcha,
             'blog_post' => $post_translation,
             'new_comment' => $new_comment
@@ -75,20 +75,20 @@ class HessamCommentWriterController extends Controller
     {
         $new_comment = new HessamComment($request->all());
 
-        if (config("blogetc.comments.save_ip_address")) {
+        if (config("hessamcms.comments.save_ip_address")) {
             $new_comment->ip = $request->ip();
         }
-        if (config("blogetc.comments.ask_for_author_website")) {
+        if (config("hessamcms.comments.ask_for_author_website")) {
             $new_comment->author_website = $request->get('author_website');
         }
-        if (config("blogetc.comments.ask_for_author_website")) {
+        if (config("hessamcms.comments.ask_for_author_website")) {
             $new_comment->author_email = $request->get('author_email');
         }
-        if (config("blogetc.comments.save_user_id_if_logged_in", true) && Auth::check()) {
+        if (config("hessamcms.comments.save_user_id_if_logged_in", true) && Auth::check()) {
             $new_comment->user_id = Auth::user()->id;
         }
 
-        $new_comment->approved = config("blogetc.comments.auto_approve_comments", true) ? true : false;
+        $new_comment->approved = config("hessamcms.comments.auto_approve_comments", true) ? true : false;
 
         $blog_post->comments()->save($new_comment);
 

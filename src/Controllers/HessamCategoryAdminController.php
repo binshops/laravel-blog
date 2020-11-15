@@ -1,25 +1,25 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use WebDevEtc\BlogEtc\Events\CategoryAdded;
-use WebDevEtc\BlogEtc\Events\CategoryEdited;
-use WebDevEtc\BlogEtc\Events\CategoryWillBeDeleted;
-use WebDevEtc\BlogEtc\Helpers;
-use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
-use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\HessamCategory;
-use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
-use WebDevEtc\BlogEtc\Requests\DeleteBlogEtcCategoryRequest;
-use WebDevEtc\BlogEtc\Requests\StoreBlogEtcCategoryRequest;
-use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcCategoryRequest;
+use HessamCMS\Events\CategoryAdded;
+use HessamCMS\Events\CategoryEdited;
+use HessamCMS\Events\CategoryWillBeDeleted;
+use HessamCMS\Helpers;
+use HessamCMS\Middleware\LoadLanguage;
+use HessamCMS\Middleware\UserCanManageBlogPosts;
+use HessamCMS\Models\HessamCategory;
+use HessamCMS\Models\HessamCategoryTranslation;
+use HessamCMS\Models\HessamLanguage;
+use HessamCMS\Requests\DeleteHessamCMSCategoryRequest;
+use HessamCMS\Requests\StoreHessamCMSCategoryRequest;
+use HessamCMS\Requests\UpdateHessamCMSCategoryRequest;
 
 /**
  * Class HessamCategoryAdminController
- * @package WebDevEtc\BlogEtc\Controllers
+ * @package HessamCMS\Controllers
  */
 class HessamCategoryAdminController extends Controller
 {
@@ -41,7 +41,7 @@ class HessamCategoryAdminController extends Controller
     public function index(Request $request){
         $language_id = $request->cookie('language_id');
         $categories = HessamCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->paginate(25);
-        return view("blogetc_admin::categories.index",[
+        return view("hessamcms_admin::categories.index",[
             'categories' => $categories,
             'language_id' => $language_id
         ]);
@@ -63,9 +63,9 @@ class HessamCategoryAdminController extends Controller
         HessamCategory::loadSiblingsWithList($rootList);
 
 
-        return view("blogetc_admin::categories.add_category",[
-            'category' => new \WebDevEtc\BlogEtc\Models\HessamCategory(),
-            'category_translation' => new \WebDevEtc\BlogEtc\Models\HessamCategoryTranslation(),
+        return view("hessamcms_admin::categories.add_category",[
+            'category' => new \HessamCMS\Models\HessamCategory(),
+            'category_translation' => new \HessamCMS\Models\HessamCategoryTranslation(),
             'category_tree' => $cat_list,
             'cat_roots' => $rootList,
             'language_id' => $language_id,
@@ -76,7 +76,7 @@ class HessamCategoryAdminController extends Controller
     /**
      * Store a new category
      *
-     * @param StoreBlogEtcCategoryRequest $request
+     * @param StoreHessamCMSCategoryRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      *
      * This controller is totally REST controller
@@ -139,7 +139,7 @@ class HessamCategoryAdminController extends Controller
             ]
         )->first();
 
-        return view("blogetc_admin::categories.edit_category",[
+        return view("hessamcms_admin::categories.edit_category",[
             'category' => $category,
             'category_translation' => $cat_trans,
             'categories_list' => HessamCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->get(),
@@ -151,11 +151,11 @@ class HessamCategoryAdminController extends Controller
     /**
      * Save submitted changes
      *
-     * @param UpdateBlogEtcCategoryRequest $request
+     * @param UpdateHessamCMSCategoryRequest $request
      * @param $categoryId
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update_category(UpdateBlogEtcCategoryRequest $request, $categoryId){
+    public function update_category(UpdateHessamCMSCategoryRequest $request, $categoryId){
         /** @var HessamCategory $category */
         $category = HessamCategory::findOrFail($categoryId);
         $language_id = $request->cookie('language_id');
@@ -178,11 +178,11 @@ class HessamCategoryAdminController extends Controller
     /**
      * Delete the category
      *
-     * @param DeleteBlogEtcCategoryRequest $request
+     * @param DeleteHessamCMSCategoryRequest $request
      * @param $categoryId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function destroy_category(DeleteBlogEtcCategoryRequest $request, $categoryId){
+    public function destroy_category(DeleteHessamCMSCategoryRequest $request, $categoryId){
 
         /* Please keep this in, so code inspectiwons don't say $request was unused. Of course it might now get marked as left/right parts are equal */
         $request=$request;
@@ -191,14 +191,14 @@ class HessamCategoryAdminController extends Controller
         $children = $category->children()->get();
         if (sizeof($children) > 0) {
             Helpers::flash_message("This category could not be deleted it has some sub-categories. First try to change parent category of subs.");
-            return redirect(route('blogetc.admin.categories.index'));
+            return redirect(route('hessamcms.admin.categories.index'));
         }
 
         event(new CategoryWillBeDeleted($category));
         $category->delete();
 
         Helpers::flash_message("Category successfully deleted!");
-        return redirect( route('blogetc.admin.categories.index') );
+        return redirect( route('hessamcms.admin.categories.index') );
     }
 
 }

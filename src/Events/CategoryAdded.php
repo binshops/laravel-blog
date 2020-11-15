@@ -1,16 +1,16 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace HessamCMS\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\HessamCategory;
-use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
+use HessamCMS\Models\HessamCategory;
+use HessamCMS\Models\HessamCategoryTranslation;
 
 /**
  * Class CategoryAdded
- * @package WebDevEtc\BlogEtc\Events
+ * @package HessamCMS\Events
  */
 class CategoryAdded
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Requests;
+namespace HessamCMS\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -8,7 +8,7 @@ class SearchRequest extends FormRequest
 {
     public function authorize()
     {
-        if (config("blogetc.search.search_enabled")) {
+        if (config("hessamcms.search.search_enabled")) {
             // anyone is allowed to submit a comment, to return true always.
             return true;
         }

@@ -1,13 +1,13 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Models;
+namespace HessamCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use WebDevEtc\BlogEtc\Scopes\BlogEtcPublishedScope;
+use HessamCMS\Scopes\HessamCMSPublishedScope;
 
 /**
  * Class HessamPost
- * @package WebDevEtc\BlogEtc\Models
+ * @package HessamCMS\Models
  */
 class HessamPost extends Model
 {
@@ -51,10 +51,10 @@ class HessamPost extends Model
     {
         parent::boot();
 
-        /* If user is logged in and \Auth::user()->canManageBlogEtcPosts() == true, show any/all posts.
+        /* If user is logged in and \Auth::user()->canManageHessamCMSPosts() == true, show any/all posts.
            otherwise (which will be for most users) it should only show published posts that have a posted_at
            time <= Carbon::now(). This sets it up: */
-        static::addGlobalScope(new BlogEtcPublishedScope());
+        static::addGlobalScope(new HessamCMSPublishedScope());
 
         static::deleting(function($post) { // before delete() method call this
             $post->postTranslations()->delete();
@@ -67,7 +67,7 @@ class HessamPost extends Model
      */
     public function author()
     {
-        return $this->belongsTo(config("blogetc.user_model"), 'user_id');
+        return $this->belongsTo(config("hessamcms.user_model"), 'user_id');
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Traits;
+namespace HessamCMS\Traits;
 
 use Illuminate\Http\UploadedFile;
-use WebDevEtc\BlogEtc\Events\UploadedImage;
-use WebDevEtc\BlogEtc\Models\HessamPost;
+use HessamCMS\Events\UploadedImage;
+use HessamCMS\Models\HessamPost;
 use File;
-use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
+use HessamCMS\Models\HessamPostTranslation;
 
 trait UploadFileTrait
 {
@@ -21,14 +21,14 @@ trait UploadFileTrait
 
     /**
      * Small method to increase memory limit.
-     * This can be defined in the config file. If blogetc.memory_limit is false/null then it won't do anything.
+     * This can be defined in the config file. If hessamcms.memory_limit is false/null then it won't do anything.
      * This is needed though because if you upload a large image it'll not work
      */
     protected function increaseMemoryLimit()
     {
         // increase memory - change this setting in config file
-        if (config("blogetc.memory_limit")) {
-            @ini_set('memory_limit', config("blogetc.memory_limit"));
+        if (config("hessamcms.memory_limit")) {
+            @ini_set('memory_limit', config("hessamcms.memory_limit"));
         }
     }
 
@@ -77,7 +77,7 @@ trait UploadFileTrait
      */
     protected function image_destination_path()
     {
-        $path = public_path('/' . config("blogetc.blog_upload_dir"));
+        $path = public_path('/' . config("hessamcms.blog_upload_dir"));
         $this->check_image_destination_path_is_writable($path);
         return $path;
     }
@@ -123,7 +123,7 @@ trait UploadFileTrait
         }
 
         // save image
-        $resizedImage->save($destinationPath . '/' . $image_filename, config("blogetc.image_quality", 80));
+        $resizedImage->save($destinationPath . '/' . $image_filename, config("hessamcms.image_quality", 80));
 
         // fireevent
         event(new UploadedImage($image_filename, $resizedImage, $new_blog_post, __METHOD__));

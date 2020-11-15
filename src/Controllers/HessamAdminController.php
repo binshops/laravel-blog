@@ -1,32 +1,32 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Controllers;
+namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use WebDevEtc\BlogEtc\Interfaces\BaseRequestInterface;
-use WebDevEtc\BlogEtc\Events\BlogPostAdded;
-use WebDevEtc\BlogEtc\Events\BlogPostEdited;
-use WebDevEtc\BlogEtc\Events\BlogPostWillBeDeleted;
-use WebDevEtc\BlogEtc\Helpers;
-use WebDevEtc\BlogEtc\Middleware\LoadLanguage;
-use WebDevEtc\BlogEtc\Middleware\PackageSetup;
-use WebDevEtc\BlogEtc\Middleware\UserCanManageBlogPosts;
-use WebDevEtc\BlogEtc\Models\HessamCategoryTranslation;
-use WebDevEtc\BlogEtc\Models\HessamLanguage;
-use WebDevEtc\BlogEtc\Models\HessamPost;
-use WebDevEtc\BlogEtc\Models\HessamPostTranslation;
-use WebDevEtc\BlogEtc\Models\HessamUploadedPhoto;
-use WebDevEtc\BlogEtc\Requests\CreateBlogEtcPostRequest;
-use WebDevEtc\BlogEtc\Requests\CreateHessamPostToggleRequest;
-use WebDevEtc\BlogEtc\Requests\DeleteBlogEtcPostRequest;
-use WebDevEtc\BlogEtc\Requests\UpdateBlogEtcPostRequest;
-use WebDevEtc\BlogEtc\Traits\UploadFileTrait;
+use HessamCMS\Interfaces\BaseRequestInterface;
+use HessamCMS\Events\BlogPostAdded;
+use HessamCMS\Events\BlogPostEdited;
+use HessamCMS\Events\BlogPostWillBeDeleted;
+use HessamCMS\Helpers;
+use HessamCMS\Middleware\LoadLanguage;
+use HessamCMS\Middleware\PackageSetup;
+use HessamCMS\Middleware\UserCanManageBlogPosts;
+use HessamCMS\Models\HessamCategoryTranslation;
+use HessamCMS\Models\HessamLanguage;
+use HessamCMS\Models\HessamPost;
+use HessamCMS\Models\HessamPostTranslation;
+use HessamCMS\Models\HessamUploadedPhoto;
+use HessamCMS\Requests\CreateHessamCMSPostRequest;
+use HessamCMS\Requests\CreateHessamPostToggleRequest;
+use HessamCMS\Requests\DeleteHessamCMSPostRequest;
+use HessamCMS\Requests\UpdateHessamCMSPostRequest;
+use HessamCMS\Traits\UploadFileTrait;
 
 /**
  * Class HessamAdminController
- * @package WebDevEtc\BlogEtc\Controllers
+ * @package HessamCMS\Controllers
  */
 class HessamAdminController extends Controller
 {
@@ -41,8 +41,8 @@ class HessamAdminController extends Controller
         $this->middleware(LoadLanguage::class);
         $this->middleware(PackageSetup::class);
 
-        if (!is_array(config("blogetc"))) {
-            throw new \RuntimeException('The config/blogetc.php does not exist. Publish the vendor files for the BlogEtc package by running the php artisan publish:vendor command');
+        if (!is_array(config("hessamcms"))) {
+            throw new \RuntimeException('The config/hessamcms.php does not exist. Publish the vendor files for the HessamCMS package by running the php artisan publish:vendor command');
         }
     }
 
@@ -58,7 +58,7 @@ class HessamAdminController extends Controller
         $posts = HessamPostTranslation::orderBy("post_id", "desc")->where('lang_id', $language_id)
             ->paginate(10);
 
-        return view("blogetc_admin::index", ['post_translations'=>$posts]);
+        return view("hessamcms_admin::index", ['post_translations'=>$posts]);
     }
 
     /**
@@ -71,12 +71,12 @@ class HessamAdminController extends Controller
         $language_list = HessamLanguage::where('active',true)->get();
         $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
 
-        return view("blogetc_admin::posts.add_post", [
+        return view("hessamcms_admin::posts.add_post", [
             'cat_ts' => $ts,
             'language_list' => $language_list,
             'selected_lang' => $language_id,
-            'post' => new \WebDevEtc\BlogEtc\Models\HessamPost(),
-            'post_translation' => new \WebDevEtc\BlogEtc\Models\HessamPostTranslation(),
+            'post' => new \HessamCMS\Models\HessamPost(),
+            'post_translation' => new \HessamCMS\Models\HessamPostTranslation(),
             'post_id' => -1
         ]);
     }
@@ -84,11 +84,11 @@ class HessamAdminController extends Controller
     /**
      * Save a new post - this method is called whenever add post button is clicked
      *
-     * @param CreateBlogEtcPostRequest $request
+     * @param CreateHessamCMSPostRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
-    public function store_post(CreateBlogEtcPostRequest $request)
+    public function store_post(CreateHessamCMSPostRequest $request)
     {
         $new_blog_post = null;
         $translation = HessamPostTranslation::where(
@@ -137,7 +137,7 @@ class HessamAdminController extends Controller
             event(new BlogPostAdded($new_blog_post));
         }
 
-        return redirect( route('blogetc.admin.index') );
+        return redirect( route('hessamcms.admin.index') );
     }
 
     /**
@@ -211,7 +211,7 @@ class HessamAdminController extends Controller
             $translation = new HessamPostTranslation();
         }
 
-        return view("blogetc_admin::posts.add_post", [
+        return view("hessamcms_admin::posts.add_post", [
             'cat_ts' => $ts,
             'language_list' => $language_list,
             'selected_lang' => $request['selected_lang'],
@@ -242,7 +242,7 @@ class HessamAdminController extends Controller
         $language_list = HessamLanguage::where('active',true)->get();
         $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
 
-        return view("blogetc_admin::posts.edit_post", [
+        return view("hessamcms_admin::posts.edit_post", [
             'cat_ts' => $ts,
             'language_list' => $language_list,
             'selected_lang' => $language_id,
@@ -274,7 +274,7 @@ class HessamAdminController extends Controller
         $language_list = HessamLanguage::where('active',true)->get();
         $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
 
-        return view("blogetc_admin::posts.edit_post", [
+        return view("hessamcms_admin::posts.edit_post", [
             'cat_ts' => $ts,
             'language_list' => $language_list,
             'selected_lang' => $request['selected_lang'],
@@ -286,12 +286,12 @@ class HessamAdminController extends Controller
     /**
      * Save changes to a post
      *
-     * @param UpdateBlogEtcPostRequest $request
+     * @param UpdateHessamCMSPostRequest $request
      * @param $blogPostId
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
-    public function update_post(UpdateBlogEtcPostRequest $request, $blogPostId)
+    public function update_post(UpdateHessamCMSPostRequest $request, $blogPostId)
     {
         $new_blog_post = HessamPost::findOrFail($blogPostId);
         $translation = HessamPostTranslation::where(
@@ -334,14 +334,14 @@ class HessamAdminController extends Controller
             event(new BlogPostAdded($new_blog_post));
         }
 
-        return redirect( route('blogetc.admin.index') );
+        return redirect( route('hessamcms.admin.index') );
     }
 
     public function remove_photo($postSlug)
     {
         $post = HessamPost::where("slug", $postSlug)->firstOrFail();
 
-        $path = public_path('/' . config("blogetc.blog_upload_dir"));
+        $path = public_path('/' . config("hessamcms.blog_upload_dir"));
         if (!$this->checked_blog_image_dir_is_writable) {
             if (!is_writable($path)) {
                 throw new \RuntimeException("Image destination path is not writable ($path)");
@@ -375,11 +375,11 @@ class HessamAdminController extends Controller
     /**
      * Delete a post
      *
-     * @param DeleteBlogEtcPostRequest $request
+     * @param DeleteHessamCMSPostRequest $request
      * @param $blogPostId
      * @return mixed
      */
-    public function destroy_post(DeleteBlogEtcPostRequest $request, $blogPostId)
+    public function destroy_post(DeleteHessamCMSPostRequest $request, $blogPostId)
     {
         $post = HessamPost::findOrFail($blogPostId);
         //archive deleted post
@@ -392,7 +392,7 @@ class HessamAdminController extends Controller
 
         Helpers::flash_message("Post successfully deleted!");
 
-        return redirect( route('blogetc.admin.index') );
+        return redirect( route('hessamcms.admin.index') );
     }
 
     /**
@@ -405,7 +405,7 @@ class HessamAdminController extends Controller
      */
     protected function processUploadedImages(BaseRequestInterface $request, HessamPostTranslation $new_blog_post)
     {
-        if (!config("blogetc.image_upload_enabled")) {
+        if (!config("hessamcms.image_upload_enabled")) {
             // image upload was disabled
             return;
         }
@@ -416,7 +416,7 @@ class HessamAdminController extends Controller
         $uploaded_image_details = [];
 
 
-        foreach ((array)config('blogetc.image_sizes') as $size => $image_size_details) {
+        foreach ((array)config('hessamcms.image_sizes') as $size => $image_size_details) {
 
             if ($image_size_details['enabled'] && $photo = $request->get_image_file($size)) {
                 // this image size is enabled, and
@@ -430,7 +430,7 @@ class HessamAdminController extends Controller
         }
 
         // store the image upload.
-        // todo: link this to the blogetc_post row.
+        // todo: link this to the hessamcms_post row.
         if (count(array_filter($uploaded_image_details))>0) {
             HessamUploadedPhoto::create([
                 'source' => "BlogFeaturedImage",

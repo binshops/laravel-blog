@@ -1,30 +1,30 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace HessamCMS\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\HessamPost;
+use HessamCMS\Models\HessamPost;
 
 /**
  * Class BlogPostWillBeDeleted
- * @package WebDevEtc\BlogEtc\Events
+ * @package HessamCMS\Events
  */
 class BlogPostWillBeDeleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /** @var  HessamPost */
-    public $blogEtcPost;
+    public $hessamCMSPost;
 
     /**
      * BlogPostWillBeDeleted constructor.
-     * @param HessamPost $blogEtcPost
+     * @param HessamPost $hessamCMSPost
      */
-    public function __construct(HessamPost $blogEtcPost)
+    public function __construct(HessamPost $hessamCMSPost)
     {
-        $this->blogEtcPost=$blogEtcPost;
+        $this->hessamCMSPost=$hessamCMSPost;
     }
 
 }

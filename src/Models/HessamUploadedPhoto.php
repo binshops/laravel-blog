@@ -1,6 +1,6 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Models;
+namespace HessamCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
