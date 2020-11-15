@@ -44,6 +44,9 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
         Route::get('/setup', 'HessamAdminSetupController@setup')
             ->name('blogetc.admin.setup');
 
+        Route::get('/setup-submit', 'HessamAdminSetupController@setup_submit')
+            ->name('blogetc.admin.setup_submit');
+
         Route::get('/', 'HessamAdminController@index')
             ->name('blogetc.admin.index');
 

@@ -11,7 +11,9 @@
 </p>
 
 # Complete Laravel CMS Package
-## With Multi-level Categories and Full Text Search
+
+### Multi language support - Beta release - v9.0.x
+
 Easily add a wordpress functionality and CMS to your laravel web application.
 
 ## [Let's try it - Online Demo](https://cms.binshops.com/login)
@@ -121,7 +123,8 @@ Try adding this to config/app.php:
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
 ## Version History    
-- **8.0.x** Compatibility with Laravel 8
+- **9.0.x** Multi-language support beta release
+- 8.0.x Compatibility with Laravel 8
 - 7.3.2 Some bug fixes
 - 7.3.0 New Admin UI
 - 7.2.2                 

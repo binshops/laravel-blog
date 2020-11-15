@@ -21,178 +21,150 @@
 <body>
 <div style="background-color: #e2e8f0">
 
-    <!--   Big container   -->
     <div class="container">
         <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
 
-            <!--      Wizard container        -->
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="green" id="wizard">
-                <form action="" method="">
+                <form action="{{route("blogetc.admin.languages.setup_submit")}}" method="post">
+                    @csrf
 
                     	<div class="wizard-header" style="text-align: center">
-                        	<img src="assets/img/hessam-cms.png" style="padding: 10px 10px 20px 10px;">
+{{--                        	<img src="assets/img/hessam-cms.png" style="padding: 10px 10px 20px 10px;">--}}
                     	</div>
 						<div class="wizard-navigation">
 							<ul>
-	                            <li><a href="#location" data-toggle="tab">Language</a></li>
-	                            <li><a href="#type" data-toggle="tab">Configurations</a></li>
-	                            <li><a href="#facilities" data-toggle="tab">Facilities</a></li>
-	                            <li><a href="#description" data-toggle="tab">Description</a></li>
+	                            <li><a href="#language" data-toggle="tab">Language</a></li>
 	                        </ul>
 						</div>
 
                         <div class="tab-content">
-                            <div class="tab-pane" id="location">
+                            <div class="tab-pane" id="language">
                               <div class="row">
                                   <div class="col-sm-12">
-                                    <h4 class="info-text"> Let's choose your default language</h4>
+                                    <h4 class="info-text">Your default language is English in Beta release. Add more language from admin panel.</h4>
                                   </div>
-                                  <div class="col-sm-5 col-sm-offset-1">
-                                      <div class="form-group">
-                                        <label>City</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Where is your place located?">
-                                      </div>
-                                  </div>
-                                  <div class="col-sm-5">
+                                  <div class="col-sm-12">
                                        <div class="form-group">
-                                            <label>Country</label><br>
-                                             <select name="country" class="form-control">
-                                                <option disabled="" selected="">- country -</option>
-                                                <option value="Afghanistan"> Afghanistan </option>
-                                                <option value="Albania"> Albania </option>
-                                                <option value="Algeria"> Algeria </option>
-                                                <option value="American Samoa"> American Samoa </option>
-                                                <option value="Andorra"> Andorra </option>
-                                                <option value="Angola"> Angola </option>
-                                                <option value="Anguilla"> Anguilla </option>
-                                                <option value="Antarctica"> Antarctica </option>
-                                                <option value="...">...</option>
-                                            </select>
-                                          </div>
-                                  </div>
-                                  <div class="col-sm-5 col-sm-offset-1">
-                                      <div class="form-group">
-                                          <label>Accommodates</label>
-                                          <select class="form-control">
-                                            <option disabled="" selected="">- persons -</option>
-                                            <option>1 Person</option>
-                                            <option>2 Persons </option>
-                                            <option>3 Persons</option>
-                                            <option>4 Persons</option>
-                                            <option>5 Persons</option>
-                                            <option>6+ Persons</option>
-                                          </select>
-                                      </div>
-                                  </div>
-                                  <div class="col-sm-5">
-                                      <div class="form-group">
-                                          <label>Rent price</label>
-                                          <div class="input-group">
-                                              <input type="text" class="form-control" placeholder="Rent price per day">
-                                              <span class="input-group-addon">$</span>
-                                          </div>
-                                      </div>
+                                            <label>Language</label><br>
+                                           <select readonly class="form-control" id="lang-name" data-placeholder="Choose a Language...">
+{{--                                               <option value="AF">Afrikaans</option>--}}
+{{--                                               <option value="SQ">Albanian</option>--}}
+{{--                                               <option value="AR">Arabic</option>--}}
+{{--                                               <option value="HY">Armenian</option>--}}
+{{--                                               <option value="EU">Basque</option>--}}
+{{--                                               <option value="BN">Bengali</option>--}}
+{{--                                               <option value="BG">Bulgarian</option>--}}
+{{--                                               <option value="CA">Catalan</option>--}}
+{{--                                               <option value="KM">Cambodian</option>--}}
+{{--                                               <option value="ZH">Chinese (Mandarin)</option>--}}
+{{--                                               <option value="HR">Croatian</option>--}}
+{{--                                               <option value="CS">Czech</option>--}}
+{{--                                               <option value="DA">Danish</option>--}}
+{{--                                               <option value="NL">Dutch</option>--}}
+{{--                                               <option value="EN">English</option>--}}
+{{--                                               <option value="ET">Estonian</option>--}}
+{{--                                               <option value="FJ">Fiji</option>--}}
+{{--                                               <option value="FI">Finnish</option>--}}
+{{--                                               <option value="FR">French</option>--}}
+{{--                                               <option value="KA">Georgian</option>--}}
+{{--                                               <option value="DE">German</option>--}}
+{{--                                               <option value="EL">Greek</option>--}}
+{{--                                               <option value="GU">Gujarati</option>--}}
+{{--                                               <option value="HE">Hebrew</option>--}}
+{{--                                               <option value="HI">Hindi</option>--}}
+{{--                                               <option value="HU">Hungarian</option>--}}
+{{--                                               <option value="IS">Icelandic</option>--}}
+{{--                                               <option value="ID">Indonesian</option>--}}
+{{--                                               <option value="GA">Irish</option>--}}
+{{--                                               <option value="IT">Italian</option>--}}
+{{--                                               <option value="JA">Japanese</option>--}}
+{{--                                               <option value="JW">Javanese</option>--}}
+{{--                                               <option value="KO">Korean</option>--}}
+{{--                                               <option value="LA">Latin</option>--}}
+{{--                                               <option value="LV">Latvian</option>--}}
+{{--                                               <option value="LT">Lithuanian</option>--}}
+{{--                                               <option value="MK">Macedonian</option>--}}
+{{--                                               <option value="MS">Malay</option>--}}
+{{--                                               <option value="ML">Malayalam</option>--}}
+{{--                                               <option value="MT">Maltese</option>--}}
+{{--                                               <option value="MI">Maori</option>--}}
+{{--                                               <option value="MR">Marathi</option>--}}
+{{--                                               <option value="MN">Mongolian</option>--}}
+{{--                                               <option value="NE">Nepali</option>--}}
+{{--                                               <option value="NO">Norwegian</option>--}}
+{{--                                               <option value="FA">Persian</option>--}}
+{{--                                               <option value="PL">Polish</option>--}}
+{{--                                               <option value="PT">Portuguese</option>--}}
+{{--                                               <option value="PA">Punjabi</option>--}}
+{{--                                               <option value="QU">Quechua</option>--}}
+{{--                                               <option value="RO">Romanian</option>--}}
+{{--                                               <option value="RU">Russian</option>--}}
+{{--                                               <option value="SM">Samoan</option>--}}
+{{--                                               <option value="SR">Serbian</option>--}}
+{{--                                               <option value="SK">Slovak</option>--}}
+{{--                                               <option value="SL">Slovenian</option>--}}
+{{--                                               <option value="ES">Spanish</option>--}}
+{{--                                               <option value="SW">Swahili</option>--}}
+{{--                                               <option value="SV">Swedish </option>--}}
+{{--                                               <option value="TA">Tamil</option>--}}
+{{--                                               <option value="TT">Tatar</option>--}}
+{{--                                               <option value="TE">Telugu</option>--}}
+{{--                                               <option value="TH">Thai</option>--}}
+{{--                                               <option value="BO">Tibetan</option>--}}
+{{--                                               <option value="TO">Tonga</option>--}}
+{{--                                               <option value="TR">Turkish</option>--}}
+{{--                                               <option value="UK">Ukrainian</option>--}}
+{{--                                               <option value="UR">Urdu</option>--}}
+{{--                                               <option value="UZ">Uzbek</option>--}}
+{{--                                               <option value="VI">Vietnamese</option>--}}
+{{--                                               <option value="CY">Welsh</option>--}}
+{{--                                               <option value="XH">Xhosa</option>--}}
+                                           </select>
+
+{{--                                           <script>--}}
+{{--                                               $('#lang-name').change(function(){--}}
+{{--                                                   var value = $(this).val().toLowerCase();--}}
+{{--                                                   $('#language_name').val($("#lang-name option:selected").text());--}}
+{{--                                                   $('#language_locale').val(value);--}}
+{{--                                                   $('#iso_code').val(value);--}}
+{{--                                                   console.log(value)--}}
+{{--                                               });--}}
+{{--                                           </script>--}}
+
+                                           <input type="text"
+                                                  class="form-control"
+                                                  id="language_name"
+                                                  required
+                                                  name='name'
+                                                  value="English"
+                                                  style="display: none">
+
+                                           <input type="text"
+                                                  class="form-control"
+                                                  id="language_locale"
+                                                  required
+                                                  name='locale'
+                                                  value="en"
+                                                  style="display: none">
+
+                                           <input name="iso_code" value="en" id="iso_code" style="display: none">
+                                           <input name="date_format" value="YYYY/MM/DD" style="display: none">
+                                           <input checked style="display: none" name="active" value="1">
+
+
+                                       </div>
                                   </div>
                               </div>
                             </div>
-                            <div class="tab-pane" id="type">
-                                <h4 class="info-text">What type of location do you have? </h4>
-                                <div class="row">
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="col-sm-4 col-sm-offset-2">
-                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have a house.">
-                                                <input type="radio" name="type" value="House">
-                                                <div class="icon">
-                                                    <i class="fa fa-home"></i>
-                                                </div>
-                                                <h6>House</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-                                                <input type="radio" name="type" value="Appartment">
-                                                <div class="icon">
-                                                    <i class="fa fa-building"></i>
-                                                </div>
-                                                <h6>Appartment</h6>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="facilities">
-                                <h4 class="info-text">Tell us more about facilities. </h4>
-                                <div class="row">
-                                    <div class="col-sm-5 col-sm-offset-1">
-                                      <div class="form-group">
-                                          <label>Your place is good for</label>
-                                          <select class="form-control">
-                                            <option disabled="" selected="">- type -</option>
-                                            <option>Business</option>
-                                            <option>Vacation </option>
-                                            <option>Work</option>
-                                          </select>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-5">
-                                      <div class="form-group">
-                                          <label>Is air conditioning included ?</label>
-                                          <select class="form-control">
-                                            <option disabled="" selected="">- response -</option>
-                                            <option>Yes</option>
-                                            <option>No </option>
-                                          </select>
-                                      </div>
-                                     </div>
-                                     <div class="col-sm-5 col-sm-offset-1">
-                                      <div class="form-group">
-                                          <label>Does your place have wi-fi?</label>
-                                          <select class="form-control">
-                                            <option disabled="" selected="">- response -</option>
-                                            <option>Yes</option>
-                                            <option>No </option>
-                                          </select>
-                                       </div>
-                                      </div>
-                                      <div class="col-sm-5">
-                                       <div class="form-group">
-                                          <label>Is breakfast included?</label>
-                                          <select class="form-control">
-                                            <option disabled="" selected="">- response -</option>
-                                            <option>Yes</option>
-                                            <option>No </option>
-                                          </select>
-                                       </div>
-                                      </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="description">
-                                <div class="row">
-                                    <h4 class="info-text"> Drop us a small description. </h4>
-                                    <div class="col-sm-6 col-sm-offset-1">
-                                         <div class="form-group">
-                                            <label>Place description</label>
-                                            <textarea class="form-control" placeholder="" rows="9">
-
-                                            </textarea>
-                                          </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                         <div class="form-group">
-                                            <label>Example</label>
-                                            <p class="description">"The place is really nice. We use it every sunday when we go fishing. It is so awesome."</p>
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+
+{{--                    FOOTER--}}
                         <div class="wizard-footer">
                             	<div class="pull-right">
                                     <input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-sm' name='next' value='Next' />
-                                    <input type='button' class='btn btn-finish btn-fill btn-success btn-wd btn-sm' name='finish' value='Finish' />
+                                    <input type='submit' class='btn btn-finish btn-fill btn-success btn-wd btn-sm' name='finish' value='Finish' />
 
                                 </div>
                                 <div class="pull-left">
@@ -203,10 +175,10 @@
 
                     </form>
                 </div>
-            </div> <!-- wizard container -->
+            </div>
         </div>
-        </div> <!-- row -->
-    </div> <!--  big container -->
+        </div>
+    </div>
 
     <div class="footer">
         <div class="container">

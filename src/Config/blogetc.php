@@ -177,7 +177,7 @@ return [
     ],
 
     'search' => [
-        'search_enabled' => true, //you can easily turn off search functionality
+        'search_enabled' => false, //you can easily turn off search functionality
     ],
 
     //Shows full text of post in listing pages like search result page or category page. Now it shows a preview
