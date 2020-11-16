@@ -1,18 +1,18 @@
 <?php
-namespace WebDevEtc\BlogEtc;
+namespace HessamCMS;
 
 use \Session;
 
 /**
  * Class Helpers
- * @package WebDevEtc\BlogEtc
+ * @package HessamCMS
  */
 class Helpers
 {
     /**
      * What key to use for the session::flash / pull / has
      */
-    const FLASH_MESSAGE_SESSION_KEY = "WEBDEVETC_FLASH";
+    const FLASH_MESSAGE_SESSION_KEY = "HESSAMCMS_FLASH";
 
     /**
      * Set a new message
@@ -52,8 +52,8 @@ class Helpers
     {
 
 
-        return '<link rel="alternate" type="application/atom+xml" title="Atom RSS Feed" href="' . e(route("blogetc.feed")) . '?type=atom" />
-  <link rel="alternate" type="application/rss+xml" title="XML RSS Feed" href="' . e(route("blogetc.feed")) . '?type=rss" />
+        return '<link rel="alternate" type="application/atom+xml" title="Atom RSS Feed" href="' . e(route("hessamcms.feed")) . '?type=atom" />
+  <link rel="alternate" type="application/rss+xml" title="XML RSS Feed" href="' . e(route("hessamcms.feed")) . '?type=rss" />
   ';
 
 
@@ -65,7 +65,7 @@ class Helpers
      * @deprecated
      */
     public static function image_sizes(){
-        return config("blogetc.image_sizes");
+        return config("hessamcms.image_sizes");
     }
 
 }

@@ -20,11 +20,11 @@ class MainTest extends \Tests\TestCase
     Testing the author_email, author_website.
 
     /blog/...
-        blogetc.index                       YES
-        blogetc.feed                        YES
-        blogetc.view_category               no - but this is basically blogetc.index
-        blogetc.single                      YES
-        blogetc.comments.add_new_comment    YES - tested multiple times with/without basic captcha on/off/correct/incorrect.
+        hessamcms.index                       YES
+        hessamcms.feed                        YES
+        hessamcms.view_category               no - but this is basically hessamcms.index
+        hessamcms.single                      YES
+        hessamcms.comments.add_new_comment    YES - tested multiple times with/without basic captcha on/off/correct/incorrect.
                                                 Also tested with diff configs for comment form:
                                                     disabled
                                                     built_in
@@ -32,27 +32,27 @@ class MainTest extends \Tests\TestCase
                                                     custom
 
     /blog_admin/...
-        blogetc.admin.index                 YES
-        blogetc.admin.create_post           no - but is just a form
-        blogetc.admin.store_post            YES
-        blogetc.admin.edit_post             YES - but no extra checks
-        blogetc.admin.update_post           YES
-        blogetc.admin.destroy_post          YES
+        hessamcms.admin.index                 YES
+        hessamcms.admin.create_post           no - but is just a form
+        hessamcms.admin.store_post            YES
+        hessamcms.admin.edit_post             YES - but no extra checks
+        hessamcms.admin.update_post           YES
+        hessamcms.admin.destroy_post          YES
 
      /blog_admin/comments/...
 
-            blogetc.admin.comments.index    YES
-            blogetc.admin.comments.approve  YES
-            blogetc.admin.comments.delete   YES
+            hessamcms.admin.comments.index    YES
+            hessamcms.admin.comments.approve  YES
+            hessamcms.admin.comments.delete   YES
 
      /blog_admin/categories/...
 
-            blogetc.admin.categories.index
-            blogetc.admin.categories.create_category    no - but is just a form
-            blogetc.admin.categories.store_category     YES
-            blogetc.admin.categories.edit_category      no - but is just a form
-            blogetc.admin.categories.update_category
-            blogetc.admin.categories.destroy_category   YES
+            hessamcms.admin.categories.index
+            hessamcms.admin.categories.create_category    no - but is just a form
+            hessamcms.admin.categories.store_category     YES
+            hessamcms.admin.categories.edit_category      no - but is just a form
+            hessamcms.admin.categories.update_category
+            hessamcms.admin.categories.destroy_category   YES
 
 
 
@@ -63,16 +63,16 @@ class MainTest extends \Tests\TestCase
 
     public function testFilesArePresent()
     {
-        $this->assertFileExists(config_path("blogetc.php"), "/config/blogetc.php should exist - currently no file with that filename is found");
-        $this->assertTrue(is_array(include(config_path("blogetc.php"))), "/config/blogetc.php should exist - currently no file with that filename is found");
+        $this->assertFileExists(config_path("hessamcms.php"), "/config/hessamcms.php should exist - currently no file with that filename is found");
+        $this->assertTrue(is_array(include(config_path("hessamcms.php"))), "/config/hessamcms.php should exist - currently no file with that filename is found");
     }
 
     public function testImageSizesAreSane()
     {
 
-        $this->assertTrue(count(config("blogetc.image_sizes")) >=  3);
+        $this->assertTrue(count(config("hessamcms.image_sizes")) >=  3);
 
-        foreach (config("blogetc.image_sizes") as $image_key => $image_info) {
+        foreach (config("hessamcms.image_sizes") as $image_key => $image_info) {
 
             $this->assertArrayHasKey("w", $image_info);
             $this->assertArrayHasKey("h", $image_info);
@@ -94,13 +94,13 @@ class MainTest extends \Tests\TestCase
     }
 
 
-    public function testUserHasNanManageBlogEtcPostsMethod()
+    public function testUserHasNanManageHessamCMSPostsMethod()
     {
 
-        $this->assertTrue(method_exists(\App\User::class, "canManageBlogEtcPosts"), "Your User model must have the canManageBlogEtcPosts method");
+        $this->assertTrue(method_exists(\App\User::class, "canManageHessamCMSPosts"), "Your User model must have the canManageHessamCMSPosts method");
 
         $user = new \App\User();
-        $this->assertTrue(is_bool($user->canManageBlogEtcPosts()));
+        $this->assertTrue(is_bool($user->canManageHessamCMSPosts()));
 
     }
 
@@ -109,7 +109,7 @@ class MainTest extends \Tests\TestCase
     public function testCanSeeAdminPanel()
     {
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
 
         \Auth::logout();
         // without a logged in user, should give error
@@ -126,7 +126,7 @@ class MainTest extends \Tests\TestCase
         $response->assertStatus(200);
 
         // check user can see admin area:
-        $this->assertTrue($user->canManageBlogEtcPosts());
+        $this->assertTrue($user->canManageHessamCMSPosts());
 
         $response = $this->get($admin_panel_url);
         // check if we can see the admin panel correctly
@@ -138,10 +138,10 @@ class MainTest extends \Tests\TestCase
         $response->assertSee("Add Category");
 
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
 //        $user=$this->create_admin_user();
 
-        $this->assertTrue($user->canManageBlogEtcPosts());
+        $this->assertTrue($user->canManageHessamCMSPosts());
 
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
@@ -174,9 +174,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageBlogEtcPosts());
+        $this->assertTrue($user->canManageHessamCMSPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -206,9 +206,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageBlogEtcPosts());
+        $this->assertTrue($user->canManageHessamCMSPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -227,7 +227,7 @@ class MainTest extends \Tests\TestCase
         $response->assertStatus(302); // redirect
         $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
 
-        $justCreatedRow = \WebDevEtc\BlogEtc\Models\BlogEtcPost::where("slug", $new_object_vals['slug'])->firstOrFail();
+        $justCreatedRow = \HessamCMS\Models\HessamPost::where("slug", $new_object_vals['slug'])->firstOrFail();
 
 
         $new_object_vals['title'] = "New title " . str_random();
@@ -246,9 +246,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageBlogEtcPosts());
+        $this->assertTrue($user->canManageHessamCMSPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -267,13 +267,13 @@ class MainTest extends \Tests\TestCase
 
 
         // check we don't see it at moment
-        $response = $this->get(config("blogetc.blog_prefix", "blog"));
+        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
         $response->assertDontSee($new_object_vals['slug']);
 
         // must clear the cache, as the /feed is cached
         \Artisan::call('cache:clear');
 
-        $response = $this->get(config("blogetc.blog_prefix", "blog") . "/feed");
+        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/feed");
         $response->assertDontSee($new_object_vals['slug']);
 
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
@@ -285,7 +285,7 @@ class MainTest extends \Tests\TestCase
 
         // logout - so we are guest user
         \Auth::logout();
-        $response = $this->get(config("blogetc.blog_prefix", "blog"));
+        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
         // if we see the slug (which is str_random()) we can safely assume that there was a link to the post, so it is working ok. of course it would depend a bit on your template but this should work.
         $response->assertSee($new_object_vals['slug']);
 
@@ -293,14 +293,14 @@ class MainTest extends \Tests\TestCase
         // must clear the cache, as the /feed is cached
         \Artisan::call('cache:clear');
 
-        $response = $this->get(config("blogetc.blog_prefix", "blog") . "/feed");
+        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/feed");
         $response->assertSee($new_object_vals['slug']);
         $response->assertSee($new_object_vals['title']);
 
 
         // now check single post is viewable
 
-        $response = $this->get(route("blogetc.single", $new_object_vals['slug']));
+        $response = $this->get(route("hessamcms.single", $new_object_vals['slug']));
         $response->assertStatus(200);
         $response->assertSee($new_object_vals['slug']);
         $response->assertSee($new_object_vals['title']);
@@ -313,7 +313,7 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         list($new_object_vals, $search_for_obj) = $this->prepare_post_creation();
 
         $new_object_vals['is_published'] = false;
@@ -328,14 +328,14 @@ class MainTest extends \Tests\TestCase
         // must log out, as the admin user can see posts dated in future
         \Auth::logout();
 
-        $response = $this->get(config("blogetc.blog_prefix", "blog"));
+        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
         // if we see the slug (which is str_random()) we can safely assume that there was a link to the post, so it is working ok. of course it would depend a bit on your template but this should work.
         $response->assertDontSee($new_object_vals['slug']);
 
 
         // now check single post is viewable
 
-        $response = $this->get(config("blogetc.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
+        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
         $response->assertStatus(404);
         $response->assertDontSee($new_object_vals['slug']);
         $response->assertDontSee($new_object_vals['title']);
@@ -348,7 +348,7 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         list($new_object_vals, $search_for_obj) = $this->prepare_post_creation();
 
         $new_object_vals['posted_at'] = \Carbon\Carbon::now()->addMonths(12);
@@ -363,14 +363,14 @@ class MainTest extends \Tests\TestCase
         // must log out, as the admin user can see posts dated in future
         \Auth::logout();
 
-        $response = $this->get(config("blogetc.blog_prefix", "blog"));
+        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
         // if we see the slug (which is str_random()) we can safely assume that there was a link to the post, so it is working ok. of course it would depend a bit on your template but this should work.
         $response->assertDontSee($new_object_vals['slug']);
 
 
         // now check single post is viewable
 
-        $response = $this->get(config("blogetc.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
+        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
         $response->assertStatus(404);
         $response->assertDontSee($new_object_vals['slug']);
         $response->assertDontSee($new_object_vals['title']);
@@ -383,16 +383,16 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('blogetc.comments.auto_approve_comments', false);
-        \Config::set('blogetc.captcha.captcha_enabled', true);
-        \Config::set('blogetc.captcha.captcha_type', \WebDevEtc\BlogEtc\Captcha\Basic::class);
-        $captcha = new \WebDevEtc\BlogEtc\Captcha\Basic();
-        \Config::set('blogetc.captcha.basic_question', "a test question");
-        \Config::set('blogetc.captcha.basic_answers', "answer1,answer2");
+        \Config::set('hessamcms.comments.auto_approve_comments', false);
+        \Config::set('hessamcms.captcha.captcha_enabled', true);
+        \Config::set('hessamcms.captcha.captcha_type', \HessamCMS\Captcha\Basic::class);
+        $captcha = new \HessamCMS\Captcha\Basic();
+        \Config::set('hessamcms.captcha.basic_question', "a test question");
+        \Config::set('hessamcms.captcha.basic_answers', "answer1,answer2");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -412,7 +412,7 @@ class MainTest extends \Tests\TestCase
         $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
 
 
-        \Config::set('blogetc.comments.type_of_comments_to_show', 'built_in');
+        \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
 
 
         $comment_detail = [
@@ -422,7 +422,7 @@ class MainTest extends \Tests\TestCase
             $captcha->captcha_field_name() => "wronganswer1", // << WRONG CAPTCHA
         ];
         $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("blogetc.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(302);
 
         $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
@@ -435,7 +435,7 @@ class MainTest extends \Tests\TestCase
             // << NO CAPTCHA FIELD
         ];
         $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("blogetc.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(302);
 
         $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
@@ -448,14 +448,14 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('blogetc.comments.type_of_comments_to_show', "disabled");
+        \Config::set('hessamcms.comments.type_of_comments_to_show', "disabled");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
-        $newblogpost = new \WebDevEtc\BlogEtc\Models\BlogEtcPost;
+        $newblogpost = new \HessamCMS\Models\HessamPost;
 
         $newblogpost->title=__METHOD__ . " " . time();
 
@@ -480,14 +480,14 @@ class MainTest extends \Tests\TestCase
     }
     public function testCreatePostThenSetCommentsToDisqusAndCheckDisqusJSIsShown()
     {
-        \Config::set('blogetc.comments.type_of_comments_to_show', "disqus");
+        \Config::set('hessamcms.comments.type_of_comments_to_show', "disqus");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
-        $newblogpost = new \WebDevEtc\BlogEtc\Models\BlogEtcPost;
+        $newblogpost = new \HessamCMS\Models\HessamPost;
 
         $newblogpost->title=__METHOD__ . " " . time();
 
@@ -510,14 +510,14 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('blogetc.comments.type_of_comments_to_show', "custom");
+        \Config::set('hessamcms.comments.type_of_comments_to_show', "custom");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
-        $newblogpost = new \WebDevEtc\BlogEtc\Models\BlogEtcPost;
+        $newblogpost = new \HessamCMS\Models\HessamPost;
 
         $newblogpost->title=__METHOD__ . " " . time();
 
@@ -541,16 +541,16 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('blogetc.comments.auto_approve_comments', false);
-        \Config::set('blogetc.captcha.captcha_enabled', true);
-        \Config::set('blogetc.captcha.captcha_type', \WebDevEtc\BlogEtc\Captcha\Basic::class);
-        $captcha = new \WebDevEtc\BlogEtc\Captcha\Basic();
-        \Config::set('blogetc.captcha.basic_question', "a test question");
-        \Config::set('blogetc.captcha.basic_answers', "answer1,answer2");
+        \Config::set('hessamcms.comments.auto_approve_comments', false);
+        \Config::set('hessamcms.captcha.captcha_enabled', true);
+        \Config::set('hessamcms.captcha.captcha_type', \HessamCMS\Captcha\Basic::class);
+        $captcha = new \HessamCMS\Captcha\Basic();
+        \Config::set('hessamcms.captcha.basic_question', "a test question");
+        \Config::set('hessamcms.captcha.basic_answers', "answer1,answer2");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -569,7 +569,7 @@ class MainTest extends \Tests\TestCase
         $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
 
 
-        \Config::set('blogetc.comments.type_of_comments_to_show', 'built_in');
+        \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
 
 
         $comment_detail = [
@@ -579,22 +579,22 @@ class MainTest extends \Tests\TestCase
             $captcha->captcha_field_name() => "AnsWer2",
         ];
         $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("blogetc.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(200);
 
-        \Config::set('blogetc.captcha.auto_approve_comments', false);
+        \Config::set('hessamcms.captcha.auto_approve_comments', false);
 
         $this->assertDatabaseHas('blog_etc_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
 
 
-        $justAddedRow = \WebDevEtc\BlogEtc\Models\BlogEtcComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
+        $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
 
-        $response = $this->get(route("blogetc.admin.comments.index"));
+        $response = $this->get(route("hessamcms.admin.comments.index"));
         $response->assertSee($justAddedRow->author_name);
 
 
         // approve it:
-        $response = $this->patch(route("blogetc.admin.comments.approve", $justAddedRow->id), [
+        $response = $this->patch(route("hessamcms.admin.comments.approve", $justAddedRow->id), [
             '_token' => csrf_token(),
         ]);
         // check it was approved
@@ -607,12 +607,12 @@ class MainTest extends \Tests\TestCase
 
     public function testCreatePostThenCheckCanCreateCommentThenApproveComment()
     {
-        \Config::set('blogetc.comments.auto_approve_comments', false);
-        \Config::set('blogetc.captcha.captcha_enabled', false);
+        \Config::set('hessamcms.comments.auto_approve_comments', false);
+        \Config::set('hessamcms.captcha.captcha_enabled', false);
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -631,8 +631,8 @@ class MainTest extends \Tests\TestCase
         $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
 
 
-        \Config::set('blogetc.comments.type_of_comments_to_show', 'built_in');
-        \Config::set('blogetc.captcha.captcha_enabled', false);
+        \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
+        \Config::set('hessamcms.captcha.captcha_enabled', false);
 
 
         $comment_detail = [
@@ -641,23 +641,23 @@ class MainTest extends \Tests\TestCase
             'comment' => str_random(),
         ];
         $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("blogetc.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
 
         $response->assertStatus(200);
 
-        \Config::set('blogetc.captcha.auto_approve_comments', false);
+        \Config::set('hessamcms.captcha.auto_approve_comments', false);
 
         $this->assertDatabaseHas('blog_etc_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
 
 
-        $justAddedRow = \WebDevEtc\BlogEtc\Models\BlogEtcComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
+        $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
 
-        $response = $this->get(route("blogetc.admin.comments.index"));
+        $response = $this->get(route("hessamcms.admin.comments.index"));
         $response->assertSee($justAddedRow->author_name);
 
 
         // approve it:
-        $response = $this->patch(route("blogetc.admin.comments.approve", $justAddedRow->id), [
+        $response = $this->patch(route("hessamcms.admin.comments.approve", $justAddedRow->id), [
             '_token' => csrf_token(),
         ]);
         // check it was approved
@@ -670,12 +670,12 @@ class MainTest extends \Tests\TestCase
 
     public function testCreatePostThenCheckCanCreateCommentThenDeleteComment()
     {
-        \Config::set('blogetc.comments.auto_approve_comments', false);
-        \Config::set('blogetc.captcha.captcha_enabled', false);
+        \Config::set('hessamcms.comments.auto_approve_comments', false);
+        \Config::set('hessamcms.captcha.captcha_enabled', false);
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -694,29 +694,29 @@ class MainTest extends \Tests\TestCase
         $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
 
 
-        if (config("blogetc.comments.type_of_comments_to_show") === 'built_in') {
+        if (config("hessamcms.comments.type_of_comments_to_show") === 'built_in') {
             $comment_detail = [
                 '_token' => csrf_token(),
                 'author_name' => str_random(),
                 'comment' => str_random(),
             ];
             $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
-            $response = $this->post(config("blogetc.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+            $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
             $response->assertSessionHasNoErrors();
             $response->assertStatus(200);
 
             $this->assertDatabaseHas('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
 
 
-            $justAddedRow = \WebDevEtc\BlogEtc\Models\BlogEtcComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
+            $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
 
             // check the just added row exists...
-            $response = $this->get(route("blogetc.admin.comments.index"));
+            $response = $this->get(route("hessamcms.admin.comments.index"));
             $response->assertSee($justAddedRow->author_name);
 
 
             // delete it:
-            $response = $this->delete(route("blogetc.admin.comments.delete", $justAddedRow->id), [
+            $response = $this->delete(route("hessamcms.admin.comments.delete", $justAddedRow->id), [
                 '_token' => csrf_token(),
             ]);
             // check it was deleted (it will deleted if approved)
@@ -727,7 +727,7 @@ class MainTest extends \Tests\TestCase
 
 
         } else {
-            dump("NOT TESTING COMMENT FEATURE, as config(\"blogetc.comments.type_of_comments_to_show\") is not set to 'built_in')");
+            dump("NOT TESTING COMMENT FEATURE, as config(\"hessamcms.comments.type_of_comments_to_show\") is not set to 'built_in')");
         }
 
     }
@@ -739,9 +739,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageBlogEtcPosts());
+        $this->assertTrue($user->canManageHessamCMSPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -763,7 +763,7 @@ class MainTest extends \Tests\TestCase
         $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
 
 
-        $justCreatedRow = \WebDevEtc\BlogEtc\Models\BlogEtcPost::where("slug", $new_object_vals['slug'])->firstOrFail();
+        $justCreatedRow = \HessamCMS\Models\HessamPost::where("slug", $new_object_vals['slug'])->firstOrFail();
         $id = $justCreatedRow->id;
         $delete_url = $admin_panel_url . "/delete_post/" . $id;
 
@@ -777,7 +777,7 @@ class MainTest extends \Tests\TestCase
 
     public function testCanCreateCategory()
     {
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $this->create_admin_user();
         // now lets create a category
         $new_cat_vals = [
@@ -800,7 +800,7 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
 
 
         $this->create_admin_user();
@@ -822,7 +822,7 @@ class MainTest extends \Tests\TestCase
 
 
         // get the just inserted row
-        $justCreatedRow = \WebDevEtc\BlogEtc\Models\BlogEtcCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
+        $justCreatedRow = \HessamCMS\Models\HessamCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
 
 
         // get the edit page (form)
@@ -842,7 +842,7 @@ class MainTest extends \Tests\TestCase
 
         // send the request to save the changes
         $response = $this->patch(
-            route("blogetc.admin.categories.update_category", $justCreatedRow->id),
+            route("hessamcms.admin.categories.update_category", $justCreatedRow->id),
             $new_object_vals
         );
 
@@ -858,7 +858,7 @@ class MainTest extends \Tests\TestCase
 
     public function testCanDeleteCategory()
     {
-        $admin_panel_url = config("blogetc.admin_prefix", "blog_admin");
+        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
         $this->create_admin_user();
         // now lets create a category
         $new_cat_vals = [
@@ -874,7 +874,7 @@ class MainTest extends \Tests\TestCase
         $this->assertDatabaseHas('blog_etc_categories', $search_for_new_cat);
 
 
-        $justCreatedRow = \WebDevEtc\BlogEtc\Models\BlogEtcCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
+        $justCreatedRow = \HessamCMS\Models\HessamCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
         $id = $justCreatedRow->id;
 
         $delete_url = $admin_panel_url . "/categories/delete_category/$id";
@@ -914,7 +914,7 @@ class MainTest extends \Tests\TestCase
         $user = $this->getMockBuilder(\App\User::class)
             ->getMock();
         // make sure the user can see admin panel
-        $user->method("canManageBlogEtcPosts")
+        $user->method("canManageHessamCMSPosts")
             ->will($this->returnCallback(function () {
                 return true;
             }));
@@ -942,7 +942,7 @@ class MainTest extends \Tests\TestCase
     {
         $user = $this->create_admin_user();
 
-        $this->assertTrue($user->canManageBlogEtcPosts());
+        $this->assertTrue($user->canManageHessamCMSPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -958,27 +958,27 @@ class MainTest extends \Tests\TestCase
         $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
 
         // check we don't see it at moment
-        $response = $this->get(config("blogetc.blog_prefix", "blog"));
+        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
         $response->assertDontSee($new_object_vals['slug']);
         return array($new_object_vals, $search_for_obj);
     }
 
-    public function testUserModelHasCanManageBlogEtcPostsMethod()
+    public function testUserModelHasCanManageHessamCMSPostsMethod()
     {
         $u = new \App\User();
-        $this->assertTrue(method_exists($u,"canManageBlogEtcPosts"),"canManageBlogEtcPosts() must be added to User model. Please see WebDevEtc BlogEtc docs for details. It should return true ONLY for the admin users");
+        $this->assertTrue(method_exists($u,"canManageHessamCMSPosts"),"canManageHessamCMSPosts() must be added to User model. Please see hessam HessamCMS docs for details. It should return true ONLY for the admin users");
     }
-    public function testUserModelCanManageBlogEtcPostsMethodDoesntAlwaysReturnTrue()
+    public function testUserModelCanManageHessamCMSPostsMethodDoesntAlwaysReturnTrue()
     {
         $u = new \App\User();
 
-        $u->id = 9999999; // in case the logic on canManageBlogEtcPosts() checks for a low ID
+        $u->id = 9999999; // in case the logic on canManageHessamCMSPosts() checks for a low ID
         $u->email = str_random(); // in case the logic looks for a certain email or something.
 
-        $this->assertTrue(method_exists($u,"canManageBlogEtcPosts"));
+        $this->assertTrue(method_exists($u,"canManageHessamCMSPosts"));
 
         // because this user is just a randomly made one, it probably should not be allowed to edit blog posts.
-        $this->assertFalse($u->canManageBlogEtcPosts(), "User::canManageBlogEtcPosts() returns true, but it PROBABLY should return false! Otherwise every single user on your site has access to the blog admin panel! This might not be an error though, if your system doesn't allow public registration. But you should look into this. I know this isn't a good way to handle this test, but it seems to make sense.");
+        $this->assertFalse($u->canManageHessamCMSPosts(), "User::canManageHessamCMSPosts() returns true, but it PROBABLY should return false! Otherwise every single user on your site has access to the blog admin panel! This might not be an error though, if your system doesn't allow public registration. But you should look into this. I know this isn't a good way to handle this test, but it seems to make sense.");
     }
 
 

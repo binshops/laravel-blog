@@ -1,11 +1,12 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Traits;
+namespace HessamCMS\Traits;
 
 use Illuminate\Http\UploadedFile;
-use WebDevEtc\BlogEtc\Events\UploadedImage;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use HessamCMS\Events\UploadedImage;
+use HessamCMS\Models\HessamPost;
 use File;
+use HessamCMS\Models\HessamPostTranslation;
 
 trait UploadFileTrait
 {
@@ -20,14 +21,14 @@ trait UploadFileTrait
 
     /**
      * Small method to increase memory limit.
-     * This can be defined in the config file. If blogetc.memory_limit is false/null then it won't do anything.
+     * This can be defined in the config file. If hessamcms.memory_limit is false/null then it won't do anything.
      * This is needed though because if you upload a large image it'll not work
      */
     protected function increaseMemoryLimit()
     {
         // increase memory - change this setting in config file
-        if (config("blogetc.memory_limit")) {
-            @ini_set('memory_limit', config("blogetc.memory_limit"));
+        if (config("hessamcms.memory_limit")) {
+            @ini_set('memory_limit', config("hessamcms.memory_limit"));
         }
     }
 
@@ -76,21 +77,21 @@ trait UploadFileTrait
      */
     protected function image_destination_path()
     {
-        $path = public_path('/' . config("blogetc.blog_upload_dir"));
+        $path = public_path('/' . config("hessamcms.blog_upload_dir"));
         $this->check_image_destination_path_is_writable($path);
         return $path;
     }
 
 
     /**
-     * @param BlogEtcPost $new_blog_post
+     * @param HessamPost $new_blog_post
      * @param $suggested_title - used to help generate the filename
      * @param $image_size_details - either an array (with 'w' and 'h') or a string (and it'll be uploaded at full size, no size reduction, but will use this string to generate the filename)
      * @param $photo
      * @return array
      * @throws \Exception
      */
-    protected function UploadAndResize(BlogEtcPost $new_blog_post = null, $suggested_title, $image_size_details, $photo)
+    protected function UploadAndResize(HessamPostTranslation $new_blog_post = null, $suggested_title, $image_size_details, $photo)
     {
         // get the filename/filepath
         $image_filename = $this->getImageFilename($suggested_title, $image_size_details, $photo);
@@ -122,7 +123,7 @@ trait UploadFileTrait
         }
 
         // save image
-        $resizedImage->save($destinationPath . '/' . $image_filename, config("blogetc.image_quality", 80));
+        $resizedImage->save($destinationPath . '/' . $image_filename, config("hessamcms.image_quality", 80));
 
         // fireevent
         event(new UploadedImage($image_filename, $resizedImage, $new_blog_post, __METHOD__));

@@ -1,22 +1,23 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace HessamCMS\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use HessamCMS\Models\HessamPost;
+use HessamCMS\Models\HessamPostTranslation;
 
 /**
  * Class UploadedImage
- * @package WebDevEtc\BlogEtc\Events
+ * @package HessamCMS\Events
  */
 class UploadedImage
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  BlogEtcPost|null */
-    public $blogEtcPost;
+    /** @var  HessamPost|null */
+    public $hessamCMSPost;
     /**
      * @var
      */
@@ -29,14 +30,14 @@ class UploadedImage
      * UploadedImage constructor.
      *
      * @param $image_filename - the new filename
-     * @param BlogEtcPost $blogEtcPost
+     * @param HessamPost $hessamCMSPost
      * @param $image
      * @param $source string|null  the __METHOD__  firing this event (or other string)
      */
-    public function __construct(string $image_filename, $image,BlogEtcPost $blogEtcPost=null,string $source='other')
+    public function __construct(string $image_filename, $image, HessamPostTranslation $hessamCMSPost=null, string $source='other')
     {
         $this->image_filename = $image_filename;
-        $this->blogEtcPost=$blogEtcPost;
+        $this->hessamCMSPost=$hessamCMSPost;
         $this->image=$image;
         $this->source=$source;
     }

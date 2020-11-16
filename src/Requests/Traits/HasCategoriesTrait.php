@@ -1,10 +1,10 @@
-<?php namespace WebDevEtc\BlogEtc\Requests\Traits;
+<?php namespace HessamCMS\Requests\Traits;
 
-use WebDevEtc\BlogEtc\Models\BlogEtcCategory;
+use HessamCMS\Models\HessamCategory;
 
 /**
  * Class HasCategoriesTrait
- * @package WebDevEtc\BlogEtc\Requests\Traits
+ * @package HessamCMS\Requests\Traits
  */
 trait HasCategoriesTrait
 {
@@ -25,7 +25,7 @@ trait HasCategoriesTrait
 
         // check they are valid, return the IDs
         // limit to 1000 ... just in case someone submits with too many for the web server. No error is given if they submit more than 1k.
-        $vals = BlogEtcCategory::whereIn("id", array_keys($this->get("category")))->select("id")->limit(1000)->get();
+        $vals = HessamCategory::whereIn("id", array_keys($this->get("category")))->select("id")->limit(1000)->get();
         $vals = array_values($vals->pluck("id")->toArray());
 
         return $vals;

@@ -11,10 +11,10 @@
 </p>
 
 # Complete Laravel CMS Package
-- ### Multi-level Categories
-- ### Full text search
-- ### Multi-language support (coming soon)
-    - See the progress for multi-lang in `multi-lang` branch
+
+### Multi language support - Beta release - v9.0.x
+
+Easily add a wordpress functionality and CMS to your laravel web application.
 
 ## [Let's try it - Online Demo](https://cms.binshops.com/login)
 You can try Hessam CMS online: [https://cms.binshops.com](https://cms.binshops.com/login)
@@ -30,14 +30,14 @@ Install with following command and follow the instructions.
 To see package on Packagist click this [Link](https://packagist.org/packages/hessam/laravel-blogger)
 
 ## Important Notes
-- For laravel 8.x's default auth User model, change user model in `blogetc.php` to: `\App\Models\User::class`
+- For laravel 8.x's default auth User model, change user model in `hessamcms.php` to: `\App\Models\User::class`
 
 ## Features
 - Compatible with latest laravel version (laravel 8.x)
 - Backward-compatibility with previous laravel versions
 - Full text search - searching throughout the blog posts
 - Multi-level category support
-- fully configurable via its `config/blogetc.php` config file
+- fully configurable via its `config/hessamcms.php` config file
 - Ready to use admin panel
 - Full customizability of admin views and front views
 - Paginated views
@@ -81,21 +81,21 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
 
 ## How to customise the blog views/templates
 
-After doing the correct `vendor:publish`, all of the default template files will be found in /resources/views/vendor/blogetc/ and are easy to edit to match your needs.
+After doing the correct `vendor:publish`, all of the default template files will be found in /resources/views/vendor/hessamcms/ and are easy to edit to match your needs.
 
 ### Customizing admin views
 If you need to customize the admin view, just copy the files from
-`vendor/webdevetc/blogetc/src/Views/blogetc_admin`
+`vendor/hessamcms/src/Views/hessamcms_admin`
 to
-`resources/views/vendor/blogetc_admin`
+`resources/views/vendor/hessamcms_admin`
 Then you can modify them just like any other view file.
 
 ## Routes
 
-It will auto set all required routes (both public facing, and admin backend). There are some config options (such as changing the /blog/ url to something else), which can be done in the blogetc.php file.
+It will auto set all required routes (both public facing, and admin backend). There are some config options (such as changing the /blog/ url to something else), which can be done in the hessamcms.php file.
 
 ## Config options
-All config options have comments which describe what they do. Please just refer to the `blogetc.php` file in your /config/ dir.
+All config options have comments which describe what they do. Please just refer to the `hessamcms.php` file in your /config/ dir.
 
 ### Custom User Model
 You can change the default user model through the config file.
@@ -123,7 +123,8 @@ Try adding this to config/app.php:
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
 ## Version History    
-- **8.0.x** Compatibility with Laravel 8
+- **9.0.x** Multi-language support beta release
+- 8.0.x Compatibility with Laravel 8
 - 7.3.2 Some bug fixes
 - 7.3.0 New Admin UI
 - 7.2.2                 
@@ -147,7 +148,7 @@ Try adding this to config/app.php:
 - 3.0.2                 - fixed default medium image size (changed to 600x400)
 - 3.0.1                 - replaced all short tags (<?) with full opening ones (<?php)
 - 3.0                   - Added separate functionality for uploading images (and save some meta data in db)
-- 2.1                   - added 'short_description' to db + form, and BlogEtcPost::generate_introduction() method will try and use this to generate intro text.
+- 2.1                   - added 'short_description' to db + form, and HessamCMSPost::generate_introduction() method will try and use this to generate intro text.
 - 2.0                   - added full text search (enable it via the config file - it is disabled by default).
 - 1.2                   - added WYSIWYG, few smaller changes
 - 1.1.1                 - added basic captcha

@@ -1,4 +1,4 @@
-<?php namespace WebDevEtc\BlogEtc\Interfaces;
+<?php namespace HessamCMS\Interfaces;
 
 interface CaptchaInterface
 {

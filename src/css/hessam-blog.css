@@ -24,3 +24,7 @@
     height: 100%;
     background-color: #E16036;
 }
+
+.hessam-cat-hierarchy {
+    list-style-type: none !important;
+}

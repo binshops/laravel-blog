@@ -1,10 +1,10 @@
 <?php
-namespace WebDevEtc\BlogEtc\Baum\Extensions\Eloquent;
+namespace HessamCMS\Baum\Extensions\Eloquent;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use WebDevEtc\BlogEtc\Baum\Extensions\Query\Builder as QueryBuilder;
+use HessamCMS\Baum\Extensions\Query\Builder as QueryBuilder;
 
 abstract class Model extends BaseModel {
 

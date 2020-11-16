@@ -1,4 +1,4 @@
-<?php namespace WebDevEtc\BlogEtc\Requests\Traits;
+<?php namespace HessamCMS\Requests\Traits;
 
 
 
@@ -16,7 +16,7 @@ trait HasImageUploadTrait
         }
 
         // not found? lets cycle through all the images and see if anything was submitted, and use that instead
-        foreach (config("blogetc.image_sizes") as $image_size_name => $image_size_info) {
+        foreach (config("hessamcms.image_sizes") as $image_size_name => $image_size_info) {
             if ($this->file($image_size_name)) {
                 return $this->file($image_size_name);
             }
