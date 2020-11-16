@@ -33,7 +33,7 @@ class HessamCMSServiceProvider extends ServiceProvider
                      '2020_10_16_010049_create_hessam_post_translations_table.php',
                      '2020_10_16_121230_create_hessam_comments_table.php',
                      '2020_10_16_121728_create_hessam_uploaded_photos_table.php',
-                     '2020_10_16_124241_create_hessam_languages_table.php'
+                     '2020_10_16_004241_create_hessam_languages_table.php'
                  ] as $file) {
 
             $this->publishes([
