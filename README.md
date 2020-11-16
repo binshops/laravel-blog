@@ -85,7 +85,7 @@ After doing the correct `vendor:publish`, all of the default template files will
 
 ### Customizing admin views
 If you need to customize the admin view, just copy the files from
-`vendor/hessam.binshops/hessamcms/src/Views/hessamcms_admin`
+`vendor/hessamcms/src/Views/hessamcms_admin`
 to
 `resources/views/vendor/hessamcms_admin`
 Then you can modify them just like any other view file.
