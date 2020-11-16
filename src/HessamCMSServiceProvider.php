@@ -3,7 +3,7 @@
 namespace HessamCMS;
 
 use Illuminate\Support\ServiceProvider;
-use Swis\Laravel\Fulltext\ModelObserver;
+//use Swis\Laravel\Fulltext\ModelObserver;
 use HessamCMS\Models\HessamPost;
 
 class HessamCMSServiceProvider extends ServiceProvider
@@ -16,10 +16,10 @@ class HessamCMSServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if (config("hessamcms.search.search_enabled") == false) {
-            // if search is disabled, don't allow it to sync.
-            ModelObserver::disableSyncingFor(HessamPost::class);
-        }
+//        if (config("hessamcms.search.search_enabled") == false) {
+//            // if search is disabled, don't allow it to sync.
+//            ModelObserver::disableSyncingFor(HessamPost::class);
+//        }
 
         if (config("hessamcms.include_default_routes", true)) {
             include(__DIR__ . "/routes.php");
