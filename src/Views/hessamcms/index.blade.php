@@ -75,6 +75,15 @@
         @if (config('hessamcms.search.search_enabled') )
             @include('hessamcms::sitewide.search_form')
         @endif
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    @forelse($lang_list as $lang)
+                        <a href="{{route("hessamcms.index" , $lang->locale)}}">
+                            <span>{{$lang->name}}</span>
+                        </a>
+                    @endforelse
+                </div>
+            </div>
     </div>
 
 @endsection

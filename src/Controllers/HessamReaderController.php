@@ -73,6 +73,7 @@ class HessamReaderController extends Controller
         HessamCategory::loadSiblingsWithList($rootList);
 
         return view("hessamcms::index", [
+            'lang_list' => HessamLanguage::all('locale','name'),
             'locale' => $request->get("locale"),
             'category_chain' => $categoryChain,
             'categories' => $rootList,
