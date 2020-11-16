@@ -31,7 +31,7 @@ class CreateHessamPostTranslationsTable extends Migration
             $table->string('image_thumbnail')->nullable();
 
             $table->unsignedInteger("lang_id")->index();
-            $table->foreign('lang_id')->references('lang_id')->on('hessam_languages');
+            $table->foreign('lang_id')->references('id')->on('hessam_languages');
 
             $table->timestamps();
         });
