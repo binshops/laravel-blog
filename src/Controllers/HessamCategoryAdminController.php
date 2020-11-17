@@ -55,8 +55,8 @@ class HessamCategoryAdminController extends Controller
         $language_id = $request->get('language_id');
         $language_list = HessamLanguage::where('active',true)->get();
 
-        $cat_list = HessamCategory::whereHas('categoryTranslations', function ($query) {
-            return $query->where('lang_id', '=', 1);
+        $cat_list = HessamCategory::whereHas('categoryTranslations', function ($query) use ($language_id) {
+            return $query->where('lang_id', '=', $language_id);
         })->get();
 
         $rootList = HessamCategory::roots()->get();

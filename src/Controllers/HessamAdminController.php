@@ -58,7 +58,10 @@ class HessamAdminController extends Controller
         $posts = HessamPostTranslation::orderBy("post_id", "desc")->where('lang_id', $language_id)
             ->paginate(10);
 
-        return view("hessamcms_admin::index", ['post_translations'=>$posts]);
+        return view("hessamcms_admin::index", [
+            'post_translations'=>$posts,
+            'language_id' => $language_id
+        ]);
     }
 
     /**
