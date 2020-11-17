@@ -2,9 +2,9 @@
 
 namespace HessamCMS\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use HessamCMS\Helpers;
-use HessamCMS\Middleware\LoadLanguage;
 use HessamCMS\Middleware\UserCanManageBlogPosts;
 use HessamCMS\Models\HessamConfiguration;
 use HessamCMS\Models\HessamLanguage;
@@ -13,7 +13,7 @@ use HessamCMS\Models\HessamLanguage;
  * Class HessamAdminSetupController
  * Handles initial setup for Hessam CMS
 */
-class HessamAdminSetupController
+class HessamAdminSetupController extends Controller
 {
     /**
      * HessamAdminSetupController constructor.
