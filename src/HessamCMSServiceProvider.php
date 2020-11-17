@@ -33,7 +33,8 @@ class HessamCMSServiceProvider extends ServiceProvider
                      '2020_10_16_010049_create_hessam_post_translations_table.php',
                      '2020_10_16_121230_create_hessam_comments_table.php',
                      '2020_10_16_121728_create_hessam_uploaded_photos_table.php',
-                     '2020_10_16_004241_create_hessam_languages_table.php'
+                     '2020_10_16_004241_create_hessam_languages_table.php',
+                     '2020_10_22_132005_create_hessam_configurations_table.php'
                  ] as $file) {
 
             $this->publishes([
@@ -47,6 +48,7 @@ class HessamCMSServiceProvider extends ServiceProvider
             __DIR__ . '/Config/hessamcms.php' => config_path('hessamcms.php'),
             __DIR__ . '/css/hessamcms_admin_css.css' => public_path('hessamcms_admin_css.css'),
             __DIR__ . '/css/hessam-blog.css' => public_path('hessam-blog.css'),
+            __DIR__ . '/css/admin-setup.css' => public_path('admin-setup.css'),
             __DIR__ . '/js/hessam-blog.js' => public_path('hessam-blog.js'),
         ]);
 

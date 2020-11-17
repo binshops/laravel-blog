@@ -44,7 +44,7 @@ Route::group(['middleware' => ['web'], 'namespace' => '\HessamCMS\Controllers'],
         Route::get('/setup', 'HessamAdminSetupController@setup')
             ->name('hessamcms.admin.setup');
 
-        Route::get('/setup-submit', 'HessamAdminSetupController@setup_submit')
+        Route::post('/setup-submit', 'HessamAdminSetupController@setup_submit')
             ->name('hessamcms.admin.setup_submit');
 
         Route::get('/', 'HessamAdminController@index')
