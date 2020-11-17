@@ -32,7 +32,7 @@ class HessamAdminSetupController extends Controller
      *
      * @return mixed
      */
-    public function index(Request $request)
+    public function setup(Request $request)
     {
         return view("hessamcms_admin::setup.setup");
     }
