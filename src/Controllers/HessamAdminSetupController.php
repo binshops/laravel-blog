@@ -21,7 +21,6 @@ class HessamAdminSetupController
     public function __construct()
     {
         $this->middleware(UserCanManageBlogPosts::class);
-        $this->middleware(LoadLanguage::class);
 
         if (!is_array(config("hessamcms"))) {
             throw new \RuntimeException('The config/hessamcms.php does not exist. Publish the vendor files for the HessamCMS package by running the php artisan publish:vendor command');
