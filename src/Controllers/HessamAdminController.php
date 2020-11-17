@@ -54,7 +54,7 @@ class HessamAdminController extends Controller
      */
     public function index(Request $request)
     {
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $posts = HessamPostTranslation::orderBy("post_id", "desc")->where('lang_id', $language_id)
             ->paginate(10);
 
@@ -67,7 +67,7 @@ class HessamAdminController extends Controller
      */
     public function create_post(Request $request)
     {
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $language_list = HessamLanguage::where('active',true)->get();
         $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
 
@@ -197,7 +197,7 @@ class HessamAdminController extends Controller
 
         //todo: generate event
 
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $language_list = HessamLanguage::where('active',true)->get();
         $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
 
@@ -229,7 +229,7 @@ class HessamAdminController extends Controller
      */
     public function edit_post( $blogPostId , Request $request)
     {
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
 
         $post_translation = HessamPostTranslation::where(
             [
@@ -259,7 +259,7 @@ class HessamAdminController extends Controller
      */
     public function edit_post_toggle( $blogPostId , Request $request)
     {
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $post_translation = HessamPostTranslation::where(
             [
                 ['lang_id', '=', $request['selected_lang']],

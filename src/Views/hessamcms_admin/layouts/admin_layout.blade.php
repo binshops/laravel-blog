@@ -26,14 +26,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito" crossorigin="anonymous">
 
     <!-- Styles -->
-{{--    @if(file_exists(public_path("hessamcms_admin_css.css")))--}}
-        <link href="{{ asset('hessamcms_admin_css.css') }}" rel="stylesheet">
-{{--    @else--}}
-{{--        <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-        {{--Edited your css/app.css file? Uncomment these lines to use plain bootstrap:--}}
-        {{--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">--}}
-        {{--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">--}}
-{{--    @endif--}}
+    {{--    @if(file_exists(public_path("hessamcms_admin_css.css")))--}}
+    <link href="{{ asset('hessamcms_admin_css.css') }}" rel="stylesheet">
+    {{--    @else--}}
+    {{--        <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    {{--Edited your css/app.css file? Uncomment these lines to use plain bootstrap:--}}
+    {{--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">--}}
+    {{--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">--}}
+    {{--    @endif--}}
 
 
 </head>
@@ -60,7 +60,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
 
-                    <li class='nav-item px-2'><a class='nav-link' href='{{route("hessamcms.index" , $post->url(app('request')->get('locale')))}}'>Blog home</a></li>
+                    <li class='nav-item px-2'><a class='nav-link' href='{{route("hessamcms.index" , app('request')->get('locale'))}}'>Blog home</a></li>
 
                     <li class="nav-item ">
                         <a id="" class="nav-link " href="#" role="button"
@@ -70,9 +70,9 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                            {{ __('Logout') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

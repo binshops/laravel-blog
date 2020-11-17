@@ -11,7 +11,7 @@ class PackageSetup
     public function handle($request, Closure $next)
     {
         $initial_setup = HessamConfiguration::get('INITIAL_SETUP');
-        if (!$initial_setup || !$initial_setup->value){
+        if (!$initial_setup){
             return redirect( route('hessamcms.admin.setup') );
         }
 

@@ -39,7 +39,7 @@ class HessamCategoryAdminController extends Controller
      * @return mixed
      */
     public function index(Request $request){
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $categories = HessamCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->paginate(25);
         return view("hessamcms_admin::categories.index",[
             'categories' => $categories,
@@ -52,7 +52,7 @@ class HessamCategoryAdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create_category(Request $request){
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $language_list = HessamLanguage::where('active',true)->get();
 
         $cat_list = HessamCategory::whereHas('categoryTranslations', function ($query) {
@@ -82,7 +82,7 @@ class HessamCategoryAdminController extends Controller
      * This controller is totally REST controller
      */
     public function store_category(Request $request){
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $language_list = $request['data'];
 
         if ($request['parent_id']== 0){
@@ -128,7 +128,7 @@ class HessamCategoryAdminController extends Controller
      * @return mixed
      */
     public function edit_category($categoryId, Request $request){
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $language_list = HessamLanguage::where('active',true)->get();
 
         $category = HessamCategory::findOrFail($categoryId);
@@ -158,7 +158,7 @@ class HessamCategoryAdminController extends Controller
     public function update_category(UpdateHessamCMSCategoryRequest $request, $categoryId){
         /** @var HessamCategory $category */
         $category = HessamCategory::findOrFail($categoryId);
-        $language_id = $request->cookie('language_id');
+        $language_id = $request->get('language_id');
         $translation = HessamCategoryTranslation::where(
             [
                 ['lang_id', '=', $language_id],

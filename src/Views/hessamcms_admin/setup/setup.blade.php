@@ -90,7 +90,7 @@ c-3 33 -7 67 -10 74 -6 22 -60 14 -88 -14z m54 -48 c0 -31 -19 -53 -34 -39
                                 <div class="tab-pane" id="language">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4 class="info-text">Your default language is English in Beta release. Add more language from admin panel.</h4>
+                                            <h4 class="info-text">Your default language is English in Beta release. You can add more language from admin panel.</h4>
                                             <h5 class="info-text">
                                                 More configurations will be added to this setup section.
                                             </h5>
@@ -186,25 +186,25 @@ c-3 33 -7 67 -10 74 -6 22 -60 14 -88 -14z m54 -48 c0 -31 -19 -53 -34 -39
                                         {{--                                                --}}{{--                                               });--}}
                                         {{--                                                --}}{{--                                           </script>--}}
 
-                                        {{--                                                <input type="text"--}}
-                                        {{--                                                       class="form-control"--}}
-                                        {{--                                                       id="language_name"--}}
-                                        {{--                                                       required--}}
-                                        {{--                                                       name='name'--}}
-                                        {{--                                                       value="English"--}}
-                                        {{--                                                       style="display: none">--}}
+                                        <input type="text"
+                                               class="form-control"
+                                               id="language_name"
+                                               required
+                                               name='name'
+                                               value="English"
+                                               style="display: none">
 
-                                        {{--                                                <input type="text"--}}
-                                        {{--                                                       class="form-control"--}}
-                                        {{--                                                       id="language_locale"--}}
-                                        {{--                                                       required--}}
-                                        {{--                                                       name='locale'--}}
-                                        {{--                                                       value="en"--}}
-                                        {{--                                                       style="display: none">--}}
+                                        <input type="text"
+                                               class="form-control"
+                                               id="language_locale"
+                                               required
+                                               name='locale'
+                                               value="en"
+                                               style="display: none">
 
-                                        {{--                                                <input name="iso_code" value="en" id="iso_code" style="display: none">--}}
-                                        {{--                                                <input name="date_format" value="YYYY/MM/DD" style="display: none">--}}
-                                        {{--                                                <input checked style="display: none" name="active" value="1">--}}
+                                        <input name="iso_code" value="en" id="iso_code" style="display: none">
+                                        <input name="date_format" value="YYYY/MM/DD" style="display: none">
+                                        <input checked style="display: none" name="active" value="1">
 
 
                                         {{--                                            </div>--}}
@@ -218,7 +218,7 @@ c-3 33 -7 67 -10 74 -6 22 -60 14 -88 -14z m54 -48 c0 -31 -19 -53 -34 -39
 
                             <div class="row">
                                 <div class="col-md-12" style="text-align: center">
-                                    <input type='submit' class='btn btn-finish btn-fill btn-success btn-wd btn-sm' name='finish' value='Setup Package' />
+                                    <input type='submit' class='btn  btn-fill btn-success btn-wd btn-sm' value='Setup Package' />
 
                                 </div>
                             </div>

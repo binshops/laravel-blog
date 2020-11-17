@@ -122,7 +122,7 @@
 
 
             //multi-language data
-            var defalutLangId = {{$language_id}}
+            var defalutLangId = {{$language_id}};
             var preLangId = defalutLangId;
             var languageList = {};
             $("#language_list > option").each(function() {
