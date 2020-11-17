@@ -17,7 +17,7 @@ class HessamConfiguration extends Model
     ];
 
     public static function get($key){
-        return HessamConfiguration::where('key', $key)->first();
+        return HessamConfiguration::where('key', $key)->first()->value;
     }
 
     public static function set($key, $value){

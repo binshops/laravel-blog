@@ -12,7 +12,7 @@ use HessamCMS\Models\HessamLanguage;
 /**
  * Class HessamAdminSetupController
  * Handles initial setup for Hessam CMS
-*/
+ */
 class HessamAdminSetupController extends Controller
 {
     /**
@@ -49,7 +49,10 @@ class HessamAdminSetupController extends Controller
         $language->date_format = $request['date_format'];
 
         $language->save();
-        HessamConfiguration::set('INITIAL_SETUP', true);
+        if (!HessamConfiguration::get('INITIAL_SETUP')){
+            HessamConfiguration::set('INITIAL_SETUP', true);
+            HessamConfiguration::set('DEFAULT_LANGUAGE_LOCALE', $request['locale']);
+        }
 
         Helpers::flash_message("Language: " . $language->name . " has been added.");
         return redirect( route('hessamcms.admin.index') );

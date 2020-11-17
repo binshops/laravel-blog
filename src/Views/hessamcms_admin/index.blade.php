@@ -31,10 +31,10 @@
                     <dd class="">
                         @if(count($post->post->categories))
                             @foreach($post->post->categories as $category)
-                                <a class='btn btn-outline-secondary btn-sm m-1' href='{{$category->edit_url()}}'>
+                                <a class='btn btn-outline-secondary btn-sm m-1' href='{{$category->categoryTranslations->where('lang_id' , $language_id)->first()->edit_url()}}'>
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                    {{$category->category_name}}
+                                    {{$category->categoryTranslations->where('lang_id' , $language_id)->first()->category_name}}
                                 </a>
                             @endforeach
                         @else No Categories

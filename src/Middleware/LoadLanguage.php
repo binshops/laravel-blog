@@ -3,6 +3,7 @@
 
 namespace HessamCMS\Middleware;
 use Closure;
+use HessamCMS\Models\HessamConfiguration;
 use HessamCMS\Models\HessamLanguage;
 
 class LoadLanguage
@@ -10,13 +11,15 @@ class LoadLanguage
 
     public function handle($request, Closure $next)
     {
-        $lang = HessamLanguage::where('locale', config("hessamcms.default_language"))
+        $default_locale = HessamConfiguration::get('DEFAULT_LANGUAGE_LOCALE');
+        $lang = HessamLanguage::where('locale', $default_locale)
             ->first();
 
-        $request->attributes->add(['locale' => $lang->locale]);
+        $request->attributes->add([
+            'locale' => $lang->locale,
+            'language_id' => $lang->id
+        ]);
 
-        $response = $next($request);
-        $response->withCookie(cookie()->forever('language_id', $lang->language_id));
-        return $response;
+        return $next($request);
     }
 }
