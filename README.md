@@ -12,7 +12,7 @@
 
 # Complete Laravel CMS Package
 
-### Multi language support - Beta release - v9.0.x
+### A Surprising Feature, The Multi-Language Support (Nov-2020 version 9.0.x)
 
 Easily add a wordpress functionality and CMS to your laravel web application.
 
