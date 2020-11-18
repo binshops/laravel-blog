@@ -249,6 +249,7 @@ class HessamAdminController extends Controller
             'cat_ts' => $ts,
             'language_list' => $language_list,
             'selected_lang' => $language_id,
+            'selected_locale' => HessamLanguage::where('id', $language_id)->first()->locale,
             'post' => $post,
             'post_translation' => $post_translation
         ]);
@@ -262,7 +263,6 @@ class HessamAdminController extends Controller
      */
     public function edit_post_toggle( $blogPostId , Request $request)
     {
-        $language_id = $request->get('language_id');
         $post_translation = HessamPostTranslation::where(
             [
                 ['lang_id', '=', $request['selected_lang']],
@@ -275,12 +275,13 @@ class HessamAdminController extends Controller
 
         $post = HessamPost::findOrFail($blogPostId);
         $language_list = HessamLanguage::where('active',true)->get();
-        $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
+        $ts = HessamCategoryTranslation::where("lang_id", $request['selected_lang'])->limit(1000)->get();
 
         return view("hessamcms_admin::posts.edit_post", [
             'cat_ts' => $ts,
             'language_list' => $language_list,
             'selected_lang' => $request['selected_lang'],
+            'selected_locale' => HessamLanguage::where('id', $request['selected_lang'])->first()->locale,
             'post' => $post,
             'post_translation' => $post_translation
         ]);

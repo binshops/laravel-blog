@@ -4,7 +4,7 @@
 
     <h5>Admin - Editing post
         @if($post_translation->slug)
-            <a target='_blank' href='{{$post_translation->url()}}' class='float-right btn btn-primary'>View post</a>
+            <a target='_blank' href='{{$post_translation->url($selected_locale)}}' class='float-right btn btn-primary'>View post</a>
         @endif
     </h5>
 
