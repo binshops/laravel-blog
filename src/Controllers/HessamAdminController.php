@@ -74,11 +74,14 @@ class HessamAdminController extends Controller
         $language_list = HessamLanguage::where('active',true)->get();
         $ts = HessamCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
 
+        $new_post = new HessamPost();
+        $new_post->is_published = true;
+
         return view("hessamcms_admin::posts.add_post", [
             'cat_ts' => $ts,
             'language_list' => $language_list,
             'selected_lang' => $language_id,
-            'post' => new \HessamCMS\Models\HessamPost(),
+            'post' => $new_post,
             'post_translation' => new \HessamCMS\Models\HessamPostTranslation(),
             'post_id' => -1
         ]);
@@ -162,6 +165,7 @@ class HessamAdminController extends Controller
         if ($request['post_id'] == -1 || $request['post_id'] == null){
             //cretes new post
             $new_blog_post = new HessamPost();
+            $new_blog_post->is_published = true;
             $new_blog_post->posted_at = Carbon::now();
         }else{
             //edits post
@@ -341,9 +345,12 @@ class HessamAdminController extends Controller
         return redirect( route('hessamcms.admin.index') );
     }
 
-    public function remove_photo($postSlug)
+    public function remove_photo($postSlug, $lang_id)
     {
-        $post = HessamPost::where("slug", $postSlug)->firstOrFail();
+        $post = HessamPostTranslation::where([
+            "slug", '=', $postSlug,
+            'lang_id', '=', $lang_id
+        ])->firstOrFail();
 
         $path = public_path('/' . config("hessamcms.blog_upload_dir"));
         if (!$this->checked_blog_image_dir_is_writable) {

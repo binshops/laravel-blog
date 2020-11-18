@@ -76,7 +76,7 @@ Route::group(['middleware' => ['web'], 'namespace' => '\HessamCMS\Controllers'],
             ->name('hessamcms.admin.update_post');
 
         //Removes post's photo
-        Route::get('/remove_photo/{slug}',
+        Route::get('/remove_photo/{slug}/{lang_id}',
             'HessamAdminController@remove_photo')
             ->name('hessamcms.admin.remove_photo');
 

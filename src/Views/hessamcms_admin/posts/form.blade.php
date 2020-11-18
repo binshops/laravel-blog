@@ -171,7 +171,11 @@
                        aria-describedby="blog_{{$size_key}}_help">
 
                 @if($post_translation->has_image($size_info['basic_key']))
-                    <a style="color: darkred" href="{{route("hessamcms.admin.remove_photo", $post_translation->slug)}}">Remove Image</a>
+                    <a style="color: darkred" href="{{route("hessamcms.admin.remove_photo",[
+     $post_translation->slug,
+     $selected_lang
+    ]
+    )}}">Remove Image</a>
                 @endif
             </div>
         @endforeach
