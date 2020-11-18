@@ -8,14 +8,6 @@
         @csrf
 
         <div class="form-group">
-            <label for="active"> Active</label>
-            <input checked type="radio" id="active" name="active" value="1">
-            <label for="deactive"> Deactive</label>
-            <input type="radio" id="deactive" name="active" value="0">
-            <br>
-
-        </div>
-        <div class="form-group">
             <select id="lang-name" data-placeholder="Choose a Language...">
                 <option value="AF">Afrikaans</option>
                 <option value="SQ">Albanian</option>
@@ -90,6 +82,25 @@
                 <option value="CY">Welsh</option>
                 <option value="XH">Xhosa</option>
             </select>
+        </div>
+
+        <div class="form-group">
+            <label for="active"> Active</label>
+            <input checked type="radio" id="active" name="active" value="1">
+            <label for="deactive"> Deactive</label>
+            <input type="radio" id="deactive" name="active" value="0">
+            <br>
+
+        </div>
+
+        <div class="form-group">
+            <span>RTL: </span>
+
+            <label for="no">No</label>
+            <input checked type="radio" id="no" name="rtl" value="0">
+            <label for="yes">Yes</label>
+            <input type="radio" id="yes" name="rtl" value="1">
+            <br>
         </div>
 
         <script>

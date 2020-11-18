@@ -21,6 +21,7 @@ class CreateHessamLanguagesTable extends Migration
             $table->string("iso_code")->unique();
             $table->string("date_format");
             $table->boolean("active")->default(true);
+            $table->boolean("rtl")->default(false);
 
             $table->timestamps();
         });

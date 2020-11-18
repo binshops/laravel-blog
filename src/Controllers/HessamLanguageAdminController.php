@@ -44,6 +44,7 @@ class HessamLanguageAdminController extends Controller
         $language->locale = $request['locale'];
         $language->name = $request['name'];
         $language->date_format = $request['date_format'];
+        $language->rtl = $request['rtl'];
 
         $language->save();
 
