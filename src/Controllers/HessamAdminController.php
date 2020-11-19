@@ -104,7 +104,11 @@ class HessamAdminController extends Controller
             ]
         )->first();
 
-        if ($request['post_id'] == -1 || !$translation){
+        if (!$translation){
+            $translation = new HessamPostTranslation();
+        }
+
+        if ($request['post_id'] == -1 || $request['post_id'] == null){
             //cretes new post
             $new_blog_post = new HessamPost();
             $translation = new HessamPostTranslation();
@@ -112,7 +116,7 @@ class HessamAdminController extends Controller
             $new_blog_post->posted_at = Carbon::now();
         }else{
             //edits post
-            $new_blog_post = HessamPost::findOrFail($translation->post_id);
+            $new_blog_post = HessamPost::findOrFail($request['post_id']);
         }
 
         $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $request['post_id']);
