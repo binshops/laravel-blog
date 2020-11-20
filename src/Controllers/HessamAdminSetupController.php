@@ -54,7 +54,6 @@ class HessamAdminSetupController extends Controller
             HessamConfiguration::set('DEFAULT_LANGUAGE_LOCALE', $request['locale']);
         }
 
-        Helpers::flash_message("Language: " . $language->name . " has been added.");
         return redirect( route('hessamcms.admin.index') );
     }
 }
