@@ -4,8 +4,8 @@ namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use HessamCMS\Laravel\Fulltext\Search;
 use Illuminate\Http\Request;
-use Swis\Laravel\Fulltext\Search;
 use HessamCMS\Captcha\UsesCaptcha;
 use HessamCMS\Middleware\DetectLanguage;
 use HessamCMS\Models\HessamCategory;
@@ -104,6 +104,7 @@ class HessamReaderController extends Controller
         HessamCategory::loadSiblingsWithList($rootList);
 
         return view("hessamcms::search", [
+                'locale' => $request->get("locale"),
                 'categories' => $rootList,
                 'query' => $query,
                 'search_results' => $search_results]

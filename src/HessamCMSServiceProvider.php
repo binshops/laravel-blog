@@ -2,12 +2,24 @@
 
 namespace HessamCMS;
 
+use HessamCMS\Models\HessamPostTranslation;
 use Illuminate\Support\ServiceProvider;
-//use Swis\Laravel\Fulltext\ModelObserver;
 use HessamCMS\Models\HessamPost;
+use HessamCMS\Laravel\Fulltext\Commands\Index;
+use HessamCMS\Laravel\Fulltext\Commands\IndexOne;
+use HessamCMS\Laravel\Fulltext\Commands\UnindexOne;
+use HessamCMS\Laravel\Fulltext\ModelObserver;
+use HessamCMS\Laravel\Fulltext\Search;
+use HessamCMS\Laravel\Fulltext\SearchInterface;
 
 class HessamCMSServiceProvider extends ServiceProvider
 {
+
+    protected $commands = [
+        Index::class,
+        IndexOne::class,
+        UnindexOne::class,
+    ];
     /**
      * Bootstrap services.
      *
@@ -16,15 +28,14 @@ class HessamCMSServiceProvider extends ServiceProvider
     public function boot()
     {
 
-//        if (config("hessamcms.search.search_enabled") == false) {
-//            // if search is disabled, don't allow it to sync.
-//            ModelObserver::disableSyncingFor(HessamPost::class);
-//        }
+        if (config("hessamcms.search.search_enabled") == false) {
+            // if search is disabled, don't allow it to sync.
+            ModelObserver::disableSyncingFor(HessamPostTranslation::class);
+        }
 
         if (config("hessamcms.include_default_routes", true)) {
             include(__DIR__ . "/routes.php");
         }
-
 
         foreach ([
                      '2020_10_16_005400_create_hessam_categories_table.php',
@@ -34,7 +45,8 @@ class HessamCMSServiceProvider extends ServiceProvider
                      '2020_10_16_121230_create_hessam_comments_table.php',
                      '2020_10_16_121728_create_hessam_uploaded_photos_table.php',
                      '2020_10_16_004241_create_hessam_languages_table.php',
-                     '2020_10_22_132005_create_hessam_configurations_table.php'
+                     '2020_10_22_132005_create_hessam_configurations_table.php',
+                     '2016_11_04_152913_create_laravel_fulltext_table.php'
                  ] as $file) {
 
             $this->publishes([
@@ -62,6 +74,10 @@ class HessamCMSServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(
+            SearchInterface::class,
+            Search::class
+        );
 
         // for the admin backend views ( view("hessamcms_admin::BLADEFILE") )
         $this->loadViewsFrom(__DIR__ . "/Views/hessamcms_admin", 'hessamcms_admin');

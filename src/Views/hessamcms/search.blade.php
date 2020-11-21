@@ -12,7 +12,7 @@
                         @if(isset($result->indexable))
                             @php $search_count += $search_count + 1; @endphp
                             <?php $post = $result->indexable; ?>
-                            @if($post && is_a($post,\HessamCMS\Models\HessamPost::class))
+                            @if($post && is_a($post,\HessamCMS\Models\HessamPostTranslation::class))
                                 <h2>Search result #{{$search_count}}</h2>
                                 @include("hessamcms::partials.index_loop")
                             @else

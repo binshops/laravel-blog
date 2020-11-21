@@ -4,18 +4,17 @@
 namespace HessamCMS\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use HessamCMS\Laravel\Fulltext\Indexable;
 use Illuminate\Database\Eloquent\Model;
-//use Swis\Laravel\Fulltext\Indexable;
 use HessamCMS\Interfaces\SearchResultInterface;
 
-//class HessamPostTranslation extends Model implements SearchResultInterface
-class HessamPostTranslation extends Model
+class HessamPostTranslation extends Model implements SearchResultInterface
 {
     use Sluggable;
-//    use Indexable;
-//
-//    protected $indexContentColumns = ['post_body', 'short_description', 'meta_desc',];
-//    protected $indexTitleColumns = ['title', 'subtitle', 'seo_title',];
+    use Indexable;
+
+    protected $indexContentColumns = ['post_body', 'short_description', 'meta_desc',];
+    protected $indexTitleColumns = ['title', 'subtitle', 'seo_title',];
 
     public $fillable = [
         'title',
