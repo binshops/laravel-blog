@@ -5,7 +5,7 @@
 
              @if( count($category->siblings) > 0)
                  <ul>
-                 @include("hessamcms_admin::categories._category_partial", ['category_tree' => $category->siblings])
+                 @include("hessamcms::partials._category_partial", ['category_tree' => $category->siblings])
                  </ul>
              @endif
     </span>
