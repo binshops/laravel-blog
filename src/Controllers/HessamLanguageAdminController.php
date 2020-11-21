@@ -4,6 +4,7 @@
 namespace HessamCMS\Controllers;
 
 use App\Http\Controllers\Controller;
+use HessamCMS\Models\HessamConfiguration;
 use Illuminate\Http\Request;
 use HessamCMS\Helpers;
 use HessamCMS\Middleware\LoadLanguage;
@@ -53,6 +54,12 @@ class HessamLanguageAdminController extends Controller
     }
 
     public function destroy_language(Request $request, $languageId){
+        $lang = HessamLanguage::where('locale', HessamConfiguration::get('DEFAULT_LANGUAGE_LOCALE'))->first();
+        if ($languageId == $lang->id){
+            Helpers::flash_message("The default language can not be deleted!");
+            return redirect( route('hessamcms.admin.languages.index') );
+        }
+
         try {
             $language = HessamLanguage::findOrFail($languageId);
             //todo
