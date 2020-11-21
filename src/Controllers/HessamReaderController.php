@@ -75,6 +75,7 @@ class HessamReaderController extends Controller
         return view("hessamcms::index", [
             'lang_list' => HessamLanguage::all('locale','name'),
             'locale' => $request->get("locale"),
+            'lang_id' => $request->get('lang_id'),
             'category_chain' => $categoryChain,
             'categories' => $rootList,
             'posts' => $posts,
