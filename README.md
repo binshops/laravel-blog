@@ -16,8 +16,8 @@
 
 Easily add a wordpress functionality and CMS to your laravel web application.
 
-## [Let's try it - Online Demo](https://cms.binshops.com/login)
-You can try Hessam CMS online: [https://cms.binshops.com](https://cms.binshops.com/login)
+## [Let's try it - Online Demo](https://cms.binshops.com)
+You can try Hessam CMS online: [https://cms.binshops.com](https://cms.binshops.com)
 
 ### Quick and easy installation
 
