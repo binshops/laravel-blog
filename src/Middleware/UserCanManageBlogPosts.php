@@ -21,6 +21,7 @@ class UserCanManageBlogPosts
     {
         if (!\Auth::check()) {
             abort(401,"User not authorised to manage blog posts: You are not logged in");
+            return redirect('/login');
         }
         if (!\Auth::user()->canManageHessamCMSPosts()) {
             abort(401,"User not authorised to manage blog posts: Your account is not authorised to edit blog posts");
