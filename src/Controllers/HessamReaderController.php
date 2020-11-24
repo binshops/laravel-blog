@@ -105,6 +105,7 @@ class HessamReaderController extends Controller
         HessamCategory::loadSiblingsWithList($rootList);
 
         return view("hessamcms::search", [
+                'lang_id' => $request->get('lang_id'),
                 'locale' => $request->get("locale"),
                 'categories' => $rootList,
                 'query' => $query,
