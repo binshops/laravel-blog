@@ -5,41 +5,27 @@
 
         <div class="card m-4" >
             <div class="card-body">
-
                 <h5 class='card-title'>
-
-
                     {{$comment->author()}} commented on:
 
                     @if($comment->post)
-                    <a class="a-link-cart-color" href='{{$comment->post->url()}}'>{{$comment->post->title}}</a>
-                        @else
+                        <a class="a-link-cart-color" href='{{$comment->post->postTranslations()->get()[0]->url(app('request')->get('locale'))}}'>{{$comment->post->title}}</a>
+                    @else
                         Unknown blog post
-
-                        @endif
+                    @endif
 
                     on {{$comment->created_at}} </h5>
-
-
                 <p class='m-3 p-2'>{{$comment->comment}}</p>
 
-
-
-
                 @if($comment->post)
-
                     {{--VIEW + EDIT POST LINKS--}}
-                    <a href="{{$comment->post->url()}}" class="card-link btn btn-outline-secondary"><i class="fa fa-file-text-o"
-                                                                                              aria-hidden="true"></i>
+                    <a href='{{$comment->post->postTranslations()->get()[0]->url(app('request')->get('locale'))}}' class="card-link btn btn-outline-secondary"><i class="fa fa-file-text-o"
+                                                                                                                                                                  aria-hidden="true"></i>
                         View Post</a>
-                    <a href="{{$comment->post->edit_url()}}" class="card-link btn btn-primary">
+                    <a href='{{$comment->post->postTranslations()->get()[0]->edit_url()}}' class="card-link btn btn-primary">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         Edit Post</a>
-
-
                 @endif
-
-
 
                 @if(!$comment->approved)
                     {{--APPROVE BUTTON--}}
@@ -61,11 +47,9 @@
             </div>
         </div>
 
-
     @empty
         <div class='alert alert-danger'>None found</div>
     @endforelse
-
 
     <div class='text-center'>
         {{$comments->appends( [] )->links()}}
