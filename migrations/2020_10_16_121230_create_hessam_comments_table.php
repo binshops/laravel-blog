@@ -17,7 +17,6 @@ class CreateHessamCommentsTable extends Migration
             $table->increments('id');
 
             $table->unsignedInteger("post_id")->index();
-            $table->foreign('post_id')->references('id')->on('hessam_posts');
             $table->unsignedInteger("user_id")->nullable()->index()->comment("if user was logged in");
 
             $table->string("ip")->nullable()->comment("if enabled in the config file");
