@@ -5,6 +5,7 @@ namespace HessamCMS\Controllers;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use HessamCMS\Laravel\Fulltext\Search;
+use HessamCMS\Models\HessamCategoryTranslation;
 use Illuminate\Http\Request;
 use HessamCMS\Captcha\UsesCaptcha;
 use HessamCMS\Middleware\DetectLanguage;
@@ -42,31 +43,33 @@ class HessamReaderController extends Controller
         $title = 'Blog Page'; // default title...
 
         $categoryChain = null;
+        $posts = array();
         if ($category_slug) {
-            $category = HessamCategory::where("slug", $category_slug)->firstOrFail();
+            $category = HessamCategoryTranslation::where("slug", $category_slug)->with('category')->firstOrFail()->category;
             $categoryChain = $category->getAncestorsAndSelf();
-            $posts = $category->posts()->where("blog_etc_post_categories.blog_etc_category_id", $category->id);
+            $posts_1 = $category->posts()->where("hessam_post_categories.category_id", $category->id)->with([ 'postTranslations' => function($query) use ($request){
+                $query->where("lang_id" , '=' , $request->get("lang_id"));
+            }
+            ])->paginate(config("hessamcms.per_page", 10));
+
+            foreach ($posts_1 as $post) {
+                $trans = $post->postTranslations[0];
+                $trans->post = $post;
+                array_push($posts, $trans);
+            }
 
             // at the moment we handle this special case (viewing a category) by hard coding in the following two lines.
             // You can easily override this in the view files.
             \View::share('hessamcms_category', $category); // so the view can say "You are viewing $CATEGORYNAME category posts"
             $title = 'Posts in ' . $category->category_name . " category"; // hardcode title here...
         } else {
-            $posts = HessamPostTranslation::query();
+            $posts = HessamPostTranslation::where('lang_id', $request->get("lang_id"))
+                ->with(['post' => function($query){
+                    $query->where("is_published" , '=' , true);
+                    $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
+                    $query->orderBy("posted_at", "desc");
+                }])->paginate(config("hessamcms.per_page", 10));
         }
-
-//        $posts = $posts->where('is_published', '=', 1)
-//            ->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))
-//            ->where('lang_id', $request->get("lang_id"))
-//            ->orderBy("posted_at", "desc")
-//            ->paginate(config("hessamcms.per_page", 10));
-
-        $posts = HessamPostTranslation::where('lang_id', $request->get("lang_id"))
-            ->with(['post' => function($query){
-                $query->where("is_published" , '=' , true);
-                $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
-                $query->orderBy("posted_at", "desc");
-            }])->paginate(config("hessamcms.per_page", 10));
 
         //load category hierarchy
         $rootList = HessamCategory::roots()->get();
@@ -121,10 +124,10 @@ class HessamReaderController extends Controller
      * @param $category_slug
      * @return mixed
      */
-    public function view_category($hierarchy)
+    public function view_category($locale, $hierarchy, Request $request)
     {
         $categories = explode('/', $hierarchy);
-        return $this->index(end($categories));
+        return $this->index($locale, end($categories), $request);
     }
 
     /**

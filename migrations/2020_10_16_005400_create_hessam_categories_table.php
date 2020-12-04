@@ -19,7 +19,7 @@ class CreateHessamCategoriesTable extends Migration
             $table->unsignedInteger("created_by")->nullable()->index()->comment("user id");
 
             //columns related to multi-level categories
-            $table->integer('parent_id')->nullable()->default(0);
+            $table->integer('parent_id')->nullable();
             $table->integer('lft')->nullable();
             $table->integer('rgt')->nullable();
             $table->integer('depth')->nullable();

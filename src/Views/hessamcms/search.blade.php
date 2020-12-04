@@ -28,7 +28,10 @@
                     <h6>Blog Categories</h6>
                     <ul class="hessam-cat-hierarchy">
                         @if($categories)
-                            @include("hessamcms::partials._category_partial", ['category_tree' => $categories])
+                            @include("hessamcms::partials._category_partial", [
+    'category_tree' => $categories,
+    'name_chain' => $nameChain = ""
+    ])
                         @else
                             <span>No Categories</span>
                         @endif

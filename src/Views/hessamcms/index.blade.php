@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @forelse($category_chain as $cat)
-                                    / <a href="{{$cat->categoryTranslations[0]->url()}}">
+                                    / <a href="{{$cat->categoryTranslations[0]->url($locale)}}">
                                         <span class="cat1">{{$cat->categoryTranslations[0]['category_name']}}</span>
                                     </a>
                                 @empty @endforelse
@@ -61,7 +61,10 @@
                 <h6>Blog Categories</h6>
                 <ul class="hessam-cat-hierarchy">
                     @if($categories)
-                        @include("hessamcms::partials._category_partial", ['category_tree' => $categories])
+                        @include("hessamcms::partials._category_partial", [
+    'category_tree' => $categories,
+    'name_chain' => $nameChain = ""
+    ])
                     @else
                         <span>No Categories</span>
                     @endif
@@ -69,9 +72,6 @@
             </div>
         </div>
 
-        <div class='text-center  col-sm-4 mx-auto'>
-            {{$posts->appends( [] )->links()}}
-        </div>
         @if (config('hessamcms.search.search_enabled') )
             @include('hessamcms::sitewide.search_form')
         @endif

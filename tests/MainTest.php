@@ -155,7 +155,7 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
 
         $response->assertSessionHasNoErrors();
@@ -163,7 +163,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
 
     }
@@ -188,13 +188,13 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
         $response->assertSessionHasNoErrors();
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
 
     }
@@ -221,20 +221,20 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
         $justCreatedRow = \HessamCMS\Models\HessamPost::where("slug", $new_object_vals['slug'])->firstOrFail();
 
 
         $new_object_vals['title'] = "New title " . str_random();
-        $this->assertDatabaseMissing('blog_etc_posts', ['title' => $new_object_vals['title']]);
+        $this->assertDatabaseMissing('hessam_posts', ['title' => $new_object_vals['title']]);
         $response = $this->patch($admin_panel_url . "/edit_post/" . $justCreatedRow->id, $new_object_vals);
         $response->assertStatus(302);
-        $this->assertDatabaseHas('blog_etc_posts', ['title' => $new_object_vals['title']]);
+        $this->assertDatabaseHas('hessam_posts', ['title' => $new_object_vals['title']]);
 
 
     }
@@ -263,7 +263,7 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
 
 
         // check we don't see it at moment
@@ -281,7 +281,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
         // logout - so we are guest user
         \Auth::logout();
@@ -323,7 +323,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
         // must log out, as the admin user can see posts dated in future
         \Auth::logout();
@@ -358,7 +358,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
         // must log out, as the admin user can see posts dated in future
         \Auth::logout();
@@ -409,7 +409,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
 
         \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
@@ -421,11 +421,11 @@ class MainTest extends \Tests\TestCase
             'comment' => str_random(),
             $captcha->captcha_field_name() => "wronganswer1", // << WRONG CAPTCHA
         ];
-        $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
         $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(302);
 
-        $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
 
 
         $comment_detail = [
@@ -434,11 +434,11 @@ class MainTest extends \Tests\TestCase
             'comment' => str_random(),
             // << NO CAPTCHA FIELD
         ];
-        $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
         $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(302);
 
-        $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
 
 
     }
@@ -566,7 +566,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
 
         \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
@@ -578,13 +578,13 @@ class MainTest extends \Tests\TestCase
             'comment' => str_random(),
             $captcha->captcha_field_name() => "AnsWer2",
         ];
-        $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
         $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(200);
 
         \Config::set('hessamcms.captcha.auto_approve_comments', false);
 
-        $this->assertDatabaseHas('blog_etc_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseHas('hessam_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
 
 
         $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
@@ -599,7 +599,7 @@ class MainTest extends \Tests\TestCase
         ]);
         // check it was approved
         $response->assertStatus(302);
-        $this->assertDatabaseHas('blog_etc_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
+        $this->assertDatabaseHas('hessam_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
 
 
     }
@@ -628,7 +628,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
 
         \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
@@ -640,14 +640,14 @@ class MainTest extends \Tests\TestCase
             'author_name' => str_random(),
             'comment' => str_random(),
         ];
-        $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
         $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
 
         $response->assertStatus(200);
 
         \Config::set('hessamcms.captcha.auto_approve_comments', false);
 
-        $this->assertDatabaseHas('blog_etc_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseHas('hessam_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
 
 
         $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
@@ -662,7 +662,7 @@ class MainTest extends \Tests\TestCase
         ]);
         // check it was approved
         $response->assertStatus(302);
-        $this->assertDatabaseHas('blog_etc_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
+        $this->assertDatabaseHas('hessam_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
 
 
     }
@@ -691,7 +691,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
 
         if (config("hessamcms.comments.type_of_comments_to_show") === 'built_in') {
@@ -700,12 +700,12 @@ class MainTest extends \Tests\TestCase
                 'author_name' => str_random(),
                 'comment' => str_random(),
             ];
-            $this->assertDatabaseMissing('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+            $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
             $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
             $response->assertSessionHasNoErrors();
             $response->assertStatus(200);
 
-            $this->assertDatabaseHas('blog_etc_comments', ['author_name' => $comment_detail['author_name']]);
+            $this->assertDatabaseHas('hessam_comments', ['author_name' => $comment_detail['author_name']]);
 
 
             $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
@@ -723,7 +723,7 @@ class MainTest extends \Tests\TestCase
             $response->assertStatus(302);
 
             //check it doesnt exist in database
-            $this->assertDatabaseMissing('blog_etc_comments', ['id' => $justAddedRow->id,]);
+            $this->assertDatabaseMissing('hessam_comments', ['id' => $justAddedRow->id,]);
 
 
         } else {
@@ -754,13 +754,13 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
         $response->assertSessionHasNoErrors();
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
 
 
         $justCreatedRow = \HessamCMS\Models\HessamPost::where("slug", $new_object_vals['slug'])->firstOrFail();
@@ -770,7 +770,7 @@ class MainTest extends \Tests\TestCase
         $response = $this->delete($delete_url, ['_token' => csrf_token()]);
         $response->assertStatus(200);
 
-        $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
 
     }
 
@@ -786,11 +786,11 @@ class MainTest extends \Tests\TestCase
         ];
         $search_for_new_cat = $new_cat_vals;
         $new_cat_vals['_token'] = csrf_token();
-        $this->assertDatabaseMissing('blog_etc_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
         $response = $this->post($admin_panel_url . "/categories/add_category", $new_cat_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_categories', $search_for_new_cat);
+        $this->assertDatabaseHas('hessam_categories', $search_for_new_cat);
 
 
     }
@@ -814,11 +814,11 @@ class MainTest extends \Tests\TestCase
         // create a post so we can edit it later
         $search_for_new_cat = $new_cat_vals;
         $new_cat_vals['_token'] = csrf_token();
-        $this->assertDatabaseMissing('blog_etc_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
         $response = $this->post($admin_panel_url . "/categories/add_category", $new_cat_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_categories', $search_for_new_cat);
+        $this->assertDatabaseHas('hessam_categories', $search_for_new_cat);
 
 
         // get the just inserted row
@@ -837,7 +837,7 @@ class MainTest extends \Tests\TestCase
         $new_object_vals['_token'] = csrf_token();
 
 
-        $this->assertDatabaseMissing('blog_etc_categories', ['category_name' => $new_object_vals['category_name']]);
+        $this->assertDatabaseMissing('hessam_categories', ['category_name' => $new_object_vals['category_name']]);
 
 
         // send the request to save the changes
@@ -850,7 +850,7 @@ class MainTest extends \Tests\TestCase
         $response->assertStatus(302); // check it was a redirect
 
         // check that the edited category name is in the database.
-        $this->assertDatabaseHas('blog_etc_categories', ['slug' => $new_object_vals['slug'], 'category_name' => $new_object_vals['category_name']]);
+        $this->assertDatabaseHas('hessam_categories', ['slug' => $new_object_vals['slug'], 'category_name' => $new_object_vals['category_name']]);
 
 
     }
@@ -867,11 +867,11 @@ class MainTest extends \Tests\TestCase
         ];
         $search_for_new_cat = $new_cat_vals;
         $new_cat_vals['_token'] = csrf_token();
-        $this->assertDatabaseMissing('blog_etc_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
         $response = $this->post($admin_panel_url . "/categories/add_category", $new_cat_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('blog_etc_categories', $search_for_new_cat);
+        $this->assertDatabaseHas('hessam_categories', $search_for_new_cat);
 
 
         $justCreatedRow = \HessamCMS\Models\HessamCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
@@ -881,7 +881,7 @@ class MainTest extends \Tests\TestCase
 
         $response = $this->delete($delete_url, ['_token' => csrf_token()]);
         $response->assertStatus(200);
-        $this->assertDatabaseMissing('blog_etc_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
 
     }
 
@@ -955,7 +955,7 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('blog_etc_posts', $search_for_obj);
+        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
 
         // check we don't see it at moment
         $response = $this->get(config("hessamcms.blog_prefix", "blog"));
