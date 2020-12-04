@@ -90,12 +90,10 @@ c-3 33 -7 67 -10 74 -6 22 -60 14 -88 -14z m54 -48 c0 -31 -19 -53 -34 -39
                                 <div class="tab-pane" id="language">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4 class="info-text">Your default language is English in Beta release. You can add more language from admin panel.</h4>
-                                            <h5 class="info-text">
-                                                More configurations will be added to this setup section.
-                                            </h5>
+                                            <h4 class="info-text">Your default language is set to English. You can add more language from admin panel.</h4>
+
                                             <h6 class="info-text">
-                                                Beta release v9.0.x
+                                                Version v9.0.x
                                             </h6>
                                         </div>
                                         {{--                                        <div class="col-sm-12">--}}
