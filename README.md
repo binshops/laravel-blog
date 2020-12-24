@@ -1,5 +1,3 @@
-<p align="center"><a href="cms.binshops.com/" target="_blank"><img src="https://cms.binshops.com/img/hessam-cms.png"></a></p>
-
 <p align="center">
    <a href="https://packagist.org/packages/hessam/laravel-blogger">
       <img src="https://poser.pugx.org/hessam/laravel-blogger/v/stable.png" alt="Latest Stable Version">
@@ -12,11 +10,14 @@
 
 # Complete Laravel CMS Package
 
-### A Surprising Feature, The Multi-Language Support (Nov-2020 version 9.0.x)
+Easily add a blog to your existing laravel website.
 
-Easily add a wordpress functionality and CMS to your laravel web application.
+## Outstanding Features
+- Fulltext Search - search throughout all blog posts
+- Multi Level Category - nested sets using Baum
+- Multi Language Support 
 
-### Your support motivates me to develop this package much more - Let's give a star ;)
+### Tell me your needs for any customization
 
 ### Quick and easy installation
 
