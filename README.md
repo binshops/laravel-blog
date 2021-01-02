@@ -8,16 +8,22 @@
   </a>
 </p>
 
-# Complete Laravel CMS Package
+# Complete Laravel Blog Package
 
-Easily add a blog to your existing laravel website.
+Briefly... 
+### Lightweight and Comprehensive
+
+Incredible features with a lightweight laravel blog package. I highly recommend it because:
+- Quick installation (<3 minutes)
+- It's very easy to extend
+- Included great features out-of-box
+- Its simplicity allows to be easily made compatible with latest laravel
+- No additional concept except laravel knowledge
 
 ## Outstanding Features
 - Fulltext Search - search throughout all blog posts
 - Multi Level Category - nested sets using Baum
 - Multi Language Support 
-
-### Tell me your needs for any customization
 
 ### Quick and easy installation
 
