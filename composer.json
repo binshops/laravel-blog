@@ -40,7 +40,8 @@
     },
     "autoload": {
         "psr-4": {
-            "HessamCMS\\": "src"
+            "HessamCMS\\": "src",
+            "HessamCMS\\Laravel\\Fulltext\\": "src/FulltextSearch/src/" 
         }
     },
     "autoload-dev": {
