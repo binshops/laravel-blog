@@ -10,7 +10,6 @@
 
 # Complete Laravel Blog Package
 
-Briefly... 
 ### Lightweight and Comprehensive
 
 Incredible features with a lightweight laravel blog package. I highly recommend it because:
