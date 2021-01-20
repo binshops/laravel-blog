@@ -9,6 +9,7 @@
 </p>
 
 # Complete Laravel Blog Package
+Have you worked with Wordpress? Developers call it wordpress-like laravel package.
 
 ### Lightweight and Comprehensive
 
