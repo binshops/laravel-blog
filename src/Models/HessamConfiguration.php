@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class HessamConfiguration extends Model
 {
+    protected $primaryKey = 'key';
+
     public $fillable = [
         'key',
         'value'
