@@ -352,8 +352,8 @@ class HessamAdminController extends Controller
     public function remove_photo($postSlug, $lang_id)
     {
         $post = HessamPostTranslation::where([
-            "slug", '=', $postSlug,
-            'lang_id', '=', $lang_id
+            ["slug", '=', $postSlug],
+            ['lang_id', '=', $lang_id]
         ])->firstOrFail();
 
         $path = public_path('/' . config("hessamcms.blog_upload_dir"));
