@@ -44,7 +44,8 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 
 4- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there.
 
-`public function canManageHessamCMSPosts()
+```
+public function canManageHessamCMSPosts()
 {
 // Enter the logic needed for your app.
 // Maybe you can just hardcode in a user id that you
@@ -63,13 +64,18 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
         // to the admin panel (but can still view posts)
 
         return false;
-    }`
+}
+```
 
 5- Create a directory in `public/` named `blog_images`
+
 6- Login as ADMIN and setup your package: `/blog_admin/setup`
+
 7- Congrats! Your blog is ready to use. (URLs are customizable in the config file)
-`Admin panel URI: /blog_admin`
-`Front URI: /en/blog`
+```
+Admin panel URI: /blog_admin
+Front URI: /en/blog
+```
 
 ### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package#setup)
 
