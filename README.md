@@ -11,6 +11,9 @@
 # Complete Laravel Blog Package
 Have you worked with Wordpress? Developers call it wordpress-like laravel package.
 
+### Contact us for any customization:
+contact@binshops.com
+
 ### Lightweight and Comprehensive
 
 Incredible features with a lightweight laravel blog package. I highly recommend it because:
@@ -27,9 +30,46 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 
 ### Quick and easy installation
 
-Install with following command and follow the instructions. 
+1- Install the package: 
 
     composer require hessam/laravel-blogger
+
+2- Run the following commands to copy config file, migration files, and view files
+
+`php artisan vendor:publish --provider="HessamCMS\HessamCMSServiceProvider"`
+
+3- Execute migrations to create tables
+
+`php artisan migrate;`
+
+4- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there.
+
+`public function canManageHessamCMSPosts()
+{
+// Enter the logic needed for your app.
+// Maybe you can just hardcode in a user id that you
+//   know is always an admin ID?
+        if (       $this->id === 1
+             && $this->email === "your_admin_user@your_site.com"
+           ){
+
+           // return true so this user CAN edit/post/delete
+           // blog posts (and post any HTML/JS)
+
+           return true;
+        }
+
+        // otherwise return false, so they have no access
+        // to the admin panel (but can still view posts)
+
+        return false;
+    }`
+
+5- Create a directory in `public/` named `blog_images`
+6- Login as ADMIN and setup your package: `/blog_admin/setup`
+7- Congrats! Your blog is ready to use. (URLs are customizable in the config file)
+`Admin panel URI: /blog_admin`
+`Front URI: /en/blog`
 
 ### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package#setup)
 
