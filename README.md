@@ -12,7 +12,7 @@
 Have you worked with Wordpress? Developers call it wordpress-like laravel package.
 
 ### Contact us for any customization:
-contact@binshops.com
+sam@binshops.com
 
 ### Lightweight and Comprehensive
 
@@ -22,6 +22,7 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 - Included great features out-of-box
 - Its simplicity allows to be easily made compatible with latest laravel
 - No additional concept except laravel knowledge
+- Compatible with other Laravel platforms like Bagisto
 
 ## Outstanding Features
 - Fulltext Search - search throughout all blog posts
@@ -30,56 +31,14 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 
 ### Quick and easy installation
 
-1- Install the package: 
-
-    composer require hessam/laravel-blogger
-
-2- Run the following commands to copy config file, migration files, and view files
-
-`php artisan vendor:publish --provider="HessamCMS\HessamCMSServiceProvider"`
-
-3- Execute migrations to create tables
-
-`php artisan migrate;`
-
-4- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there.
-
-```
-public function canManageHessamCMSPosts()
-{
-// Enter the logic needed for your app.
-// Maybe you can just hardcode in a user id that you
-//   know is always an admin ID?
-        if (       $this->id === 1
-             && $this->email === "your_admin_user@your_site.com"
-           ){
-
-           // return true so this user CAN edit/post/delete
-           // blog posts (and post any HTML/JS)
-
-           return true;
-        }
-
-        // otherwise return false, so they have no access
-        // to the admin panel (but can still view posts)
-
-        return false;
-}
-```
-
-5- Create a directory in `public/` named `blog_images`
-
-6- Login as ADMIN and setup your package: `/blog_admin/setup`
-
-7- Congrats! Your blog is ready to use. (URLs are customizable in the config file)
-```
-Admin panel URI: /blog_admin
-Front URI: /en/blog
-```
+`composer require hessam/laravel-blogger`
 
 ### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package#setup)
 
 To see package on Packagist click this [Link](https://packagist.org/packages/hessam/laravel-blogger)
+
+### Bagisto version
+To see the Bagisto version of this package go to `bagisto-compatible` branch 
 
 ## Important Notes
 - For laravel 8.x's default auth User model, change user model in `hessamcms.php` to: `\App\Models\User::class`
@@ -99,7 +58,8 @@ To see package on Packagist click this [Link](https://packagist.org/packages/hes
 - Other options include using Disqus comments or disabling comments
 
 ## Recent Changes  
-- **8.0.x** Compatibility with Laravel 8.x
+- **9.1.x** Multi language support
+- 8.0.x Compatibility with Laravel 8.x
 
 ## Screen Shots
 
@@ -175,7 +135,8 @@ Try adding this to config/app.php:
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
 ## Version History    
-- **9.0.x** Multi-language support beta release
+- **9.1.x** Stable version of package
+- 9.0.x Multi-language support beta release
 - 8.0.x Compatibility with Laravel 8
 - 7.3.2 Some bug fixes
 - 7.3.0 New Admin UI
