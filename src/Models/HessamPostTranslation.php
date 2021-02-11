@@ -126,7 +126,7 @@ class HessamPostTranslation extends Model implements SearchResultInterface
         $url = e($this->image_url($size));
         $alt = e($this->title);
         $img = "<img src='$url' alt='$alt' class='" . e($img_class) . "' >";
-        return $auto_link ? "<a class='" . e($anchor_class) . "' href='" . e($this->url()) . "'>$img</a>" : $img;
+        return $auto_link ? "<a class='" . e($anchor_class) . "' href='" . e($this->url( app()->getLocale() )) . "'>$img</a>" : $img;
 
     }
 

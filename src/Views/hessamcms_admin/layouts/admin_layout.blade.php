@@ -92,7 +92,7 @@
                         <small><a href='https://github.com/vhessam/laravel-blogger'>Hessam CMS</a></small>
 
                         <small>
-                            Version 9.0.x
+                            Version 9.1.x
                         </small>
                     </div>
                 </div>
