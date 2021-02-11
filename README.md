@@ -8,8 +8,8 @@
   </a>
 </p>
 
-# Complete Laravel Blog Package
-Have you worked with Wordpress? Developers call it wordpress-like laravel package.
+# Laravel Blog
+Have you worked with Wordpress? Developers call it wordpress-like laravel blog.
 
 ### Contact us for any customization:
 sam@binshops.com
@@ -87,9 +87,9 @@ To see the Bagisto version of this package go to `bagisto-compatible` branch
 ## What/who this package is for:
 
  - For websites running Laravel
- - Who wants to have a site blog, and have an easy to use interface to write blog posts/assign categories/manage existing posts
+ - Who wants to have a site blog. This laravel blog gives an easy to use interface to write blog posts/assign categories/manage existing posts
  - Where only admin users can edit/manage the blog (this is not suitable for every user on your site to be able to manage posts)
- - For anyone who likes to add a wordpress-like CMS to her/his web app
+ - For anyone who likes to add a wordpress-like laravel blog to laravel website
 
 ## How to customise the blog views/templates
 
@@ -170,7 +170,7 @@ Try adding this to config/app.php:
 - 0.3                   - Small changes, packagist settings.
 - 0.1                   - Initial release
 
-Contact: hessam.modaberi@gmail.com
+Contact: sam@binshops.com
 
 
 
