@@ -20,9 +20,53 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 - Multi Language Support 
 
 ### Quick and easy installation
-
+1- Install via composer
 `composer require binshops/laravel-blog`
+For a fresh Laravel installation run the following too:
+```
+composer require laravel/ui
+php artisan ui vue --auth
+```
+2- Run the following two commands to copy config file, migration files, and view files
+`php artisan vendor:publish --provider="HessamCMS\HessamCMSServiceProvider"`
+3- Execute migrations to create tables
+`php artisan migrate;`
+4- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
+```
+ /**
+     * Enter your own logic (e.g. if ($this->id === 1) to
+     *   enable this user to be able to add/edit blog posts
+     *
+     * @return bool - true = they can edit / manage blog posts,
+     *        false = they have no access to the blog admin panel
+     */
+    public function canManageBinshopsBlogPosts()
+    {
+        // Enter the logic needed for your app.
+        // Maybe you can just hardcode in a user id that you
+        //   know is always an admin ID?
 
+        if (       $this->id === 1
+             && $this->email === "your_admin_user@your_site.com"
+           ){
+
+           // return true so this user CAN edit/post/delete
+           // blog posts (and post any HTML/JS)
+
+           return true;
+        }
+
+        // otherwise return false, so they have no access
+        // to the admin panel (but can still view posts)
+
+        return false;
+    }
+```
+5- Create a directory in `public/` named `blog_images`
+6- Login as admin and setup your package: `/blog_admin/setup`
+- Congrats! Your blog is ready to use. (URLs are customizable in the config file)
+  Admin panel URI: `/blog_admin`
+  Front URI: `/en/blog`
 
 To see package on Packagist click this [Link](https://packagist.org/packages/binshops/laravel-blog)
 
