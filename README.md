@@ -49,29 +49,6 @@ To see the Bagisto version of this package go to `bagisto-compatible` branch
 ## Recent Changes  
 - **9.1.x** Multi language support
 - 8.0.x Compatibility with Laravel 8.x
-
-## Screen Shots
-
-  <p align="center">
-    <img src="https://binshops.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.23.35-PM-1024x560.png" width="500px" title="Add post">
-  </p>
-  <p align="center">
-  Add post
-  </p>
-
-  <p align="center">
-    <img src="https://binshops.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.19.42-PM-1024x558.png" width="500px" title="All posts">
-  </p>
-   <p align="center">
-    All posts
-    </p>
-  
-  <p align="center">
-    <img src="https://binshops.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.03.39-PM-1-1024x560.png" width="500px" title="Add category">
-  </p>
-  <p align="center">
-      Add category
-   </p>
   
 ## What/who this package is for:
 
