@@ -76,7 +76,7 @@ php artisan ui vue --auth
 
 6- Login as admin and setup your package: `/blog_admin/setup`
 
-- Congrats! Your blog is ready to use. (URLs are customizable in the config file)
+Congrats! Your blog is ready to use. (URLs are customizable in the config file)
   
   Admin panel URI: `/blog_admin`
   Front URI: `/en/blog`
