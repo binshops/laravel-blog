@@ -21,17 +21,26 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 
 ### Quick and easy installation
 1- Install via composer
+
 `composer require binshops/laravel-blog`
+
 For a fresh Laravel installation run the following too:
+
 ```
 composer require laravel/ui
 php artisan ui vue --auth
 ```
+
 2- Run the following two commands to copy config file, migration files, and view files
+
 `php artisan vendor:publish --provider="HessamCMS\HessamCMSServiceProvider"`
+
 3- Execute migrations to create tables
+
 `php artisan migrate;`
+
 4- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
+
 ```
  /**
      * Enter your own logic (e.g. if ($this->id === 1) to
@@ -62,9 +71,13 @@ php artisan ui vue --auth
         return false;
     }
 ```
+
 5- Create a directory in `public/` named `blog_images`
+
 6- Login as admin and setup your package: `/blog_admin/setup`
+
 - Congrats! Your blog is ready to use. (URLs are customizable in the config file)
+  
   Admin panel URI: `/blog_admin`
   Front URI: `/en/blog`
 
