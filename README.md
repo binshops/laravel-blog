@@ -1,15 +1,15 @@
 <p align="center">
-   <a href="https://packagist.org/packages/binshops/laravel-blogger">
-      <img src="https://poser.pugx.org/binshops/laravel-blogger/v/stable.png" alt="Latest Stable Version">
+   <a href="https://packagist.org/packages/binshops/laravel-blog">
+      <img src="https://poser.pugx.org/binshops/laravel-blog/v/stable.png" alt="Latest Stable Version">
   </a>
 
-  <a href="https://packagist.org/packages/binshops/laravel-blogger">
-    <img src="https://poser.pugx.org/binshops/laravel-blogger/license.png" alt="License">
+  <a href="https://packagist.org/packages/binshops/laravel-blog">
+    <img src="https://poser.pugx.org/binshops/laravel-blog/license.png" alt="License">
   </a>
 </p>
 
 # Laravel Blog
-Have you worked with Wordpress? Developers call it wordpress-like laravel blog.
+Have you worked with Wordpress? Developers call this package wordpress-like laravel blog.
 
 ### Contact us for any customization:
 contact@binshops.com
@@ -134,7 +134,7 @@ Try adding this to config/app.php:
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
 ## Version History    
-- **9.1.x** Stable version of package
+- **9.2.x** Stable version of package
 - 9.0.x Multi-language support beta release
 - 8.0.x Compatibility with Laravel 8
 - 7.3.2 Some bug fixes
