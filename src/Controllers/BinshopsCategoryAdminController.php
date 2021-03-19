@@ -93,7 +93,7 @@ class BinshopsCategoryAdminController extends Controller
         ]);
 
         foreach ($language_list as $key => $value) {
-            if ($value['lang_id'] != -1){
+            if ($value['lang_id'] != -1 && $value['category_name'] !== null){
                 //check for slug availability
                 $obj = BinshopsCategoryTranslation::where('slug',$value['slug'])->first();
                 if ($obj){
