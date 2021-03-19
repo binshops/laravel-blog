@@ -1,13 +1,3 @@
-<p align="center">
-   <a href="https://packagist.org/packages/binshops/laravel-blog">
-      <img src="https://poser.pugx.org/binshops/laravel-blog/v/stable.png" alt="Latest Stable Version">
-  </a>
-
-  <a href="https://packagist.org/packages/binshops/laravel-blog">
-    <img src="https://poser.pugx.org/binshops/laravel-blog/license.png" alt="License">
-  </a>
-</p>
-
 # Laravel Blog
 Have you worked with Wordpress? Developers call this package wordpress-like laravel blog.
 
