@@ -1,13 +1,13 @@
 <?php
 
-namespace HessamCMS\Requests;
+namespace BinshopsBlog\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use HessamCMS\Interfaces\BaseRequestInterface;
+use BinshopsBlog\Interfaces\BaseRequestInterface;
 
 /**
  * Class BaseRequest
- * @package HessamCMS\Requests
+ * @package BinshopsBlog\Requests
  */
 class UploadImageRequest extends BaseRequest
 {

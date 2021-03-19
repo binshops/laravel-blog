@@ -1,6 +1,6 @@
 <?php
 
-namespace HessamCMS\Laravel\Fulltext;
+namespace BinshopsBlog\Laravel\Fulltext;
 
 use Illuminate\Database\Eloquent\Model;
 

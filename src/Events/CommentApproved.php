@@ -1,28 +1,28 @@
 <?php
 
-namespace HessamCMS\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use HessamCMS\Models\HessamComment;
+use BinshopsBlog\Models\BinshopsComment;
 
 /**
  * Class CommentApproved
- * @package HessamCMS\Events
+ * @package BinshopsBlog\Events
  */
 class CommentApproved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  HessamComment */
+    /** @var  BinshopsComment */
     public $comment;
 
     /**
      * CommentApproved constructor.
-     * @param HessamComment $comment
+     * @param BinshopsComment $comment
      */
-    public function __construct(HessamComment $comment)
+    public function __construct(BinshopsComment $comment)
     {
         $this->comment=$comment;
         // you can get the blog post via $comment->post

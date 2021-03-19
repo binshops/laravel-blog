@@ -20,11 +20,11 @@ class MainTest extends \Tests\TestCase
     Testing the author_email, author_website.
 
     /blog/...
-        hessamcms.index                       YES
-        hessamcms.feed                        YES
-        hessamcms.view_category               no - but this is basically hessamcms.index
-        hessamcms.single                      YES
-        hessamcms.comments.add_new_comment    YES - tested multiple times with/without basic captcha on/off/correct/incorrect.
+        binshopsblog.index                       YES
+        binshopsblog.feed                        YES
+        binshopsblog.view_category               no - but this is basically binshopsblog.index
+        binshopsblog.single                      YES
+        binshopsblog.comments.add_new_comment    YES - tested multiple times with/without basic captcha on/off/correct/incorrect.
                                                 Also tested with diff configs for comment form:
                                                     disabled
                                                     built_in
@@ -32,27 +32,27 @@ class MainTest extends \Tests\TestCase
                                                     custom
 
     /blog_admin/...
-        hessamcms.admin.index                 YES
-        hessamcms.admin.create_post           no - but is just a form
-        hessamcms.admin.store_post            YES
-        hessamcms.admin.edit_post             YES - but no extra checks
-        hessamcms.admin.update_post           YES
-        hessamcms.admin.destroy_post          YES
+        binshopsblog.admin.index                 YES
+        binshopsblog.admin.create_post           no - but is just a form
+        binshopsblog.admin.store_post            YES
+        binshopsblog.admin.edit_post             YES - but no extra checks
+        binshopsblog.admin.update_post           YES
+        binshopsblog.admin.destroy_post          YES
 
      /blog_admin/comments/...
 
-            hessamcms.admin.comments.index    YES
-            hessamcms.admin.comments.approve  YES
-            hessamcms.admin.comments.delete   YES
+            binshopsblog.admin.comments.index    YES
+            binshopsblog.admin.comments.approve  YES
+            binshopsblog.admin.comments.delete   YES
 
      /blog_admin/categories/...
 
-            hessamcms.admin.categories.index
-            hessamcms.admin.categories.create_category    no - but is just a form
-            hessamcms.admin.categories.store_category     YES
-            hessamcms.admin.categories.edit_category      no - but is just a form
-            hessamcms.admin.categories.update_category
-            hessamcms.admin.categories.destroy_category   YES
+            binshopsblog.admin.categories.index
+            binshopsblog.admin.categories.create_category    no - but is just a form
+            binshopsblog.admin.categories.store_category     YES
+            binshopsblog.admin.categories.edit_category      no - but is just a form
+            binshopsblog.admin.categories.update_category
+            binshopsblog.admin.categories.destroy_category   YES
 
 
 
@@ -63,16 +63,16 @@ class MainTest extends \Tests\TestCase
 
     public function testFilesArePresent()
     {
-        $this->assertFileExists(config_path("hessamcms.php"), "/config/hessamcms.php should exist - currently no file with that filename is found");
-        $this->assertTrue(is_array(include(config_path("hessamcms.php"))), "/config/hessamcms.php should exist - currently no file with that filename is found");
+        $this->assertFileExists(config_path("binshopsblog.php"), "/config/binshopsblog.php should exist - currently no file with that filename is found");
+        $this->assertTrue(is_array(include(config_path("binshopsblog.php"))), "/config/binshopsblog.php should exist - currently no file with that filename is found");
     }
 
     public function testImageSizesAreSane()
     {
 
-        $this->assertTrue(count(config("hessamcms.image_sizes")) >=  3);
+        $this->assertTrue(count(config("binshopsblog.image_sizes")) >=  3);
 
-        foreach (config("hessamcms.image_sizes") as $image_key => $image_info) {
+        foreach (config("binshopsblog.image_sizes") as $image_key => $image_info) {
 
             $this->assertArrayHasKey("w", $image_info);
             $this->assertArrayHasKey("h", $image_info);
@@ -94,13 +94,13 @@ class MainTest extends \Tests\TestCase
     }
 
 
-    public function testUserHasNanManageHessamCMSPostsMethod()
+    public function testUserHasNanManageBinshopsBlogPostsMethod()
     {
 
-        $this->assertTrue(method_exists(\App\User::class, "canManageHessamCMSPosts"), "Your User model must have the canManageHessamCMSPosts method");
+        $this->assertTrue(method_exists(\App\User::class, "canManageBinshopsBlogPosts"), "Your User model must have the canManageBinshopsBlogPosts method");
 
         $user = new \App\User();
-        $this->assertTrue(is_bool($user->canManageHessamCMSPosts()));
+        $this->assertTrue(is_bool($user->canManageBinshopsBlogPosts()));
 
     }
 
@@ -109,7 +109,7 @@ class MainTest extends \Tests\TestCase
     public function testCanSeeAdminPanel()
     {
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
 
         \Auth::logout();
         // without a logged in user, should give error
@@ -126,7 +126,7 @@ class MainTest extends \Tests\TestCase
         $response->assertStatus(200);
 
         // check user can see admin area:
-        $this->assertTrue($user->canManageHessamCMSPosts());
+        $this->assertTrue($user->canManageBinshopsBlogPosts());
 
         $response = $this->get($admin_panel_url);
         // check if we can see the admin panel correctly
@@ -138,10 +138,10 @@ class MainTest extends \Tests\TestCase
         $response->assertSee("Add Category");
 
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
 //        $user=$this->create_admin_user();
 
-        $this->assertTrue($user->canManageHessamCMSPosts());
+        $this->assertTrue($user->canManageBinshopsBlogPosts());
 
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
@@ -155,7 +155,7 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
+        $this->assertDatabaseMissing('binshops_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
 
         $response->assertSessionHasNoErrors();
@@ -163,7 +163,7 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
 
     }
@@ -174,9 +174,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageHessamCMSPosts());
+        $this->assertTrue($user->canManageBinshopsBlogPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -188,13 +188,13 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
+        $this->assertDatabaseMissing('binshops_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
         $response->assertSessionHasNoErrors();
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
 
     }
@@ -206,9 +206,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageHessamCMSPosts());
+        $this->assertTrue($user->canManageBinshopsBlogPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -221,20 +221,20 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
+        $this->assertDatabaseMissing('binshops_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
-        $justCreatedRow = \HessamCMS\Models\HessamPost::where("slug", $new_object_vals['slug'])->firstOrFail();
+        $justCreatedRow = \BinshopsBlog\Models\BinshopsPost::where("slug", $new_object_vals['slug'])->firstOrFail();
 
 
         $new_object_vals['title'] = "New title " . str_random();
-        $this->assertDatabaseMissing('hessam_posts', ['title' => $new_object_vals['title']]);
+        $this->assertDatabaseMissing('binshops_posts', ['title' => $new_object_vals['title']]);
         $response = $this->patch($admin_panel_url . "/edit_post/" . $justCreatedRow->id, $new_object_vals);
         $response->assertStatus(302);
-        $this->assertDatabaseHas('hessam_posts', ['title' => $new_object_vals['title']]);
+        $this->assertDatabaseHas('binshops_posts', ['title' => $new_object_vals['title']]);
 
 
     }
@@ -246,9 +246,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageHessamCMSPosts());
+        $this->assertTrue($user->canManageBinshopsBlogPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -263,17 +263,17 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
+        $this->assertDatabaseMissing('binshops_posts', $search_for_obj);
 
 
         // check we don't see it at moment
-        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog"));
         $response->assertDontSee($new_object_vals['slug']);
 
         // must clear the cache, as the /feed is cached
         \Artisan::call('cache:clear');
 
-        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/feed");
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog") . "/feed");
         $response->assertDontSee($new_object_vals['slug']);
 
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
@@ -281,11 +281,11 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
         // logout - so we are guest user
         \Auth::logout();
-        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog"));
         // if we see the slug (which is str_random()) we can safely assume that there was a link to the post, so it is working ok. of course it would depend a bit on your template but this should work.
         $response->assertSee($new_object_vals['slug']);
 
@@ -293,14 +293,14 @@ class MainTest extends \Tests\TestCase
         // must clear the cache, as the /feed is cached
         \Artisan::call('cache:clear');
 
-        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/feed");
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog") . "/feed");
         $response->assertSee($new_object_vals['slug']);
         $response->assertSee($new_object_vals['title']);
 
 
         // now check single post is viewable
 
-        $response = $this->get(route("hessamcms.single", $new_object_vals['slug']));
+        $response = $this->get(route("binshopsblog.single", $new_object_vals['slug']));
         $response->assertStatus(200);
         $response->assertSee($new_object_vals['slug']);
         $response->assertSee($new_object_vals['title']);
@@ -313,7 +313,7 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         list($new_object_vals, $search_for_obj) = $this->prepare_post_creation();
 
         $new_object_vals['is_published'] = false;
@@ -323,19 +323,19 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
         // must log out, as the admin user can see posts dated in future
         \Auth::logout();
 
-        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog"));
         // if we see the slug (which is str_random()) we can safely assume that there was a link to the post, so it is working ok. of course it would depend a bit on your template but this should work.
         $response->assertDontSee($new_object_vals['slug']);
 
 
         // now check single post is viewable
 
-        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
         $response->assertStatus(404);
         $response->assertDontSee($new_object_vals['slug']);
         $response->assertDontSee($new_object_vals['title']);
@@ -348,7 +348,7 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         list($new_object_vals, $search_for_obj) = $this->prepare_post_creation();
 
         $new_object_vals['posted_at'] = \Carbon\Carbon::now()->addMonths(12);
@@ -358,19 +358,19 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
         // must log out, as the admin user can see posts dated in future
         \Auth::logout();
 
-        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog"));
         // if we see the slug (which is str_random()) we can safely assume that there was a link to the post, so it is working ok. of course it would depend a bit on your template but this should work.
         $response->assertDontSee($new_object_vals['slug']);
 
 
         // now check single post is viewable
 
-        $response = $this->get(config("hessamcms.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog") . "/" . $new_object_vals['slug']);
         $response->assertStatus(404);
         $response->assertDontSee($new_object_vals['slug']);
         $response->assertDontSee($new_object_vals['title']);
@@ -383,16 +383,16 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('hessamcms.comments.auto_approve_comments', false);
-        \Config::set('hessamcms.captcha.captcha_enabled', true);
-        \Config::set('hessamcms.captcha.captcha_type', \HessamCMS\Captcha\Basic::class);
-        $captcha = new \HessamCMS\Captcha\Basic();
-        \Config::set('hessamcms.captcha.basic_question', "a test question");
-        \Config::set('hessamcms.captcha.basic_answers', "answer1,answer2");
+        \Config::set('binshopsblog.comments.auto_approve_comments', false);
+        \Config::set('binshopsblog.captcha.captcha_enabled', true);
+        \Config::set('binshopsblog.captcha.captcha_type', \BinshopsBlog\Captcha\Basic::class);
+        $captcha = new \BinshopsBlog\Captcha\Basic();
+        \Config::set('binshopsblog.captcha.basic_question', "a test question");
+        \Config::set('binshopsblog.captcha.basic_answers', "answer1,answer2");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -409,10 +409,10 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
 
-        \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
+        \Config::set('binshopsblog.comments.type_of_comments_to_show', 'built_in');
 
 
         $comment_detail = [
@@ -421,11 +421,11 @@ class MainTest extends \Tests\TestCase
             'comment' => str_random(),
             $captcha->captcha_field_name() => "wronganswer1", // << WRONG CAPTCHA
         ];
-        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $this->assertDatabaseMissing('binshops_comments', ['author_name' => $comment_detail['author_name']]);
+        $response = $this->post(config("binshopsblog.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(302);
 
-        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('binshops_comments', ['author_name' => $comment_detail['author_name']]);
 
 
         $comment_detail = [
@@ -434,11 +434,11 @@ class MainTest extends \Tests\TestCase
             'comment' => str_random(),
             // << NO CAPTCHA FIELD
         ];
-        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $this->assertDatabaseMissing('binshops_comments', ['author_name' => $comment_detail['author_name']]);
+        $response = $this->post(config("binshopsblog.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(302);
 
-        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseMissing('binshops_comments', ['author_name' => $comment_detail['author_name']]);
 
 
     }
@@ -448,14 +448,14 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('hessamcms.comments.type_of_comments_to_show', "disabled");
+        \Config::set('binshopsblog.comments.type_of_comments_to_show', "disabled");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
-        $newblogpost = new \HessamCMS\Models\HessamPost;
+        $newblogpost = new \BinshopsBlog\Models\BinshopsPost;
 
         $newblogpost->title=__METHOD__ . " " . time();
 
@@ -480,14 +480,14 @@ class MainTest extends \Tests\TestCase
     }
     public function testCreatePostThenSetCommentsToDisqusAndCheckDisqusJSIsShown()
     {
-        \Config::set('hessamcms.comments.type_of_comments_to_show', "disqus");
+        \Config::set('binshopsblog.comments.type_of_comments_to_show', "disqus");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
-        $newblogpost = new \HessamCMS\Models\HessamPost;
+        $newblogpost = new \BinshopsBlog\Models\BinshopsPost;
 
         $newblogpost->title=__METHOD__ . " " . time();
 
@@ -510,14 +510,14 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('hessamcms.comments.type_of_comments_to_show', "custom");
+        \Config::set('binshopsblog.comments.type_of_comments_to_show', "custom");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
-        $newblogpost = new \HessamCMS\Models\HessamPost;
+        $newblogpost = new \BinshopsBlog\Models\BinshopsPost;
 
         $newblogpost->title=__METHOD__ . " " . time();
 
@@ -541,16 +541,16 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        \Config::set('hessamcms.comments.auto_approve_comments', false);
-        \Config::set('hessamcms.captcha.captcha_enabled', true);
-        \Config::set('hessamcms.captcha.captcha_type', \HessamCMS\Captcha\Basic::class);
-        $captcha = new \HessamCMS\Captcha\Basic();
-        \Config::set('hessamcms.captcha.basic_question', "a test question");
-        \Config::set('hessamcms.captcha.basic_answers', "answer1,answer2");
+        \Config::set('binshopsblog.comments.auto_approve_comments', false);
+        \Config::set('binshopsblog.captcha.captcha_enabled', true);
+        \Config::set('binshopsblog.captcha.captcha_type', \BinshopsBlog\Captcha\Basic::class);
+        $captcha = new \BinshopsBlog\Captcha\Basic();
+        \Config::set('binshopsblog.captcha.basic_question', "a test question");
+        \Config::set('binshopsblog.captcha.basic_answers', "answer1,answer2");
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -566,10 +566,10 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
 
-        \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
+        \Config::set('binshopsblog.comments.type_of_comments_to_show', 'built_in');
 
 
         $comment_detail = [
@@ -578,28 +578,28 @@ class MainTest extends \Tests\TestCase
             'comment' => str_random(),
             $captcha->captcha_field_name() => "AnsWer2",
         ];
-        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $this->assertDatabaseMissing('binshops_comments', ['author_name' => $comment_detail['author_name']]);
+        $response = $this->post(config("binshopsblog.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
         $response->assertStatus(200);
 
-        \Config::set('hessamcms.captcha.auto_approve_comments', false);
+        \Config::set('binshopsblog.captcha.auto_approve_comments', false);
 
-        $this->assertDatabaseHas('hessam_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseHas('binshops_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
 
 
-        $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
+        $justAddedRow = \BinshopsBlog\Models\BinshopsComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
 
-        $response = $this->get(route("hessamcms.admin.comments.index"));
+        $response = $this->get(route("binshopsblog.admin.comments.index"));
         $response->assertSee($justAddedRow->author_name);
 
 
         // approve it:
-        $response = $this->patch(route("hessamcms.admin.comments.approve", $justAddedRow->id), [
+        $response = $this->patch(route("binshopsblog.admin.comments.approve", $justAddedRow->id), [
             '_token' => csrf_token(),
         ]);
         // check it was approved
         $response->assertStatus(302);
-        $this->assertDatabaseHas('hessam_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
+        $this->assertDatabaseHas('binshops_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
 
 
     }
@@ -607,12 +607,12 @@ class MainTest extends \Tests\TestCase
 
     public function testCreatePostThenCheckCanCreateCommentThenApproveComment()
     {
-        \Config::set('hessamcms.comments.auto_approve_comments', false);
-        \Config::set('hessamcms.captcha.captcha_enabled', false);
+        \Config::set('binshopsblog.comments.auto_approve_comments', false);
+        \Config::set('binshopsblog.captcha.captcha_enabled', false);
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -628,11 +628,11 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
 
-        \Config::set('hessamcms.comments.type_of_comments_to_show', 'built_in');
-        \Config::set('hessamcms.captcha.captcha_enabled', false);
+        \Config::set('binshopsblog.comments.type_of_comments_to_show', 'built_in');
+        \Config::set('binshopsblog.captcha.captcha_enabled', false);
 
 
         $comment_detail = [
@@ -640,29 +640,29 @@ class MainTest extends \Tests\TestCase
             'author_name' => str_random(),
             'comment' => str_random(),
         ];
-        $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
-        $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+        $this->assertDatabaseMissing('binshops_comments', ['author_name' => $comment_detail['author_name']]);
+        $response = $this->post(config("binshopsblog.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
 
         $response->assertStatus(200);
 
-        \Config::set('hessamcms.captcha.auto_approve_comments', false);
+        \Config::set('binshopsblog.captcha.auto_approve_comments', false);
 
-        $this->assertDatabaseHas('hessam_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
+        $this->assertDatabaseHas('binshops_comments', ['approved' => false, 'author_name' => $comment_detail['author_name']]);
 
 
-        $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
+        $justAddedRow = \BinshopsBlog\Models\BinshopsComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
 
-        $response = $this->get(route("hessamcms.admin.comments.index"));
+        $response = $this->get(route("binshopsblog.admin.comments.index"));
         $response->assertSee($justAddedRow->author_name);
 
 
         // approve it:
-        $response = $this->patch(route("hessamcms.admin.comments.approve", $justAddedRow->id), [
+        $response = $this->patch(route("binshopsblog.admin.comments.approve", $justAddedRow->id), [
             '_token' => csrf_token(),
         ]);
         // check it was approved
         $response->assertStatus(302);
-        $this->assertDatabaseHas('hessam_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
+        $this->assertDatabaseHas('binshops_comments', ['approved' => 1, 'author_name' => $justAddedRow->author_name]);
 
 
     }
@@ -670,12 +670,12 @@ class MainTest extends \Tests\TestCase
 
     public function testCreatePostThenCheckCanCreateCommentThenDeleteComment()
     {
-        \Config::set('hessamcms.comments.auto_approve_comments', false);
-        \Config::set('hessamcms.captcha.captcha_enabled', false);
+        \Config::set('binshopsblog.comments.auto_approve_comments', false);
+        \Config::set('binshopsblog.captcha.captcha_enabled', false);
 
         $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
         // to verify this was added to database. Use a different variable, so we can add things (like _token) and still be able to assertDatabaseHas later.
@@ -691,43 +691,43 @@ class MainTest extends \Tests\TestCase
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
 
-        if (config("hessamcms.comments.type_of_comments_to_show") === 'built_in') {
+        if (config("binshopsblog.comments.type_of_comments_to_show") === 'built_in') {
             $comment_detail = [
                 '_token' => csrf_token(),
                 'author_name' => str_random(),
                 'comment' => str_random(),
             ];
-            $this->assertDatabaseMissing('hessam_comments', ['author_name' => $comment_detail['author_name']]);
-            $response = $this->post(config("hessamcms.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
+            $this->assertDatabaseMissing('binshops_comments', ['author_name' => $comment_detail['author_name']]);
+            $response = $this->post(config("binshopsblog.blog_prefix", "blog") . "/save_comment/" . $new_object_vals['slug'], $comment_detail);
             $response->assertSessionHasNoErrors();
             $response->assertStatus(200);
 
-            $this->assertDatabaseHas('hessam_comments', ['author_name' => $comment_detail['author_name']]);
+            $this->assertDatabaseHas('binshops_comments', ['author_name' => $comment_detail['author_name']]);
 
 
-            $justAddedRow = \HessamCMS\Models\HessamComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
+            $justAddedRow = \BinshopsBlog\Models\BinshopsComment::withoutGlobalScopes()->where('author_name', $comment_detail['author_name'])->firstOrFail();
 
             // check the just added row exists...
-            $response = $this->get(route("hessamcms.admin.comments.index"));
+            $response = $this->get(route("binshopsblog.admin.comments.index"));
             $response->assertSee($justAddedRow->author_name);
 
 
             // delete it:
-            $response = $this->delete(route("hessamcms.admin.comments.delete", $justAddedRow->id), [
+            $response = $this->delete(route("binshopsblog.admin.comments.delete", $justAddedRow->id), [
                 '_token' => csrf_token(),
             ]);
             // check it was deleted (it will deleted if approved)
             $response->assertStatus(302);
 
             //check it doesnt exist in database
-            $this->assertDatabaseMissing('hessam_comments', ['id' => $justAddedRow->id,]);
+            $this->assertDatabaseMissing('binshops_comments', ['id' => $justAddedRow->id,]);
 
 
         } else {
-            dump("NOT TESTING COMMENT FEATURE, as config(\"hessamcms.comments.type_of_comments_to_show\") is not set to 'built_in')");
+            dump("NOT TESTING COMMENT FEATURE, as config(\"binshopsblog.comments.type_of_comments_to_show\") is not set to 'built_in')");
         }
 
     }
@@ -739,9 +739,9 @@ class MainTest extends \Tests\TestCase
 
         $user = $this->create_admin_user();
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
 
-        $this->assertTrue($user->canManageHessamCMSPosts());
+        $this->assertTrue($user->canManageBinshopsBlogPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -754,30 +754,30 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
+        $this->assertDatabaseMissing('binshops_posts', $search_for_obj);
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
         $response->assertSessionHasNoErrors();
 
 
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_posts', $search_for_obj);
+        $this->assertDatabaseHas('binshops_posts', $search_for_obj);
 
 
-        $justCreatedRow = \HessamCMS\Models\HessamPost::where("slug", $new_object_vals['slug'])->firstOrFail();
+        $justCreatedRow = \BinshopsBlog\Models\BinshopsPost::where("slug", $new_object_vals['slug'])->firstOrFail();
         $id = $justCreatedRow->id;
         $delete_url = $admin_panel_url . "/delete_post/" . $id;
 
         $response = $this->delete($delete_url, ['_token' => csrf_token()]);
         $response->assertStatus(200);
 
-        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
+        $this->assertDatabaseMissing('binshops_posts', $search_for_obj);
 
     }
 
 
     public function testCanCreateCategory()
     {
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $this->create_admin_user();
         // now lets create a category
         $new_cat_vals = [
@@ -786,11 +786,11 @@ class MainTest extends \Tests\TestCase
         ];
         $search_for_new_cat = $new_cat_vals;
         $new_cat_vals['_token'] = csrf_token();
-        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('binshops_categories', $search_for_new_cat);
         $response = $this->post($admin_panel_url . "/categories/add_category", $new_cat_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_categories', $search_for_new_cat);
+        $this->assertDatabaseHas('binshops_categories', $search_for_new_cat);
 
 
     }
@@ -800,7 +800,7 @@ class MainTest extends \Tests\TestCase
     {
 
 
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
 
 
         $this->create_admin_user();
@@ -814,15 +814,15 @@ class MainTest extends \Tests\TestCase
         // create a post so we can edit it later
         $search_for_new_cat = $new_cat_vals;
         $new_cat_vals['_token'] = csrf_token();
-        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('binshops_categories', $search_for_new_cat);
         $response = $this->post($admin_panel_url . "/categories/add_category", $new_cat_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_categories', $search_for_new_cat);
+        $this->assertDatabaseHas('binshops_categories', $search_for_new_cat);
 
 
         // get the just inserted row
-        $justCreatedRow = \HessamCMS\Models\HessamCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
+        $justCreatedRow = \BinshopsBlog\Models\BinshopsCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
 
 
         // get the edit page (form)
@@ -837,12 +837,12 @@ class MainTest extends \Tests\TestCase
         $new_object_vals['_token'] = csrf_token();
 
 
-        $this->assertDatabaseMissing('hessam_categories', ['category_name' => $new_object_vals['category_name']]);
+        $this->assertDatabaseMissing('binshops_categories', ['category_name' => $new_object_vals['category_name']]);
 
 
         // send the request to save the changes
         $response = $this->patch(
-            route("hessamcms.admin.categories.update_category", $justCreatedRow->id),
+            route("binshopsblog.admin.categories.update_category", $justCreatedRow->id),
             $new_object_vals
         );
 
@@ -850,7 +850,7 @@ class MainTest extends \Tests\TestCase
         $response->assertStatus(302); // check it was a redirect
 
         // check that the edited category name is in the database.
-        $this->assertDatabaseHas('hessam_categories', ['slug' => $new_object_vals['slug'], 'category_name' => $new_object_vals['category_name']]);
+        $this->assertDatabaseHas('binshops_categories', ['slug' => $new_object_vals['slug'], 'category_name' => $new_object_vals['category_name']]);
 
 
     }
@@ -858,7 +858,7 @@ class MainTest extends \Tests\TestCase
 
     public function testCanDeleteCategory()
     {
-        $admin_panel_url = config("hessamcms.admin_prefix", "blog_admin");
+        $admin_panel_url = config("binshopsblog.admin_prefix", "blog_admin");
         $this->create_admin_user();
         // now lets create a category
         $new_cat_vals = [
@@ -867,21 +867,21 @@ class MainTest extends \Tests\TestCase
         ];
         $search_for_new_cat = $new_cat_vals;
         $new_cat_vals['_token'] = csrf_token();
-        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('binshops_categories', $search_for_new_cat);
         $response = $this->post($admin_panel_url . "/categories/add_category", $new_cat_vals);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302); // redirect
-        $this->assertDatabaseHas('hessam_categories', $search_for_new_cat);
+        $this->assertDatabaseHas('binshops_categories', $search_for_new_cat);
 
 
-        $justCreatedRow = \HessamCMS\Models\HessamCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
+        $justCreatedRow = \BinshopsBlog\Models\BinshopsCategory::where("slug", $new_cat_vals['slug'])->firstOrFail();
         $id = $justCreatedRow->id;
 
         $delete_url = $admin_panel_url . "/categories/delete_category/$id";
 
         $response = $this->delete($delete_url, ['_token' => csrf_token()]);
         $response->assertStatus(200);
-        $this->assertDatabaseMissing('hessam_categories', $search_for_new_cat);
+        $this->assertDatabaseMissing('binshops_categories', $search_for_new_cat);
 
     }
 
@@ -914,7 +914,7 @@ class MainTest extends \Tests\TestCase
         $user = $this->getMockBuilder(\App\User::class)
             ->getMock();
         // make sure the user can see admin panel
-        $user->method("canManageHessamCMSPosts")
+        $user->method("canManageBinshopsBlogPosts")
             ->will($this->returnCallback(function () {
                 return true;
             }));
@@ -942,7 +942,7 @@ class MainTest extends \Tests\TestCase
     {
         $user = $this->create_admin_user();
 
-        $this->assertTrue($user->canManageHessamCMSPosts());
+        $this->assertTrue($user->canManageBinshopsBlogPosts());
 
         $new_object_vals = $this->generate_basic_blog_post_with_random_data();
 
@@ -955,30 +955,30 @@ class MainTest extends \Tests\TestCase
 
         $new_object_vals['_token'] = csrf_token();
 
-        $this->assertDatabaseMissing('hessam_posts', $search_for_obj);
+        $this->assertDatabaseMissing('binshops_posts', $search_for_obj);
 
         // check we don't see it at moment
-        $response = $this->get(config("hessamcms.blog_prefix", "blog"));
+        $response = $this->get(config("binshopsblog.blog_prefix", "blog"));
         $response->assertDontSee($new_object_vals['slug']);
         return array($new_object_vals, $search_for_obj);
     }
 
-    public function testUserModelHasCanManageHessamCMSPostsMethod()
+    public function testUserModelHasCanManageBinshopsBlogPostsMethod()
     {
         $u = new \App\User();
-        $this->assertTrue(method_exists($u,"canManageHessamCMSPosts"),"canManageHessamCMSPosts() must be added to User model. Please see hessam HessamCMS docs for details. It should return true ONLY for the admin users");
+        $this->assertTrue(method_exists($u,"canManageBinshopsBlogPosts"),"canManageBinshopsBlogPosts() must be added to User model. Please see binshops BinshopsBlog docs for details. It should return true ONLY for the admin users");
     }
-    public function testUserModelCanManageHessamCMSPostsMethodDoesntAlwaysReturnTrue()
+    public function testUserModelCanManageBinshopsBlogPostsMethodDoesntAlwaysReturnTrue()
     {
         $u = new \App\User();
 
-        $u->id = 9999999; // in case the logic on canManageHessamCMSPosts() checks for a low ID
+        $u->id = 9999999; // in case the logic on canManageBinshopsBlogPosts() checks for a low ID
         $u->email = str_random(); // in case the logic looks for a certain email or something.
 
-        $this->assertTrue(method_exists($u,"canManageHessamCMSPosts"));
+        $this->assertTrue(method_exists($u,"canManageBinshopsBlogPosts"));
 
         // because this user is just a randomly made one, it probably should not be allowed to edit blog posts.
-        $this->assertFalse($u->canManageHessamCMSPosts(), "User::canManageHessamCMSPosts() returns true, but it PROBABLY should return false! Otherwise every single user on your site has access to the blog admin panel! This might not be an error though, if your system doesn't allow public registration. But you should look into this. I know this isn't a good way to handle this test, but it seems to make sense.");
+        $this->assertFalse($u->canManageBinshopsBlogPosts(), "User::canManageBinshopsBlogPosts() returns true, but it PROBABLY should return false! Otherwise every single user on your site has access to the blog admin panel! This might not be an error though, if your system doesn't allow public registration. But you should look into this. I know this isn't a good way to handle this test, but it seems to make sense.");
     }
 
 

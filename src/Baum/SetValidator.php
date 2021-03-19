@@ -1,5 +1,5 @@
 <?php
-namespace HessamCMS\Baum;
+namespace BinshopsBlog\Baum;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -8,14 +8,14 @@ class SetValidator {
   /**
   * Node instance for reference
   *
-  * @var \HessamCMS\Baum\Node
+  * @var \BinshopsBlog\Baum\Node
   */
   protected $node = NULL;
 
   /**
-   * Create a new \HessamCMS\Baum\SetValidator class instance.
+   * Create a new \BinshopsBlog\Baum\SetValidator class instance.
    *
-   * @param   \HessamCMS\Baum\Node      $node
+   * @param   \BinshopsBlog\Baum\Node      $node
    * @return  void
    */
   public function __construct($node) {
@@ -207,7 +207,7 @@ class SetValidator {
    * Builds a single string for the given scope columns values. Useful for
    * making array keys for grouping.
    *
-   * @param HessamCMS\Baum\Node   $node
+   * @param BinshopsBlog\Baum\Node   $node
    * @return string
    */
   protected function keyForScope($node) {

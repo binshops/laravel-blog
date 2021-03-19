@@ -1,6 +1,6 @@
 <?php
 
-namespace HessamCMS\Laravel\Fulltext;
+namespace BinshopsBlog\Laravel\Fulltext;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,7 @@ class IndexedRecord extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->connection = config('hessamcms.search.db_connection');
+        $this->connection = config('binshopsblog.search.db_connection');
 
         parent::__construct($attributes);
     }

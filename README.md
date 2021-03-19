@@ -1,10 +1,10 @@
 <p align="center">
-   <a href="https://packagist.org/packages/hessam/laravel-blogger">
-      <img src="https://poser.pugx.org/hessam/laravel-blogger/v/stable.png" alt="Latest Stable Version">
+   <a href="https://packagist.org/packages/binshops/laravel-blogger">
+      <img src="https://poser.pugx.org/binshops/laravel-blogger/v/stable.png" alt="Latest Stable Version">
   </a>
 
-  <a href="https://packagist.org/packages/hessam/laravel-blogger">
-    <img src="https://poser.pugx.org/hessam/laravel-blogger/license.png" alt="License">
+  <a href="https://packagist.org/packages/binshops/laravel-blogger">
+    <img src="https://poser.pugx.org/binshops/laravel-blogger/license.png" alt="License">
   </a>
 </p>
 
@@ -12,7 +12,7 @@
 Have you worked with Wordpress? Developers call it wordpress-like laravel blog.
 
 ### Contact us for any customization:
-sam@binshops.com
+contact@binshops.com
 
 ### Lightweight and Comprehensive
 
@@ -31,24 +31,23 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 
 ### Quick and easy installation
 
-`composer require hessam/laravel-blogger`
+`composer require binshops/laravel-blog`
 
-### For Complete Setup Instructions (with video guide), please Visit [The Install Guide](https://hessam.binshops.com/laravel-blog-package#setup)
 
-To see package on Packagist click this [Link](https://packagist.org/packages/hessam/laravel-blogger)
+To see package on Packagist click this [Link](https://packagist.org/packages/binshops/laravel-blog)
 
 ### Bagisto version
 To see the Bagisto version of this package go to `bagisto-compatible` branch 
 
 ## Important Notes
-- For laravel 8.x's default auth User model, change user model in `hessamcms.php` to: `\App\Models\User::class`
+- For laravel 8.x's default auth User model, change user model in `binshopsblog.php` to: `\App\Models\User::class`
 
 ## Features
 - Compatible with latest laravel version (laravel 8.x)
 - Backward-compatibility with previous laravel versions
 - Full text search - searching throughout the blog posts
 - Multi-level category support
-- fully configurable via its `config/hessamcms.php` config file
+- fully configurable via its `config/binshopsblog.php` config file
 - Ready to use admin panel
 - Full customizability of admin views and front views
 - Paginated views
@@ -64,21 +63,21 @@ To see the Bagisto version of this package go to `bagisto-compatible` branch
 ## Screen Shots
 
   <p align="center">
-    <img src="https://hessam.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.23.35-PM-1024x560.png" width="500px" title="Add post">
+    <img src="https://binshops.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.23.35-PM-1024x560.png" width="500px" title="Add post">
   </p>
   <p align="center">
   Add post
   </p>
 
   <p align="center">
-    <img src="https://hessam.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.19.42-PM-1024x558.png" width="500px" title="All posts">
+    <img src="https://binshops.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.19.42-PM-1024x558.png" width="500px" title="All posts">
   </p>
    <p align="center">
     All posts
     </p>
   
   <p align="center">
-    <img src="https://hessam.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.03.39-PM-1-1024x560.png" width="500px" title="Add category">
+    <img src="https://binshops.binshops.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-08-at-6.03.39-PM-1-1024x560.png" width="500px" title="Add category">
   </p>
   <p align="center">
       Add category
@@ -93,21 +92,21 @@ To see the Bagisto version of this package go to `bagisto-compatible` branch
 
 ## How to customise the blog views/templates
 
-After doing the correct `vendor:publish`, all of the default template files will be found in /resources/views/vendor/hessamcms/ and are easy to edit to match your needs.
+After doing the correct `vendor:publish`, all of the default template files will be found in /resources/views/vendor/binshopsblog/ and are easy to edit to match your needs.
 
 ### Customizing admin views
 If you need to customize the admin view, just copy the files from
-`vendor/hessamcms/src/Views/hessamcms_admin`
+`vendor/binshopsblog/src/Views/binshopsblog_admin`
 to
-`resources/views/vendor/hessamcms_admin`
+`resources/views/vendor/binshopsblog_admin`
 Then you can modify them just like any other view file.
 
 ## Routes
 
-It will auto set all required routes (both public facing, and admin backend). There are some config options (such as changing the /blog/ url to something else), which can be done in the hessamcms.php file.
+It will auto set all required routes (both public facing, and admin backend). There are some config options (such as changing the /blog/ url to something else), which can be done in the binshopsblog.php file.
 
 ## Config options
-All config options have comments which describe what they do. Please just refer to the `hessamcms.php` file in your /config/ dir.
+All config options have comments which describe what they do. Please just refer to the `binshopsblog.php` file in your /config/ dir.
 
 ### Custom User Model
 You can change the default user model through the config file.
@@ -122,7 +121,7 @@ Add these (and an Event Listener) to your `EventServiceProvider.php` file to mak
 
 There is a built in captcha (anti spam comment) system built in, which will be easy for you to replace with your own implementation.
 
-  Please see [this Captcha docs](https://hessam.binshops.com/laravel-blog-package#captcha) for  more details.
+  Please see [this Captcha docs](https://binshops.binshops.com/laravel-blog-package#captcha) for  more details.
 
 ## Image upload errors
 
@@ -161,7 +160,7 @@ Try adding this to config/app.php:
 - 3.0.2                 - fixed default medium image size (changed to 600x400)
 - 3.0.1                 - replaced all short tags (<?) with full opening ones (<?php)
 - 3.0                   - Added separate functionality for uploading images (and save some meta data in db)
-- 2.1                   - added 'short_description' to db + form, and HessamCMSPost::generate_introduction() method will try and use this to generate intro text.
+- 2.1                   - added 'short_description' to db + form, and BinshopsBlogPost::generate_introduction() method will try and use this to generate intro text.
 - 2.0                   - added full text search (enable it via the config file - it is disabled by default).
 - 1.2                   - added WYSIWYG, few smaller changes
 - 1.1.1                 - added basic captcha
@@ -170,7 +169,7 @@ Try adding this to config/app.php:
 - 0.3                   - Small changes, packagist settings.
 - 0.1                   - Initial release
 
-Contact: sam@binshops.com
+Contact: contact@binshops.com
 
 
 

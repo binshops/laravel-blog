@@ -1,13 +1,13 @@
 <?php
 
-namespace HessamCMS\Laravel\Fulltext;
+namespace BinshopsBlog\Laravel\Fulltext;
 
 class Search implements SearchInterface
 {
     /**
      * @param string $search
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\HessamCMS\Laravel\Fulltext\IndexedRecord[]
+     * @return \Illuminate\Database\Eloquent\Collection|\BinshopsBlog\Laravel\Fulltext\IndexedRecord[]
      */
     public function run($search)
     {
@@ -20,7 +20,7 @@ class Search implements SearchInterface
      * @param $search
      * @param $class
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\HessamCMS\Laravel\Fulltext\IndexedRecord[]
+     * @return \Illuminate\Database\Eloquent\Collection|\BinshopsBlog\Laravel\Fulltext\IndexedRecord[]
      */
     public function runForClass($search, $class)
     {
@@ -49,8 +49,8 @@ class Search implements SearchInterface
             $termsMatch = ''.$terms->implode(' ');
         }
 
-        $titleWeight = str_replace(',', '.', (float) config('hessamcms.search.weight.title', 1.5));
-        $contentWeight = str_replace(',', '.', (float) config('hessamcms.search.weight.content', 1.0));
+        $titleWeight = str_replace(',', '.', (float) config('binshopsblog.search.weight.title', 1.5));
+        $contentWeight = str_replace(',', '.', (float) config('binshopsblog.search.weight.content', 1.0));
 
         $query = IndexedRecord::query()
           ->whereRaw('MATCH (indexed_title, indexed_content) AGAINST (? IN BOOLEAN MODE)', [$termsBool])
@@ -59,7 +59,7 @@ class Search implements SearchInterface
               '.$contentWeight.' * (MATCH (indexed_title, indexed_content) AGAINST (?))
              ) DESC',
                 [$termsMatch, $termsMatch])
-            ->limit(config('hessamcms.search.limit-results'));
+            ->limit(config('binshopsblog.search.limit-results'));
 
         $query->with(['indexable' => function ($query) {
             $query->with(['post' => function($query){

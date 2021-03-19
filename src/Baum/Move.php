@@ -1,5 +1,5 @@
 <?php
-namespace HessamCMS\Baum;
+namespace BinshopsBlog\Baum;
 
 use \Illuminate\Events\Dispatcher;
 
@@ -11,14 +11,14 @@ class Move {
   /**
   * Node on which the move operation will be performed
   *
-  * @var \HessamCMS\Baum\Node
+  * @var \BinshopsBlog\Baum\Node
   */
   protected $node = NULL;
 
   /**
   * Destination node
   *
-  * @var \HessamCMS\Baum\Node | int
+  * @var \BinshopsBlog\Baum\Node | int
   */
   protected $target = NULL;
 
@@ -60,8 +60,8 @@ class Move {
   /**
    * Create a new Move class instance.
    *
-   * @param   \HessamCMS\Baum\Node      $node
-   * @param   \HessamCMS\Baum\Node|int  $target
+   * @param   \BinshopsBlog\Baum\Node      $node
+   * @param   \BinshopsBlog\Baum\Node|int  $target
    * @param   string          $position
    * @return  void
    */
@@ -76,10 +76,10 @@ class Move {
   /**
    * Easy static accessor for performing a move operation.
    *
-   * @param   \HessamCMS\Baum\Node      $node
-   * @param   \HessamCMS\Baum\Node|int  $target
+   * @param   \BinshopsBlog\Baum\Node      $node
+   * @param   \BinshopsBlog\Baum\Node|int  $target
    * @param   string          $position
-   * @return \HessamCMS\Baum\Node
+   * @return \BinshopsBlog\Baum\Node
    */
   public static function to($node, $target, $position) {
     $instance = new static($node, $target, $position);
@@ -90,7 +90,7 @@ class Move {
   /**
    * Perform the move operation.
    *
-   * @return \HessamCMS\Baum\Node
+   * @return \BinshopsBlog\Baum\Node
    */
   public function perform() {
     $this->guardAgainstImpossibleMove();
@@ -176,14 +176,14 @@ class Move {
 
   /**
    * Resolves suplied node. Basically returns the node unchanged if
-   * supplied parameter is an instance of \HessamCMS\Baum\Node. Otherwise it will try
+   * supplied parameter is an instance of \BinshopsBlog\Baum\Node. Otherwise it will try
    * to find the node in the database.
    *
-   * @param   \HessamCMS\Baum\node|int
-   * @return  \HessamCMS\Baum\Node
+   * @param   \BinshopsBlog\Baum\node|int
+   * @return  \BinshopsBlog\Baum\Node
    */
   protected function resolveNode($node) {
-    if ( $node instanceof \HessamCMS\Baum\Node ) return $node->reload();
+    if ( $node instanceof \BinshopsBlog\Baum\Node ) return $node->reload();
 
     return $this->node->newNestedSetQuery()->find($node);
   }

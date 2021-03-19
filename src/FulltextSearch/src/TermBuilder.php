@@ -1,12 +1,12 @@
 <?php
 
-namespace HessamCMS\Laravel\Fulltext;
+namespace BinshopsBlog\Laravel\Fulltext;
 
 class TermBuilder
 {
     public static function terms($search)
     {
-        $wildcards = config('hessamcms.search.enable_wildcards');
+        $wildcards = config('binshopsblog.search.enable_wildcards');
 
         // Remove every boolean operator (+, -, > <, ( ), ~, *, ", @distance) from the search query
         // else we will break the MySQL query.

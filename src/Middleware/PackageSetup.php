@@ -1,18 +1,18 @@
 <?php
 
 
-namespace HessamCMS\Middleware;
+namespace BinshopsBlog\Middleware;
 
 use Closure;
-use HessamCMS\Models\HessamConfiguration;
+use BinshopsBlog\Models\BinshopsConfiguration;
 
 class PackageSetup
 {
     public function handle($request, Closure $next)
     {
-        $initial_setup = HessamConfiguration::get('INITIAL_SETUP');
+        $initial_setup = BinshopsConfiguration::get('INITIAL_SETUP');
         if (!$initial_setup){
-            return redirect( route('hessamcms.admin.setup') );
+            return redirect( route('binshopsblog.admin.setup') );
         }
 
         return $next($request);

@@ -1,13 +1,13 @@
 <?php
 
-namespace HessamCMS\Requests;
+namespace BinshopsBlog\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use HessamCMS\Interfaces\BaseRequestInterface;
+use BinshopsBlog\Interfaces\BaseRequestInterface;
 
 /**
  * Class BaseRequest
- * @package HessamCMS\Requests
+ * @package BinshopsBlog\Requests
  */
 abstract class BaseRequest extends FormRequest implements BaseRequestInterface
 {
@@ -18,6 +18,6 @@ abstract class BaseRequest extends FormRequest implements BaseRequestInterface
      */
     public function authorize()
     {
-        return \Auth::check() && \Auth::user()->canManageHessamCMSPosts();
+        return \Auth::check() && \Auth::user()->canManageBinshopsBlogPosts();
     }
 }

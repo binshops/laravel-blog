@@ -1,6 +1,6 @@
 <?php
 
-namespace HessamCMS\Requests;
+namespace BinshopsBlog\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

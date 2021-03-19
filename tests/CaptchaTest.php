@@ -6,7 +6,7 @@ class CaptchaTest extends \Tests\TestCase
     public function testBasicCaptchaMethodsReturnCorrectType()
     {
 
-        $captcha = new \HessamCMS\Captcha\Basic();
+        $captcha = new \BinshopsBlog\Captcha\Basic();
         $this->assertEquals(gettype($captcha->captcha_field_name()), "string");
         $this->assertEquals(gettype($captcha->view()), "string");
         $this->assertEquals(gettype($captcha->rules()), "array");
@@ -16,7 +16,7 @@ class CaptchaTest extends \Tests\TestCase
     public function testRuleCustomValidationFunctionReturnsCorrectly()
     {
 
-        $captcha = new \HessamCMS\Captcha\Basic();
+        $captcha = new \BinshopsBlog\Captcha\Basic();
 
         foreach ($captcha->rules() as $rule) {
 
@@ -31,32 +31,32 @@ class CaptchaTest extends \Tests\TestCase
 
 
                 // testing CORRECT answer (should return null)
-                \Config::set('hessamcms.captcha.basic_answers', "ignoreme,dark,ignoreme2");
+                \Config::set('binshopsblog.captcha.basic_answers', "ignoreme,dark,ignoreme2");
                 $this->assertNull($rule('correct1', 'dark', function () {
                     return "lookingforthis";
                 }));
 
                 // testing WRONG answer
-                \Config::set('hessamcms.captcha.basic_answers', "ignoreme,dark,ignoreme2");
+                \Config::set('binshopsblog.captcha.basic_answers', "ignoreme,dark,ignoreme2");
                 $this->assertEquals($rule('wrong1', 'light', function () {
                     return "lookingforthis";
                 }), "lookingforthis");
 
                 // testing CORRECT answer
-                \Config::set('hessamcms.captcha.basic_answers', "bLAcK");
+                \Config::set('binshopsblog.captcha.basic_answers', "bLAcK");
                 $this->assertNull($rule('wrong1', 'black', function () {
                     return "lookingforthis";
                 }));
 
                 // testing CORRECT answer
-                \Config::set('hessamcms.captcha.basic_answers', "bLAcK");
+                \Config::set('binshopsblog.captcha.basic_answers', "bLAcK");
                 $this->assertNull($rule('wrong1', ' black', function () {
                     return "lookingforthis";
                 }));
 
 
                 // testing CORRECT answer
-                \Config::set('hessamcms.captcha.basic_answers', "ignoreme, BLACK , jgnoreme2");
+                \Config::set('binshopsblog.captcha.basic_answers', "ignoreme, BLACK , jgnoreme2");
                 $this->assertNull($rule('wrong1', ' black', function () {
                     return "lookingforthis";
                 }));

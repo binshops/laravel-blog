@@ -1,9 +1,9 @@
 <?php
 
-namespace HessamCMS\Laravel\Fulltext\Commands;
+namespace BinshopsBlog\Laravel\Fulltext\Commands;
 
 use Illuminate\Console\Command;
-use HessamCMS\Laravel\Fulltext\Indexer;
+use BinshopsBlog\Laravel\Fulltext\Indexer;
 
 class IndexOne extends Command
 {

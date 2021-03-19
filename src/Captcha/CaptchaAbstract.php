@@ -1,9 +1,9 @@
-<?php namespace HessamCMS\Captcha;
+<?php namespace BinshopsBlog\Captcha;
 
 use Illuminate\Http\Request;
-use HessamCMS\Interfaces\CaptchaInterface;
-use HessamCMS\Models\HessamPost;
-use HessamCMS\Models\HessamPostTranslation;
+use BinshopsBlog\Interfaces\CaptchaInterface;
+use BinshopsBlog\Models\BinshopsPost;
+use BinshopsBlog\Models\BinshopsPostTranslation;
 
 abstract class CaptchaAbstract implements CaptchaInterface
 {
@@ -13,11 +13,11 @@ abstract class CaptchaAbstract implements CaptchaInterface
      * executed when viewing single post
      *
      * @param Request $request
-     * @param HessamPostTranslation $hessamCMSPost
+     * @param BinshopsPostTranslation $binshopsBlogPost
      *
      * @return void
      */
-    public function runCaptchaBeforeShowingPosts(Request $request, HessamPostTranslation $hessamCMSPost)
+    public function runCaptchaBeforeShowingPosts(Request $request, BinshopsPostTranslation $binshopsBlogPost)
     {
         // no code here to run! Maybe in your subclass you can make use of this?
         /*
@@ -38,11 +38,11 @@ abstract class CaptchaAbstract implements CaptchaInterface
      * executed when posting new comment
      *
      * @param Request $request
-     * @param HessamPost $hessamCMSPost
+     * @param BinshopsPost $binshopsBlogPost
      *
      * @return void
      */
-    public function runCaptchaBeforeAddingComment(Request $request, HessamPost $hessamCMSPost)
+    public function runCaptchaBeforeAddingComment(Request $request, BinshopsPost $binshopsBlogPost)
     {
         // no code here to run! Maybe in your subclass you can make use of this?
     }

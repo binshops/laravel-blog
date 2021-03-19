@@ -1,6 +1,6 @@
 <?php
 
-namespace HessamCMS\Requests;
+namespace BinshopsBlog\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -9,7 +9,7 @@ class AddNewCommentRequest extends FormRequest
 
     public function authorize()
     {
-        if (config("hessamcms.comments.type_of_comments_to_show") === 'built_in') {
+        if (config("binshopsblog.comments.type_of_comments_to_show") === 'built_in') {
             // anyone is allowed to submit a comment, to return true always.
             return true;
         }
@@ -34,7 +34,7 @@ class AddNewCommentRequest extends FormRequest
         ];
 
         // do we need author name?
-        if (\Auth::check() && config("hessamcms.comments.save_user_id_if_logged_in", true)) {
+        if (\Auth::check() && config("binshopsblog.comments.save_user_id_if_logged_in", true)) {
             // is logged in, so we don't need an author name (it won't get used)
             $return['author_name'][] = 'nullable';
         } else {
@@ -43,24 +43,24 @@ class AddNewCommentRequest extends FormRequest
         }
 
         // is captcha enabled? If so, get the rules from its class.
-        if (config("hessamcms.captcha.captcha_enabled")) {
+        if (config("binshopsblog.captcha.captcha_enabled")) {
             /** @var string $captcha_class */
-            $captcha_class = config("hessamcms.captcha.captcha_type");
+            $captcha_class = config("binshopsblog.captcha.captcha_type");
 
-            /** @var \HessamCMS\Interfaces\CaptchaInterface $captcha */
+            /** @var \BinshopsBlog\Interfaces\CaptchaInterface $captcha */
             $captcha = new $captcha_class;
 
             $return[$captcha->captcha_field_name()] = $captcha->rules();
         }
 
         // in case you need to implement something custom, you can use this...
-        if (config("hessamcms.comments.rules") && is_callable(config("hessamcms.comments.rules"))) {
+        if (config("binshopsblog.comments.rules") && is_callable(config("binshopsblog.comments.rules"))) {
             /** @var callable $func */
-            $func = config('hessamcms.comments.rules');
+            $func = config('binshopsblog.comments.rules');
             $return = $func($return);
         }
 
-        if (config("hessamcms.comments.require_author_email")) {
+        if (config("binshopsblog.comments.require_author_email")) {
             $return['author_email'][] = 'required';
         }
 

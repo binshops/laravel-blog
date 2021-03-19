@@ -1,23 +1,23 @@
 <?php
 
-namespace HessamCMS\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use HessamCMS\Models\HessamPost;
-use HessamCMS\Models\HessamPostTranslation;
+use BinshopsBlog\Models\BinshopsPost;
+use BinshopsBlog\Models\BinshopsPostTranslation;
 
 /**
  * Class UploadedImage
- * @package HessamCMS\Events
+ * @package BinshopsBlog\Events
  */
 class UploadedImage
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  HessamPost|null */
-    public $hessamCMSPost;
+    /** @var  BinshopsPost|null */
+    public $binshopsBlogPost;
     /**
      * @var
      */
@@ -30,14 +30,14 @@ class UploadedImage
      * UploadedImage constructor.
      *
      * @param $image_filename - the new filename
-     * @param HessamPost $hessamCMSPost
+     * @param BinshopsPost $binshopsBlogPost
      * @param $image
      * @param $source string|null  the __METHOD__  firing this event (or other string)
      */
-    public function __construct(string $image_filename, $image, HessamPostTranslation $hessamCMSPost=null, string $source='other')
+    public function __construct(string $image_filename, $image, BinshopsPostTranslation $binshopsBlogPost=null, string $source='other')
     {
         $this->image_filename = $image_filename;
-        $this->hessamCMSPost=$hessamCMSPost;
+        $this->binshopsBlogPost=$binshopsBlogPost;
         $this->image=$image;
         $this->source=$source;
     }

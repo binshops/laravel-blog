@@ -1,18 +1,18 @@
 <?php
 
 
-namespace HessamCMS\Middleware;
+namespace BinshopsBlog\Middleware;
 use Closure;
-use HessamCMS\Models\HessamConfiguration;
-use HessamCMS\Models\HessamLanguage;
+use BinshopsBlog\Models\BinshopsConfiguration;
+use BinshopsBlog\Models\BinshopsLanguage;
 
 class LoadLanguage
 {
 
     public function handle($request, Closure $next)
     {
-        $default_locale = HessamConfiguration::get('DEFAULT_LANGUAGE_LOCALE');
-        $lang = HessamLanguage::where('locale', $default_locale)
+        $default_locale = BinshopsConfiguration::get('DEFAULT_LANGUAGE_LOCALE');
+        $lang = BinshopsLanguage::where('locale', $default_locale)
             ->first();
 
         $request->attributes->add([

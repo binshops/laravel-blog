@@ -1,30 +1,30 @@
 <?php
 
-namespace HessamCMS\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use HessamCMS\Models\HessamCategory;
+use BinshopsBlog\Models\BinshopsCategory;
 
 /**
  * Class CategoryWillBeDeleted
- * @package HessamCMS\Events
+ * @package BinshopsBlog\Events
  */
 class CategoryWillBeDeleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  HessamCategory */
-    public $hessamCMSCategory;
+    /** @var  BinshopsCategory */
+    public $binshopsBlogCategory;
 
     /**
      * CategoryWillBeDeleted constructor.
-     * @param HessamCategory $hessamCMSCategory
+     * @param BinshopsCategory $binshopsBlogCategory
      */
-    public function __construct(HessamCategory $hessamCMSCategory)
+    public function __construct(BinshopsCategory $binshopsBlogCategory)
     {
-        $this->hessamCMSCategory=$hessamCMSCategory;
+        $this->binshopsBlogCategory=$binshopsBlogCategory;
     }
 
 }

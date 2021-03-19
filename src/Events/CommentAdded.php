@@ -1,34 +1,34 @@
 <?php
 
-namespace HessamCMS\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use HessamCMS\Models\HessamComment;
-use HessamCMS\Models\HessamPost;
+use BinshopsBlog\Models\BinshopsComment;
+use BinshopsBlog\Models\BinshopsPost;
 
 /**
  * Class CommentAdded
- * @package HessamCMS\Events
+ * @package BinshopsBlog\Events
  */
 class CommentAdded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  HessamPost */
-    public $hessamCMSPost;
-    /** @var  HessamComment */
+    /** @var  BinshopsPost */
+    public $binshopsBlogPost;
+    /** @var  BinshopsComment */
     public $newComment;
 
     /**
      * CommentAdded constructor.
-     * @param HessamPost $hessamCMSPost
-     * @param HessamComment $newComment
+     * @param BinshopsPost $binshopsBlogPost
+     * @param BinshopsComment $newComment
      */
-    public function __construct(HessamPost $hessamCMSPost, HessamComment $newComment)
+    public function __construct(BinshopsPost $binshopsBlogPost, BinshopsComment $newComment)
     {
-        $this->hessamCMSPost=$hessamCMSPost;
+        $this->binshopsBlogPost=$binshopsBlogPost;
         $this->newComment=$newComment;
     }
 

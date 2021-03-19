@@ -1,4 +1,4 @@
-<?php namespace HessamCMS\Interfaces;
+<?php namespace BinshopsBlog\Interfaces;
 
 interface SearchResultInterface
 {

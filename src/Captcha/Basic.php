@@ -1,15 +1,15 @@
-<?php namespace HessamCMS\Captcha;
+<?php namespace BinshopsBlog\Captcha;
 
 /**
  * Class Basic
- * @package HessamCMS\Captcha
+ * @package BinshopsBlog\Captcha
  */
 class Basic extends CaptchaAbstract
 {
 
     public function __construct()
     {
-        if (!config("hessamcms.captcha.basic_question") || !config("hessamcms.captcha.basic_answers")) {
+        if (!config("binshopsblog.captcha.basic_question") || !config("binshopsblog.captcha.basic_answers")) {
             throw new \DomainException("Invalid question or answers for captcha");
         }
     }
@@ -31,7 +31,7 @@ class Basic extends CaptchaAbstract
      */
     public function view()
     {
-        return 'hessamcms::captcha.basic';
+        return 'binshopsblog::captcha.basic';
     }
 
     /**
@@ -44,7 +44,7 @@ class Basic extends CaptchaAbstract
     public function rules()
     {
         $check_func = function ($attribute, $value, $fail) {
-            $answers = config("hessamcms.captcha.basic_answers");
+            $answers = config("binshopsblog.captcha.basic_answers");
             // strtolower everything
             $value = strtolower(trim($value));
             $answers = strtolower($answers);

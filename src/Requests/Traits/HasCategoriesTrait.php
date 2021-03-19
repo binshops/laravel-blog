@@ -1,10 +1,10 @@
-<?php namespace HessamCMS\Requests\Traits;
+<?php namespace BinshopsBlog\Requests\Traits;
 
-use HessamCMS\Models\HessamCategory;
+use BinshopsBlog\Models\BinshopsCategory;
 
 /**
  * Class HasCategoriesTrait
- * @package HessamCMS\Requests\Traits
+ * @package BinshopsBlog\Requests\Traits
  */
 trait HasCategoriesTrait
 {
@@ -25,7 +25,7 @@ trait HasCategoriesTrait
 
         // check they are valid, return the IDs
         // limit to 1000 ... just in case someone submits with too many for the web server. No error is given if they submit more than 1k.
-        $vals = HessamCategory::whereIn("id", array_keys($this->get("category")))->select("id")->limit(1000)->get();
+        $vals = BinshopsCategory::whereIn("id", array_keys($this->get("category")))->select("id")->limit(1000)->get();
         $vals = array_values($vals->pluck("id")->toArray());
 
         return $vals;

@@ -1,16 +1,16 @@
 <?php
 
 
-namespace HessamCMS\Middleware;
+namespace BinshopsBlog\Middleware;
 
 use Closure;
-use HessamCMS\Models\HessamLanguage;
+use BinshopsBlog\Models\BinshopsLanguage;
 
 class DetectLanguage
 {
     public function handle($request, Closure $next)
     {
-        $lang = HessamLanguage::where('locale', $request->route('locale'))
+        $lang = BinshopsLanguage::where('locale', $request->route('locale'))
             ->where('active', true)
             ->first();
 

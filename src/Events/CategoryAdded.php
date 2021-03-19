@@ -1,33 +1,33 @@
 <?php
 
-namespace HessamCMS\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use HessamCMS\Models\HessamCategory;
-use HessamCMS\Models\HessamCategoryTranslation;
+use BinshopsBlog\Models\BinshopsCategory;
+use BinshopsBlog\Models\BinshopsCategoryTranslation;
 
 /**
  * Class CategoryAdded
- * @package HessamCMS\Events
+ * @package BinshopsBlog\Events
  */
 class CategoryAdded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  HessamCategory */
-    public $hessamCategory;
-    public $hessamCategoryTranslation;
+    /** @var  BinshopsCategory */
+    public $binshopsCategory;
+    public $binshopsCategoryTranslation;
 
     /**
      * CategoryAdded constructor.
-     * @param HessamCategory $hessamCategory
+     * @param BinshopsCategory $binshopsCategory
      */
-    public function __construct(HessamCategory $hessamCategory, HessamCategoryTranslation  $hessamCategoryTranslation)
+    public function __construct(BinshopsCategory $binshopsCategory, BinshopsCategoryTranslation  $binshopsCategoryTranslation)
     {
-        $this->hessamCategory=$hessamCategory;
-        $this->hessamCategoryTranslation = $hessamCategoryTranslation;
+        $this->binshopsCategory=$binshopsCategory;
+        $this->binshopsCategoryTranslation = $binshopsCategoryTranslation;
     }
 
 }

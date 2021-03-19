@@ -1,12 +1,12 @@
 <?php
 
-namespace HessamCMS\Laravel\Fulltext;
+namespace BinshopsBlog\Laravel\Fulltext;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * @property \HessamCMS\Laravel\Fulltext\IndexedRecord|null $indexedRecord
+ * @property \BinshopsBlog\Laravel\Fulltext\IndexedRecord|null $indexedRecord
  */
 trait Indexable
 {
