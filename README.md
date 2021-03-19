@@ -33,7 +33,7 @@ php artisan ui vue --auth
 
 2- Run the following two commands to copy config file, migration files, and view files
 
-`php artisan vendor:publish --provider="HessamCMS\HessamCMSServiceProvider"`
+`php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
 3- Execute migrations to create tables
 
