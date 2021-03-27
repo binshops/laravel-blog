@@ -22,7 +22,7 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 ### Quick and easy installation
 1- Install via composer
 
-`composer require binshops/laravel-blog`
+`composer require binshops/laravel-blog:v8.1.1`
 
 For a fresh Laravel installation run the following too:
 
@@ -74,12 +74,10 @@ php artisan ui vue --auth
 
 5- Create a directory in `public/` named `blog_images`
 
-6- Login as admin and setup your package: `/blog_admin/setup`
-
 Congrats! Your blog is ready to use. (URLs are customizable in the config file)
 
 Admin panel URI: `/blog_admin`
-Front URI: `/en/blog`
+Front URI: `/blog`
 
 To see package on Packagist click this [Link](https://packagist.org/packages/binshops/laravel-blog)
 
