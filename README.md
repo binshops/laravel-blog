@@ -83,8 +83,18 @@ Congrats! Your blog is ready to use. (URLs are customizable in the config file)
 
 To see package on Packagist click this [Link](https://packagist.org/packages/binshops/laravel-blog)
 
-### Bagisto version
-To see the Bagisto version of this package go to `bagisto-compatible` branch 
+### Single Language Version
+To install the single language version of the package use version v8.1x:
+
+1- `composer require binshops/laravel-blog:v8.1.1`
+
+2- `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
+
+3- `php artisan vendor:publish --tag=laravel-fulltext`
+
+4- `php artisan migrate;`
+
+You can see the single version in "single-lang" branch.
 
 ## Important Notes
 - For laravel 8.x's default auth User model, change user model in `binshopsblog.php` to: `\App\Models\User::class`
