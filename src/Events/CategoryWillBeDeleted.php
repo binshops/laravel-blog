@@ -1,30 +1,30 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\BlogEtcCategory;
+use BinshopsBlog\Models\BinshopsBlogCategory;
 
 /**
  * Class CategoryWillBeDeleted
- * @package WebDevEtc\BlogEtc\Events
+ * @package BinshopsBlog\Events
  */
 class CategoryWillBeDeleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  BlogEtcCategory */
-    public $blogEtcCategory;
+    /** @var  BinshopsBlogCategory */
+    public $BinshopsBlogCategory;
 
     /**
      * CategoryWillBeDeleted constructor.
-     * @param BlogEtcCategory $blogEtcCategory
+     * @param BinshopsBlogCategory $BinshopsBlogCategory
      */
-    public function __construct(BlogEtcCategory $blogEtcCategory)
+    public function __construct(BinshopsBlogCategory $BinshopsBlogCategory)
     {
-        $this->blogEtcCategory=$blogEtcCategory;
+        $this->BinshopsBlogCategory=$BinshopsBlogCategory;
     }
 
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Requests;
+namespace BinshopsBlog\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use WebDevEtc\BlogEtc\Interfaces\BaseRequestInterface;
+use BinshopsBlog\Interfaces\BaseRequestInterface;
 
 /**
  * Class BaseRequest
- * @package WebDevEtc\BlogEtc\Requests
+ * @package BinshopsBlog\Requests
  */
 class UploadImageRequest extends BaseRequest
 {

@@ -1,37 +1,37 @@
 <?php
 
-Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Controllers'], function () {
+Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers'], function () {
 
 
     /** The main public facing blog routes - show all posts, view a category, rss feed, view a single post, also the add comment route */
-    Route::group(['prefix' => config('blogetc.blog_prefix', 'blog')], function () {
+    Route::group(['prefix' => config('binshopsblog.blog_prefix', 'blog')], function () {
 
-        Route::get('/', 'BlogEtcReaderController@index')
-            ->name('blogetc.index');
+        Route::get('/', 'BinshopsBlogReaderController@index')
+            ->name('binshopsblog.index');
 
-        Route::get('/search', 'BlogEtcReaderController@search')
-            ->name('blogetc.search');
+        Route::get('/search', 'BinshopsBlogReaderController@search')
+            ->name('binshopsblog.search');
 
-        Route::get('/feed', 'BlogEtcRssFeedController@feed')
-            ->name('blogetc.feed'); //RSS feed
+        Route::get('/feed', 'BinshopsBlogRssFeedController@feed')
+            ->name('binshopsblog.feed'); //RSS feed
 
-        Route::get('/category{subcategories}', 'BlogEtcReaderController@view_category')->where('subcategories', '^[a-zA-Z0-9-_\/]+$')->name('blogetc.view_category');
+        Route::get('/category{subcategories}', 'BinshopsBlogReaderController@view_category')->where('subcategories', '^[a-zA-Z0-9-_\/]+$')->name('binshopsblog.view_category');
 
 //        Route::get('/category/{categorySlug}',
-//            'BlogEtcReaderController@view_category')
-//            ->name('blogetc.view_category');
+//            'BinshopsBlogReaderController@view_category')
+//            ->name('binshopsblog.view_category');
 
         Route::get('/{blogPostSlug}',
-            'BlogEtcReaderController@viewSinglePost')
-            ->name('blogetc.single');
+            'BinshopsBlogReaderController@viewSinglePost')
+            ->name('binshopsblog.single');
 
 
         // throttle to a max of 10 attempts in 3 minutes:
         Route::group(['middleware' => 'throttle:10,3'], function () {
 
             Route::post('save_comment/{blogPostSlug}',
-                'BlogEtcCommentWriterController@addNewComment')
-                ->name('blogetc.comments.add_new_comment');
+                'BinshopsBlogCommentWriterController@addNewComment')
+                ->name('binshopsblog.comments.add_new_comment');
 
 
         });
@@ -40,86 +40,86 @@ Route::group(['middleware' => ['web'], 'namespace' => '\WebDevEtc\BlogEtc\Contro
 
 
     /* Admin backend routes - CRUD for posts, categories, and approving/deleting submitted comments */
-    Route::group(['prefix' => config('blogetc.admin_prefix', 'blog_admin')], function () {
+    Route::group(['prefix' => config('binshopsblog.admin_prefix', 'blog_admin')], function () {
 
-        Route::get('/', 'BlogEtcAdminController@index')
-            ->name('blogetc.admin.index');
+        Route::get('/', 'BinshopsBlogAdminController@index')
+            ->name('binshopsblog.admin.index');
 
         Route::get('/add_post',
-            'BlogEtcAdminController@create_post')
-            ->name('blogetc.admin.create_post');
+            'BinshopsBlogAdminController@create_post')
+            ->name('binshopsblog.admin.create_post');
 
 
         Route::post('/add_post',
-            'BlogEtcAdminController@store_post')
-            ->name('blogetc.admin.store_post');
+            'BinshopsBlogAdminController@store_post')
+            ->name('binshopsblog.admin.store_post');
 
 
         Route::get('/edit_post/{blogPostId}',
-            'BlogEtcAdminController@edit_post')
-            ->name('blogetc.admin.edit_post');
+            'BinshopsBlogAdminController@edit_post')
+            ->name('binshopsblog.admin.edit_post');
 
         Route::patch('/edit_post/{blogPostId}',
-            'BlogEtcAdminController@update_post')
-            ->name('blogetc.admin.update_post');
+            'BinshopsBlogAdminController@update_post')
+            ->name('binshopsblog.admin.update_post');
 
         //Removes post's photo
         Route::get('/remove_photo/{slug}',
-            'BlogEtcAdminController@remove_photo')
-            ->name('blogetc.admin.remove_photo');
+            'BinshopsBlogAdminController@remove_photo')
+            ->name('binshopsblog.admin.remove_photo');
 
         Route::group(['prefix' => "image_uploads",], function () {
 
-            Route::get("/", "BlogEtcImageUploadController@index")->name("blogetc.admin.images.all");
+            Route::get("/", "BinshopsBlogImageUploadController@index")->name("binshopsblog.admin.images.all");
 
-            Route::get("/upload", "BlogEtcImageUploadController@create")->name("blogetc.admin.images.upload");
-            Route::post("/upload", "BlogEtcImageUploadController@store")->name("blogetc.admin.images.store");
+            Route::get("/upload", "BinshopsBlogImageUploadController@create")->name("binshopsblog.admin.images.upload");
+            Route::post("/upload", "BinshopsBlogImageUploadController@store")->name("binshopsblog.admin.images.store");
 
         });
 
 
         Route::delete('/delete_post/{blogPostId}',
-            'BlogEtcAdminController@destroy_post')
-            ->name('blogetc.admin.destroy_post');
+            'BinshopsBlogAdminController@destroy_post')
+            ->name('binshopsblog.admin.destroy_post');
 
         Route::group(['prefix' => 'comments',], function () {
 
             Route::get('/',
-                'BlogEtcCommentsAdminController@index')
-                ->name('blogetc.admin.comments.index');
+                'BinshopsBlogCommentsAdminController@index')
+                ->name('binshopsblog.admin.comments.index');
 
             Route::patch('/{commentId}',
-                'BlogEtcCommentsAdminController@approve')
-                ->name('blogetc.admin.comments.approve');
+                'BinshopsBlogCommentsAdminController@approve')
+                ->name('binshopsblog.admin.comments.approve');
             Route::delete('/{commentId}',
-                'BlogEtcCommentsAdminController@destroy')
-                ->name('blogetc.admin.comments.delete');
+                'BinshopsBlogCommentsAdminController@destroy')
+                ->name('binshopsblog.admin.comments.delete');
         });
 
         Route::group(['prefix' => 'categories'], function () {
 
             Route::get('/',
-                'BlogEtcCategoryAdminController@index')
-                ->name('blogetc.admin.categories.index');
+                'BinshopsBlogCategoryAdminController@index')
+                ->name('binshopsblog.admin.categories.index');
 
             Route::get('/add_category',
-                'BlogEtcCategoryAdminController@create_category')
-                ->name('blogetc.admin.categories.create_category');
+                'BinshopsBlogCategoryAdminController@create_category')
+                ->name('binshopsblog.admin.categories.create_category');
             Route::post('/add_category',
-                'BlogEtcCategoryAdminController@store_category')
-                ->name('blogetc.admin.categories.store_category');
+                'BinshopsBlogCategoryAdminController@store_category')
+                ->name('binshopsblog.admin.categories.store_category');
 
             Route::get('/edit_category/{categoryId}',
-                'BlogEtcCategoryAdminController@edit_category')
-                ->name('blogetc.admin.categories.edit_category');
+                'BinshopsBlogCategoryAdminController@edit_category')
+                ->name('binshopsblog.admin.categories.edit_category');
 
             Route::patch('/edit_category/{categoryId}',
-                'BlogEtcCategoryAdminController@update_category')
-                ->name('blogetc.admin.categories.update_category');
+                'BinshopsBlogCategoryAdminController@update_category')
+                ->name('binshopsblog.admin.categories.update_category');
 
             Route::delete('/delete_category/{categoryId}',
-                'BlogEtcCategoryAdminController@destroy_category')
-                ->name('blogetc.admin.categories.destroy_category');
+                'BinshopsBlogCategoryAdminController@destroy_category')
+                ->name('binshopsblog.admin.categories.destroy_category');
 
         });
 

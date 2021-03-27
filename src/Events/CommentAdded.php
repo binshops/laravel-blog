@@ -1,34 +1,34 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\BlogEtcComment;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use BinshopsBlog\Models\BinshopsBlogComment;
+use BinshopsBlog\Models\BinshopsBlogPost;
 
 /**
  * Class CommentAdded
- * @package WebDevEtc\BlogEtc\Events
+ * @package BinshopsBlog\Events
  */
 class CommentAdded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  BlogEtcPost */
-    public $blogEtcPost;
-    /** @var  BlogEtcComment */
+    /** @var  BinshopsBlogPost */
+    public $BinshopsBlogPost;
+    /** @var  BinshopsBlogComment */
     public $newComment;
 
     /**
      * CommentAdded constructor.
-     * @param BlogEtcPost $blogEtcPost
-     * @param BlogEtcComment $newComment
+     * @param BinshopsBlogPost $BinshopsBlogPost
+     * @param BinshopsBlogComment $newComment
      */
-    public function __construct(BlogEtcPost $blogEtcPost, BlogEtcComment $newComment)
+    public function __construct(BinshopsBlogPost $BinshopsBlogPost, BinshopsBlogComment $newComment)
     {
-        $this->blogEtcPost=$blogEtcPost;
+        $this->BinshopsBlogPost=$BinshopsBlogPost;
         $this->newComment=$newComment;
     }
 

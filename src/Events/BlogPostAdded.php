@@ -1,30 +1,30 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\BlogEtcPost;
+use BinshopsBlog\Models\BinshopsBlogPost;
 
 /**
  * Class BlogPostAdded
- * @package WebDevEtc\BlogEtc\Events
+ * @package BinshopsBlog\Events
  */
 class BlogPostAdded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  BlogEtcPost */
-    public $blogEtcPost;
+    /** @var  BinshopsBlogPost */
+    public $BinshopsBlogPost;
 
     /**
      * BlogPostAdded constructor.
-     * @param BlogEtcPost $blogEtcPost
+     * @param BinshopsBlogPost $BinshopsBlogPost
      */
-    public function __construct(BlogEtcPost $blogEtcPost)
+    public function __construct(BinshopsBlogPost $BinshopsBlogPost)
     {
-        $this->blogEtcPost=$blogEtcPost;
+        $this->BinshopsBlogPost=$BinshopsBlogPost;
     }
 
 }

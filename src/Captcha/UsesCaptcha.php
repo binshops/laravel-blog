@@ -1,11 +1,11 @@
-<?php namespace WebDevEtc\BlogEtc\Captcha;
+<?php namespace BinshopsBlog\Captcha;
 
 /**
  * Trait UsesCaptcha
  *
- * For instantiating the config("blogetc.captcha.captcha_type") object.
+ * For instantiating the config("binshopsblog.captcha.captcha_type") object.
  *
- * @package WebDevEtc\BlogEtc\Captcha
+ * @package BinshopsBlog\Captcha
  */
 trait UsesCaptcha
 {
@@ -15,13 +15,13 @@ trait UsesCaptcha
      */
     private function getCaptchaObject()
     {
-        if (!config("blogetc.captcha.captcha_enabled")) {
+        if (!config("binshopsblog.captcha.captcha_enabled")) {
             return null;
         }
 
         // else: captcha is enabled
         /** @var string $captcha_class */
-        $captcha_class = config("blogetc.captcha.captcha_type");
+        $captcha_class = config("binshopsblog.captcha.captcha_type");
         return new $captcha_class;
     }
 

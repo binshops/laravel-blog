@@ -1,13 +1,13 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Requests;
+namespace BinshopsBlog\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use WebDevEtc\BlogEtc\Interfaces\BaseRequestInterface;
+use BinshopsBlog\Interfaces\BaseRequestInterface;
 
 /**
  * Class BaseRequest
- * @package WebDevEtc\BlogEtc\Requests
+ * @package BinshopsBlog\Requests
  */
 abstract class BaseRequest extends FormRequest implements BaseRequestInterface
 {
@@ -18,6 +18,6 @@ abstract class BaseRequest extends FormRequest implements BaseRequestInterface
      */
     public function authorize()
     {
-        return \Auth::check() && \Auth::user()->canManageBlogEtcPosts();
+        return \Auth::check() && \Auth::user()->canManageBinshopsBlogPosts();
     }
 }

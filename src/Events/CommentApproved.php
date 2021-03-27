@@ -1,28 +1,28 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Events;
+namespace BinshopsBlog\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use WebDevEtc\BlogEtc\Models\BlogEtcComment;
+use BinshopsBlog\Models\BinshopsBlogComment;
 
 /**
  * Class CommentApproved
- * @package WebDevEtc\BlogEtc\Events
+ * @package BinshopsBlog\Events
  */
 class CommentApproved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /** @var  BlogEtcComment */
+    /** @var  BinshopsBlogComment */
     public $comment;
 
     /**
      * CommentApproved constructor.
-     * @param BlogEtcComment $comment
+     * @param BinshopsBlogComment $comment
      */
-    public function __construct(BlogEtcComment $comment)
+    public function __construct(BinshopsBlogComment $comment)
     {
         $this->comment=$comment;
         // you can get the blog post via $comment->post

@@ -1,6 +1,6 @@
 <?php
 
-namespace WebDevEtc\BlogEtc\Requests;
+namespace BinshopsBlog\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
