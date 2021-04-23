@@ -112,8 +112,6 @@ class BinshopsAdminController extends Controller
             //cretes new post
             $new_blog_post = new BinshopsPost();
             $translation = new BinshopsPostTranslation();
-
-            $new_blog_post->posted_at = Carbon::now();
         }else{
             //edits post
             $new_blog_post = BinshopsPost::findOrFail($request['post_id']);
@@ -123,6 +121,12 @@ class BinshopsAdminController extends Controller
         if ($post_exists){
             Helpers::flash_message("Post already exists - try to change the slug for this language");
         }else {
+            if ($request['posted_at']) {
+                $new_blog_post->posted_at = Carbon::createFromFormat('Y-m-d H:i:s', $request['posted_at'])->toDateTimeString();
+            } else {
+                $new_blog_post->posted_at = Carbon::now();
+            }
+
             $new_blog_post->is_published = $request['is_published'];
             $new_blog_post->user_id = \Auth::user()->id;
             $new_blog_post->save();
@@ -170,7 +174,6 @@ class BinshopsAdminController extends Controller
             //cretes new post
             $new_blog_post = new BinshopsPost();
             $new_blog_post->is_published = true;
-            $new_blog_post->posted_at = Carbon::now();
         }else{
             //edits post
             $new_blog_post = BinshopsPost::findOrFail($request['post_id']);
@@ -181,6 +184,12 @@ class BinshopsAdminController extends Controller
             if ($post_exists){
                 Helpers::flash_message("Post already exists - try to change the slug for this language");
             }else{
+                if ($request['posted_at']) {
+                    $new_blog_post->posted_at = Carbon::createFromFormat('Y-m-d H:i:s', $request['posted_at'])->toDateTimeString();
+                } else {
+                    $new_blog_post->posted_at = Carbon::now();
+                }
+
                 $new_blog_post->is_published = $request['is_published'];
                 $new_blog_post->user_id = \Auth::user()->id;
                 $new_blog_post->save();
@@ -315,13 +324,18 @@ class BinshopsAdminController extends Controller
 
         if (!$translation){
             $translation = new BinshopsPostTranslation();
-            $new_blog_post->posted_at = Carbon::now();
         }
 
         $post_exists = $this->check_if_same_post_exists($request['slug'] , $request['lang_id'], $blogPostId);
         if ($post_exists){
             Helpers::flash_message("Post already exists - try to change the slug for this language");
         }else {
+            if ($request['posted_at']) {
+                $new_blog_post->posted_at = Carbon::createFromFormat('Y-m-d H:i:s', $request['posted_at'])->toDateTimeString();
+            } else {
+                $new_blog_post->posted_at = Carbon::now();
+            }
+
             $new_blog_post->is_published = $request['is_published'];
             $new_blog_post->user_id = \Auth::user()->id;
             $new_blog_post->save();
