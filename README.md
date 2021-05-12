@@ -19,7 +19,7 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 - Multi Level Category - nested sets using Baum
 - Multi Language Support 
 
-### Quick and easy installation
+### Quick and easy installation (Multi-lang version)
 1- Install via composer
 
 `composer require binshops/laravel-blog`
@@ -86,7 +86,7 @@ To see package on Packagist click this [Link](https://packagist.org/packages/bin
 ### Single Language Version
 To install the single language version of the package use version v8.1x:
 
-1- `composer require binshops/laravel-blog:v8.1.1`
+1- `composer require binshops/laravel-blog:v8.1.2`
 
 2- `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
