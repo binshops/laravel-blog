@@ -1,5 +1,5 @@
 # Laravel Blog
-Single version of Binshops Laravel Blog 
+Single language version of Binshops Laravel Blog 
 
 ### Contact us for any customization:
 contact@binshops.com

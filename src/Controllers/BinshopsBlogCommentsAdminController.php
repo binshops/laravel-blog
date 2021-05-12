@@ -40,7 +40,7 @@ class BinshopsBlogCommentsAdminController extends Controller
         }
 
         $comments = $comments->paginate(100);
-        return view("BinshopsBlog_admin::comments.index")
+        return view("binshopsblog_admin::comments.index")
             ->withComments($comments
             );
     }

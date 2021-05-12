@@ -49,7 +49,7 @@ class BinshopsBlogAdminController extends Controller
         $posts = BinshopsBlogPost::orderBy("posted_at", "desc")
             ->paginate(10);
 
-        return view("BinshopsBlog_admin::index", ['posts'=>$posts]);
+        return view("binshopsblog_admin::index", ['posts'=>$posts]);
     }
 
     /**
@@ -58,7 +58,7 @@ class BinshopsBlogAdminController extends Controller
      */
     public function create_post()
     {
-        return view("BinshopsBlog_admin::posts.add_post");
+        return view("binshopsblog_admin::posts.add_post");
     }
 
     /**
@@ -97,7 +97,7 @@ class BinshopsBlogAdminController extends Controller
     public function edit_post( $blogPostId)
     {
         $post = BinshopsBlogPost::findOrFail($blogPostId);
-        return view("BinshopsBlog_admin::posts.edit_post")->withPost($post);
+        return view("binshopsblog_admin::posts.edit_post")->withPost($post);
     }
 
     /**
@@ -179,7 +179,7 @@ class BinshopsBlogAdminController extends Controller
         // todo - delete the featured images?
         // At the moment it just issues a warning saying the images are still on the server.
 
-        return view("BinshopsBlog_admin::posts.deleted_post")
+        return view("binshopsblog_admin::posts.deleted_post")
             ->withDeletedPost($post);
 
     }

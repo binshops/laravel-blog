@@ -1,4 +1,4 @@
-@extends("BinshopsBlog_admin::layouts.admin_layout")
+@extends("binshopsblog_admin::layouts.admin_layout")
 @section("content")
 
 
@@ -7,7 +7,7 @@
     <form method='post' action='{{route("binshopsblog.admin.store_post")}}'  enctype="multipart/form-data" >
 
         @csrf
-        @include("BinshopsBlog_admin::posts.form", ['post' => new \BinshopsBlog\Models\BinshopsBlogPost()])
+        @include("binshopsblog_admin::posts.form", ['post' => new \BinshopsBlog\Models\BinshopsBlogPost()])
 
         <input type='submit' class='btn btn-primary' value='Add new post' >
 

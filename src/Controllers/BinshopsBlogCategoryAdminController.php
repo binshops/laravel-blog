@@ -35,7 +35,7 @@ class BinshopsBlogCategoryAdminController extends Controller
     public function index(){
 
         $categories = BinshopsBlogCategory::orderBy("category_name")->paginate(25);
-        return view("BinshopsBlog_admin::categories.index")->withCategories($categories);
+        return view("binshopsblog_admin::categories.index")->withCategories($categories);
     }
 
     /**
@@ -44,7 +44,7 @@ class BinshopsBlogCategoryAdminController extends Controller
      */
     public function create_category(){
 
-        return view("BinshopsBlog_admin::categories.add_category",[
+        return view("binshopsblog_admin::categories.add_category",[
             'category' => new \BinshopsBlog\Models\BinshopsBlogCategory(),
             'categories_list' => BinshopsBlogCategory::orderBy("category_name")->get()
         ]);
@@ -76,7 +76,7 @@ class BinshopsBlogCategoryAdminController extends Controller
      */
     public function edit_category($categoryId){
         $category = BinshopsBlogCategory::findOrFail($categoryId);
-        return view("BinshopsBlog_admin::categories.edit_category",[
+        return view("binshopsblog_admin::categories.edit_category",[
             'categories_list' => BinshopsBlogCategory::orderBy("category_name")->get()
         ])->withCategory($category);
     }
@@ -115,7 +115,7 @@ class BinshopsBlogCategoryAdminController extends Controller
         event(new CategoryWillBeDeleted($category));
         $category->delete();
 
-        return view ("BinshopsBlog_admin::categories.deleted_category");
+        return view ("binshopsblog_admin::categories.deleted_category");
 
     }
 

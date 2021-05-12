@@ -1,4 +1,4 @@
-@extends("BinshopsBlog_admin::layouts.admin_layout")
+@extends("binshopsblog_admin::layouts.admin_layout")
 @section("content")
 
 
@@ -10,7 +10,7 @@
 
         @csrf
         @method("patch")
-        @include("BinshopsBlog_admin::posts.form", ['post' => $post])
+        @include("binshopsblog_admin::posts.form", ['post' => $post])
 
         <input type='submit' class='btn btn-primary' value='Save Changes' >
 

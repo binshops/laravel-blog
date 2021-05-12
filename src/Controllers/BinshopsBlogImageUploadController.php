@@ -46,7 +46,7 @@ class BinshopsBlogImageUploadController extends Controller
 
     public function index()
     {
-        return view("BinshopsBlog_admin::imageupload.index", ['uploaded_photos' => BinshopsBlogUploadedPhoto::orderBy("id", "desc")->paginate(10)]);
+        return view("binshopsblog_admin::imageupload.index", ['uploaded_photos' => BinshopsBlogUploadedPhoto::orderBy("id", "desc")->paginate(10)]);
     }
 
     /**
@@ -56,7 +56,7 @@ class BinshopsBlogImageUploadController extends Controller
      */
     public function create()
     {
-        return view("BinshopsBlog_admin::imageupload.create", []);
+        return view("binshopsblog_admin::imageupload.create", []);
     }
 
     /**
@@ -70,7 +70,7 @@ class BinshopsBlogImageUploadController extends Controller
     {
         $processed_images = $this->processUploadedImages($request);
 
-        return view("BinshopsBlog_admin::imageupload.uploaded", ['images' => $processed_images]);
+        return view("binshopsblog_admin::imageupload.uploaded", ['images' => $processed_images]);
     }
 
     /**

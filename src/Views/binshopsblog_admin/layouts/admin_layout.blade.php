@@ -26,15 +26,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito" crossorigin="anonymous">
 
     <!-- Styles -->
-{{--    @if(file_exists(public_path("BinshopsBlog_admin_css.css")))--}}
-        <link href="{{ asset('BinshopsBlog_admin_css.css') }}" rel="stylesheet">
-{{--    @else--}}
-{{--        <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-        {{--Edited your css/app.css file? Uncomment these lines to use plain bootstrap:--}}
-        {{--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">--}}
-        {{--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">--}}
-{{--    @endif--}}
-
+        <link href="{{ asset('binshopsblog_admin.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -89,7 +81,7 @@
         <div class="container">
             <div class='row full-width-div nav-bar-full'>
                 <div class='list-group-color'>
-                    @include("BinshopsBlog_admin::layouts.sidebar")
+                    @include("binshopsblog_admin::layouts.sidebar")
                     <div class=' list-group-color text-center mt-5 mb-3 text-muted binshops-version'>
                         <small><a href='https://github.com/vbinshops/laravel-blogger'>Binshops Blog</a></small>
 

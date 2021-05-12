@@ -43,7 +43,7 @@ class BinshopsBlogServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Views/binshopsblog' => base_path('resources/views/vendor/binshopsblog'),
             __DIR__ . '/Config/binshopsblog.php' => config_path('binshopsblog.php'),
-            __DIR__ . '/css/BinshopsBlog_admin_css.css' => public_path('BinshopsBlog_admin_css.css'),
+            __DIR__ . '/css/binshopsblog_admin.css' => public_path('binshopsblog_admin.css'),
             __DIR__ . '/css/binshops-blog.css' => public_path('binshops-blog.css'),
             __DIR__ . '/js/binshops-blog.js' => public_path('binshops-blog.js'),
         ]);
@@ -59,8 +59,8 @@ class BinshopsBlogServiceProvider extends ServiceProvider
     public function register()
     {
 
-        // for the admin backend views ( view("BinshopsBlog_admin::BLADEFILE") )
-        $this->loadViewsFrom(__DIR__ . "/Views/BinshopsBlog_admin", 'BinshopsBlog_admin');
+        // for the admin backend views ( view("binshopsblog_admin::BLADEFILE") )
+        $this->loadViewsFrom(__DIR__ . "/Views/binshopsblog_admin", 'binshopsblog_admin');
 
         // for public facing views (view("binshopsblog::BLADEFILE")):
         // if you do the vendor:publish, these will be copied to /resources/views/vendor/binshopsblog anyway
