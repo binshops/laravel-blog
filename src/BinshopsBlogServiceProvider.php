@@ -38,6 +38,9 @@ class BinshopsBlogServiceProvider extends ServiceProvider
         }
 
         foreach ([
+                     '2021_07_30_093700_create_binshops_fields_categories_table.php',
+                     '2021_07_30_093600_create_binshops_fields_values_table.php',
+                     '2021_07_30_093500_create_binshops_fields_table.php',
                      '2020_10_16_005400_create_binshops_categories_table.php',
                      '2020_10_16_005425_create_binshops_category_translations_table.php',
                      '2020_10_16_010039_create_binshops_posts_table.php',
