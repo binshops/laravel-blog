@@ -14,6 +14,7 @@ use BinshopsBlog\Middleware\LoadLanguage;
 use BinshopsBlog\Middleware\PackageSetup;
 use BinshopsBlog\Middleware\UserCanManageBlogPosts;
 use BinshopsBlog\Models\BinshopsCategoryTranslation;
+use BinshopsBlog\Models\BinshopsField;
 use BinshopsBlog\Models\BinshopsLanguage;
 use BinshopsBlog\Models\BinshopsPost;
 use BinshopsBlog\Models\BinshopsPostTranslation;
@@ -83,7 +84,8 @@ class BinshopsAdminController extends Controller
             'selected_lang' => $language_id,
             'post' => $new_post,
             'post_translation' => new \BinshopsBlog\Models\BinshopsPostTranslation(),
-            'post_id' => -1
+            'post_id' => -1,
+            'fields' => BinshopsField::all()
         ]);
     }
 
@@ -259,7 +261,8 @@ class BinshopsAdminController extends Controller
             'selected_lang' => $language_id,
             'selected_locale' => BinshopsLanguage::where('id', $language_id)->first()->locale,
             'post' => $post,
-            'post_translation' => $post_translation
+            'post_translation' => $post_translation,
+            'fields' => BinshopsField::all()
         ]);
     }
 
@@ -291,7 +294,8 @@ class BinshopsAdminController extends Controller
             'selected_lang' => $request['selected_lang'],
             'selected_locale' => BinshopsLanguage::where('id', $request['selected_lang'])->first()->locale,
             'post' => $post,
-            'post_translation' => $post_translation
+            'post_translation' => $post_translation,
+            'fields' => BinshopsField::all()
         ]);
     }
 
