@@ -135,6 +135,27 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
 
         });
 
+        Route::group(['prefix' => 'fields'], function () {
+            Route::get('/',
+                'BinshopsFieldAdminController@index')
+                ->name('binshopsblog.admin.fields.index');
+
+            Route::get('/add_category',
+                'BinshopsFieldAdminController@create_field')
+                ->name('binshopsblog.admin.fields.create_field');
+
+            Route::post('/store_field',
+                'BinshopsFieldAdminController@store_field')
+                ->name('binshopsblog.admin.fields.store_field');
+
+            Route::get('/edit_field/{fieldId}',
+                'BinshopsFieldAdminController@edit_field')
+                ->name('binshopsblog.admin.fields.edit_field');
+
+            Route::delete('/delete_field/{fieldId}',
+                'BinshopsFieldAdminController@destroy_field')
+                ->name('binshopsblog.admin.fields.destroy_field');
+        });
 
         Route::group(['prefix' => 'languages'], function () {
 
