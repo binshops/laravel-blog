@@ -89,6 +89,32 @@
 
     <li class="list-group-item list-group-color  justify-content-between lh-condensed">
         <div>
+            <h6 class="my-0"><a href="{{ route('binshopsblog.admin.fields.index') }}">Fields</a>
+                <span class="text-muted">(<?php
+                    $postCount = \BinshopsBlog\Models\BinshopsField::count();
+                    echo $postCount . " " . str_plural("Field", $postCount);
+                    ?>)</span>
+            </h6>
+
+
+            <small class="text-muted">Post fields</small>
+
+            <div class="list-group ">
+                <a href='{{ route('binshopsblog.admin.fields.index') }}'
+                   class='list-group-item list-group-color list-group-item list-group-color-action  @if(\Request::route()->getName() === 'binshopsblog.admin.fields.index') active @endif  '><i
+                            class="fa fa-object-group fa-fw" aria-hidden="true"></i>
+                    All Fields</a>
+                <a href='{{ route('binshopsblog.admin.fields.create_field') }}'
+                   class='list-group-item list-group-color list-group-item list-group-color-action  @if(\Request::route()->getName() === 'binshopsblog.admin.fields.create_field') active @endif  '><i
+                            class="fa fa-plus fa-fw" aria-hidden="true"></i>
+                    Add Field</a>
+            </div>
+        </div>
+
+    </li>
+
+    <li class="list-group-item list-group-color  justify-content-between lh-condensed">
+        <div>
             <h6 class="my-0"><a href="{{ route('binshopsblog.admin.images.upload') }}">Languages</a></h6>
 
             <div class="list-group ">
