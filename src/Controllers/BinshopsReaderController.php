@@ -3,6 +3,7 @@
 namespace BinshopsBlog\Controllers;
 
 use App\Http\Controllers\Controller;
+use BinshopsBlog\Models\BinshopsFieldValue;
 use Carbon\Carbon;
 use BinshopsBlog\Laravel\Fulltext\Search;
 use BinshopsBlog\Models\BinshopsCategoryTranslation;
@@ -144,6 +145,7 @@ class BinshopsReaderController extends Controller
             ["slug", "=", $blogPostSlug],
             ['lang_id', "=" , $request->get("lang_id")]
         ])->firstOrFail();
+        $fieldValues = BinshopsFieldValue::where('post_id', $blog_post->post_id)->get();
 
         if ($captcha = $this->getCaptchaObject()) {
             $captcha->runCaptchaBeforeShowingPosts($request, $blog_post);
@@ -156,6 +158,7 @@ class BinshopsReaderController extends Controller
                 ->with("user")
                 ->get(),
             'captcha' => $captcha,
+            'fieldvalues' => $fieldValues
         ]);
     }
 
