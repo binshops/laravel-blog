@@ -28,6 +28,8 @@ class BinshopsFieldValue extends Model
      * @var array
      */
     public $fillable = [
+        'field_id',
+        'post_id',
         'value',
     ];
 

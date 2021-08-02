@@ -4,6 +4,7 @@ namespace BinshopsBlog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use BinshopsBlog\Scopes\BinshopsBlogPublishedScope;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class BinshopsPost
@@ -11,6 +12,8 @@ use BinshopsBlog\Scopes\BinshopsBlogPublishedScope;
  */
 class BinshopsPost extends Model
 {
+    public $fields;
+
     /**
      * @var array
      */
@@ -39,7 +42,7 @@ class BinshopsPost extends Model
      */
     public function postTranslations()
     {
-        return $this->hasMany(BinshopsPostTranslation::class,"post_id");
+        return $this->hasMany(BinshopsPostTranslation::class, "post_id");
     }
 
     /**
@@ -56,7 +59,7 @@ class BinshopsPost extends Model
            time <= Carbon::now(). This sets it up: */
         static::addGlobalScope(new BinshopsBlogPublishedScope());
 
-        static::deleting(function($post) { // before delete() method call this
+        static::deleting(function ($post) { // before delete() method call this
             $post->postTranslations()->delete();
         });
     }
@@ -90,17 +93,80 @@ class BinshopsPost extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(BinshopsCategory::class, 'binshops_post_categories','post_id','category_id');
+        return $this->belongsToMany(BinshopsCategory::class, 'binshops_post_categories', 'post_id', 'category_id');
     }
 
     /**
      * Comments for this post
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function comments()
     {
         return $this->hasMany(BinshopsComment::class, 'post_id');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function fieldValues()
+    {
+        return $this->hasMany(BinshopsFieldValue::class, 'post_id');
+    }
+
+    /**
+     * @param $fieldId
+     * @return HasMany
+     */
+    public function fieldValue($fieldId)
+    {
+        $value = $this->fieldValues()
+            ->where('field_id', $fieldId);
+
+        if ($value->exists()) {
+            return $value->first()->value;
+        }
+        return;
+    }
+
+    public function loadFields()
+    {
+        $this->fields = $this->fieldsAvailable();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function fieldsAvailable()
+    {
+        // First get all the fields that doesn't have any categories.
+        $fieldsNocategorie = BinshopsField::doesntHave('categories')->get();
+        // Get all the categories which are attached to this post
+        $categories = $this->categories()->pluck('category_id')->toArray();
+        // Get the fields which have the same categories selected as current post
+        $fieldsOverlappingCategories = BinshopsField::whereHas('categories', function ($querry) use ($categories) {
+            $querry->whereIn('binshops_categories.id', $categories);
+        })->get();
+
+        return $fieldsNocategorie->merge($fieldsOverlappingCategories);
+    }
+
+    /**
+     * @param $fieldsValues
+     */
+    public function updateFieldValues($fieldsValues)
+    {
+        foreach ($this->fields as $field) {
+            if (!in_array($field->name, $fieldsValues)) {
+                BinshopsFieldValue::updateOrCreate(
+                    [
+                    'field_id' => $field->id,
+                    'post_id' => $this->id],
+                    ['value' => $fieldsValues[$field->name]]
+                );
+            }
+
+            $field->values()->where('post_id', $this->id)->first();
+        }
+    }
 }

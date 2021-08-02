@@ -27,7 +27,6 @@ class BinshopsFieldAdminController extends Controller
     {
         $this->middleware(UserCanManageBlogPosts::class);
         $this->middleware(LoadLanguage::class);
-
     }
 
     /**
@@ -39,7 +38,7 @@ class BinshopsFieldAdminController extends Controller
     {
         $language_id = $request->get('language_id');
         $fields = BinshopsField::orderBy("label")->paginate(25);
-        return view("binshopsblog_admin::fields.index",[
+        return view("binshopsblog_admin::fields.index", [
             'fields' => $fields,
             'language_id' => $language_id
         ]);
@@ -52,9 +51,9 @@ class BinshopsFieldAdminController extends Controller
     public function create_field(Request $request)
     {
         $language_id = $request->get('language_id');
-        $categoriesTrans = BinshopsCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
+        $categoriesTrans = BinshopsCategoryTranslation::where("lang_id", $language_id)->limit(1000)->get();
 
-        return view("binshopsblog_admin::fields.form",[
+        return view("binshopsblog_admin::fields.form", [
             'field' => new \BinshopsBlog\Models\BinshopsField(),
             'categoriesTrans' => $categoriesTrans
         ]);
@@ -65,9 +64,10 @@ class BinshopsFieldAdminController extends Controller
      * @param $fieldId
      * @return mixed
      */
-    public function edit_field($fieldId, Request $request){
+    public function edit_field($fieldId, Request $request)
+    {
         $language_id = $request->get('language_id');
-        $categoriesTrans = BinshopsCategoryTranslation::where("lang_id",$language_id)->limit(1000)->get();
+        $categoriesTrans = BinshopsCategoryTranslation::where("lang_id", $language_id)->limit(1000)->get();
 
         $field = BinshopsField::where(
             [
@@ -75,7 +75,7 @@ class BinshopsFieldAdminController extends Controller
             ]
         )->first();
 
-        return view("binshopsblog_admin::fields.form",[
+        return view("binshopsblog_admin::fields.form", [
             'field' => $field,
             'categoriesTrans' => $categoriesTrans
         ]);
@@ -90,19 +90,21 @@ class BinshopsFieldAdminController extends Controller
      */
     public function store_field(BaseBinshopsBlogFieldRequest $request)
     {
-        $new_field = BinshopsField::create([
-            'label' => $request->post('label'),
-            'type' => $request->post('type'),
-            'validation' => $request->post('validation')
-        ]);
+        $new_field = BinshopsField::updateOrCreate(
+            ['id' => $request->post('id')],
+            [
+                'name' => $request->post('name'),
+                'label' => $request->post('label'),
+                'help' => $request->post('help'),
+                'type' => $request->post('type'),
+                'validation' => $request->post('validation')
+            ]);
 
         $new_field->categories()->sync($request->categories());
         event(new FieldAdded($new_field));
         Helpers::flash_message("Saved new field");
-        return response()->json([
-            'code' => 200,
-            'message' => "field successfully added"
-        ]);
+
+        return redirect( route('binshopsblog.admin.fields.index') );
     }
 
     /**
@@ -116,7 +118,7 @@ class BinshopsFieldAdminController extends Controller
     {
         $field = BinshopsField::findOrFail($fieldId);
 
-        if($field->values()->exists()) {
+        if ($field->values()->exists()) {
             Helpers::flash_message("This field could not be deleted, blog posts with values for this field exists.");
             return redirect(route('binshopsblog.admin.fields.index'));
         }
@@ -126,7 +128,6 @@ class BinshopsFieldAdminController extends Controller
         $field->delete();
 
         Helpers::flash_message("Field successfully deleted!");
-        return redirect( route('binshopsblog.admin.fields.index') );
+        return redirect(route('binshopsblog.admin.fields.index'));
     }
-
 }

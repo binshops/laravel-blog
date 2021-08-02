@@ -15,6 +15,7 @@ use BinshopsBlog\Middleware\PackageSetup;
 use BinshopsBlog\Middleware\UserCanManageBlogPosts;
 use BinshopsBlog\Models\BinshopsCategoryTranslation;
 use BinshopsBlog\Models\BinshopsField;
+use BinshopsBlog\Models\BinshopsFieldValue;
 use BinshopsBlog\Models\BinshopsLanguage;
 use BinshopsBlog\Models\BinshopsPost;
 use BinshopsBlog\Models\BinshopsPostTranslation;
@@ -125,9 +126,13 @@ class BinshopsAdminController extends Controller
         if ($post_exists){
             Helpers::flash_message("Post already exists - try to change the slug for this language");
         }else {
+
             $new_blog_post->is_published = $request['is_published'];
             $new_blog_post->user_id = \Auth::user()->id;
             $new_blog_post->save();
+
+            $new_blog_post->loadFields();
+            $new_blog_post->updateFieldValues($request->post());
 
             $translation->title = $request['title'];
             $translation->subtitle = $request['subtitle'];
@@ -186,6 +191,9 @@ class BinshopsAdminController extends Controller
                 $new_blog_post->is_published = $request['is_published'];
                 $new_blog_post->user_id = \Auth::user()->id;
                 $new_blog_post->save();
+
+                $new_blog_post->loadFields();
+                $new_blog_post->updateFieldValues($request->post());
 
                 $translation->title = $request['title'];
                 $translation->subtitle = $request['subtitle'];
@@ -330,6 +338,9 @@ class BinshopsAdminController extends Controller
             $new_blog_post->user_id = \Auth::user()->id;
             $new_blog_post->save();
 
+            $new_blog_post->loadFields();
+            $new_blog_post->updateFieldValues($request->post());
+
             $translation->title = $request['title'];
             $translation->subtitle = $request['subtitle'];
             $translation->short_description = $request['short_description'];
@@ -401,6 +412,8 @@ class BinshopsAdminController extends Controller
     public function destroy_post(DeleteBinshopsBlogPostRequest $request, $blogPostId)
     {
         $post = BinshopsPost::findOrFail($blogPostId);
+
+        BinshopsFieldValue::where('post_id',  $blogPostId)->delete();
         //archive deleted post
 
         $post->delete();
