@@ -15,7 +15,9 @@ class CreateBinshopFieldsTable extends Migration
     {
         Schema::create('binshops_fields', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->string('label');
+            $table->string('help');
             $table->string('type');
             $table->string('validation')->nullable();
             $table->timestamps();

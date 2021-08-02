@@ -28,7 +28,9 @@ class BinshopsField extends Model
      * @var array
      */
     public $fillable = [
+        'name',
         'label',
+        'help',
         'type',
         'validation',
     ];
