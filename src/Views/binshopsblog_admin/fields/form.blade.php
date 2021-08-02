@@ -2,29 +2,54 @@
 @section("content")
 
     <h5>Admin - Add Field</h5>
-    <form method='post' name='fieldForm' id='fieldForm' action='{{route("binshopsblog.admin.fields.create_field")}}'  enctype="multipart/form-data" >
+    <form method='post' name='fieldForm' id='fieldForm'
+          action='{{route("binshopsblog.admin.fields.store_field")}}'
+          enctype="multipart/form-data" >
 
         @csrf
+        <input type="hidden" name="id"  value="{{$field->id}}">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   required
+                   aria-describedby="field_name_help"
+                   name='name'
+                   value="{{old("name", $field->name)}}"
+            >
+
+            <small id="field_name_help" class="form-text text-muted">Name of field</small>
+        </div>
         <div class="form-group">
             <label for="label">Label</label>
-
             <input type="text"
                    class="form-control"
                    id="label"
-{{--                   oninput="populate_slug_field();"--}}
                    required
                    aria-describedby="field_label_help"
                    name='label'
                    value="{{old("label", $field->label)}}"
             >
-
             <small id="field_label_help" class="form-text text-muted">Label name of field</small>
+        </div>
+        <div class="form-group">
+            <label for="help">Help</label>
+            <input type="text"
+                   class="form-control"
+                   id="help"
+                   required
+                   aria-describedby="field_help_help"
+                   name='help'
+                   value="{{old("help", $field->help)}}"
+            >
+
+            <small id="field_help_help" class="form-text text-muted">Help text for field</small>
         </div>
         <div class="form-group">
             <label for="type">Type</label>
             <select name="type">
                 @foreach($field->fieldTypes() as $key => $fieldtype)
-{{--                    <option value="24" selected>Product 1</option>--}}
                     <option value="{{$key}}">{{$fieldtype}}</option>
                 @endforeach
             </select>
@@ -61,27 +86,6 @@
             </div>
         </div>
 
-        <button type="button" class='btn btn-primary' id="submit-btn">Add new field</button>
-        <script>
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('#submit-btn').click(function (){
-                $.ajax({
-                    url: '{{route("binshopsblog.admin.fields.store_field")}}',
-                    type: "POST",
-                    data: $('#fieldForm').serialize(),
-                    success: function( response ) {
-                        {{--window.location.replace("{{route('binshopsblog.admin.fields.index')}}");--}}
-                    },
-                    error: function (responde) {
-                        alert('Oh dear');
-                    }
-                });
-            });
-        </script>
+        <input type='submit' name="submit_btn" class='btn btn-primary' value='Add new field' >
     </form>
 @endsection

@@ -225,7 +225,7 @@
 
 <script>
     SHOULD_AUTO_GEN_SLUG = false;
-
+    enableField()
     function toggleCheckbox(event){
         let categoryId = event.target.id.replace('category_check','');
         if (event.target.checked){
@@ -243,7 +243,10 @@
             }
             fieldCategories[i].disabled = true;
         }
+        enableField()
+    }
 
+    function enableField() {
         let categoriesCheckbox = document.getElementsByClassName('category_checkbox')
         for (let i=0; i < categoriesCheckbox.length; i++) {
             if (categoriesCheckbox[i].checked) {
@@ -255,7 +258,6 @@
             }
         }
     }
-
 
 
     /* Generate the slug field, if it was not touched by the user (or if it was an empty string) */
