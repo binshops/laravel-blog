@@ -15,7 +15,9 @@ class BaseBinshopsBlogFieldRequest extends BaseRequest
     public function rules()
     {
         return [
+            'name' => ['alpha_num', 'unique:binshops_fields,name,'. $this->id, 'string', 'min:1', 'max:200'],
             'label' => ['required', 'string', 'min:1', 'max:200'],
+            'help' => ['required', 'string', 'min:1', 'max:200'],
             'type' => ['required', 'integer'],
             'validation' => ['nullable', 'string', 'min:1', 'max:5000'],
             'categories' => ['nullable', 'array'],
