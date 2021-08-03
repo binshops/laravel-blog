@@ -12,7 +12,7 @@ use BinshopsBlog\Middleware\LoadLanguage;
 use BinshopsBlog\Middleware\UserCanManageBlogPosts;
 use BinshopsBlog\Models\BinshopsCategoryTranslation;
 use BinshopsBlog\Models\BinshopsField;
-use BinshopsBlog\Requests\BaseBinshopsBlogFieldRequest;
+use BinshopsBlog\Requests\BaseBinshopsFieldRequest;
 
 /**
  * Class BinshopsFielddminController
@@ -88,7 +88,7 @@ class BinshopsFieldAdminController extends Controller
      *
      * This controller is totally REST controller
      */
-    public function store_field(BaseBinshopsBlogFieldRequest $request)
+    public function store_field(BaseBinshopsFieldRequest $request)
     {
         $new_field = BinshopsField::updateOrCreate(
             ['id' => $request->post('id')],

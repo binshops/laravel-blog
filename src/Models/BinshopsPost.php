@@ -2,9 +2,12 @@
 
 namespace BinshopsBlog\Models;
 
+use BinshopsBlog\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use BinshopsBlog\Scopes\BinshopsBlogPublishedScope;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Validator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class BinshopsPost
@@ -131,18 +134,21 @@ class BinshopsPost extends Model
 
     public function loadFields()
     {
-        $this->fields = $this->fieldsAvailable();
+        // Get all the categories which are attached to this post
+        $categories = $this->categories()->pluck('category_id')->toArray();
+        $this->fields = $this->fieldsAvailable($categories);
     }
 
     /**
      * @return mixed
      */
-    public function fieldsAvailable()
+    public function fieldsAvailable($categories)
     {
         // First get all the fields that doesn't have any categories.
         $fieldsNocategorie = BinshopsField::doesntHave('categories')->get();
-        // Get all the categories which are attached to this post
-        $categories = $this->categories()->pluck('category_id')->toArray();
+        if ($categories == null) {
+            return $fieldsNocategorie;
+        }
         // Get the fields which have the same categories selected as current post
         $fieldsOverlappingCategories = BinshopsField::whereHas('categories', function ($querry) use ($categories) {
             $querry->whereIn('binshops_categories.id', $categories);
@@ -151,22 +157,66 @@ class BinshopsPost extends Model
         return $fieldsNocategorie->merge($fieldsOverlappingCategories);
     }
 
+    public function validateFieldValues($fieldsValues)
+    {
+        $validated = true;
+        foreach ($this->fields as $field) {
+            //First some default validation
+            $validation = Validator::make(
+                [$field->type => $fieldsValues[$field->name]],
+                $field->defaultValidation()
+            );
+            if (!$validation->passes()) {
+                Helpers::flash_message($validation->messages());
+                $validated = false;
+            }
+
+            // Custom validation
+            $validation = Validator::make(
+                [$field->name => $fieldsValues[$field->name]],
+                [$field->name => $field->validation]
+            );
+
+            if (!$validation->passes()) {
+                Helpers::flash_message($validation->messages());
+                $validated = false;
+            }
+        }
+        return $validated;
+    }
+
     /**
      * @param $fieldsValues
      */
     public function updateFieldValues($fieldsValues)
     {
+        if (!$this->validateFieldValues($fieldsValues)) {
+            return;
+        }
         foreach ($this->fields as $field) {
-            if (!in_array($field->name, $fieldsValues)) {
-                BinshopsFieldValue::updateOrCreate(
-                    [
-                    'field_id' => $field->id,
-                    'post_id' => $this->id],
-                    ['value' => $fieldsValues[$field->name]]
-                );
+            if ($fieldsValues[$field->name] == null) {
+                // Field is empty, therefore delete completely
+                $fieldValue = BinshopsFieldValue::where('field_id', $field->id)
+                    ->where('post_id', $this->id);
+
+                if ($fieldValue->exists()) {
+                    $fieldValue->delete();
+                }
+                continue;
             }
 
-            $field->values()->where('post_id', $this->id)->first();
+            BinshopsFieldValue::updateOrCreate(
+                [
+                    'field_id' => $field->id,
+                    'post_id' => $this->id],
+                ['value' => $fieldsValues[$field->name]]
+            );
         }
+    }
+
+    public function getNextId()
+    {
+        $statement = DB::select("show table status like 'binshops_posts'");
+        return $statement[0]->Auto_increment;
     }
 }
