@@ -129,8 +129,6 @@ class BinshopsAdminController extends Controller
         } else {
             $new_blog_post->is_published = $request['is_published'];
             $new_blog_post->user_id = \Auth::user()->id;
-            $new_blog_post->id = $new_blog_post->getNextId();
-
             $translation->title = $request['title'];
             $translation->subtitle = $request['subtitle'];
             $translation->short_description = $request['short_description'];
@@ -139,21 +137,18 @@ class BinshopsAdminController extends Controller
             $translation->meta_desc = $request['meta_desc'];
             $translation->slug = $request['slug'];
             $translation->use_view_file = $request['use_view_file'];
-
             $translation->lang_id = $request['lang_id'];
-            $translation->post_id = $new_blog_post->id;
-
-            $this->processUploadedImages($request, $translation);
-            $translation->save();
 
             DB::beginTransaction();
             try {
-                $new_blog_post->loadFields();
+                $new_blog_post->loadFields($request->post('category'));
+                $new_blog_post->saveOrFail();
                 $new_blog_post->updateFieldValues($request->post());
-                $new_blog_post->save();
 
                 $this->processUploadedImages($request, $translation);
-                $translation->save();
+
+                $translation->post_id = $new_blog_post->id;
+                $translation->saveOrFail();
 
                 $new_blog_post->categories()->sync($request->categories());
                 Helpers::flash_message("Post Updated");
@@ -204,7 +199,6 @@ class BinshopsAdminController extends Controller
             } else {
                 $new_blog_post->is_published = $request['is_published'];
                 $new_blog_post->user_id = \Auth::user()->id;
-                $new_blog_post->id = $new_blog_post->getNextId();
 
                 $translation->title = $request['title'];
                 $translation->subtitle = $request['subtitle'];
@@ -214,18 +208,17 @@ class BinshopsAdminController extends Controller
                 $translation->meta_desc = $request['meta_desc'];
                 $translation->slug = $request['slug'];
                 $translation->use_view_file = $request['use_view_file'];
-
                 $translation->lang_id = $request['lang_id'];
-                $translation->post_id = $new_blog_post->id;
 
                 DB::beginTransaction();
                 try {
-                    $new_blog_post->loadFields();
+                    $new_blog_post->loadFields($request->post('category'));
+                    $new_blog_post->saveOrFail();
                     $new_blog_post->updateFieldValues($request->post());
-                    $new_blog_post->save();
 
                     $this->processUploadedImages($request, $translation);
-                    $translation->save();
+                    $translation->post_id = $new_blog_post->id;
+                    $translation->saveOrFail();
 
                     $new_blog_post->categories()->sync($request->categories());
                     Helpers::flash_message("Post Updated");
@@ -369,18 +362,18 @@ class BinshopsAdminController extends Controller
             $translation->meta_desc = $request['meta_desc'];
             $translation->slug = $request['slug'];
             $translation->use_view_file = $request['use_view_file'];
-
             $translation->lang_id = $request['lang_id'];
-            $translation->post_id = $new_blog_post->id;
 
             DB::beginTransaction();
             try {
-                $new_blog_post->loadFields();
+                $new_blog_post->loadFields($request->post('category'));
+                $new_blog_post->saveOrFail();
                 $new_blog_post->updateFieldValues($request->post());
-                $new_blog_post->save();
 
                 $this->processUploadedImages($request, $translation);
-                $translation->save();
+
+                $translation->post_id = $new_blog_post->id;
+                $translation->saveOrFail();
 
                 $new_blog_post->categories()->sync($request->categories());
                 Helpers::flash_message("Post Updated");

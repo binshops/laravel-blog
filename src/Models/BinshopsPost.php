@@ -132,10 +132,8 @@ class BinshopsPost extends Model
         return;
     }
 
-    public function loadFields()
+    public function loadFields($categories)
     {
-        // Get all the categories which are attached to this post
-        $categories = $this->categories()->pluck('category_id')->toArray();
         $this->fields = $this->fieldsAvailable($categories);
     }
 
@@ -181,11 +179,5 @@ class BinshopsPost extends Model
                 ['value' => $fieldsValues[$field->name]]
             );
         }
-    }
-
-    public function getNextId()
-    {
-        $statement = DB::select("show table status like 'binshops_posts'");
-        return $statement[0]->Auto_increment;
     }
 }
