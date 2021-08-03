@@ -157,42 +157,11 @@ class BinshopsPost extends Model
         return $fieldsNocategorie->merge($fieldsOverlappingCategories);
     }
 
-    public function validateFieldValues($fieldsValues)
-    {
-        $validated = true;
-        foreach ($this->fields as $field) {
-            //First some default validation
-            $validation = Validator::make(
-                [$field->type => $fieldsValues[$field->name]],
-                $field->defaultValidation()
-            );
-            if (!$validation->passes()) {
-                Helpers::flash_message($validation->messages());
-                $validated = false;
-            }
-
-            // Custom validation
-            $validation = Validator::make(
-                [$field->name => $fieldsValues[$field->name]],
-                [$field->name => $field->validation]
-            );
-
-            if (!$validation->passes()) {
-                Helpers::flash_message($validation->messages());
-                $validated = false;
-            }
-        }
-        return $validated;
-    }
-
     /**
      * @param $fieldsValues
      */
     public function updateFieldValues($fieldsValues)
     {
-        if (!$this->validateFieldValues($fieldsValues)) {
-            return;
-        }
         foreach ($this->fields as $field) {
             if ($fieldsValues[$field->name] == null) {
                 // Field is empty, therefore delete completely
