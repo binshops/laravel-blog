@@ -3,10 +3,12 @@
 namespace BinshopsBlog\Requests;
 
 use BinshopsBlog\Models\BinshopsPost;
+use BinshopsBlog\Requests\Traits\HasCategoriesTrait;
 use Carbon\Carbon;
 
 abstract class BaseBinshopsBlogPostRequest extends BaseRequest
 {
+    use HasCategoriesTrait;
 
     /**
      * Shared rules for blog posts
@@ -84,7 +86,7 @@ abstract class BaseBinshopsBlogPostRequest extends BaseRequest
     {
         $post = new BinshopsPost;
         // Get the fields that are available for the given categories.
-        $fields = $post->fieldsAvailable($this->post('category'))->pluck('name')->toArray();
+        $fields = $post->fieldsAvailable($this->categories())->pluck('name')->toArray();
         $fieldValueRules = BaseBinshopsFieldValueRequest::baseFieldValueRules();
         foreach ($fieldValueRules as $key => $rule) {
             // Fields that are not available for given categories are not checked.

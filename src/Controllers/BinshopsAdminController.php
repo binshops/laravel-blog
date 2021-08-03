@@ -141,7 +141,7 @@ class BinshopsAdminController extends Controller
 
             DB::beginTransaction();
             try {
-                $new_blog_post->loadFields($request->post('category'));
+                $new_blog_post->loadFields($request->categories());
                 $new_blog_post->saveOrFail();
                 $new_blog_post->updateFieldValues($request->post());
 
@@ -212,7 +212,7 @@ class BinshopsAdminController extends Controller
 
                 DB::beginTransaction();
                 try {
-                    $new_blog_post->loadFields($request->post('category'));
+                    $new_blog_post->loadFields($request->categories());
                     $new_blog_post->saveOrFail();
                     $new_blog_post->updateFieldValues($request->post());
 
@@ -366,7 +366,7 @@ class BinshopsAdminController extends Controller
 
             DB::beginTransaction();
             try {
-                $new_blog_post->loadFields($request->post('category'));
+                $new_blog_post->loadFields($request->categories());
                 $new_blog_post->saveOrFail();
                 $new_blog_post->updateFieldValues($request->post());
 
