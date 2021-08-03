@@ -50,11 +50,15 @@
             <label for="type">Type</label>
             <select name="type">
                 @foreach($field->fieldTypes() as $key => $fieldtype)
+                    @if($field->type == $key)
+                        <option value="{{$key}}" selected>{{$fieldtype}}</option>
+                        @php continue; @endphp
+                    @endif
                     <option value="{{$key}}">{{$fieldtype}}</option>
                 @endforeach
             </select>
             <small id="field_type_help" class="form-text text-muted">
-                Letters, numbers, dash only. The slug
+                Field type, these type are have default validation
             </small>
         </div>
 
@@ -63,6 +67,10 @@
             <textarea name='validation'
                       class='form-control'
                       id='validation'>{{old("field_validation",$field->validation)}}</textarea>
+            <small id="field_validation_help" class="form-text text-muted">
+                Fields have default validation, but you can define extra validation. You have to do this
+                in laravel style, for example: 'required|min:2|max:20'.
+            </small>
         </div>
 
         <div class='bg-white pt-4 px-4 pb-0 my-2 mb-4 rounded border'>
@@ -84,6 +92,10 @@
                     </div>
                 @endforelse
             </div>
+            <small id="field_category_help" class="form-text text-muted">
+                You can select one or more categories, for this field. The field will only be displayed on posts which have
+                one or more matching categories. When no category is selected this field is displayed on all posts.
+            </small>
         </div>
 
         <input type='submit' name="submit_btn" class='btn btn-primary' value='Add new field' >

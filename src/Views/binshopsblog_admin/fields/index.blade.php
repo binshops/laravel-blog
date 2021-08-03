@@ -2,25 +2,25 @@
 @section("content")
 
     @forelse ($fields as $field)
-
         <div class="card m-4">
             <div class="card-body">
-
-
                 <h5 class='card-title'>{{$field->label}}</h5>
-
+                <dd><b>Name: </b>{{$field->name}}</dd>
+                <dd><b>Type: </b>{{$field->typeName()}}</dd>
+                <dd><b>Help: </b>{{$field->help}}</dd>
+                <dd><b>Validation: </b>{{$field->validation}}</dd>
                 <dt class="">Categories</dt>
                 <dd class="">
-                    @if(count($field->categories))
-                        @foreach($field->categories as $category)
-                            <a class='btn btn-outline-secondary btn-sm m-1' href='{{$category->categoryTranslations->where('lang_id' , $language_id)->first()->edit_url()}}'>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            @if(count($field->categories))
+                @foreach($field->categories as $category)
+                        <a class='btn btn-outline-secondary btn-sm m-1' href='{{$category->categoryTranslations->where('lang_id' , $language_id)->first()->edit_url()}}'>
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                {{$category->categoryTranslations->where('lang_id' , $language_id)->first()->category_name}}
-                            </a>
-                        @endforeach
-                    @else No Categories
-                    @endif
+                {{$category->categoryTranslations->where('lang_id' , $language_id)->first()->category_name}}
+                </a>
+                @endforeach
+            @else No Categories, field is used on all posts.
+                @endif
 
                 </dd>
                 <a href="{{$field->edit_url()}}" class="card-link btn btn-primary">Edit Field</a>
