@@ -4,7 +4,7 @@ namespace BinshopsBlog\Requests;
 
 use BinshopsBlog\Requests\Traits\HasCategoriesTrait;
 
-class BaseBinshopsBlogFieldRequest extends BaseRequest
+class BaseBinshopsFieldRequest extends BaseRequest
 {
     use HasCategoriesTrait;
 
