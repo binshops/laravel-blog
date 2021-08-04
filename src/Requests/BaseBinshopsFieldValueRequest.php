@@ -36,6 +36,9 @@ abstract class BaseBinshopsFieldValueRequest extends BaseRequest
                 $rules[$field->name] .= '|' . $field->validation;
             }
 
+            if ($field->validation == null) {
+                $rules[$field->name] .= '|nullable';
+            }
         }
 
         return $rules;
