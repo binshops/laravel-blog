@@ -1,15 +1,4 @@
 <div class="form-group">
-    <label for="language_list">Select Language</label>
-    <select id="language_list" name='lang_id' class='form-control'>
-        @foreach($language_list as $language)
-            <option  value='{{$language->id}}' @if($language->id == $selected_lang)selected="selected" @endif>
-                {{$language->name}}
-            </option>
-        @endforeach
-    </select>
-</div>
-
-<div class="form-group">
     <label for="blog_title">Blog Post Title</label>
     <input type="text" class="form-control" required id="blog_title" aria-describedby="blog_title_help" name='title'
            value="{{old("title",$post_translation->title)}}"                    oninput="populate_slug_field();"
@@ -100,7 +89,6 @@
     </div>
 </div>
 
-
 @if(config("binshopsblog.use_custom_view_files",true))
     <div class="form-group">
         <label for="blog_use_view_file">Custom View File</label>
@@ -172,10 +160,10 @@
 
                 @if($post_translation->has_image($size_info['basic_key']))
                     <a style="color: darkred" href="{{route("binshopsblog.admin.remove_photo",[
-     $post_translation->slug,
-     $selected_lang
-    ]
-    )}}">Remove Image</a>
+                        $post_translation->slug,
+                        $selected_lang
+                    ]
+                    )}}">Remove Image</a>
                 @endif
             </div>
         @endforeach
@@ -198,7 +186,8 @@
 
         @forelse($cat_ts as $translation)
             <div class="form-check col-sm-6">
-                <input class="" type="checkbox" value="1"
+                <input class="category_checkbox" type="checkbox" value="1"
+                       onclick="toggleCheckbox(event)"
                        @if(old("category.".$translation->category_id, $post->categories->contains($translation->category_id))) checked='checked'
                        @endif name='category[{{$translation->category_id}}]' id="category_check{{$translation->category_id}}">
                 <label class="form-check-label" for="category_check{{$translation->category_id}}">
@@ -219,8 +208,6 @@
         </div>
     </div>
 </div>
-
-<input id="selected_lang" name="selected_lang" type="number" value="-1" hidden>
 
 <script>
     SHOULD_AUTO_GEN_SLUG = false;

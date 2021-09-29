@@ -2,8 +2,12 @@
 
 namespace BinshopsBlog\Models;
 
+use BinshopsBlog\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use BinshopsBlog\Scopes\BinshopsBlogPublishedScope;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Validator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class BinshopsPost
@@ -11,6 +15,8 @@ use BinshopsBlog\Scopes\BinshopsBlogPublishedScope;
  */
 class BinshopsPost extends Model
 {
+    public $fields;
+
     /**
      * @var array
      */
@@ -39,7 +45,14 @@ class BinshopsPost extends Model
      */
     public function postTranslations()
     {
-        return $this->hasMany(BinshopsPostTranslation::class,"post_id");
+        return $this->hasMany(BinshopsPostTranslation::class, "post_id");
+    }
+
+    public function getTranslationById($langId)
+    {
+        return $this->hasMany(BinshopsPostTranslation::class, 'post_id')
+            ->where('lang_id', $langId)
+            ->first();
     }
 
     /**
@@ -56,7 +69,7 @@ class BinshopsPost extends Model
            time <= Carbon::now(). This sets it up: */
         static::addGlobalScope(new BinshopsBlogPublishedScope());
 
-        static::deleting(function($post) { // before delete() method call this
+        static::deleting(function ($post) { // before delete() method call this
             $post->postTranslations()->delete();
         });
     }
@@ -90,13 +103,13 @@ class BinshopsPost extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(BinshopsCategory::class, 'binshops_post_categories','post_id','category_id');
+        return $this->belongsToMany(BinshopsCategory::class, 'binshops_post_categories', 'post_id', 'category_id');
     }
 
     /**
      * Comments for this post
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function comments()
     {
