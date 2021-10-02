@@ -153,9 +153,31 @@ Add these (and an Event Listener) to your `EventServiceProvider.php` file to mak
 
 ## Built in CAPTCHA / anti spam
 
-There is a built in captcha (anti spam comment) system built in, which will be easy for you to replace with your own implementation.
+There is a built-in captcha (anti-spam comment) system built in, which will be easy for you to replace with your own implementation.
 
-  Please see [this Captcha docs](https://binshops.binshops.com/laravel-blog-package#captcha) for  more details.
+There is a basic anti-spam captcha function built-in.
+
+See the config/binshops.php captcha section. There is a built in system (basic!) that will prevent most automated spam attempts.
+Writing your own captcha system:
+
+I wrote the captcha system simple on purpose, so you can add your own captcha options. It should be easy to add any other captcha system to this.
+
+If you want to write your own implementation then create your own class that implements \BinshopsBlog\Interfaces\CaptchaInterface, then update the config/binshopsblog.php file (change the captcha_type option).
+
+There are three methods you need to implement:
+public function captcha_field_name() : string
+
+Return a string such as "captcha". It is used for the form validation and <input name=???>.
+public function view() : string
+
+What view file should the binshops::partials.add_comment_form view include? You can set this to whatever you need, and then create your own view file. The default included basic captcha class will return "binshops::captcha.basic".
+public function rules() : array
+
+Return an array for the rules (which are just the standard Laravel validation rules. This is where you can check if the captcha was successful or not.
+Optional:
+public function runCaptchaBeforeShowingPosts() : null
+
+This isn't part of the interface, it isn't required. By default it does nothing. But you can put some code in this method and it'll be run in the BinshopsReaderController::viewSinglePost method.
 
 ## Image upload errors
 
