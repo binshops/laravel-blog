@@ -209,8 +209,3 @@ Try adding this to config/app.php:
 
   </tr>
 </table>
-Contact: contact@binshops.com
-
-
-
-
