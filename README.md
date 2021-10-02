@@ -193,38 +193,22 @@ Try adding this to config/app.php:
 - **9.2.x** Stable version of package
 - 9.0.x Multi-language support beta release
 - 8.0.x Compatibility with Laravel 8
-- 7.3.2 Some bug fixes
 - 7.3.0 New Admin UI
-- 7.2.2                 
-    - bug fix: do not show search bar when it's disabled
-    - feature: configure to show full text post or preview 
-- 7.2.1                 - adds logout button at admin panel
-- 7.2.0                 
-    - adds sub-category functionality to blog
-    - adds reading progress bar feature (if you upgrade, re-publish config file and view files)
-- 7.1.8                 - ability to remove images from posts (this feature does not work for old posts)
-- 7.1.7                 - updates CKEditor
-- 7.1.5                 - minor fix for recent posts
-- 7.1.4                 - updates fulltext search package which solves the search issue
-- 7.1.2                 - shows categories on blog home page - minor fix (if you upgrade try to re-publish view files)
-- 7.1.1                 - minor fix and some admin panel text changes
-- 7.1.0                 - Adds support for custom user model (if you upgrade, try to publish new config)
-- 7.0.2                 - Bug fix for listing posts and search page
-- 7.0.1                 - made compatible with Laravel 6.x & 7.x
-- 3.1                   - minor fixes
-- 3.0.3                 - fixed RSS feed cache issue
-- 3.0.2                 - fixed default medium image size (changed to 600x400)
 - 3.0.1                 - replaced all short tags (<?) with full opening ones (<?php)
-- 3.0                   - Added separate functionality for uploading images (and save some meta data in db)
-- 2.1                   - added 'short_description' to db + form, and BinshopsBlogPost::generate_introduction() method will try and use this to generate intro text.
 - 2.0                   - added full text search (enable it via the config file - it is disabled by default).
-- 1.2                   - added WYSIWYG, few smaller changes
 - 1.1.1                 - added basic captcha
 - 1.0.5                 - composer.json changes.
 - 1.0                   - First release
-- 0.3                   - Small changes, packagist settings.
 - 0.1                   - Initial release
 
+## Contributors ✨
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/samberrry"><img src="https://avatars.githubusercontent.com/u/20775532?v=4" width="80px;" alt=""/><br /><sub><b>Sam Berry</b></sub></a><br /></td>
+<td align="center"><a href="https://github.com/dasscheman"><img src="https://avatars.githubusercontent.com/u/6064248?v=4" width="80px;" alt=""/><br /><sub><b>Alef Barbeli</b></sub></a><br /> </td>
+
+  </tr>
+</table>
 Contact: contact@binshops.com
 
 
