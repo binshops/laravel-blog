@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\DB;
  */
 class BinshopsPost extends Model
 {
-    public $fields;
-
     /**
      * @var array
      */

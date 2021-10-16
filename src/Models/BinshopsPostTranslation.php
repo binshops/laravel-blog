@@ -235,6 +235,6 @@ class BinshopsPostTranslation extends Model implements SearchResultInterface
      */
     public function edit_url()
     {
-        return route("binshopsblog.admin.edit_post", $this->post_id);
+        return route("binshopsblog.admin.edit_post", $this->id);
     }
 }

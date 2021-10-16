@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @forelse($category_chain as $cat)
-                                    / <a href="{{$cat->categoryTranslations[0]->url($locale)}}">
+                                    <a href="{{$cat->categoryTranslation->url()}}">
                                         <span class="cat1">{{$cat->categoryTranslations[0]['category_name']}}</span>
                                     </a>
                                 @empty @endforelse
@@ -62,9 +62,9 @@
                 <ul class="binshops-cat-hierarchy">
                     @if($categories)
                         @include("binshopsblog::partials._category_partial", [
-    'category_tree' => $categories,
-    'name_chain' => $nameChain = ""
-    ])
+                            'category_tree' => $categories,
+                            'name_chain' => $nameChain = ""
+                            ])
                     @else
                         <span>No Categories</span>
                     @endif

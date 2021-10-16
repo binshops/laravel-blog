@@ -24,7 +24,6 @@ class BinshopsCommentsAdminController extends Controller
     {
         $this->middleware(UserCanManageBlogPosts::class);
         $this->middleware(LoadLanguage::class);
-
     }
 
     /**
@@ -44,7 +43,8 @@ class BinshopsCommentsAdminController extends Controller
 
         $comments = $comments->paginate(100);
         return view("binshopsblog_admin::comments.index")
-            ->withComments($comments
+            ->withComments(
+                $comments
             );
     }
 
@@ -65,7 +65,6 @@ class BinshopsCommentsAdminController extends Controller
         event(new CommentApproved($comment));
 
         return back();
-
     }
 
     /**
@@ -84,6 +83,4 @@ class BinshopsCommentsAdminController extends Controller
         Helpers::flash_message("Deleted!");
         return back();
     }
-
-
 }

@@ -30,7 +30,7 @@ class BinshopsCategoryTranslation extends Model
      */
     public function language()
     {
-        return $this->hasOne(BinshopsLanguage::class,"lang_id");
+        return $this->hasOne(BinshopsLanguage::class,"id");
     }
 
     /**

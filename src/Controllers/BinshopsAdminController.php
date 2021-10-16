@@ -14,8 +14,6 @@ use BinshopsBlog\Middleware\LoadLanguage;
 use BinshopsBlog\Middleware\PackageSetup;
 use BinshopsBlog\Middleware\UserCanManageBlogPosts;
 use BinshopsBlog\Models\BinshopsCategoryTranslation;
-use BinshopsBlog\Models\BinshopsField;
-use BinshopsBlog\Models\BinshopsFieldValue;
 use BinshopsBlog\Models\BinshopsLanguage;
 use BinshopsBlog\Models\BinshopsPost;
 use BinshopsBlog\Models\BinshopsPostTranslation;
@@ -33,6 +31,7 @@ use Illuminate\Support\Facades\App;
 class BinshopsAdminController extends Controller
 {
     use UploadFileTrait;
+    private $lang_id;
 
     /**
      * BinshopsAdminController constructor.
@@ -43,6 +42,7 @@ class BinshopsAdminController extends Controller
         $this->middleware(LoadLanguage::class);
         $this->middleware(PackageSetup::class);
 
+        $this->lang_id = BinshopsLanguage::where('locale', App::getLocale())->first()->id;
         if (!is_array(config("binshopsblog"))) {
             throw new \RuntimeException('The config/binshopsblog.php does not exist. Publish the vendor files for the BinshopsBlog package by running the php artisan publish:vendor command');
         }
@@ -73,17 +73,19 @@ class BinshopsAdminController extends Controller
     public function create_post(Request $request)
     {
         $post = new BinshopsPost();
-        $locale = $request->get('locale');
-        $language = BinshopsLanguage::where('locale', $locale)->first();
-        $ts = BinshopsCategoryTranslation::where("lang_id", $language->id)->limit(1000)->get();
-        if($request->get('post_id') != null ) {
+        if ($request->get('locale') !== null) {
+            $this->lang_id = BinshopsLanguage::where('locale', $request->get('locale'))->first()->id;
+        }
+
+        $ts = BinshopsCategoryTranslation::limit(1000)->get();
+        if ($request->get('post_id') != null) {
             $post = new BinshopsPost([$request->get('post_id')]);
         }
 
         return view("binshopsblog_admin::posts.add_post", [
             'cat_ts' => $ts,
-            'locale' => $locale,
             'post' => $post,
+            'language_list' => BinshopsLanguage::where('active', true)->get(),
             'post_translation' => new \BinshopsBlog\Models\BinshopsPostTranslation(),
         ]);
     }
@@ -98,17 +100,10 @@ class BinshopsAdminController extends Controller
     public function store_post(CreateBinshopsBlogPostRequest $request)
     {
         $new_blog_post = null;
-
-      dd($request->all());
-        $locale = $request->get('locale');
-        $language = BinshopsLanguage::where('locale', $locale)->first();
-
-        dump($locale);
-        dd($language);
         $translation = BinshopsPostTranslation::where(
             [
                 ['post_id','=',$request['post_id']],
-                ['lang_id', '=', $language->id]
+                ['lang_id', '=', $request['lang_id']]
             ]
         )->first();
 
@@ -133,6 +128,8 @@ class BinshopsAdminController extends Controller
         } else {
             $new_blog_post->is_published = $request['is_published'];
             $new_blog_post->user_id = \Auth::user()->id;
+            $new_blog_post->save();
+
             $translation->title = $request['title'];
             $translation->subtitle = $request['subtitle'];
             $translation->short_description = $request['short_description'];
@@ -141,12 +138,10 @@ class BinshopsAdminController extends Controller
             $translation->meta_desc = $request['meta_desc'];
             $translation->slug = $request['slug'];
             $translation->use_view_file = $request['use_view_file'];
-            $translation->lang_id =  $language->id;
+            $translation->lang_id =  $request['lang_id'];
             $translation->post_id = $new_blog_post->id;
-dd($new_blog_post->id);
             $this->processUploadedImages($request, $translation);
-           dd($translation->save());
-dd($translation->errors);
+            $translation->save();
             $new_blog_post->categories()->sync($request->categories());
             Helpers::flash_message("Added post");
             event(new BlogPostAdded($new_blog_post));
@@ -161,29 +156,18 @@ dd($translation->errors);
      * @param $blogPostId
      * @return mixed
      */
-    public function edit_post($blogPostId, Request $request)
+    public function edit_post(Request $request, $blogPostTransId)
     {
-        $language_id = $request->get('language_id');
-
-        $post_translation = BinshopsPostTranslation::where(
-            [
-                ['lang_id', '=', $language_id],
-                ['post_id', '=', $blogPostId]
-            ]
-        )->first();
-
-        $post = BinshopsPost::findOrFail($blogPostId);
+        $post_translation = BinshopsPostTranslation::find($blogPostTransId);
+        $post = BinshopsPost::findOrFail($post_translation->post_id);
         $language_list = BinshopsLanguage::where('active', true)->get();
-        $ts = BinshopsCategoryTranslation::where("lang_id", $language_id)->limit(1000)->get();
+        $ts = BinshopsCategoryTranslation::limit(1000)->get();
 
         return view("binshopsblog_admin::posts.edit_post", [
             'cat_ts' => $ts,
             'language_list' => $language_list,
-            'selected_lang' => $language_id,
-            'selected_locale' => BinshopsLanguage::where('id', $language_id)->first()->locale,
             'post' => $post,
             'post_translation' => $post_translation,
-            'fields' => BinshopsField::all()
         ]);
     }
 
@@ -229,9 +213,7 @@ dd($translation->errors);
 
             DB::beginTransaction();
             try {
-                $new_blog_post->loadFields($request->categories());
                 $new_blog_post->saveOrFail();
-                $new_blog_post->updateFieldValues($request->post());
 
                 $this->processUploadedImages($request, $translation);
 
@@ -302,7 +284,6 @@ dd($translation->errors);
     {
         $post = BinshopsPost::findOrFail($blogPostId);
 
-        BinshopsFieldValue::where('post_id', $blogPostId)->delete();
         //archive deleted post
 
         $post->delete();

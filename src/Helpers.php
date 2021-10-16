@@ -1,6 +1,8 @@
 <?php
 namespace BinshopsBlog;
 
+use BinshopsBlog\Models\BinshopsLanguage;
+use Illuminate\Support\Facades\App;
 use \Session;
 
 /**
@@ -68,4 +70,8 @@ class Helpers
         return config("binshopsblog.image_sizes");
     }
 
+    public static function getLocaleId()
+    {
+        return BinshopsLanguage::where('locale', App::getLocale())->first()->id;
+    }
 }

@@ -3,6 +3,7 @@
 namespace BinshopsBlog\Models;
 
 use BinshopsBlog\Baum\Node;
+use BinshopsBlog\Helpers;
 
 class BinshopsCategory extends Node
 {
@@ -13,10 +14,11 @@ class BinshopsCategory extends Node
         'parent_id'
     ];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($category) { // before delete() method call this
+        static::deleting(function ($category) { // before delete() method call this
             $category->categoryTranslations()->delete();
         });
     }
@@ -27,7 +29,16 @@ class BinshopsCategory extends Node
      */
     public function categoryTranslations()
     {
-        return $this->hasMany(BinshopsCategoryTranslation::class,"category_id");
+        return $this->hasMany(BinshopsCategoryTranslation::class, "category_id");
+    }
+
+    /**
+     * The associated category translations
+     */
+    public function categoryTranslation()
+    {
+        return $this->hasOne(BinshopsCategoryTranslation::class, "category_id")
+            ->where('lang_id', Helpers::getLocaleId());
     }
 
     /**
@@ -35,17 +46,19 @@ class BinshopsCategory extends Node
      */
     public function posts()
     {
-        return $this->belongsToMany(BinshopsPost::class, 'binshops_post_categories','category_id', 'post_id');
+        return $this->belongsToMany(BinshopsPost::class, 'binshops_post_categories', 'category_id', 'post_id');
     }
 
-    public function loadSiblings(){
+    public function loadSiblings()
+    {
         $this->siblings = $this->children()->get();
     }
 
-    public static function loadSiblingsWithList($node_list){
-        for($i = 0 ; sizeof($node_list) > $i ; $i++){
+    public static function loadSiblingsWithList($node_list)
+    {
+        for ($i = 0 ; sizeof($node_list) > $i ; $i++) {
             $node_list[$i]->loadSiblings();
-            if (sizeof($node_list[$i]->siblings) > 0){
+            if (sizeof($node_list[$i]->siblings) > 0) {
                 self::loadSiblingsWithList($node_list[$i]->siblings);
             }
         }

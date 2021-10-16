@@ -38,7 +38,7 @@ class BinshopsCommentWriterController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function addNewComment(AddNewCommentRequest $request, $locale, $blog_post_slug)
+    public function addNewComment(AddNewCommentRequest $request, $blog_post_slug)
     {
 
         if (config("binshopsblog.comments.type_of_comments_to_show", "built_in") !== 'built_in') {

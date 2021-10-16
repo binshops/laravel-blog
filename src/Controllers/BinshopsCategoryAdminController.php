@@ -16,6 +16,7 @@ use BinshopsBlog\Models\BinshopsLanguage;
 use BinshopsBlog\Requests\DeleteBinshopsBlogCategoryRequest;
 use BinshopsBlog\Requests\StoreBinshopsBlogCategoryRequest;
 use BinshopsBlog\Requests\UpdateBinshopsBlogCategoryRequest;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class BinshopsCategoryAdminController
@@ -23,6 +24,7 @@ use BinshopsBlog\Requests\UpdateBinshopsBlogCategoryRequest;
  */
 class BinshopsCategoryAdminController extends Controller
 {
+    private $lang_id;
     /**
      * BinshopsCategoryAdminController constructor.
      */
@@ -30,7 +32,7 @@ class BinshopsCategoryAdminController extends Controller
     {
         $this->middleware(UserCanManageBlogPosts::class);
         $this->middleware(LoadLanguage::class);
-
+        $this->lang_id = BinshopsLanguage::where('locale', App::getLocale())->first()->id;
     }
 
     /**
@@ -38,12 +40,12 @@ class BinshopsCategoryAdminController extends Controller
      *
      * @return mixed
      */
-    public function index(Request $request){
-        $language_id = $request->get('language_id');
-        $categories = BinshopsCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->paginate(25);
-        return view("binshopsblog_admin::categories.index",[
+    public function index(Request $request)
+    {
+        $categories = BinshopsCategoryTranslation::orderBy("category_id")
+            ->paginate(25);
+        return view("binshopsblog_admin::categories.index", [
             'categories' => $categories,
-            'language_id' => $language_id
         ]);
     }
 
@@ -51,24 +53,28 @@ class BinshopsCategoryAdminController extends Controller
      * Show the form for creating new category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create_category(Request $request){
-        $language_id = $request->get('language_id');
-        $language_list = BinshopsLanguage::where('active',true)->get();
+    public function create_category(Request $request)
+    {
+        if ($request->get('language_id') !== null) {
+            $this->lang_id = $request->get('language_id');
+        }
 
-        $cat_list = BinshopsCategory::whereHas('categoryTranslations', function ($query) use ($language_id) {
-            return $query->where('lang_id', '=', $language_id);
+        $language_list = BinshopsLanguage::where('active', true)->get();
+        $cat_list = BinshopsCategory::whereHas('categoryTranslations', function ($query) {
+            return $query->where('lang_id', '=', $this->lang_id);
         })->get();
 
         $rootList = BinshopsCategory::roots()->get();
         BinshopsCategory::loadSiblingsWithList($rootList);
 
+//        dd($language_list);
 
-        return view("binshopsblog_admin::categories.add_category",[
+        return view("binshopsblog_admin::categories.add_category", [
             'category' => new \BinshopsBlog\Models\BinshopsCategory(),
             'category_translation' => new \BinshopsBlog\Models\BinshopsCategoryTranslation(),
             'category_tree' => $cat_list,
             'cat_roots' => $rootList,
-            'language_id' => $language_id,
+            'language_id' => $this->lang_id,
             'language_list' => $language_list
         ]);
     }
@@ -81,11 +87,11 @@ class BinshopsCategoryAdminController extends Controller
      *
      * This controller is totally REST controller
      */
-    public function store_category(Request $request){
-        $language_id = $request->get('language_id');
+    public function store_category(Request $request)
+    {
         $language_list = $request['data'];
 
-        if ($request['parent_id']== 0){
+        if ($request['parent_id']== 0) {
             $request['parent_id'] = null;
         }
         $new_category = BinshopsCategory::create([
@@ -93,10 +99,10 @@ class BinshopsCategoryAdminController extends Controller
         ]);
 
         foreach ($language_list as $key => $value) {
-            if ($value['lang_id'] != -1 && $value['category_name'] !== null){
+            if ($value['lang_id'] != -1 && $value['category_name'] !== null) {
                 //check for slug availability
-                $obj = BinshopsCategoryTranslation::where('slug',$value['slug'])->first();
-                if ($obj){
+                $obj = BinshopsCategoryTranslation::where('slug', $value['slug'])->first();
+                if ($obj) {
                     BinshopsCategory::destroy($new_category->id);
                     return response()->json([
                         'code' => 403,
@@ -127,19 +133,22 @@ class BinshopsCategoryAdminController extends Controller
      * @param $categoryId
      * @return mixed
      */
-    public function edit_category($categoryId, Request $request){
-        $language_id = $request->get('language_id');
-        $language_list = BinshopsLanguage::where('active',true)->get();
+    public function edit_category($categoryId, Request $request)
+    {
+        if($request->get('language_id') !== null) {
+            $this->lang_id = $request->get('language_id');
+        }
+        $language_list = BinshopsLanguage::where('active', true)->get();
 
         $category = BinshopsCategory::findOrFail($categoryId);
         $cat_trans = BinshopsCategoryTranslation::where(
             [
-                ['lang_id', '=', $language_id],
+                ['lang_id', '=', $this->lang_id],
                 ['category_id', '=', $categoryId]
             ]
         )->first();
 
-        return view("binshopsblog_admin::categories.edit_category",[
+        return view("binshopsblog_admin::categories.edit_category", [
             'category' => $category,
             'category_translation' => $cat_trans,
             'categories_list' => BinshopsCategoryTranslation::orderBy("category_id")->where('lang_id', $language_id)->get(),
@@ -155,7 +164,8 @@ class BinshopsCategoryAdminController extends Controller
      * @param $categoryId
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update_category(UpdateBinshopsBlogCategoryRequest $request, $categoryId){
+    public function update_category(UpdateBinshopsBlogCategoryRequest $request, $categoryId)
+    {
         /** @var BinshopsCategory $category */
         $category = BinshopsCategory::findOrFail($categoryId);
         $language_id = $request->get('language_id');
@@ -182,7 +192,8 @@ class BinshopsCategoryAdminController extends Controller
      * @param $categoryId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function destroy_category(DeleteBinshopsBlogCategoryRequest $request, $categoryId){
+    public function destroy_category(DeleteBinshopsBlogCategoryRequest $request, $categoryId)
+    {
 
         /* Please keep this in, so code inspectiwons don't say $request was unused. Of course it might now get marked as left/right parts are equal */
         $request=$request;
@@ -198,7 +209,6 @@ class BinshopsCategoryAdminController extends Controller
         $category->delete();
 
         Helpers::flash_message("Category successfully deleted!");
-        return redirect( route('binshopsblog.admin.categories.index') );
+        return redirect(route('binshopsblog.admin.categories.index'));
     }
-
 }

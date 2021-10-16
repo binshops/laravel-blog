@@ -3,9 +3,9 @@
 namespace BinshopsBlog\Controllers;
 
 use App\Http\Controllers\Controller;
+use BinshopsBlog\Middleware\LoadLanguage;
 use Carbon\Carbon;
 use Laravelium\Feed\Feed;
-use BinshopsBlog\Middleware\DetectLanguage;
 use BinshopsBlog\Models\BinshopsPost;
 use BinshopsBlog\Requests\FeedRequest;
 
@@ -18,7 +18,7 @@ class BinshopsRssFeedController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(DetectLanguage::class);
+        $this->middleware(LoadLanguage::class);
     }
     
     /**
