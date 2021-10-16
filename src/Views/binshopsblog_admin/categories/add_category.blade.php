@@ -3,9 +3,7 @@
 
     <h5>Admin - Add Category</h5>
     <form method='post' action='{{route("binshopsblog.admin.categories.create_category")}}'  enctype="multipart/form-data" >
-
         @csrf
-
         <div class="form-group">
             <label for="language_list">Select Language</label>
             <select id="language_list" name='lang_id' class='form-control'>
@@ -51,7 +49,7 @@
 
             <small id="category_slug_help" class="form-text text-muted">
                 Letters, numbers, dash only. The slug
-                i.e. {{route("binshopsblog.view_category",[app('request')->get('locale'),""])}}/<u><em>this_part</em></u>. This must be unique (two categories can't
+                i.e. {{route("binshopsblog.view_category",[""])}}/<u><em>this_part</em></u>. This must be unique (two categories can't
                 share the same slug).
 
             </small>

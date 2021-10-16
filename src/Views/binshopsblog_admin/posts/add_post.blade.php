@@ -10,7 +10,7 @@
             'post' => $post,
             'post_translation' => $post_translation
         ])
-        <input id="locale" name="locale" type="number" value="{{$locale}}" hidden>
+        <input id="locale" name="locale" type="text" value="{{App::getLocale()}}" hidden>
         <input id="post_id" name="post_id" type="number" value="{{$post->id}}" hidden>
         <input type='submit' name="submit_btn" class='btn btn-primary' value='Add new post' >
 
