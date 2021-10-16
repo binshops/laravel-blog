@@ -1,9 +1,11 @@
 <?php
 
 Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers'], function () {
-    Route::get('/' . config('binshopsblog.blog_prefix', 'blog') . '/changeLang/{locale}', 'BinshopsReaderController@changeLanguage')
-        ->name('binshopsblog.changeLang');
-
+    Route::get('language/{locale}', function ($locale) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+        return redirect()->back();
+    })->name('language');
 
     /** The main public facing blog routes - show all posts, view a category, rss feed, view a single post, also the add comment route */
     Route::group(['prefix' => "/".config('binshopsblog.blog_prefix', 'blog')], function () {

@@ -163,12 +163,4 @@ class BinshopsReaderController extends Controller
             'captcha' => $captcha,
         ]);
     }
-
-    public function changeLanguage(Request $request, $lang)
-    {
-        App::setLocale($lang);
-
-//        dd(App::getLocale());
-        return redirect('/blog');
-    }
 }

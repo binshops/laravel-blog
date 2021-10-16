@@ -135,6 +135,23 @@ to
 `resources/views/vendor/binshopsblog_admin`
 Then you can modify them just like any other view file.
 
+## Language switcher:
+You can add a language switcher to rhe menu of your application. Add something like in yout app.blade.php:
+``
+<li class="nav-item dropdown">
+  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+    {{ App::getLocale() }}
+    <b class="caret"></b>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    @foreach(BinshopsBlog\Models\BinshopsLanguage::all() as $language)
+      <a class="dropdown-item" href="{{ route('language', [$language->locale]) }}">
+        {{ $language->locale }}
+      </a>
+    @endforeach
+  </div>
+</li>``
 ## Routes
 
 It will auto set all required routes (both public facing, and admin backend). There are some config options (such as changing the /blog/ url to something else), which can be done in the binshopsblog.php file.
