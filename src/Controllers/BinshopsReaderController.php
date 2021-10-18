@@ -63,12 +63,12 @@ class BinshopsReaderController extends Controller
             \View::share('binshopsblog_category', $category); // so the view can say "You are viewing $CATEGORYNAME category posts"
             $title = 'Posts in ' . $category->category_name . " category"; // hardcode title here...
         } else {
-            $posts = BinshopsPostTranslation::where('lang_id', $request->get("lang_id"))
-                ->with(['post' => function($query){
-                    $query->where("is_published" , '=' , true);
-                    $query->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'));
-                    $query->orderBy("posted_at", "desc");
-                }])->paginate(config("binshopsblog.per_page", 10));
+            $posts = BinshopsPostTranslation::join('binshops_posts', 'binshops_post_translations.post_id', '=', 'binshops_posts.id')
+                ->where('lang_id', $request->get("lang_id"))
+                ->where("is_published" , '=' , true)
+                ->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))
+                ->orderBy("posted_at", "desc")
+                ->paginate(config("binshopsblog.per_page", 10));
         }
 
         //load category hierarchy
