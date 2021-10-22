@@ -35,7 +35,7 @@ class BinshopsReaderController extends Controller
      * @param null $category_slug
      * @return mixed
      */
-    public function index($locale, $category_slug = null, Request $request)
+    public function index($locale, Request $request, $category_slug = null)
     {
         // the published_at + is_published are handled by BinshopsBlogPublishedScope, and don't take effect if the logged in user can manageb log posts
 
@@ -127,7 +127,7 @@ class BinshopsReaderController extends Controller
     public function view_category($locale, $hierarchy, Request $request)
     {
         $categories = explode('/', $hierarchy);
-        return $this->index($locale, end($categories), $request);
+        return $this->index($locale, $request, end($categories));
     }
 
     /**
