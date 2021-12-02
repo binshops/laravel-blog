@@ -1,8 +1,7 @@
 # Laravel Blog
 Have you worked with Wordpress? Developers call this package wordpress-like laravel blog.
 
-### Contact us for any customization:
-contact@binshops.com
+## To support us give it a Star :star: :heart_eyes:
 
 ### Lightweight and Comprehensive
 
