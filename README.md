@@ -1,7 +1,7 @@
 # Laravel Blog
 Have you worked with Wordpress? Developers call this package wordpress-like laravel blog.
 
-## To support us give it a Star :star: :heart_eyes:
+## Give it a Star to support us :star: :heart_eyes:
 
 ### Lightweight and Comprehensive
 
