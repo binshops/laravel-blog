@@ -1,7 +1,9 @@
 # Laravel Blog
 Have you worked with Wordpress? Developers call this package wordpress-like laravel blog.
 
-## Give it a Star to support us :star: :heart_eyes:
+## Give our package a Star to support us :star: :heart_eyes:
+## Installation Video - Less than 5 Minutes
+[![Laravel Blog Package](http://img.youtube.com/vi/N9NpFUqbftA/0.jpg)](https://youtu.be/N9NpFUqbftA)
 
 ### Lightweight and Comprehensive
 
