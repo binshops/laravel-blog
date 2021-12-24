@@ -167,6 +167,12 @@ class BinshopsCategoryAdminController extends Controller
         )->first();
         $category->fill($request->all());
         $translation->fill($request->all());
+        
+        // if the parent_id is passed in as 0 it will create an error
+        if ($category->parent_id <= 0) {
+            $category->parent_id = null;
+        }
+        
         $category->save();
         $translation->save();
 
