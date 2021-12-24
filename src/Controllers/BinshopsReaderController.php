@@ -151,6 +151,10 @@ class BinshopsReaderController extends Controller
             $captcha->runCaptchaBeforeShowingPosts($request, $blog_post);
         }
 
+        $categories = $blog_post->post->categories()->with([ 'categoryTranslations' => function($query) use ($request){
+            $query->where("lang_id" , '=' , $request->get("lang_id"));
+        }
+        ])->get();
         return view("binshopsblog::single_post", [
             'post' => $blog_post,
             // the default scope only selects approved comments, ordered by id
@@ -158,6 +162,8 @@ class BinshopsReaderController extends Controller
                 ->with("user")
                 ->get(),
             'captcha' => $captcha,
+            'categories' => $categories,
+            'locale' => $request->get("locale")
         ]);
     }
 

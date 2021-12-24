@@ -26,4 +26,4 @@
 Posted <strong>{{$post->post->posted_at->diffForHumans()}}</strong>
 
 @includeWhen($post->author,"binshopsblog::partials.author",['post'=>$post])
-@includeWhen($post->categories,"binshopsblog::partials.categories",['post'=>$post])
+@includeWhen($categories,"binshopsblog::partials.categories",['categories'=>$categories])
