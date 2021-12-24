@@ -47,16 +47,18 @@ class BinshopsReaderController extends Controller
         if ($category_slug) {
             $category = BinshopsCategoryTranslation::where("slug", $category_slug)->with('category')->firstOrFail()->category;
             $categoryChain = $category->getAncestorsAndSelf();
-            $posts_1 = $category->posts()->where("binshops_post_categories.category_id", $category->id)->with([ 'postTranslations' => function($query) use ($request){
+            $posts = $category->posts()->where("binshops_post_categories.category_id", $category->id)->with([ 'postTranslations' => function($query) use ($request){
                 $query->where("lang_id" , '=' , $request->get("lang_id"));
             }
-            ])->paginate(config("binshopsblog.per_page", 10));
+            ])->get();
 
-            foreach ($posts_1 as $post) {
-                $trans = $post->postTranslations[0];
-                $trans->post = $post;
-                array_push($posts, $trans);
-            }
+            $posts = BinshopsPostTranslation::join('binshops_posts', 'binshops_post_translations.post_id', '=', 'binshops_posts.id')
+                ->where('lang_id', $request->get("lang_id"))
+                ->where("is_published" , '=' , true)
+                ->where('posted_at', '<', Carbon::now()->format('Y-m-d H:i:s'))
+                ->orderBy("posted_at", "desc")
+                ->whereIn('binshops_posts.id', $posts->pluck('id'))
+                ->paginate(config("binshopsblog.per_page", 10));
 
             // at the moment we handle this special case (viewing a category) by hard coding in the following two lines.
             // You can easily override this in the view files.
