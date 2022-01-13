@@ -15,7 +15,6 @@
         </p>
 
         @csrf
-        @method("patch")
         @include("binshopsblog_admin::posts.form", [
           'post' => $post,
           'post_translation' => $post_translation
@@ -30,7 +29,7 @@
         var edit_toggle_url = '{{route("binshopsblog.admin.edit_post_toggle",$post->id)}}';
         var preLang = $('#language_list').val();
         $('#language_list').change(function (){
-            $("#edit-post-form").attr("method", "get");
+            $("#edit-post-form").attr("method", "post");
             $('#edit-post-form').attr('action', edit_toggle_url);
 
             $('#selected_lang').val($('#language_list').val());
