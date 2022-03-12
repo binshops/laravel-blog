@@ -67,11 +67,11 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
             'BinshopsAdminController@edit_post')
             ->name('binshopsblog.admin.edit_post');
 
-        Route::get('/edit_post_toggle/{blogPostId}',
+        Route::post('/edit_post_toggle/{blogPostId}',
             'BinshopsAdminController@edit_post_toggle')
             ->name('binshopsblog.admin.edit_post_toggle');
 
-        Route::patch('/edit_post/{blogPostId}',
+        Route::post('/edit_post/{blogPostId}',
             'BinshopsAdminController@update_post')
             ->name('binshopsblog.admin.update_post');
 
