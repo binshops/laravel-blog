@@ -189,4 +189,14 @@ return [
 
     //Shows full text of post in listing pages like search result page or category page. Now it shows a preview
     'show_full_text_at_list' => true,
+
+    /**
+     * Middleware
+     * to prevent unauthorized users visit the blog or for extra functionalities e.g,
+     * redirect to https only by using middleware etc
+     */
+    'middleware' => [
+        'auth',
+//        'redirectHttps',
+    ],
 ];

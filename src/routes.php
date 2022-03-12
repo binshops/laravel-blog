@@ -1,6 +1,9 @@
 <?php
 
-Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers'], function () {
+$web = ['web'];
+$middleware = array_merge($web, config('binshopsblog.middleware'));
+
+Route::group(['middleware' => $middleware, 'namespace' => '\BinshopsBlog\Controllers'], function () {
 
     /** The main public facing blog routes - show all posts, view a category, rss feed, view a single post, also the add comment route */
     Route::group(['prefix' => "/{locale}/".config('binshopsblog.blog_prefix', 'blog')], function () {
