@@ -364,21 +364,19 @@ class BinshopsAdminController extends Controller
             }
         }
 
-        $destinationPath = $this->image_destination_path();
-
-        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($destinationPath .' /' . $post->image_large)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete( public_path('/uploads/tasks/' . $post->image_large));
-            unlink($destinationPath . '/' . $post->image_large);
+        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($post->image_large)) {
+            Storage::disk(config('binshopsblog.filesystem_driver'))->delete($post->image_large);
+            unlink($post->image_large);
         }
 
-        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($destinationPath .' /' . $post->image_medium)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete( public_path('/uploads/tasks/' . $post->image_medium));
-            unlink($destinationPath . '/' . $post->image_medium);
+        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($post->image_medium)) {
+            Storage::disk(config('binshopsblog.filesystem_driver'))->delete($post->image_medium));
+            unlink($post->image_medium);
         }
 
-        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($destinationPath .' /' . $post->image_thumbnail)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete( public_path('/uploads/tasks/' . $post->image_thumbnail));
-            unlink($destinationPath . '/' . $post->image_thumbnail);
+        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($post->image_thumbnail)) {
+            Storage::disk(config('binshopsblog.filesystem_driver'))->delete($post->image_thumbnail));
+            unlink($post->image_thumbnail);
         }
 
         $post->image_large = null;
