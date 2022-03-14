@@ -370,12 +370,12 @@ class BinshopsAdminController extends Controller
         }
 
         if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($post->image_medium)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete($post->image_medium));
+            Storage::disk(config('binshopsblog.filesystem_driver'))->delete($post->image_medium);
             unlink($post->image_medium);
         }
 
         if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($post->image_thumbnail)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete($post->image_thumbnail));
+            Storage::disk(config('binshopsblog.filesystem_driver'))->delete($post->image_thumbnail);
             unlink($post->image_thumbnail);
         }
 
