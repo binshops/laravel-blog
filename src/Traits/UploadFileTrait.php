@@ -118,13 +118,13 @@ trait UploadFileTrait
             ->stream()
             ->__toString();
 
-        Storage::disk(config('binshopsblog.filesystem_driver'))
+        $path = Storage::disk(config('binshopsblog.filesystem_driver'))
             ->put(
                 $imageFilename,
                 $image,
             );
 
-        event(new UploadedImage($imageFilename, $image, $new_blog_post, __METHOD__));
+        event(new UploadedImage($imageFilename, $path, $new_blog_post, __METHOD__));
 
         return [
             'filename' => $imageFilename,
