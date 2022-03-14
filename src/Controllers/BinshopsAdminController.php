@@ -23,7 +23,6 @@ use BinshopsBlog\Requests\CreateBinshopsPostToggleRequest;
 use BinshopsBlog\Requests\DeleteBinshopsBlogPostRequest;
 use BinshopsBlog\Requests\UpdateBinshopsBlogPostRequest;
 use BinshopsBlog\Traits\UploadFileTrait;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Class BinshopsAdminController
@@ -366,19 +365,16 @@ class BinshopsAdminController extends Controller
 
         $destinationPath = $this->image_destination_path();
 
-        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($destinationPath .' /' . $post->image_large)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete( public_path('/uploads/tasks/' . $post->image_large));
-            unlink($destinationPath . '/' . $post->image_large);
+        if (file_exists($destinationPath.'/'.$post->image_large)) {
+            unlink($destinationPath.'/'.$post->image_large);
         }
 
-        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($destinationPath .' /' . $post->image_medium)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete( public_path('/uploads/tasks/' . $post->image_medium));
-            unlink($destinationPath . '/' . $post->image_medium);
+        if (file_exists($destinationPath.'/'.$post->image_medium)) {
+            unlink($destinationPath.'/'.$post->image_medium);
         }
 
-        if (Storage::disk(config('binshopsblog.filesystem_driver'))->exists($destinationPath .' /' . $post->image_thumbnail)) {
-            Storage::disk(config('binshopsblog.filesystem_driver'))->delete( public_path('/uploads/tasks/' . $post->image_thumbnail));
-            unlink($destinationPath . '/' . $post->image_thumbnail);
+        if (file_exists($destinationPath.'/'.$post->image_thumbnail)) {
+            unlink($destinationPath.'/'.$post->image_thumbnail);
         }
 
         $post->image_large = null;
@@ -441,7 +437,7 @@ class BinshopsAdminController extends Controller
                 // this image size is enabled, and
                 // we have an uploaded image that we can use
 
-                $uploaded_image = $this->uploadAndResize($new_blog_post, $new_blog_post->slug, $image_size_details, $photo);
+                $uploaded_image = $this->UploadAndResize($new_blog_post, $new_blog_post->slug, $image_size_details, $photo);
 
                 $new_blog_post->$size = $uploaded_image['filename'];
                 $uploaded_image_details[$size] = $uploaded_image;

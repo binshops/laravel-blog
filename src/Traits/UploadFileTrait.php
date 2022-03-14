@@ -2,13 +2,11 @@
 
 namespace BinshopsBlog\Traits;
 
-use BinshopsBlog\Events\UploadedImage;
-use BinshopsBlog\Models\BinshopsPostTranslation;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
-use Exception;
+use BinshopsBlog\Events\UploadedImage;
+use BinshopsBlog\Models\BinshopsPost;
+use File;
+use BinshopsBlog\Models\BinshopsPostTranslation;
 
 trait UploadFileTrait
 {
@@ -72,6 +70,7 @@ trait UploadFileTrait
 
     }
 
+
     /**
      * @return string
      * @throws \RuntimeException
@@ -85,21 +84,27 @@ trait UploadFileTrait
 
 
     /**
-     * @param  BinshopsPostTranslation  $new_blog_post
-     * @param $suggestedTitle  - used to help generate the filename
-     * @param $imageSizeDetails  - either an array (with 'w' and 'h') or a string (and it'll be uploaded at full size, no size reduction, but will use this string to generate the filename)
+     * @param BinshopsPost $new_blog_post
+     * @param $suggested_title - used to help generate the filename
+     * @param $image_size_details - either an array (with 'w' and 'h') or a string (and it'll be uploaded at full size, no size reduction, but will use this string to generate the filename)
      * @param $photo
      * @return array
-     * @throws Exception
+     * @throws \Exception
      */
-    protected function uploadAndResize(BinshopsPostTranslation $new_blog_post, $suggestedTitle, $imageSizeDetails, $photo): array
+    protected function UploadAndResize(BinshopsPostTranslation $new_blog_post = null, $suggested_title, $image_size_details, $photo)
     {
-        $imageFilename = $this->getImageFilename($suggestedTitle, $imageSizeDetails, $photo);
-        $resizedImage  = Image::make($photo->getRealPath());
+        // get the filename/filepath
+        $image_filename = $this->getImageFilename($suggested_title, $image_size_details, $photo);
+        $destinationPath = $this->image_destination_path();
 
-        if (is_array($imageSizeDetails)) {
-            $w = $imageSizeDetails['w'];
-            $h = $imageSizeDetails['h'];
+        // make image
+        $resizedImage = \Image::make($photo->getRealPath());
+
+
+        if (is_array($image_size_details)) {
+            // resize to these dimensions:
+            $w = $image_size_details['w'];
+            $h = $image_size_details['h'];
 
             if (isset($image_size_details['crop']) && $image_size_details['crop']) {
                 $resizedImage = $resizedImage->fit($w, $h);
@@ -108,22 +113,28 @@ trait UploadFileTrait
                     $constraint->aspectRatio();
                 });
             }
-        } elseif ($imageSizeDetails === 'fullsize') {
+        } elseif ($image_size_details === 'fullsize') {
+            // nothing to do here - no resizing needed.
+            // We just need to set $w/$h with the original w/h values
             $w = $resizedImage->width();
             $h = $resizedImage->height();
         } else {
-            throw new Exception("Invalid image_size_details value");
+            throw new \Exception("Invalid image_size_details value");
         }
 
-        Storage::disk(config('binshopsblog.filesystem_driver'))->put('/blog-images' . $imageFilename, $resizedImage);
+        // save image
+        $resizedImage->save($destinationPath . '/' . $image_filename, config("binshopsblog.image_quality", 80));
 
-        event(new UploadedImage($imageFilename, $resizedImage, $new_blog_post, __METHOD__));
+        // fireevent
+        event(new UploadedImage($image_filename, $resizedImage, $new_blog_post, __METHOD__));
 
+        // return the filename and w/h details
         return [
-            'filename' => $imageFilename,
-            'w'        => $w,
-            'h'        => $h,
+            'filename' => $image_filename,
+            'w' => $w,
+            'h' => $h,
         ];
+
     }
 
     /**

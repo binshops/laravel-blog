@@ -189,12 +189,4 @@ return [
 
     //Shows full text of post in listing pages like search result page or category page. Now it shows a preview
     'show_full_text_at_list' => true,
-
-    /**
-     * The filesystem driver to be used when uploading images.
-     * See @link https://laravel.com/docs/8.x/filesystem#configuration
-     * for more information and available disks. Any third party libaries
-     * extending the Storage will also be available.
-     */
-    'filesystem_driver' => env('FILESYSTEM_DRIVER', 'local'),
 ];
