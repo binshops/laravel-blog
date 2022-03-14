@@ -95,7 +95,6 @@ trait UploadFileTrait
     protected function uploadAndResize(BinshopsPostTranslation $new_blog_post, $suggestedTitle, $imageSizeDetails, $photo): array
     {
         $imageFilename = $this->getImageFilename($suggestedTitle, $imageSizeDetails, $photo);
-        $destinationPath = $this->image_destination_path();
 
         $resizedImage  = Image::make($photo->getRealPath());
 
@@ -121,7 +120,7 @@ trait UploadFileTrait
 
         Storage::disk(config('binshopsblog.filesystem_driver'))
             ->put(
-                $destinationPath . '/' . $imageFilename,
+                $imageFilename,
                 $image,
             );
 
