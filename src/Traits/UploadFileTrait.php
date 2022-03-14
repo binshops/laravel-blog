@@ -8,6 +8,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Intervention\Image\Facades\Image;
 
 trait UploadFileTrait
 {
@@ -94,7 +95,7 @@ trait UploadFileTrait
     protected function uploadAndResize(BinshopsPostTranslation $new_blog_post, $suggestedTitle, $imageSizeDetails, $photo): array
     {
         $imageFilename = $this->getImageFilename($suggestedTitle, $imageSizeDetails, $photo);
-        $resizedImage  = \Image::make($photo->getRealPath());
+        $resizedImage  = Image::make($photo->getRealPath());
 
         if (is_array($imageSizeDetails)) {
             $w = $imageSizeDetails['w'];
@@ -114,7 +115,11 @@ trait UploadFileTrait
             throw new Exception("Invalid image_size_details value");
         }
 
-        Storage::disk(config('binshopsblog.filesystem_driver'))->put('/blog-images' . $imageFilename, $resizedImage);
+        Storage::disk(config('binshopsblog.filesystem_driver'))
+            ->put(
+                '/blog-images' . $imageFilename,
+                $resizedImage->save('/blog-images' . $imageFilename)
+            );
 
         event(new UploadedImage($imageFilename, $resizedImage, $new_blog_post, __METHOD__));
 
