@@ -117,12 +117,10 @@ trait UploadFileTrait
             throw new Exception("Invalid image_size_details value");
         }
 
-        $image = $resizedImage->save($destinationPath . '/' . $imageFilename, config('binshopsblog.image_quality', 80));
-
         Storage::disk(config('binshopsblog.filesystem_driver'))
             ->put(
                 $destinationPath . '/' . $imageFilename,
-                $image
+                $resizedImage->stream(null, config('binshopsblog.image_quality', 80))
             );
 
         event(new UploadedImage($imageFilename, $image, $new_blog_post, __METHOD__));
