@@ -95,6 +95,8 @@ trait UploadFileTrait
     protected function uploadAndResize(BinshopsPostTranslation $new_blog_post, $suggestedTitle, $imageSizeDetails, $photo): array
     {
         $imageFilename = $this->getImageFilename($suggestedTitle, $imageSizeDetails, $photo);
+        $destinationPath = $this->image_destination_path();
+
         $resizedImage  = Image::make($photo->getRealPath());
 
         if (is_array($imageSizeDetails)) {
@@ -115,10 +117,12 @@ trait UploadFileTrait
             throw new Exception("Invalid image_size_details value");
         }
 
+        $image = $resizedImage->save($destinationPath . '/' . $imageFilename, config('binshopsblog.image_quality', 80));
+
         Storage::disk(config('binshopsblog.filesystem_driver'))
             ->put(
-                '/blog-images' . $imageFilename,
-                $resizedImage->save()
+                $destinationPath . '/' . $imageFilename,
+                $image
             );
 
         event(new UploadedImage($imageFilename, $resizedImage, $new_blog_post, __METHOD__));
