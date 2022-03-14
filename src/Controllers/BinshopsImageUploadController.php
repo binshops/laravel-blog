@@ -97,7 +97,7 @@ class BinshopsImageUploadController extends Controller
         // now upload a full size - this is a special case, not in the config file. We only store full size images in this class, not as part of the featured blog image uploads.
         if (isset($sizes_to_upload['binshopsblog_full_size']) && $sizes_to_upload['binshopsblog_full_size'] === 'true') {
 
-            $uploaded_image_details['binshopsblog_full_size'] = $this->UploadAndResize(null, $request->get("image_title"), 'fullsize', $photo);
+            $uploaded_image_details['binshopsblog_full_size'] = $this->uploadAndResize(null, $request->get("image_title"), 'fullsize', $photo);
 
         }
 
@@ -109,7 +109,7 @@ class BinshopsImageUploadController extends Controller
 
             // this image size is enabled, and
             // we have an uploaded image that we can use
-            $uploaded_image_details[$size] = $this->UploadAndResize(null, $request->get("image_title"), $image_size_details, $photo);
+            $uploaded_image_details[$size] = $this->uploadAndResize(null, $request->get("image_title"), $image_size_details, $photo);
         }
 
 
