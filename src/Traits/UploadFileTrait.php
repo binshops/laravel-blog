@@ -116,7 +116,9 @@ trait UploadFileTrait
             throw new Exception("Invalid image_size_details value");
         }
 
-        $image = $resizedImage->getEncoded();
+        $image = $resizedImage
+            ->stream()
+            ->__toString();
 
         Storage::disk(config('binshopsblog.filesystem_driver'))
             ->put(
