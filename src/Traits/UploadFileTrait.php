@@ -118,7 +118,7 @@ trait UploadFileTrait
         Storage::disk(config('binshopsblog.filesystem_driver'))
             ->put(
                 '/blog-images' . $imageFilename,
-                $resizedImage->save('/blog-images' . $imageFilename)
+                $resizedImage->save()
             );
 
         event(new UploadedImage($imageFilename, $resizedImage, $new_blog_post, __METHOD__));
