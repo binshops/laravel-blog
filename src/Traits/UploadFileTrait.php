@@ -123,7 +123,7 @@ trait UploadFileTrait
                 $resizedImage->stream(null, config('binshopsblog.image_quality', 80))
             );
 
-        event(new UploadedImage($imageFilename, $image, $new_blog_post, __METHOD__));
+        event(new UploadedImage($imageFilename, $resizedImage, $new_blog_post, __METHOD__));
 
         return [
             'filename' => $imageFilename,
