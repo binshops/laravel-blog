@@ -7,7 +7,6 @@ use BinshopsBlog\Models\BinshopsPostTranslation;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 use Exception;
 
 trait UploadFileTrait
@@ -95,7 +94,7 @@ trait UploadFileTrait
     protected function uploadAndResize(BinshopsPostTranslation $new_blog_post, $suggestedTitle, $imageSizeDetails, $photo): array
     {
         $imageFilename = $this->getImageFilename($suggestedTitle, $imageSizeDetails, $photo);
-        $resizedImage  = Image::make($photo->getRealPath());
+        $resizedImage  = \Image::make($photo->getRealPath());
 
         if (is_array($imageSizeDetails)) {
             $w = $imageSizeDetails['w'];
