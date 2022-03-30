@@ -22,9 +22,9 @@
     },
     "authors": [
         {
-            "name": "Dale",
+            "name": "Binshops",
             "homepage": "https://github.com/binshops/laravel-blog",
-            "role": "Lunatic",
+            "role": "owner",
             "email": "contact@binshops.com"
         }
     ],
