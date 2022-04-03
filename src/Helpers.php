@@ -44,22 +44,6 @@ class Helpers
     }
 
     /**
-     * Use this (Helpers::rss_html_tag()) in your blade/template files, within <head>
-     * to auto insert the links to rss feed
-     * @return string
-     */
-    public static function rss_html_tag()
-    {
-
-
-        return '<link rel="alternate" type="application/atom+xml" title="Atom RSS Feed" href="' . e(route("binshopsblog.feed")) . '?type=atom" />
-  <link rel="alternate" type="application/rss+xml" title="XML RSS Feed" href="' . e(route("binshopsblog.feed")) . '?type=rss" />
-  ';
-
-
-    }
-
-    /**
      * This method is depreciated. Just use the config() directly.
      * @return array
      * @deprecated

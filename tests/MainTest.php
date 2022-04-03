@@ -21,7 +21,6 @@ class MainTest extends \Tests\TestCase
 
     /blog/...
         binshopsblog.index                       YES
-        binshopsblog.feed                        YES
         binshopsblog.view_category               no - but this is basically binshopsblog.index
         binshopsblog.single                      YES
         binshopsblog.comments.add_new_comment    YES - tested multiple times with/without basic captcha on/off/correct/incorrect.
@@ -270,10 +269,9 @@ class MainTest extends \Tests\TestCase
         $response = $this->get(config("binshopsblog.blog_prefix", "blog"));
         $response->assertDontSee($new_object_vals['slug']);
 
-        // must clear the cache, as the /feed is cached
+        // must clear the cache
         \Artisan::call('cache:clear');
 
-        $response = $this->get(config("binshopsblog.blog_prefix", "blog") . "/feed");
         $response->assertDontSee($new_object_vals['slug']);
 
         $response = $this->post($admin_panel_url . "/add_post", $new_object_vals);
@@ -290,10 +288,9 @@ class MainTest extends \Tests\TestCase
         $response->assertSee($new_object_vals['slug']);
 
 
-        // must clear the cache, as the /feed is cached
+        // must clear the cache
         \Artisan::call('cache:clear');
 
-        $response = $this->get(config("binshopsblog.blog_prefix", "blog") . "/feed");
         $response->assertSee($new_object_vals['slug']);
         $response->assertSee($new_object_vals['title']);
 
