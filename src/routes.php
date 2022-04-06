@@ -24,16 +24,33 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
 
         // throttle to a max of 10 attempts in 3 minutes:
         Route::group(['middleware' => 'throttle:10,3'], function () {
-
             Route::post('save_comment/{blogPostSlug}',
                 'BinshopsCommentWriterController@addNewComment')
                 ->name('binshopsblog.comments.add_new_comment');
-
-
         });
-
     });
 
+    Route::group(['prefix' => config('binshopsblog.blog_prefix', 'blog')], function () {
+
+        Route::get('/', 'BinshopsReaderController@index')
+            ->name('binshopsblognolocale.index');
+
+        Route::get('/search', 'BinshopsReaderController@search')
+            ->name('binshopsblognolocale.search');
+
+        Route::get('/category{subcategories}', 'BinshopsReaderController@view_category')->where('subcategories', '^[a-zA-Z0-9-_\/]+$')->name('binshopsblognolocale.view_category');
+
+        Route::get('/{blogPostSlug}',
+            'BinshopsReaderController@viewSinglePost')
+            ->name('binshopsblognolocale.single');
+
+        // throttle to a max of 10 attempts in 3 minutes:
+        Route::group(['middleware' => 'throttle:10,3'], function () {
+            Route::post('save_comment/{blogPostSlug}',
+                'BinshopsCommentWriterController@addNewComment')
+                ->name('binshopsblognolocale.comments.add_new_comment');
+        });
+    });
 
     /* Admin backend routes - CRUD for posts, categories, and approving/deleting submitted comments */
     Route::group(['prefix' => config('binshopsblog.admin_prefix', 'blog_admin')], function () {
