@@ -17,7 +17,7 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 ## Outstanding Features
 - Fulltext Search - search throughout all blog posts
 - Multi Level Category - nested sets using Baum
-- Multi Language Support 
+- Multi Language Support
 
 ### Quick and easy installation (Multi-lang version)
 1- Install via composer
@@ -31,15 +31,21 @@ composer require laravel/ui
 php artisan ui vue --auth
 ```
 
-2- Run the following two commands to copy config file, migration files, and view files
+2- Scaffold
+
+```
+npm install && npm run build
+```
+
+3- Run the following two commands to copy config file, migration files, and view files
 
 `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
-3- Execute migrations to create tables
+4- Execute migrations to create tables
 
 `php artisan migrate;`
 
-4- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
+5- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
 
 ```
  /**
@@ -72,12 +78,18 @@ php artisan ui vue --auth
     }
 ```
 
-5- Create a directory in `public/` named `blog_images`
+6- Create a directory in `public/` named `blog_images`
 
-6- Login as admin and setup your package: `/blog_admin/setup`
+7- Start the server
+
+```
+php artisan serve
+```
+
+8- Login as admin and setup your package: `/blog_admin/setup`
 
 Congrats! Your blog is ready to use. (URLs are customizable in the config file)
-  
+
   Admin panel URI: `/blog_admin`
   Front URI: `/en/blog`
 
@@ -113,10 +125,10 @@ You can see the single version in "single-lang" branch.
 - Managing comments and comment approval
 - Other options include using Disqus comments or disabling comments
 
-## Recent Changes  
+## Recent Changes
 - **9.1.x** Multi language support
 - 8.0.x Compatibility with Laravel 8.x
-  
+
 ## What/who this package is for:
 
  - For websites running Laravel
@@ -189,7 +201,7 @@ Try adding this to config/app.php:
 - Ensure that /public/blog_images (or whatever directory you set it to in the config) is writable by the server
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
-## Version History    
+## Version History
 - **9.2.x** Stable version of package
 - 9.0.x Multi-language support beta release
 - 8.0.x Compatibility with Laravel 8
