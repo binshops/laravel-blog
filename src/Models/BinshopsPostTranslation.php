@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BinshopsBlog\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -199,10 +198,8 @@ class BinshopsPostTranslation extends Model implements SearchResultInterface
             throw new \InvalidArgumentException("Invalid image size ($size). BinshopsPost image size should not begin with 'image_'. Remove this from the start of $size. It *should* be in the binshopsblog.image_sizes config though!");
         }
 
-
         throw new \InvalidArgumentException("BinshopsPost image size should be 'large','medium','thumbnail' or another field as defined in config/binshopsblog.php. Provided size ($size) is not valid");
     }
-
 
     /**
      *
@@ -219,14 +216,15 @@ class BinshopsPostTranslation extends Model implements SearchResultInterface
         }
         return $this->title;
     }
+
     /**
      * Returns the public facing URL to view this blog post
      *
      * @return string
      */
-    public function url($loacle)
+    public function url($loacle, $noLocaleRoute = false)
     {
-        return route("binshopsblog.single", [$loacle, $this->slug]);
+        return $noLocaleRoute ? route("binshopsblog.single", ["", $this->slug]) : route("binshopsblog.single", [$loacle, $this->slug]);
     }
 
     /**

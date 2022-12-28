@@ -1,6 +1,5 @@
 {{--Used on the index page (so shows a small summary--}}
-{{--See the guide on binshops.binshops.com for how to copy these files to your /resources/views/ directory--}}
-{{--https://binshops.binshops.com/laravel-blog-package--}}
+{{--See the guide on binshops.com for how to copy these files to your /resources/views/ directory--}}
 
 <div class="col-md-6">
     <div class="blog-item">
@@ -9,7 +8,7 @@
             <?=$post->image_tag("medium", true, ''); ?>
         </div>
         <div class="blog-inner-item">
-            <h3 class=''><a href='{{$post->url($locale)}}'>{{$post->title}}</a></h3>
+            <h3 class=''><a href='{{$post->url($locale, $noLocaleRoute)}}'>{{$post->title}}</a></h3>
             <h5 class=''>{{$post->subtitle}}</h5>
 
             @if (config('binshopsblog.show_full_text_at_list'))
@@ -22,7 +21,7 @@
                 <span class="light-text">Authored by: </span> {{$post->post->author->name}} <span class="light-text">Posted at: </span> {{date('d M Y ', strtotime($post->post->posted_at))}}
             </div>
             <div class='text-center'>
-                <a href="{{$post->url($locale)}}" class="btn btn-primary">View Post</a>
+                <a href="{{$post->url($locale, $noLocaleRoute)}}" class="btn btn-primary">View Post</a>
             </div>
         </div>
     </div>
