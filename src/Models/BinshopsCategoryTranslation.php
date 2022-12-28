@@ -1,13 +1,11 @@
 <?php
 
-
 namespace BinshopsBlog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class BinshopsCategoryTranslation extends Model
 {
-
     public $fillable = [
         'category_id',
         'category_name',
@@ -37,7 +35,7 @@ class BinshopsCategoryTranslation extends Model
      * Returns the public facing URL of showing blog posts in this category
      * @return string
      */
-    public function url($loacle)
+    public function url($locale, $noLocaleRoute = false)
     {
         $theChainString = "";
         $cat = $this->category()->get();
@@ -45,7 +43,8 @@ class BinshopsCategoryTranslation extends Model
         foreach ($chain as $category){
             $theChainString .=  "/" . $category->categoryTranslations()->where('lang_id' , $this->lang_id)->first()->slug;
         }
-        return route("binshopsblog.view_category",[$loacle, $theChainString]);
+
+        return $noLocaleRoute ? route("binshopsblog.view_category",["", $theChainString]) : route("binshopsblog.view_category",[$locale, $theChainString]);
     }
 
     /**

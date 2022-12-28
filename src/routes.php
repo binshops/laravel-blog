@@ -13,27 +13,39 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
 
         Route::get('/category{subcategories}', 'BinshopsReaderController@view_category')->where('subcategories', '^[a-zA-Z0-9-_\/]+$')->name('binshopsblog.view_category');
 
-//        Route::get('/category/{categorySlug}',
-//            'BinshopsReaderController@view_category')
-//            ->name('binshopsblog.view_category');
-
         Route::get('/{blogPostSlug}',
             'BinshopsReaderController@viewSinglePost')
             ->name('binshopsblog.single');
 
-
         // throttle to a max of 10 attempts in 3 minutes:
         Route::group(['middleware' => 'throttle:10,3'], function () {
-
             Route::post('save_comment/{blogPostSlug}',
                 'BinshopsCommentWriterController@addNewComment')
                 ->name('binshopsblog.comments.add_new_comment');
-
-
         });
-
     });
 
+    Route::group(['prefix' => config('binshopsblog.blog_prefix', 'blog')], function () {
+
+        Route::get('/', 'BinshopsReaderController@index')
+            ->name('binshopsblognolocale.index');
+
+        Route::get('/search', 'BinshopsReaderController@search')
+            ->name('binshopsblognolocale.search');
+
+        Route::get('/category{subcategories}', 'BinshopsReaderController@view_category')->where('subcategories', '^[a-zA-Z0-9-_\/]+$')->name('binshopsblognolocale.view_category');
+
+        Route::get('/{blogPostSlug}',
+            'BinshopsReaderController@viewSinglePost')
+            ->name('binshopsblognolocale.single');
+
+        // throttle to a max of 10 attempts in 3 minutes:
+        Route::group(['middleware' => 'throttle:10,3'], function () {
+            Route::post('save_comment/{blogPostSlug}',
+                'BinshopsCommentWriterController@addNewComment')
+                ->name('binshopsblognolocale.comments.add_new_comment');
+        });
+    });
 
     /* Admin backend routes - CRUD for posts, categories, and approving/deleting submitted comments */
     Route::group(['prefix' => config('binshopsblog.admin_prefix', 'blog_admin')], function () {
@@ -83,9 +95,7 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
 
             Route::get("/upload", "BinshopsImageUploadController@create")->name("binshopsblog.admin.images.upload");
             Route::post("/upload", "BinshopsImageUploadController@store")->name("binshopsblog.admin.images.store");
-
         });
-
 
         Route::delete('/delete_post/{blogPostId}',
             'BinshopsAdminController@destroy_post')
@@ -129,9 +139,7 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
             Route::delete('/delete_category/{categoryId}',
                 'BinshopsCategoryAdminController@destroy_category')
                 ->name('binshopsblog.admin.categories.destroy_category');
-
         });
-
 
         Route::group(['prefix' => 'languages'], function () {
 
@@ -153,7 +161,6 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
             Route::post('/toggle_language/{languageId}',
                 'BinshopsLanguageAdminController@toggle_language')
                 ->name('binshopsblog.admin.languages.toggle_language');
-
         });
     });
 });

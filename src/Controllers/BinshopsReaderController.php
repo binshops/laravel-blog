@@ -35,7 +35,7 @@ class BinshopsReaderController extends Controller
      * @param null $category_slug
      * @return mixed
      */
-    public function index($locale, Request $request, $category_slug = null)
+    public function index($locale = null, Request $request, $category_slug = null)
     {
         // the published_at + is_published are handled by BinshopsBlogPublishedScope, and don't take effect if the logged in user can manageb log posts
 
@@ -126,10 +126,12 @@ class BinshopsReaderController extends Controller
      * @param $category_slug
      * @return mixed
      */
-    public function view_category($locale, $hierarchy, Request $request)
+    public function view_category(Request $request)
     {
+        $hierarchy = $request->route('subcategories');
+
         $categories = explode('/', $hierarchy);
-        return $this->index($locale, $request, end($categories));
+        return $this->index($request->get('locale'), $request, end($categories));
     }
 
     /**
@@ -139,8 +141,10 @@ class BinshopsReaderController extends Controller
      * @param $blogPostSlug
      * @return mixed
      */
-    public function viewSinglePost(Request $request, $locale, $blogPostSlug)
+    public function viewSinglePost(Request $request)
     {
+        $blogPostSlug = $request->route('blogPostSlug');
+
         // the published_at + is_published are handled by BinshopsBlogPublishedScope, and don't take effect if the logged in user can manage log posts
         $blog_post = BinshopsPostTranslation::where([
             ["slug", "=", $blogPostSlug],

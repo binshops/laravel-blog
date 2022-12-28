@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    {{--https://binshops.binshops.com/laravel/packages/binshopsblog-blog-system-for-your-laravel-app/help-documentation/laravel-blog-package-binshopsblog#guide_to_views--}}
+    {{--https://github.com/binshops/laravel-blog--}}
 
     <div class='container'>
     <div class='row'>

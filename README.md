@@ -1,12 +1,11 @@
 # Laravel Blog
-Have you worked with Wordpress? Developers call this package wordpress-like laravel blog.
 
 ## [Installation Video - Less than 5 Minutes](https://youtu.be/N9NpFUqbftA)
 [![Laravel Blog Package](http://img.youtube.com/vi/N9NpFUqbftA/0.jpg)](https://youtu.be/N9NpFUqbftA)
 
 ### Lightweight and Comprehensive
 
-Incredible features with a lightweight laravel blog package. I highly recommend it because:
+Incredible features with a lightweight laravel blog package.
 - Quick installation (<3 minutes)
 - It's very easy to extend
 - Included great features out-of-box
@@ -132,7 +131,7 @@ You can see the single version in "single-lang" branch.
 ## What/who this package is for:
 
  - For websites running Laravel
- - Who wants to have a site blog. This laravel blog gives an easy to use interface to write blog posts/assign categories/manage existing posts
+ - Anyone, who wants to have a site blog. This laravel blog gives an easy to use interface to write blog posts/assign categories/manage existing posts
  - Where only admin users can edit/manage the blog (this is not suitable for every user on your site to be able to manage posts)
  - For anyone who likes to add a wordpress-like laravel blog to laravel website
 
@@ -201,8 +200,8 @@ Try adding this to config/app.php:
 - Ensure that /public/blog_images (or whatever directory you set it to in the config) is writable by the server
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
-## Version History
-- **9.2.x** Stable version of package
+## Version History    
+- **9.3.x** Stable version of package
 - 9.0.x Multi-language support beta release
 - 8.0.x Compatibility with Laravel 8
 - 7.3.0 New Admin UI
@@ -212,12 +211,3 @@ Try adding this to config/app.php:
 - 1.0.5                 - composer.json changes.
 - 1.0                   - First release
 - 0.1                   - Initial release
-
-## Contributors ✨
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/samberrry"><img src="https://avatars.githubusercontent.com/u/20775532?v=4" width="80px;" alt=""/><br /><sub><b>Sam Berry</b></sub></a><br /></td>
-<td align="center"><a href="https://github.com/dasscheman"><img src="https://avatars.githubusercontent.com/u/6064248?v=4" width="80px;" alt=""/><br /><sub><b>Alef Barbeli</b></sub></a><br /> </td>
-
-  </tr>
-</table>
