@@ -1,9 +1,10 @@
-# Laravel Blog
+ <h1 align="center">Laravel Blog Package</h1>
 
-## [Installation Video - Less than 5 Minutes](https://youtu.be/N9NpFUqbftA)
-[![Laravel Blog Package](http://img.youtube.com/vi/N9NpFUqbftA/0.jpg)](https://youtu.be/N9NpFUqbftA)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/20775532/215362765-c2a3360e-c165-4cba-809b-4f04316c8d5e.png" width="80%" />
+</p>
 
-### Lightweight and Comprehensive
+### Lightweight and Easy to Install
 
 Incredible features with a lightweight laravel blog package.
 - Quick installation (<3 minutes)
