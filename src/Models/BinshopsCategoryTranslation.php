@@ -35,7 +35,7 @@ class BinshopsCategoryTranslation extends Model
      * Returns the public facing URL of showing blog posts in this category
      * @return string
      */
-    public function url($locale, $noLocaleRoute = false)
+    public function url($locale, $routeWithoutLocale = false)
     {
         $theChainString = "";
         $cat = $this->category()->get();
@@ -44,7 +44,7 @@ class BinshopsCategoryTranslation extends Model
             $theChainString .=  "/" . $category->categoryTranslations()->where('lang_id' , $this->lang_id)->first()->slug;
         }
 
-        return $noLocaleRoute ? route("binshopsblog.view_category",["", $theChainString]) : route("binshopsblog.view_category",[$locale, $theChainString]);
+        return $routeWithoutLocale ? route("binshopsblog.view_category",["", $theChainString]) : route("binshopsblog.view_category",[$locale, $theChainString]);
     }
 
     /**

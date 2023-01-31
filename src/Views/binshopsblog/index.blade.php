@@ -64,7 +64,7 @@
                         @include("binshopsblog::partials._category_partial", [
     'category_tree' => $categories,
     'name_chain' => $nameChain = "",
-    'noLocaleRoute' => $noLocaleRoute
+    'routeWithoutLocale' => $routeWithoutLocale
     ])
                     @else
                         <span>No Categories</span>

@@ -85,7 +85,7 @@ class BinshopsReaderController extends Controller
             'categories' => $rootList,
             'posts' => $posts,
             'title' => $title,
-            'noLocaleRoute' => $request->get("noLocaleRoute")
+            'routeWithoutLocale' => $request->get("routeWithoutLocale")
         ]);
     }
 
@@ -116,7 +116,7 @@ class BinshopsReaderController extends Controller
             'categories' => $rootList,
             'query' => $query,
             'search_results' => $search_results,
-            'noLocaleRoute' => $request->get("noLocaleRoute")
+            'routeWithoutLocale' => $request->get("routeWithoutLocale")
         ]
         );
     }
@@ -170,7 +170,7 @@ class BinshopsReaderController extends Controller
             'captcha' => $captcha,
             'categories' => $categories,
             'locale' => $request->get("locale"),
-            'noLocaleRoute' => $request->get("noLocaleRoute")
+            'routeWithoutLocale' => $request->get("routeWithoutLocale")
         ]);
     }
 }

@@ -4,7 +4,7 @@
         <li class="category-item-wrapper">
             @php $nameChain = $nameChain .'/'. $trans->slug @endphp
 
-            <a href="{{ $noLocaleRoute ? route("binshopsblog.view_category",["", $nameChain]) : route("binshopsblog.view_category",[$locale, $nameChain])}}">
+            <a href="{{ $routeWithoutLocale ? route("binshopsblog.view_category",["", $nameChain]) : route("binshopsblog.view_category",[$locale, $nameChain])}}">
                  <span class="category-item" value='{{$category->category_id}}'>
         {{$trans->category_name}}
 
@@ -13,7 +13,7 @@
                  @include("binshopsblog::partials._category_partial", [
     'category_tree' => $category->siblings,
     'name_chain' => $nameChain,
-    'noLocaleRoute' => $noLocaleRoute
+    'routeWithoutLocale' => $routeWithoutLocale
     ])
                  </ul>
                      @endif

@@ -222,9 +222,9 @@ class BinshopsPostTranslation extends Model implements SearchResultInterface
      *
      * @return string
      */
-    public function url($loacle, $noLocaleRoute = false)
+    public function url($loacle, $routeWithoutLocale = false)
     {
-        return $noLocaleRoute ? route("binshopsblog.single", ["", $this->slug]) : route("binshopsblog.single", [$loacle, $this->slug]);
+        return $routeWithoutLocale ? route("binshopsblog.single", ["", $this->slug]) : route("binshopsblog.single", [$loacle, $this->slug]);
     }
 
     /**

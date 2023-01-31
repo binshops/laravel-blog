@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BinshopsBlog\Middleware;
 
 use BinshopsBlog\Models\BinshopsConfiguration;
@@ -12,12 +11,13 @@ class DetectLanguage
     public function handle($request, Closure $next)
     {
         $locale = $request->route('locale');
-        $noLocaleRoute = false;
+        $routeWithoutLocale = false;
 
         if (!$request->route('locale')){
-            $noLocaleRoute = true;
+            $routeWithoutLocale = true;
             $locale = BinshopsConfiguration::get('DEFAULT_LANGUAGE_LOCALE');
         }
+
         $lang = BinshopsLanguage::where('locale', $locale)
             ->where('active', true)
             ->first();
@@ -25,10 +25,11 @@ class DetectLanguage
         if (!$lang){
             return abort(404);
         }
+
         $request->attributes->add([
             'lang_id' => $lang->id,
             'locale' => $lang->locale,
-            'noLocaleRoute' => $noLocaleRoute
+            'routeWithoutLocale' => $routeWithoutLocale
         ]);
 
         return $next($request);
