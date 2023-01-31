@@ -43,10 +43,10 @@
                                 <div class="tab-pane" id="language">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4 class="info-text">Your default language is set to English. You can add more language from admin panel.</h4>
+                                            <h4 class="info-text">Your default language will be set to English. You can add more language through the admin panel.</h4>
 
                                             <h6 class="info-text">
-                                                Version v9.2.x
+                                                Version v9.3.x
                                             </h6>
                                         </div>
 
@@ -108,7 +108,7 @@
 
     <div class="footer">
         <div class="container">
-            Created by Binshops Blog
+            Created by BINSHOPS
         </div>
     </div>
 </div>
