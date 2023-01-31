@@ -60,7 +60,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
 
-                    <li class='nav-item px-2'><a class='nav-link' href='{{route("binshopsblog.index" , app('request')->get('locale'))}}'>Blog home</a></li>
+                    <li class='nav-item px-2'><a class='nav-link' href='{{route("binshopsblog.index" , app('request')->get('locale'))}}' target="_blank">Blog home</a></li>
 
                     <li class="nav-item ">
                         <a id="" class="nav-link " href="#" role="button"

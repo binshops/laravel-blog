@@ -85,6 +85,7 @@ class BinshopsReaderController extends Controller
             'categories' => $rootList,
             'posts' => $posts,
             'title' => $title,
+            'noLocaleRoute' => $request->get("noLocaleRoute")
         ]);
     }
 
@@ -110,13 +111,14 @@ class BinshopsReaderController extends Controller
         BinshopsCategory::loadSiblingsWithList($rootList);
 
         return view("binshopsblog::search", [
-                'lang_id' => $request->get('lang_id'),
-                'locale' => $request->get("locale"),
-                'categories' => $rootList,
-                'query' => $query,
-                'search_results' => $search_results]
+            'lang_id' => $request->get('lang_id'),
+            'locale' => $request->get("locale"),
+            'categories' => $rootList,
+            'query' => $query,
+            'search_results' => $search_results,
+            'noLocaleRoute' => $request->get("noLocaleRoute")
+        ]
         );
-
     }
 
     /**
@@ -167,8 +169,8 @@ class BinshopsReaderController extends Controller
                 ->get(),
             'captcha' => $captcha,
             'categories' => $categories,
-            'locale' => $request->get("locale")
+            'locale' => $request->get("locale"),
+            'noLocaleRoute' => $request->get("noLocaleRoute")
         ]);
     }
-
 }
