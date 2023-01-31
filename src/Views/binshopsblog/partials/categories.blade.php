@@ -1,6 +1,6 @@
 <div class=''>
     @foreach($categories as $category)
-        <a class='btn btn-outline-secondary btn-sm m-1' href='{{$category->categoryTranslations[0]->url($locale, $noLocaleRoute)}}'>
+        <a class='btn btn-outline-secondary btn-sm m-1' href='{{$category->categoryTranslations[0]->url($locale, $routeWithoutLocale)}}'>
             {{$category->categoryTranslations[0]->category_name}}
         </a>
     @endforeach
