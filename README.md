@@ -98,7 +98,7 @@ To see package on Packagist click this [Link](https://packagist.org/packages/bin
 ### Single Language Version
 To install the single language version of the package use version v8.1x:
 
-1- `composer require binshops/laravel-blog:v8.1.2`
+1- `composer require binshops/laravel-blog:v8.1.4`
 
 2- `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
@@ -106,7 +106,7 @@ To install the single language version of the package use version v8.1x:
 
 4- `php artisan migrate;`
 
-You can see the single version in "single-lang" branch.
+You can see the single version in "single-lang" branch. The major difference with multi-language version is the database structure. 
 
 ## Important Notes
 - For laravel 8.x's default auth User model, change user model in `binshopsblog.php` to: `\App\Models\User::class`
