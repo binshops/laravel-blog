@@ -3,6 +3,8 @@
 namespace BinshopsBlog\Controllers;
 
 use App\Http\Controllers\Controller;
+use BinshopsBlog\Laravel\Fulltext\Search;
+use BinshopsBlog\Models\BinshopsCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use BinshopsBlog\Interfaces\BaseRequestInterface;
@@ -45,7 +47,6 @@ class BinshopsAdminController extends Controller
             throw new \RuntimeException('The config/binshopsblog.php does not exist. Publish the vendor files for the BinshopsBlog package by running the php artisan publish:vendor command');
         }
     }
-
 
     /**
      * View all posts
@@ -468,5 +469,35 @@ class BinshopsAdminController extends Controller
         }else{
             return false;
         }
+    }
+
+    /**
+     * Show the search results for $_GET['s']
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
+    public function searchBlog(Request $request)
+    {
+        if (!config("binshopsblog.search.search_enabled")) {
+            throw new \Exception("Search is disabled");
+        }
+        $query = $request->get("s");
+        $search = new Search();
+        $search_results = $search->run($query);
+
+        \View::share("title", "Search results for " . e($query));
+
+        $rootList = BinshopsCategory::roots()->get();
+        BinshopsCategory::loadSiblingsWithList($rootList);
+
+        $language_id = $request->get('language_id');
+
+        return view("binshopsblog_admin::index", [
+            'search' => true,
+            'post_translations'=>$search_results,
+            'language_id' => $language_id
+        ]);
     }
 }

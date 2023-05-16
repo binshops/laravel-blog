@@ -50,6 +50,10 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
     /* Admin backend routes - CRUD for posts, categories, and approving/deleting submitted comments */
     Route::group(['prefix' => config('binshopsblog.admin_prefix', 'blog_admin')], function () {
 
+        Route::get('/search',
+            'BinshopsAdminController@searchBlog')
+            ->name('binshopsblog.admin.searchblog');
+
         Route::get('/setup', 'BinshopsAdminSetupController@setup')
             ->name('binshopsblog.admin.setup');
 

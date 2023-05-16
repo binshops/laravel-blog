@@ -1,10 +1,22 @@
 @extends("binshopsblog_admin::layouts.admin_layout")
 @section("content")
 
+    @if($post_translations)
+        <div class='search-form-outer mb-3'>
+            <form method='get' action='{{route("binshopsblog.admin.searchblog", app('request')->get('locale'))}}' class='text-center'>
+                <input style="display: inline-block; width: 50%" type='text' name='s' placeholder='Search...' class='form-control' value='{{\Request::get("s")}}'>
+                <input style="display: inline-block" type='submit' value='Search' class='btn btn-primary m-2'>
+            </form>
+        </div>
 
-    <h5>Admin - Manage Blog Posts</h5>
+        <h5>Manage Blog Posts</h5>
+    @endif
 
     @forelse($post_translations as $post)
+        @if(isset($post->indexable))
+            <?php $post = $post->indexable; ?>
+        @endif
+
         <div class="card m-4" style="">
             <div class="card-body">
                 <h5 class='card-title'><a class="a-link-cart-color" href='{{$post->url(app('request')->get('locale'))}}'>{{$post->title}}</a></h5>
@@ -91,11 +103,12 @@
             </div>
         </div>
     @empty
-        <div class='alert alert-warning'>No posts to show you. Why don't you add one?</div>
+        @if(empty($search))
+            <h5>Manage Blog Posts</h5>
+
+            <div class='alert alert-warning'>No posts to show you. Why don't you add one?</div>
+        @else
+            <div class='alert alert-warning'>There were no results for this search!</div>
+        @endif
     @endforelse
-
-    {{--    <div class='text-center'>--}}
-    {{--        {{$posts->appends( [] )->links()}}--}}
-    {{--    </div>--}}
-
 @endsection
