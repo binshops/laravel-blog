@@ -1,9 +1,10 @@
-# Laravel Blog
+ <h1 align="center">Laravel Blog Package</h1>
 
-## [Installation Video - Less than 5 Minutes](https://youtu.be/N9NpFUqbftA)
-[![Laravel Blog Package](http://img.youtube.com/vi/N9NpFUqbftA/0.jpg)](https://youtu.be/N9NpFUqbftA)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/20775532/215362765-c2a3360e-c165-4cba-809b-4f04316c8d5e.png" width="80%" />
+</p>
 
-### Lightweight and Comprehensive
+### Lightweight and Easy to Install
 
 Incredible features with a lightweight laravel blog package.
 - Quick installation (<3 minutes)
@@ -16,7 +17,7 @@ Incredible features with a lightweight laravel blog package.
 ## Outstanding Features
 - Fulltext Search - search throughout all blog posts
 - Multi Level Category - nested sets using Baum
-- Multi Language Support 
+- Multi Language Support
 
 ### Quick and easy installation (Multi-lang version)
 1- Install via composer
@@ -30,15 +31,21 @@ composer require laravel/ui
 php artisan ui vue --auth
 ```
 
-2- Run the following two commands to copy config file, migration files, and view files
+2- Scaffold
+
+```
+npm install && npm run build
+```
+
+3- Run the following two commands to copy config file, migration files, and view files
 
 `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
-3- Execute migrations to create tables
+4- Execute migrations to create tables
 
 `php artisan migrate;`
 
-4- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
+5- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
 
 ```
  /**
@@ -71,12 +78,18 @@ php artisan ui vue --auth
     }
 ```
 
-5- Create a directory in `public/` named `blog_images`
+6- Create a directory in `public/` named `blog_images`
 
-6- Login as admin and setup your package: `/blog_admin/setup`
+7- Start the server
+
+```
+php artisan serve
+```
+
+8- Login as admin and setup your package: `/blog_admin/setup`
 
 Congrats! Your blog is ready to use. (URLs are customizable in the config file)
-  
+
   Admin panel URI: `/blog_admin`
   Front URI: `/en/blog`
 
@@ -85,7 +98,7 @@ To see package on Packagist click this [Link](https://packagist.org/packages/bin
 ### Single Language Version
 To install the single language version of the package use version v8.1x:
 
-1- `composer require binshops/laravel-blog:v8.1.2`
+1- `composer require binshops/laravel-blog:v8.1.4`
 
 2- `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
@@ -93,7 +106,7 @@ To install the single language version of the package use version v8.1x:
 
 4- `php artisan migrate;`
 
-You can see the single version in "single-lang" branch.
+You can see the single version in "single-lang" branch. The major difference with multi-language version is the database structure. 
 
 ## Important Notes
 - For laravel 8.x's default auth User model, change user model in `binshopsblog.php` to: `\App\Models\User::class`
@@ -112,10 +125,10 @@ You can see the single version in "single-lang" branch.
 - Managing comments and comment approval
 - Other options include using Disqus comments or disabling comments
 
-## Recent Changes  
+## Recent Changes
 - **9.1.x** Multi language support
 - 8.0.x Compatibility with Laravel 8.x
-  
+
 ## What/who this package is for:
 
  - For websites running Laravel

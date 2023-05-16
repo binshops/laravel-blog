@@ -3,8 +3,6 @@
 //config for binshops/laravel-blogger
 
 return [
-    'default_language' => 'en',
-
     //Your custom User model
     //Change it to \App\User::class for previous laravel versions
     'user_model'=>\App\Models\User::class,
