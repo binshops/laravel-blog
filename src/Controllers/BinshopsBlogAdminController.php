@@ -227,4 +227,28 @@ class BinshopsBlogAdminController extends Controller
             ]);
         }
     }
+
+    /**
+     * Show the search results for $_GET['s']
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
+    public function search(Request $request)
+    {
+        if (!config("binshopsblog.search.search_enabled")) {
+            throw new \Exception("Search is disabled");
+        }
+        $query = $request->get("s");
+        $search = new Search();
+        $search_results = $search->run($query);
+
+        \View::share("title", "Search results for " . e($query));
+
+        return view("binshopsblog_admin::index", [
+            'search' => true,
+            'posts'=>$search_results
+        ]);
+    }
 }
