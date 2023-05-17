@@ -12,6 +12,8 @@ use BinshopsBlog\Requests\FeedRequest;
  * Class BinshopsBlogRssFeedController.php
  * All RSS feed viewing methods
  * @package BinshopsBlog\Controllers
+ * @deprecated
+ * laravelium/feed package is no longer maintained
  */
 class BinshopsBlogRssFeedController extends Controller
 {
