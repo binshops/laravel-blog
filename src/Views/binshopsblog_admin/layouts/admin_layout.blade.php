@@ -86,7 +86,7 @@
                         <small><a href='https://github.com/vbinshops/laravel-blogger'>Binshops Blog</a></small>
 
                         <small>
-                            Version 8.1.x
+                            Version 8.2.x
                         </small>
                     </div>
                 </div>

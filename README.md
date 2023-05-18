@@ -22,7 +22,7 @@ Incredible features with a lightweight laravel blog package. I highly recommend 
 ### Quick and easy installation
 1- Install via composer
 
-`composer require binshops/laravel-blog:v8.1.1`
+`composer require binshops/laravel-blog:v8.2.0`
 
 For a fresh Laravel installation run the following too:
 
