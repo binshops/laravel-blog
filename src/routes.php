@@ -37,7 +37,7 @@ Route::group(['middleware' => ['web'], 'namespace' => '\BinshopsBlog\Controllers
     Route::group(['prefix' => config('binshopsblog.admin_prefix', 'blog_admin')], function () {
 
         Route::get('/search',
-            'BinshopsAdminController@searchBlog')
+            'BinshopsBlogAdminController@searchBlog')
             ->name('binshopsblog.admin.searchblog');
 
         Route::get('/', 'BinshopsBlogAdminController@index')

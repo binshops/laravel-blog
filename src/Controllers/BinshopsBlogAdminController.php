@@ -17,6 +17,7 @@ use BinshopsBlog\Requests\CreateBinshopsBlogPostRequest;
 use BinshopsBlog\Requests\DeleteBinshopsBlogPostRequest;
 use BinshopsBlog\Requests\UpdateBinshopsBlogPostRequest;
 use BinshopsBlog\Traits\UploadFileTrait;
+use Swis\Laravel\Fulltext\Search;
 
 /**
  * Class BinshopsBlogAdminController
@@ -235,7 +236,7 @@ class BinshopsBlogAdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function search(Request $request)
+    public function searchBlog(Request $request)
     {
         if (!config("binshopsblog.search.search_enabled")) {
             throw new \Exception("Search is disabled");
