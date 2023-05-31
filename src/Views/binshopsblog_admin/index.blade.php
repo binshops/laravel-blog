@@ -111,4 +111,8 @@
             <div class='alert alert-warning'>There were no results for this search!</div>
         @endif
     @endforelse
+    
+    <div class='text-center'>
+        {{$posts->appends( [] )->links()}}
+    </div>
 @endsection
