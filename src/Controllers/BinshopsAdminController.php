@@ -57,7 +57,7 @@ class BinshopsAdminController extends Controller
     {
         $language_id = $request->get('language_id');
         $posts = BinshopsPostTranslation::orderBy("post_id", "desc")->where('lang_id', $language_id)
-            ->paginate(10);
+            ->simplePaginate(10);
 
         return view("binshopsblog_admin::index", [
             'post_translations'=>$posts,
