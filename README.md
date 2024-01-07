@@ -4,8 +4,6 @@
     <img src="https://user-images.githubusercontent.com/20775532/215362765-c2a3360e-c165-4cba-809b-4f04316c8d5e.png" width="80%" />
 </p>
 
-## [Create Free Mobile Application in Less than 5 Minutes with Back-end](https://www.binshops.com/free-ecommerce-app)
-
 ### Lightweight and Easy to Install
 
 Incredible features with a lightweight laravel blog package.
@@ -14,7 +12,6 @@ Incredible features with a lightweight laravel blog package.
 - Included great features out-of-box
 - Its simplicity allows to be easily made compatible with latest laravel
 - No additional concept except laravel knowledge
-- Compatible with other Laravel platforms like Bagisto
 
 ## Outstanding Features
 - Fulltext Search - search throughout all blog posts
