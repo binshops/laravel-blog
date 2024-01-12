@@ -7,13 +7,11 @@
                 <div class="col-md-9">
                     <h2>Search Results for {{$query}}</h2>
 
-                    @php $search_count = 0;@endphp
                     @forelse($search_results as $result)
                         @if(isset($result->indexable))
-                            @php $search_count += $search_count + 1; @endphp
                             <?php $post = $result->indexable; ?>
                             @if($post && is_a($post,\BinshopsBlog\Models\BinshopsPostTranslation::class))
-                                <h2>Search result #{{$search_count}}</h2>
+                                <h2>Search result #{{$loop->iteration}}</h2>
                                 @include("binshopsblog::partials.index_loop")
                             @else
 
