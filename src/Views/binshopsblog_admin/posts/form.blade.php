@@ -257,11 +257,13 @@
 </script>
 
 @if( config("binshopsblog.use_wysiwyg") && config("binshopsblog.echo_html"))
-    <script src="//cdn.ckeditor.com/4.24.0-lts/full/ckeditor.js"></script>
+    <script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
 
     <script>
-        if( typeof(CKEDITOR) !== "undefined" ) {
-            CKEDITOR.replace('post_body');
+        if (typeof(CKEDITOR) !== "undefined") {
+            CKEDITOR.replace('post_body', {
+                versionCheck: false
+            });
         }
     </script>
 @endif
