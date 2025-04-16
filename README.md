@@ -89,21 +89,16 @@ Default Front URI: `/en/blog`
 
 To see package on Packagist click this [Link](https://packagist.org/packages/binshops/laravel-blog)
 
-### Single Language Version
+### Multi Language Version (Old)
 To install the single language version of the package use version v8.1x:
 
-1- `composer require binshops/laravel-blog:v8.2.0`
+1- `composer require binshops/laravel-blog:v9.3.6`
 
 2- `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
-3- `php artisan vendor:publish --tag=laravel-fulltext`
+3- `php artisan migrate;`
 
-4- `php artisan migrate;`
-
-You can see the single version in "single-lang" branch. The major difference with multi-language version is the database structure.
-
-## Important Notes
-- For laravel 8.x's default auth User model, change user model in `binshopsblog.php` to: `\App\Models\User::class`
+You can see the single version in "multi-lang" branch. The major difference with multi-language version is the database structure.
 
 ## Features
 - Compatible with latest laravel version (laravel 8.x)
@@ -120,7 +115,8 @@ You can see the single version in "single-lang" branch. The major difference wit
 - Other options include using Disqus comments or disabling comments
 
 ## Recent Changes
-- **9.1.x** Multi language support
+- **10.x** Latest version
+- 9.1.x Multi language support
 - 8.0.x Compatibility with Laravel 8.x
 
 ## What/who this package is for:
