@@ -67,8 +67,7 @@
             >
 
             <small id="category_slug_help" class="form-text text-muted">
-                Letters, numbers, dash only. The slug
-                i.e. {{route("binshopsblog.view_category","")}}/<u><em>this_part</em></u>. This must be unique (two categories can't
+                Letters, numbers, dash only. This must be unique (two categories can't
                 share the same slug).
 
             </small>
