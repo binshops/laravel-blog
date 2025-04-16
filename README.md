@@ -44,7 +44,7 @@ npm install && npm run build
 
 `php artisan migrate;`
 
-5- You must add one method to your \App\User (in laravel 8 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
+5- You must add one method to your \App\User (in laravel 11 \App\Models\User) model. As the name of this method shows it determines which user can manage posts. Place your logic there
 
 ```
  /**
@@ -95,9 +95,9 @@ Congrats! Your blog is ready to use. (URLs are customizable in the config file)
 To see package on Packagist click this [Link](https://packagist.org/packages/binshops/laravel-blog)
 
 ### Single Language Version
-To install the single language version of the package use version v8.1x:
+To install the single language version of the package use version v11.0x:
 
-1- `composer require binshops/laravel-blog:v8.2.0`
+1- `composer require binshops/laravel-blog:v11.0.0`
 
 2- `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
@@ -108,10 +108,10 @@ To install the single language version of the package use version v8.1x:
 You can see the single version in "single-lang" branch. The major difference with multi-language version is the database structure. 
 
 ## Important Notes
-- For laravel 8.x's default auth User model, change user model in `binshopsblog.php` to: `\App\Models\User::class`
+- For laravel 11.x's default auth User model, change user model in `binshopsblog.php` to: `\App\Models\User::class`
 
 ## Features
-- Compatible with latest laravel version (laravel 8.x)
+- Compatible with latest laravel version (laravel 11.x)
 - Backward-compatibility with previous laravel versions
 - Full text search - searching throughout the blog posts
 - Multi-level category support
@@ -126,7 +126,7 @@ You can see the single version in "single-lang" branch. The major difference wit
 
 ## Recent Changes
 - **9.1.x** Multi language support
-- 8.0.x Compatibility with Laravel 8.x
+- 11.0.x Compatibility with Laravel 11.x
 
 ## What/who this package is for:
 
@@ -201,9 +201,9 @@ Try adding this to config/app.php:
 - You might need to set a higher memory limit, or upload smaller image files. This will depend on your server. I've used it to upload huge (10mb+) jpg images without problem, once the server was set up correctly to handle larger file uploads.
 
 ## Version History    
-- **9.3.x** Stable version of package
+- **11.0.x** Stable version of package
 - 9.0.x Multi-language support beta release
-- 8.0.x Compatibility with Laravel 8
+- 11.0.x Compatibility with Laravel 11
 - 7.3.0 New Admin UI
 - 3.0.1                 - replaced all short tags (<?) with full opening ones (<?php)
 - 2.0                   - added full text search (enable it via the config file - it is disabled by default).
