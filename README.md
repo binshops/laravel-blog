@@ -37,6 +37,9 @@ npm install && npm run build
 
 `php artisan vendor:publish --provider="BinshopsBlog\BinshopsBlogServiceProvider"`
 
+`php artisan vendor:publish --tag=laravel-fulltext`
+
+
 4- Execute migrations to create tables
 
 `php artisan migrate;`
