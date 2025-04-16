@@ -83,10 +83,10 @@
                 <div class='list-group-color'>
                     @include("binshopsblog_admin::layouts.sidebar")
                     <div class=' list-group-color text-center mt-5 mb-3 text-muted binshops-version'>
-                        <small><a href='https://github.com/vbinshops/laravel-blogger'>Binshops Blog</a></small>
+                        <small><a href='https://github.com/binshops/laravel-blog'>Laravel Blog</a></small>
 
                         <small>
-                            Version 8.2.x
+                            Version 10.x
                         </small>
                     </div>
                 </div>
