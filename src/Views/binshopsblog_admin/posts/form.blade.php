@@ -23,8 +23,7 @@
             <label for="blog_slug">Blog Post Slug</label>
             <input type="text" class="form-control" id="blog_slug" aria-describedby="blog_slug_help" name='slug'
                    value="{{old("slug",$post->slug)}}">
-            <small id="blog_slug_help" class="form-text text-muted">The slug (leave blank to auto generate) -
-                i.e. {{route("binshopsblog.single","")}}/<u><em>this_part</em></u></small>
+            <small id="blog_slug_help" class="form-text text-muted">The slug (leave blank to auto generate).</small>
         </div>
 
     </div>
@@ -108,7 +107,7 @@
 <div class="form-group">
     <label for="blog_seo_title">SEO: {{"<title>"}} tag (optional)</label>
     <input class="form-control" id="blog_seo_title" aria-describedby="blog_seo_title_help"
-              name='seo_title' tyoe='text' value='{{old("seo_title",$post->seo_title)}}' >
+           name='seo_title' tyoe='text' value='{{old("seo_title",$post->seo_title)}}' >
     <small id="blog_seo_title_help" class="form-text text-muted">Enter a value for the {{"<title>"}} tag. If nothing is provided here we will just use the normal post title from above (optional)</small>
 </div>
 
@@ -146,7 +145,7 @@
                 @if($post->has_image($size_info['basic_key']))
                     <div style='max-width:55px;  ' class='float-right m-2'>
                         <a style='cursor: zoom-in;' target='_blank' href='{{$post->image_url($size_info['basic_key'])}}'>
-                            <?=$post->image_tag($size_info['basic_key'], false, 'd-block mx-auto img-fluid '); ?>
+                                <?=$post->image_tag($size_info['basic_key'], false, 'd-block mx-auto img-fluid '); ?>
                         </a>
                     </div>
                 @endif
@@ -199,7 +198,7 @@
         <div class='col-md-12 my-3 text-center'>
 
             <em><a class="a-link-cart-color" target='_blank' href='{{route("binshopsblog.admin.categories.create_category")}}'><i class="fa fa-external-link" aria-hidden="true"></i>
-                      Add new categories
+                    Add new categories
                     here</a></em>
         </div>
     </div>
