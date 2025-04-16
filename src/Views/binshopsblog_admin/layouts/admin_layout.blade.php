@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito" crossorigin="anonymous">
 
     <!-- Styles -->
-        <link href="{{ asset('binshopsblog_admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('binshopsblog_admin.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -64,9 +64,9 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                            {{ __('Logout') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
@@ -121,11 +121,25 @@
 
 
 @if( config("binshopsblog.use_wysiwyg") && config("binshopsblog.echo_html") && (in_array( \Request::route()->getName() ,[ 'binshopsblog.admin.create_post' , 'binshopsblog.admin.edit_post'  ])))
-    <script src="//cdn.ckeditor.com/4.14.1/full/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
     <script>
-        if( typeof(CKEDITOR) !== "undefined" ) {
-            CKEDITOR.replace('post_body');
-        }
+        ClassicEditor
+            .create(document.querySelector('#blog_post_body'))
+            .then(editor => {
+                console.log('Editor initialized', editor);
+
+                editor.editing.view.change(writer => {
+                    const root = editor.editing.view.document.getRoot();
+
+                    writer.setStyle('height', '500px', root); // Set fixed height
+                    writer.setStyle('overflow', 'auto', root); // Enable scrollbars when content overflows
+                });
+
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 @endif
 
