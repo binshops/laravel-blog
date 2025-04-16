@@ -88,7 +88,8 @@ php artisan serve
 Congrats! Your blog is ready to use. Now you can log in as admin. (URLs are customizable in the config file)
 
 Default Admin panel URI: `/blog_admin`
-Default Front URI: `/en/blog`
+
+Default Front URI: `/blog`
 
 To see package on Packagist click this [Link](https://packagist.org/packages/binshops/laravel-blog)
 
